@@ -1,187 +1,189 @@
-<script setup>
-import { patternEmail } from "../../utils/validations";
-import { computed, ref } from "vue";
-import axios from "../../api/axios";
-const sendForm = async (event) => {
-  event.preventDefault();
-  const form = document.getElementById("login__formLogin");
-  const formInfo = new FormData(form);
-  const datos = {};
-  for (let [clave, valor] of formInfo.entries()) {
-    datos[clave] = valor;
-  }
-  if (validationsForm(datos)) {
-    const response = await axios.post("/usersmodule", datos);
-    console.log(response);
-    this.$router.push("/menuPrincipal");
-  }
-};
-
-const validationsForm = (info) => {
-  const emailValidation = new RegExp(patternEmail);
-  const isEmail = emailValidation.test(info.email);
-  if (isEmail && info.email) return true;
-};
-validationsForm({ email: "dasbvb@gmail.com" });
-
-const infoInputs = [
-  { name: "surname", visualName: "Nombre", type: "text" },
-  { name: "email", visualName: "Correo", type: "email" },
-  { name: "password", visualName: "Contraseña", type: "password" },
-];
-
-let login = ref(true);
-
-function changeMenu(e) {
-  e.preventDefault();
-  login.value = !login.value;
-}
-</script>
-
 <template>
-  <div class="login">
-    <form id="login__formLogin" class="login__formItem">
-      <div class="login__formLogin" v-if="login">
-        <h2 class="login__formItem-title">Iniciar sesión</h2>
-        <input
-          class="login__formItem-input"
-          type="email"
-          placeholder="E-mail"
-          name="email"
-        />
-        <input
-          class="login__formItem-input"             
-          type="password"
-          placeholder="Password"
-          name="password"
-        />
-        <input
-          class="login__formItem-button"
-          @click="sendForm($event)"
-          type="submit"
-          value="Iniciar sesión"
-        />
-      </div>
-
-      <div class="login__formLogin" v-if="!login">
-        <h2 class="login__formItem-title">Registrate</h2>
-        <input
-          v-for="(item, idx) in infoInputs"
-          :key="idx"
-          class="login__formItem-input"
-          :type="item.type"
-          :placeholder="item.visualName"
-          :name="item.name"
-        />
-        <input
-          class="login__formItem-input"
-          @click="sendForm($event)"
-          type="submit"
-          value="Registrarse"
-        />
-      </div>
-      <div class="login__formLogin-register">
-        <p>{{ !login ? "¿No tienes cuenta?" : "¿Ya tienes cuenta?" }}</p>
-        <button
-          @click="changeMenu($event)"
-          class="login__formLogin-buttonRegister"
+  <div class="loginConnect">
+    <h2 class="loginConnect__title">Iniciar sesión</h2>
+    <p class="loginConnect__subtitle">Ingresa tus credenciales para acceder:</p>
+    <form class="loginConnect__formContainer">
+      <div class="loginConnect__form-group">
+        <label for="email" class="loginConnect__form-group__label"
+          >Correo electrónico:</label
         >
-          {{ !login ? "Iniciar sesión" : "Registrarse  " }}
-        </button>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          class="loginConnect__form-group__input"
+          required
+        />
       </div>
+      <div class="loginConnect__form-group">
+        <label for="password" class="loginConnect__form-group__label"
+          >Contraseña:</label
+        >
+        <input
+          type="password"
+          id="password"
+          name="password"
+          class="loginConnect__form-group__input"
+          required
+        />
+      </div>
+      <button type="submit" class="loginConnect__button">Iniciar sesión</button>
     </form>
+    <div class="loginConnect__social">
+      <p class="loginConnect__social-text">O inicia sesión con:</p>
+      <div class="loginConnect__social-icons">
+        <i class="fab fa-facebook-f"></i>
+        <i class="fab fa-twitter"></i>
+        <i class="fab fa-google"></i>
+      </div>
+    </div>
   </div>
 </template>
 
 <style lang="scss">
-* {
-  padding: 0%;
-  margin: 0%;
-  // color: #fff;
-  font-family: monospace;
-}
+$primary-color: #4051b5;
+$secondary-color: #f9f9f9;
+$border-color: #ccc;
+$breakpoint: 768px;
 
-.login {
-  @include Column();
+.loginConnect {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  height: 100vh;
-  background-color: #222121;
+  height: 100%;
+  background-color: $secondary-color;
 
-  &__formLogin {
-    width: 70%;
-    gap: 20px;
-    @include Column();
-
-    &-register {
-      @include Column();
-      gap: 10px;
-    }
-    &-buttonRegister {
-      border: none;
-      background-color: #3e3d3d;
-      outline: none;
-      cursor: pointer;
-      border-radius: 20px;
-      width: 180px;
-      height: 40px;
-
-      &:hover {
-        transition: 0.7s;
-        background-color: #959191;
-      }
-    }
+  &__title {
+    font-size: 40px;
+    margin-bottom: 20px;
+    color: $primary-color;
   }
-  &__formItem {
+
+  &__subtitle {
+    font-size: 16px;
+    margin-bottom: 30px;
+    color: #777;
+  }
+
+  &__formContainer {
+    border: 1px solid $border-color;
+    padding: 30px;
+    border-radius: 10px;
+    background-color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    border: solid 2px #fff;
-    width: 35%;
-    height: 60%;
-    gap: 30px;
-    min-width: 300px;
-    border-radius: 20px;
+    gap: 20px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 
-    &-button {
-      width: 80%;
-      height: 35px;
-      background-color: #3e3d3d;
-      border: none;
-      cursor: pointer;
-      outline: none;
-      border-radius: 30px;
-      color: #fff;
-      &::placeholder {
-        color: #fff;
+    &__form-group {
+      position: relative;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+
+      &__label {
+        position: absolute;
+        top: -10px;
+        left: 15px;
+        font-size: 14px;
+        color: #999;
+        transition: all 0.3s ease-in-out;
+        transform-origin: 0 0;
+        transform: translateY(0);
+
+        &.active {
+          font-size: 12px;
+          transform: translateY(-15px);
+          color: $primary-color;
+        }
       }
+
+      &__input {
+        width: 100%;
+        height: 50px;
+        border: none;
+        border-bottom: 2px solid #eee;
+        padding: 5px 15px;
+        font-size: 16px;
+
+        &:focus {
+          outline: none;
+          border-color: $primary-color;
+        }
+
+        &:focus ~ &__label {
+          transform: translateY(-15px);
+          font-size: 12px;
+          color: $primary-color;
+          font-weight: bold;
+        }
+      }
+    }
+
+    &__button {
+      margin-top: 20px;
+      width: 100%;
+      height: 50px;
+      color: white;
+      background-color: $primary-color;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in;
+
       &:hover {
-        background-color: #959191;
-        transition: 0.7s;
-        color: #fff;
+        background-color: darken($primary-color, 10%);
       }
     }
-    &-title {
-      color: #fff;
-      font-size: 20px;
+
+    &__social {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      margin-top: 40px;
+      font-size: 16px;
+      color: #777;
+
+      &-text {
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+
+      &-icons {
+        display: flex;
+        gap: 20px;
+        font-size: 40px;
+
+        & > i:hover {
+          color: $primary-color;
+          cursor: pointer;
+        }
+      }
     }
-    &-input {
-      width: 90%;
-      height: 35px;
-      outline: none;
-      border: none;
-      padding-left: 10px;
-      border-radius: 20px;
-      background-color: #5e5b5b;
-      color: #fff;
-      cursor: pointer;
-      &::placeholder {
-        color: #ffffffa9;
-      }
-      &:focus {
-        outline: #959191 2px solid;
-        transition: 0.7s;
-      }
+  }
+
+  @media screen and (min-width: $breakpoint) {
+    &__formContainer {
+      width: 50%;
+      margin-top: 40px;
+      animation: fadeInUp 0.5s ease-in-out;
+    }
+  }
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 }
