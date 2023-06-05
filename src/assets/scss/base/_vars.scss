@@ -1,0 +1,40 @@
+//Fonts
+$first_font: Montserrat;
+$sec_font: BebasKai;
+$third_font: RoundedElegance;
+$primary_font: $first_font;
+
+//Sizes
+$p1: 4rem;
+$title-mobile: 30px;
+$subtitle-mobile: 23px;
+$title-desktop: 32px;
+$subtitle-desktop: 25px;
+$label-forms: 16px;
+$mpadding: 15px;
+$mradius: 12px;
+$max-width: 768px;
+$border-radius-bootstrap: 0.25em;
+$header_height: 49px;
+
+$alto: #d8d8d8;
+// Shadow
+$shadow-sidebar: rgb(214, 207, 207);
+$main-background: rgba(165, 206, 224, 0.08);
+$dshadow: 0 2px 5px $alto;
+$modalShadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
+
+//Breaks
+$mobile_small_width: 375px;
+$mobile_width: 425px;
+$pocket_width: 540px;
+$modal_width: 632px;
+$tablet_width: 768px;
+$desktop_width: 1024px;
+$tv_width: 1440px;
+$tv_big: 1980px;
+
+
+//colors 
+$lipstick: #bd0909;
+$primary: $lipstick;
