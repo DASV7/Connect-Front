@@ -1,47 +1,64 @@
 <template>
   <div class="loginConnect">
-    <h2 class="loginConnect__title">Iniciar sesión</h2>
-    <p class="loginConnect__subtitle">Ingresa tus credenciales para acceder:</p>
-    <form class="loginConnect__formContainer">
+    <div class="loginConnect__containerTitle">
+      <h2 class="loginConnect__title">
+        <i class="fa fa-heart" aria-hidden="true"></i>
+        Connect
+      </h2>
+    </div>
+    <p class="loginConnect__subtitle">Ingresa tu genero</p>
+    <div class="loginConnect__formContainer">
       <div class="loginConnect__form-group">
-        <label for="email" class="loginConnect__form-group__label"
-          >Correo electrónico:</label
-        >
-        <input
-          type="email"
-          id="email"
-          name="email"
-          class="loginConnect__form-group__input"
-          required
-        />
+        <button class="loginConnect__form-group__btn">Hombre</button>
       </div>
       <div class="loginConnect__form-group">
-        <label for="password" class="loginConnect__form-group__label"
-          >Contraseña:</label
-        >
-        <input
-          type="password"
-          id="password"
-          name="password"
-          class="loginConnect__form-group__input"
-          required
-        />
+        <button class="loginConnect__form-group__btn">Mujer</button>
       </div>
-      <button type="submit" class="loginConnect__button">Iniciar sesión</button>
-    </form>
+    </div>
     <div class="loginConnect__social">
-      <p class="loginConnect__social-text">O inicia sesión con:</p>
       <div class="loginConnect__social-icons">
-        <i class="fab fa-facebook-f"></i>
-        <i class="fab fa-twitter"></i>
-        <i class="fab fa-google"></i>
+        <button class="loginConnect__social-facebook">
+          Iniciar Seccion Con facebook
+          <i class="fab fa-facebook-f"></i>
+        </button>
+        <div class="loginConnect__social-icons">
+          <button class="loginConnect__social-google">
+            Inicar Seccion Con Google
+            <i class="fab fa-google"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="loginConnect__politict">
+      <div class="loginConnect__politict-info">
+        <p class="loginConnect__politict-text">
+          Nunca compartiremos nada sin tu permiso
+        </p>
+      </div>
+      <div class="loginConnect__join">
+        <div class="loginConnect__join-info">
+          <a
+            class="loginConnect__join-link"
+            @click="changeView(), $router.push('/join')"
+            >Continuar de otra forma</a
+          >
+        </div>
+        <div class="loginConnect__join-private">
+          <p class="loginConnect__join-text">
+            Al crear una cuenta aceptas nuestros
+            <a href="">Terminos y condiciones.</a> Averigua como usamos tu
+            informacion en nuestras <a href="">Politicas de privacidad</a>
+          </p>
+        </div>
       </div>
     </div>
   </div>
 </template>
-
+<script setup>
+function changeView() {}
+</script>
 <style lang="scss">
-$primary-color: #4051b5;
+$primary-color: #886eea;
 $secondary-color: #f9f9f9;
 $border-color: #ccc;
 $breakpoint: 768px;
@@ -50,14 +67,22 @@ $breakpoint: 768px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   width: 100%;
-  height: 100%;
+  height: 97vh;
   background-color: $secondary-color;
+  overflow: auto;
+
+  &__containerTitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 24%;
+  }
 
   &__title {
+    margin: 0px;
     font-size: 40px;
-    margin-bottom: 20px;
     color: $primary-color;
   }
 
@@ -68,122 +93,106 @@ $breakpoint: 768px;
   }
 
   &__formContainer {
-    border: 1px solid $border-color;
-    padding: 30px;
-    border-radius: 10px;
-    background-color: white;
     display: flex;
-    flex-direction: column;
     align-items: center;
+    justify-content: space-evenly;
+    width: 85%;
+    padding: 20px;
+    border-radius: 10px;
     gap: 20px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    // background-color: white;
+    // box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+  &__form-group {
+    display: flex;
+    justify-content: center;
+    width: 100%;
 
-    &__form-group {
-      position: relative;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-
-      &__label {
-        position: absolute;
-        top: -10px;
-        left: 15px;
-        font-size: 14px;
-        color: #999;
-        transition: all 0.3s ease-in-out;
-        transform-origin: 0 0;
-        transform: translateY(0);
-
-        &.active {
-          font-size: 12px;
-          transform: translateY(-15px);
-          color: $primary-color;
-        }
-      }
-
-      &__input {
-        width: 100%;
-        height: 50px;
-        border: none;
-        border-bottom: 2px solid #eee;
-        padding: 5px 15px;
-        font-size: 16px;
-
-        &:focus {
-          outline: none;
-          border-color: $primary-color;
-        }
-
-        &:focus ~ &__label {
-          transform: translateY(-15px);
-          font-size: 12px;
-          color: $primary-color;
-          font-weight: bold;
-        }
-      }
+    &__btn {
+      width: 92%;
+      height: 42px;
+      border: solid 3px #886eea;
+      color: #886eea;
+      border-radius: 30px;
+      background-color: #fff;
     }
+  }
 
-    &__button {
-      margin-top: 20px;
-      width: 100%;
-      height: 50px;
-      color: white;
-      background-color: $primary-color;
-      border: none;
-      border-radius: 10px;
-      font-size: 16px;
-      font-weight: bold;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background-color 0.3s ease-in;
+  &__social {
+    display: flex;
+    margin-top: 20px;
+    width: 100%;
 
-      &:hover {
-        background-color: darken($primary-color, 10%);
-      }
-    }
-
-    &__social {
+    &-icons {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 20px;
-      margin-top: 40px;
-      font-size: 16px;
-      color: #777;
-
-      &-text {
-        font-weight: bold;
-        text-transform: uppercase;
-      }
-
-      &-icons {
-        display: flex;
-        gap: 20px;
-        font-size: 40px;
-
-        & > i:hover {
-          color: $primary-color;
-          cursor: pointer;
-        }
-      }
+      width: 100%;
+      gap: 15px;
+      font-size: 40px;
+    }
+    &-facebook {
+      width: 80%;
+      height: 40px;
+      color: #fff;
+      background-color: #3b5998;
+      padding: 10px;
+      border-radius: 100px;
+      border: none;
+    }
+    &-google {
+      width: 80%;
+      height: 40px;
+      color: #fff;
+      background-color: #000;
+      padding: 10px;
+      border-radius: 100px;
+      border: none;
     }
   }
+  &__politict {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    width: 100%;
+    height: 31%;
 
-  @media screen and (min-width: $breakpoint) {
-    &__formContainer {
-      width: 50%;
-      margin-top: 40px;
-      animation: fadeInUp 0.5s ease-in-out;
+    &-info {
+      display: flex;
+      justify-content: center;
+      width: 80%;
+      height: 20px;
+    }
+
+    &-text {
+      font-size: 12px;
+      margin: 0px;
     }
   }
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
+  &__join {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+
+    &-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-top: 10px;
+      width: 100%;
     }
-    to {
-      opacity: 1;
-      transform: translateY(0);
+    &-link {
+      text-decoration: none;
+      color: #886eea;
+    }
+
+    &-text {
+      text-align: center;
+      font-size: 14px;
     }
   }
 }
