@@ -1,0 +1,30 @@
+@mixin Flex($direction: row, $justify: center, $align: center) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+
+@mixin Input() {
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid $alto;
+    outline: none;
+    transition: border 500ms;
+}
+
+@mixin Row($justify: center, $align: center) {
+    display: flex;
+    flex-direction: row;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+
+@mixin Column($justify: center, $align: center) {
+    display: flex;
+    flex-direction: column;
+    justify-content: $justify;
+    align-items: $align;
+}
