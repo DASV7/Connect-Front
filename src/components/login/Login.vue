@@ -15,19 +15,17 @@
         <button class="loginConnect__form-group__btn">Mujer</button>
       </div>
     </div>
+
     <div class="loginConnect__social">
-      <div class="loginConnect__social-icons">
-        <button class="loginConnect__social-facebook">
-          Iniciar Seccion Con facebook
-          <i class="fab fa-facebook-f"></i>
-        </button>
-        <div class="loginConnect__social-icons">
-          <button class="loginConnect__social-google">
-            Inicar Seccion Con Google
-            <i class="fab fa-google"></i>
-          </button>
-        </div>
-      </div>
+      <button class="loginConnect__social-facebook">
+        Iniciar Seccion Con facebook
+        <i class="fab fa-facebook-f"></i>
+      </button>
+
+      <button class="loginConnect__social-google">
+        Inicar Seccion Con Google
+        <i class="fab fa-google"></i>
+      </button>
     </div>
     <div class="loginConnect__politict">
       <div class="loginConnect__politict-info">
@@ -58,7 +56,7 @@
 function changeView() {}
 </script>
 <style lang="scss">
-$primary-color: #886eea;
+$violetColor: #886eea;
 $secondary-color: #f9f9f9;
 $border-color: #ccc;
 $breakpoint: 768px;
@@ -68,22 +66,29 @@ $breakpoint: 768px;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 97vh;
+  height: 100vh;
   background-color: $secondary-color;
   overflow: auto;
 
-  &__containerTitle {
+  &__containerTitle,
+  &__formContainer,
+  &__form-group,
+  &__social,
+  &__politict {
     display: flex;
-    justify-content: center;
     align-items: center;
+  }
+
+  &__containerTitle {
     width: 100%;
     height: 24%;
+    justify-content: center;
   }
 
   &__title {
     margin: 0px;
     font-size: 40px;
-    color: $primary-color;
+    color: $violetColor;
   }
 
   &__subtitle {
@@ -93,67 +98,52 @@ $breakpoint: 768px;
   }
 
   &__formContainer {
-    display: flex;
-    align-items: center;
     justify-content: space-evenly;
     width: 85%;
     padding: 20px;
     border-radius: 10px;
     gap: 20px;
-    // background-color: white;
-    // box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   }
   &__form-group {
-    display: flex;
-    justify-content: center;
     width: 100%;
-
     &__btn {
       width: 92%;
       height: 42px;
-      border: solid 3px #886eea;
-      color: #886eea;
+      border: solid 3px $violetColor;
+      color: $violetColor;
       border-radius: 30px;
       background-color: #fff;
     }
   }
 
   &__social {
-    display: flex;
+    flex-direction: column;
     margin-top: 20px;
     width: 100%;
-
+    gap: 10px;
     &-icons {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       width: 100%;
       gap: 15px;
       font-size: 40px;
     }
-    &-facebook {
-      width: 80%;
-      height: 40px;
-      color: #fff;
-      background-color: #3b5998;
-      padding: 10px;
-      border-radius: 100px;
-      border: none;
-    }
+    &-facebook,
     &-google {
       width: 80%;
       height: 40px;
       color: #fff;
-      background-color: #000;
       padding: 10px;
       border-radius: 100px;
       border: none;
     }
+    &-facebook {
+      background-color: #3b5998;
+    }
+    &-google {
+      background-color: #000;
+    }
   }
   &__politict {
-    display: flex;
     flex-direction: column;
-    align-items: center;
     margin-top: 20px;
     width: 100%;
     height: 31%;
@@ -170,24 +160,21 @@ $breakpoint: 768px;
       margin: 0px;
     }
   }
+
   &__join {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 100%;
     height: 100%;
 
     &-info {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      text-align: center;
       margin-top: 10px;
       width: 100%;
     }
     &-link {
       text-decoration: none;
-      color: #886eea;
+      color: $violetColor;
     }
 
     &-text {
