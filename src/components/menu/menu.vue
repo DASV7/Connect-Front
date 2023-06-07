@@ -1,22 +1,22 @@
 <template>
   <div class="menu">
     <div class="menu__container">
-      <button class="menu__container-btn">
+      <button @click="$router.push('/messages')" class="menu__container-btn">
         <i class="fa-solid fa-comment"></i>
       </button>
     </div>
     <div class="menu__container">
-      <button class="menu__container-btn">
+      <button @click="$router.push('/gps')" class="menu__container-btn">
         <i class="fa-solid fa-location-dot"></i>
       </button>
     </div>
     <div class="menu__container">
-      <button class="menu__container-btn">
+      <button @click="$router.push('/home')" class="menu__container-btn">
         <i class="fa-solid fa-barcode"></i>
       </button>
     </div>
     <div class="menu__container">
-      <button class="menu__container-btn">
+      <button @click="$router.push('/profile')" class="menu__container-btn">
         <i class="fa-solid fa-user"></i>
       </button>
     </div>
