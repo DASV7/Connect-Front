@@ -64,7 +64,7 @@ $breakpoint: 768px;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 100vh;
+  height: 97vh;
   background-color: $secondary-color;
   overflow: auto;
 
@@ -79,7 +79,7 @@ $breakpoint: 768px;
 
   &__containerTitle {
     width: 100%;
-    height: 30%;
+    height: 50%;
     justify-content: center;
   }
 
@@ -111,6 +111,7 @@ $breakpoint: 768px;
       color: $violetColor;
       border-radius: 30px;
       background-color: #fff;
+      cursor: pointer;
     }
   }
 
@@ -132,6 +133,7 @@ $breakpoint: 768px;
       padding: 10px;
       border-radius: 100px;
       border: none;
+      cursor: pointer;
     }
     &-facebook {
       background-color: #3b5998;
@@ -173,6 +175,7 @@ $breakpoint: 768px;
     &-link {
       text-decoration: none;
       color: $violetColor;
+      cursor: pointer;
     }
 
     &-text {
