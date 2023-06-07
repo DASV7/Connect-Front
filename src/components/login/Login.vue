@@ -102,6 +102,7 @@ $breakpoint: 768px;
     padding: 20px;
     border-radius: 10px;
     gap: 20px;
+    margin-top: 20px;
   }
   &__form-group {
     width: 100%;
@@ -117,7 +118,7 @@ $breakpoint: 768px;
 
   &__social {
     flex-direction: column;
-    margin-top: 20px;
+    margin-top: 25px;
     width: 100%;
     gap: 10px;
     &-icons {
@@ -164,7 +165,7 @@ $breakpoint: 768px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100%;
+    height: 90%;
 
     &-info {
       text-align: center;
