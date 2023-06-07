@@ -2,7 +2,7 @@
   <div class="loginConnect">
     <div class="loginConnect__containerTitle">
       <h2 class="loginConnect__title">
-        Connect
+        VINC
       </h2>
     </div>
     <p class="loginConnect__subtitle">Ingresa tu genero</p>
@@ -36,7 +36,7 @@
         <div class="loginConnect__join-info">
           <a
             class="loginConnect__join-link"
-            @click="changeView(), $router.push('/join')"
+            @click="$router.push('/JoinLogin')"
             >Continuar de otra forma</a
           >
         </div>
@@ -52,7 +52,6 @@
   </div>
 </template>
 <script setup>
-function changeView() {}
 </script>
 <style lang="scss">
 $violetColor: #886eea;
@@ -80,7 +79,7 @@ $breakpoint: 768px;
 
   &__containerTitle {
     width: 100%;
-    height: 24%;
+    height: 30%;
     justify-content: center;
   }
 
@@ -92,7 +91,6 @@ $breakpoint: 768px;
 
   &__subtitle {
     font-size: 16px;
-    margin-bottom: 30px;
     color: #777;
   }
 
@@ -179,7 +177,7 @@ $breakpoint: 768px;
 
     &-text {
       text-align: center;
-      font-size: 14px;
+      font-size: 12px;
     }
   }
 }
