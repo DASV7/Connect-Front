@@ -1,17 +1,25 @@
 <template>
   <div class="loginConnect">
     <div class="loginConnect__containerTitle">
-      <h2 class="loginConnect__title">
-        VINC
-      </h2>
+      <h2 class="loginConnect__title">VINC</h2>
     </div>
     <p class="loginConnect__subtitle">Ingresa tu genero</p>
     <div class="loginConnect__formContainer">
       <div class="loginConnect__form-group">
-        <button class="loginConnect__form-group__btn">Hombre</button>
+        <button
+          @click="goRegister('male')"
+          class="loginConnect__form-group__btn"
+        >
+          Hombre
+        </button>
       </div>
       <div class="loginConnect__form-group">
-        <button class="loginConnect__form-group__btn">Mujer</button>
+        <button
+          @click="goRegister('female')"
+          class="loginConnect__form-group__btn"
+        >
+          Mujer
+        </button>
       </div>
     </div>
 
@@ -34,9 +42,7 @@
       </div>
       <div class="loginConnect__join">
         <div class="loginConnect__join-info">
-          <a
-            class="loginConnect__join-link"
-            @click="$router.push('/JoinLogin')"
+          <a class="loginConnect__join-link" @click="$router.push('/JoinLogin')"
             >Continuar de otra forma</a
           >
         </div>
@@ -52,6 +58,17 @@
   </div>
 </template>
 <script setup>
+import { useRouter } from "vue-router";
+const router = useRouter();
+
+const goRegister = (param) => {
+  router.push({
+    path: "/Register",
+    query: {
+      sex: param,
+    },
+  });
+};
 </script>
 <style lang="scss">
 $violetColor: #886eea;
@@ -111,6 +128,7 @@ $breakpoint: 768px;
       color: $violetColor;
       border-radius: 30px;
       background-color: #fff;
+      cursor: pointer;
     }
   }
 
