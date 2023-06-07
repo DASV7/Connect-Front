@@ -35,7 +35,7 @@ export const goToGo = [
     },
 
     {
-        title: "hemos terminado de crear tu cuenta",
+        title: "Hemos terminado de crear tu cuenta",
         description:
             "Disfruta de la experiencia en la aplicacion,Has que sea un ambiente agradable para todos ",
     },

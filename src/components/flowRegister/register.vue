@@ -1,5 +1,8 @@
 <template>
   <div class="flowRegister__percentage" :style="`width: ${percentage}%`"></div>
+  <div class="flowRegister__return" @click="prevtvalue()">
+    <i class="fa-solid fa-arrow-left"></i>
+  </div>
   <div class="flowRegister">
     <div class="loginConnect__containerTitle">
       <h2 class="loginConnect__title">VINC</h2>
@@ -7,9 +10,9 @@
     <div class="flowRegister__wrapper">
       <div class="flowRegister__containerTitle">
         <h3 class="flowRegister__title">{{ goToGo[indexReg].title }}</h3>
-        <!-- <h7 class="flowRegister__description">{{
+        <h7 class="flowRegister__description">{{
           goToGo[indexReg].description
-        }}</h7> -->
+        }}</h7>
       </div>
       <div class="flowRegister__formContainer">
         <div class="flowRegister__form-group" v-if="indexReg == 0">
@@ -23,8 +26,10 @@
         <div class="flowRegister__form-group" v-if="indexReg == 1">
           <div
             class="flowRegister__interest"
+            :class="val[index] == userNew.interesting ? 'flowRegister__interest-active' : ''"
             v-for="(item, index) in interest"
             :key="index"
+            @click="interestClick(index)"
           >
             <i :class="item.icon"></i>
             <span
@@ -109,10 +114,14 @@ let userNew = ref({
   city: "",
 });
 let indexReg = ref(0);
+const val = ["relationship", "chat", "contact"];
 
 const percentage = computed(() => {
   return (100 / (goToGo.length - 1)) * indexReg.value;
 });
+const interestClick = (index) => {
+  userNew.value.interesting = val[index];
+};
 
 onMounted(() => {
   userNew.value.sex = router.currentRoute.value.query.sex;
@@ -120,6 +129,11 @@ onMounted(() => {
 
 const nextvalue = () => {
   if (indexReg.value < goToGo.length - 1) indexReg.value++;
+  else router.push({ path: "/home" });
+};
+const prevtvalue = () => {
+  if (indexReg.value > 0) indexReg.value--;
+  else router.push({ path: "/" });
 };
 </script>
 <style lang="scss">
@@ -130,6 +144,20 @@ const nextvalue = () => {
   justify-content: space-between;
   text-align: center;
   padding: 20px 10px;
+
+  &__formContainer {
+    margin-top: 25px;
+  }
+  &__containerTitle {
+    margin: 20px 0 0 0;
+  }
+  &__return {
+    color: #000;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 700;
+    padding: 5px 10px;
+  }
   &__form {
     &-group {
       display: flex;
@@ -185,6 +213,9 @@ const nextvalue = () => {
       font-weight: bold;
       margin: 0;
     }
+    &-active{
+      background-color: #e2dbfb;
+    }
   }
   &__pictureIcons {
     display: flex;
@@ -206,9 +237,13 @@ const nextvalue = () => {
     border-radius: 10px;
     border: 1px solid gray;
   }
+  &__title {
+    margin-bottom: 0;
+  }
   &__description {
     font-size: 12px;
     font-weight: bold;
+    color: #777;
   }
 }
 </style>

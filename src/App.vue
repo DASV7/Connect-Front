@@ -1,21 +1,22 @@
 <script setup>
-import { computed, ref,watchEffect } from "vue";
+import MenuHome from "./components/menu/menu.vue";
 import { useRoute } from "vue-router";
-// import headerComp from "./components/header.component/component.Header.vue";
+import { ref, watchEffect, computed } from "vue";
+const route = useRoute();
+const fullPath = ref(route.fullPath);
 
-// const route = useRoute();
-// const fullPath = ref(route.fullPath);
+watchEffect(() => {
+  fullPath.value = route.fullPath;
+});
 
-// watchEffect(() => {
-//   fullPath.value = route.fullPath;
-// });
-
+const routePermission = computed(() => {
+  const diferents = ["/", "/Register", "/JoinLogin"];
+  return !diferents.includes(fullPath.value.split("?")[0]);
+});
 </script>
-
 <template>
   <div class="mainApp"></div>
-  <headerComp v-if="fullPath != '/'"></headerComp>
+  <MenuHome v-if="routePermission"> </MenuHome>
   <router-view></router-view>
 </template>
-
 <style lang="scss"></style>

@@ -8,3 +8,5 @@ This template should help get you started developing with Vue 3 in Vite. The tem
 
 
 #https://hackernoon.com/build-a-single-page-web3-app-with-vue-3-vite-and-pinia
+
+#Libreria of Carrousel: https://ismail9k.github.io/vue3-carousel/examples.html
