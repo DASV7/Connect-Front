@@ -1,4 +1,5 @@
 <template>
+  <div class="flowRegister__percentage" :style="`width: ${percentage}%`"></div>
   <div class="flowRegister">
     <div class="loginConnect__containerTitle">
       <h2 class="loginConnect__title">VINC</h2>
@@ -6,6 +7,9 @@
     <div class="flowRegister__wrapper">
       <div class="flowRegister__containerTitle">
         <h3 class="flowRegister__title">{{ goToGo[indexReg].title }}</h3>
+        <!-- <h7 class="flowRegister__description">{{
+          goToGo[indexReg].description
+        }}</h7> -->
       </div>
       <div class="flowRegister__formContainer">
         <div class="flowRegister__form-group" v-if="indexReg == 0">
@@ -13,6 +17,7 @@
             type="text"
             class="flowRegister__form-input"
             placeholder="Nombre Completo"
+            v-model="user.name"
           />
         </div>
         <div class="flowRegister__form-group" v-if="indexReg == 1">
@@ -34,6 +39,7 @@
             class="flowRegister__form-input"
             max="2005-12-31"
             placeholder="Fecha de nacimiento"
+            v-model="user.birthday"
           />
         </div>
         <div class="flowRegister__form-group" v-if="indexReg == 3">
@@ -41,24 +47,31 @@
             type="text"
             class="flowRegister__form-input"
             placeholder="Correo Electronico"
+            v-model="user.email"
           />
         </div>
         <div class="flowRegister__pictureIcons" v-if="indexReg == 4">
-          <label class="flowRegister__picture" for="img"><i class="fa-solid fa-camera-retro"></i></label>
+          <label class="flowRegister__picture" for="img"
+            ><i class="fa-solid fa-camera-retro"></i
+          ></label>
           <input
             v-show="false"
             type="file"
             id="img"
             class="flowRegister__form-input"
-            placeholder="Correo Electronico"
+            placeholder="Img1"
+            accept="image/*"
           />
-          <label class="flowRegister__picture" for="img2"><i class="fa-solid fa-camera-retro"></i></label>
+          <label class="flowRegister__picture" for="img2"
+            ><i class="fa-solid fa-camera-retro"></i
+          ></label>
           <input
             v-show="false"
             id="img2"
             type="file"
             class="flowRegister__form-input"
-            placeholder="Correo Electronico"
+            placeholder="img2"
+            accept="image/*"
           />
         </div>
         <div class="flowRegister__form-group" v-if="indexReg == 5">
@@ -66,6 +79,7 @@
             type="password"
             class="flowRegister__form-input"
             placeholder="Contraseña"
+            v-model="user.password"
           />
         </div>
       </div>
@@ -78,9 +92,10 @@
   </div>
 </template>
 <script setup>
+import { goToGo, interest } from "../../utils/sharedObjects";
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
-import { goToGo } from "../../utils/sharedObjects";
+import { computed } from "@vue/reactivity";
 const router = useRouter();
 let userNew = ref({
   name: "",
@@ -94,30 +109,17 @@ let userNew = ref({
   city: "",
 });
 let indexReg = ref(0);
-const interest = [
-  {
-    text: "Quiero una relación",
-    icon: "fa-sharp fa-solid fa-heart-circle-check",
-    desciption: "Busco algo duradero. Nada de juegos.",
-  },
-  {
-    text: "Abierto a conocer",
-    icon: "fa-solid fa-comments",
-    desciption: "Estoy aqui para chatear y ver que pasa.",
-  },
-  {
-    text: "Para negocios",
-    icon: "fa-solid fa-briefcase",
-    desciption: "Quiero Tener contactos, que sean estrategicos",
-  },
-];
+
+const percentage = computed(() => {
+  return (100 / (goToGo.length - 1)) * indexReg.value;
+});
 
 onMounted(() => {
   userNew.value.sex = router.currentRoute.value.query.sex;
 });
 
 const nextvalue = () => {
-  indexReg.value++;
+  if (indexReg.value < goToGo.length - 1) indexReg.value++;
 };
 </script>
 <style lang="scss">
@@ -184,11 +186,15 @@ const nextvalue = () => {
       margin: 0;
     }
   }
-  &__pictureIcons{
+  &__pictureIcons {
     display: flex;
-    justify-content: space-between;    
+    justify-content: space-between;
     gap: 10px;
     width: 100%;
+  }
+  &__percentage {
+    height: 5px;
+    background-color: #886eea;
   }
   &__picture {
     display: flex;
@@ -198,7 +204,11 @@ const nextvalue = () => {
     width: 120px;
     height: 120px;
     border-radius: 10px;
-    border: 1px solid gray;    
+    border: 1px solid gray;
+  }
+  &__description {
+    font-size: 12px;
+    font-weight: bold;
   }
 }
 </style>
