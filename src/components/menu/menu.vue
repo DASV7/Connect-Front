@@ -26,9 +26,7 @@
 <script setup>
 import { onMounted } from "vue";
 
-onMounted(() => {
-  console.log("si estas");
-});
+onMounted(() => {});
 </script>
 
 <style lang="scss">
@@ -42,6 +40,7 @@ onMounted(() => {
   margin-top: 15px;
   left: -1px;
   border-top: 1px solid #000;
+  bottom: 0;
 
   &__container {
     width: 100%;
