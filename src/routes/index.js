@@ -1,6 +1,7 @@
 import { createWebHistory, createRouter } from "vue-router";
 import Login from "../components/login/Login.vue";
-import join from "../components/login/Join.vue";
+import JoinLogin from "../components/login/JoinLogin.vue";
+import home from "../components/connect/home.vue";
 
 const ifAuthenticated = (to, from, next) => {
   // if (!store.getters["user/isAuthenticated"]) {
@@ -19,9 +20,14 @@ const routes = [
   },
 
   {
-    path: "/join",
-    name: "Join",
-    component: join,
+    path: "/JoinLogin",
+    name: "JoinLogin",
+    component: JoinLogin,
+  },
+  {
+    path: "/home",
+    name: "home",
+    component: home,
   },
 ];
 
