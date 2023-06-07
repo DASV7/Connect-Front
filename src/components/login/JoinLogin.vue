@@ -111,6 +111,7 @@
       color: #fff;
       border-radius: 30px;
       font-weight: 700;
+      cursor: pointer;
     }
   }
   &__types {
@@ -120,6 +121,7 @@
       font-size: 13px;
       color: #886eea;
       font-weight: 700;
+      cursor: pointer;
     }
   }
 
