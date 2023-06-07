@@ -2,18 +2,20 @@
 import { defineComponent } from "vue";
 import { Carousel, Slide } from "vue3-carousel";
 import "vue3-carousel/dist/carousel.css";
+import MenuHome from "../menu/menu.vue";
 
 export default defineComponent({
   name: "ExamplePagination",
   components: {
     Carousel,
     Slide,
+    MenuHome,
   },
   data: () => ({
     imgsUser: [
-    "https://cdn0.ecologiaverde.com/es/posts/5/9/2/que_son_los_biomas_tipos_y_ejemplos_2295_600.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/9/98/Vegetation-spanish.png",
-    "https://cobcm.net/wp-content/uploadssite3/sites/3/2020/12/flower-887443_1920-742x412.jpg"
+      "https://cdn0.ecologiaverde.com/es/posts/5/9/2/que_son_los_biomas_tipos_y_ejemplos_2295_600.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/9/98/Vegetation-spanish.png",
+      "https://cobcm.net/wp-content/uploadssite3/sites/3/2020/12/flower-887443_1920-742x412.jpg",
     ],
     settings: {
       itemsToShow: 1,
@@ -48,28 +50,7 @@ export default defineComponent({
         </div>
       </Slide>
     </Carousel>
-    <div class="menu">
-      <div class="menu__container">
-        <button class="menu__container-btn">
-          <i class="fa-solid fa-comment"></i>
-        </button>
-      </div>
-      <div class="menu__container">
-        <button class="menu__container-btn">
-          <i class="fa-solid fa-location-dot"></i>
-        </button>
-      </div>
-      <div class="menu__container">
-        <button class="menu__container-btn">
-          <i class="fa-solid fa-barcode"></i>
-        </button>
-      </div>
-      <div class="menu__container">
-        <button class="menu__container-btn">
-          <i class="fa-solid fa-user"></i>
-        </button>
-      </div>
-    </div>
+    <MenuHome> </MenuHome>
   </div>
 </template>
 
@@ -137,9 +118,9 @@ export default defineComponent({
 
 .carousel * {
   display: flex;
-  flex-direction: column;
-  // width: 100%;
-  // height: 100%;
+  // flex-direction: column;
+  width: 100%;
+  height: 100%;
   border-radius: 20px;
 }
 .carousel {
