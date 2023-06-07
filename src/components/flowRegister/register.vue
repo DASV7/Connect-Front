@@ -17,7 +17,7 @@
             type="text"
             class="flowRegister__form-input"
             placeholder="Nombre Completo"
-            v-model="user.name"
+            v-model="userNew.name"
           />
         </div>
         <div class="flowRegister__form-group" v-if="indexReg == 1">
@@ -39,7 +39,7 @@
             class="flowRegister__form-input"
             max="2005-12-31"
             placeholder="Fecha de nacimiento"
-            v-model="user.birthday"
+            v-model="userNew.birthday"
           />
         </div>
         <div class="flowRegister__form-group" v-if="indexReg == 3">
@@ -47,7 +47,7 @@
             type="text"
             class="flowRegister__form-input"
             placeholder="Correo Electronico"
-            v-model="user.email"
+            v-model="userNew.email"
           />
         </div>
         <div class="flowRegister__pictureIcons" v-if="indexReg == 4">
@@ -79,7 +79,7 @@
             type="password"
             class="flowRegister__form-input"
             placeholder="Contraseña"
-            v-model="user.password"
+            v-model="userNew.password"
           />
         </div>
       </div>
