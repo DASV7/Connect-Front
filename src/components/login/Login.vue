@@ -2,7 +2,6 @@
   <div class="loginConnect">
     <div class="loginConnect__containerTitle">
       <h2 class="loginConnect__title">
-        <i class="fa fa-heart" aria-hidden="true"></i>
         Connect
       </h2>
     </div>
@@ -156,7 +155,7 @@ $breakpoint: 768px;
     align-items: center;
     margin-top: 20px;
     width: 100%;
-    height: 31%;
+    height: 47%;
 
     &-info {
       display: flex;
