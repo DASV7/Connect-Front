@@ -8,6 +8,12 @@ export default defineComponent({
     Carousel,
     Slide,
   },
+  methods: {
+    closeSesion() {
+      localStorage.clear();
+      this.$router.push("/");
+    },
+  },
   data: () => ({
     imgsUser: [
       "https://images.unsplash.com/photo-1526512340740-9217d0159da9?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dmVydGljYWx8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80",
@@ -54,11 +60,14 @@ export default defineComponent({
     </Carousel>
     <div class="homeVinc__buttonsAction">
       <button
-        class="homeVinc__buttonsAction-button"        
+        class="homeVinc__buttonsAction-button"
         v-for="(item, index) of buttonsActions"
         :key="index"
       >
         <i class="homeVinc__buttonsAction-icon" :class="item.icon"></i>
+      </button>
+      <button class="homeVinc__buttonsAction-button" @click="closeSesion()">
+        <i class="fa fa-sign-out" aria-hidden="true"></i>
       </button>
     </div>
   </div>
@@ -68,6 +77,7 @@ export default defineComponent({
 * {
   font-family: sans-serif;
 }
+
 .homeVinc {
   width: 100%;
   height: 94vh;
@@ -83,37 +93,43 @@ export default defineComponent({
     z-index: 100;
     bottom: 60px;
     width: 100%;
+
     &-button {
       background-color: #f9f9f9;
       border: 1px solid #886eea;
       color: #886eea;
       height: 40px;
       width: 40px;
-      border-radius: 50%;      
+      border-radius: 50%;
     }
   }
+
   &__containertittle {
     width: 100%;
     padding: 10px;
+
     &-p {
       font-weight: 700;
       margin: 0% 0px 10px 0px;
     }
+
     &-text {
       margin: 0%;
       font-size: 10px;
       font-weight: 800;
     }
   }
+
   &__information {
     height: 100%;
   }
+
   &__info-txt {
     font-size: 12px;
     font-weight: 700;
   }
+
   &__info-state {
-    
   }
 }
 
@@ -143,6 +159,7 @@ export default defineComponent({
 
   &__container {
     width: 100%;
+
     &-btn {
       display: flex;
       justify-content: center;
@@ -156,7 +173,6 @@ export default defineComponent({
       font-size: 20px;
     }
   }
-
 }
 
 .carousel * {
@@ -166,16 +182,20 @@ export default defineComponent({
   height: 100%;
   border-radius: 20px;
 }
+
 .carousel {
   padding: 10px;
   height: 83%;
 }
+
 .carousel__viewport {
   height: 100%;
 }
+
 .carousel__slide {
   height: 100%;
 }
+
 .carousel__track {
   height: 100%;
 }
