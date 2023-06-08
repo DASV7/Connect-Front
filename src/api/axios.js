@@ -10,10 +10,10 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
     config => {
-        let token = localStorage.getItem("jwt") || null;
+        let token = localStorage.getItem("vinc-jwt") || null;
 
         if (token) {
-            config.headers["jwt"] = `${token}`;
+            config.headers["vinc-jwt"] = `${token}`;
         }
 
         return config;
