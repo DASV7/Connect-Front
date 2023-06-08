@@ -26,7 +26,11 @@
         <div class="flowRegister__form-group" v-if="indexReg == 1">
           <div
             class="flowRegister__interest"
-            :class="val[index] == userNew.interesting ? 'flowRegister__interest-active' : ''"
+            :class="
+              val[index] == userNew.interesting
+                ? 'flowRegister__interest-active'
+                : ''
+            "
             v-for="(item, index) in interest"
             :key="index"
             @click="interestClick(index)"
@@ -101,13 +105,15 @@ import { goToGo, interest } from "../../utils/sharedObjects";
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { computed } from "@vue/reactivity";
+import axios from "../../api/axios";
+import Swal from "sweetalert2";
 const router = useRouter();
+
 let userNew = ref({
   name: "",
   email: "",
   password: "",
-  confirmPassword: "",
-  sex: "",
+  biologicalSex: "",
   birthday: "",
   phone: "",
   interesting: "",
@@ -124,12 +130,37 @@ const interestClick = (index) => {
 };
 
 onMounted(() => {
-  userNew.value.sex = router.currentRoute.value.query.sex;
+  userNew.value.biologicalSex = router.currentRoute.value.query.sex;
 });
 
-const nextvalue = () => {
+const createNewUser = async () => {
+  const user = await axios
+    .post("/usersModule", userNew.value)
+    .catch((error) => {
+      Swal.fire({
+        icon: "error",
+        title: "Ocurrio un error",
+        text: "Correo o contraseña incorrectos",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    });
+  if (user.data.data.data) {
+    Swal.fire({
+      icon: "success",
+      title: "Bienvenido",
+      text: "¡Hola " + "nombre de usuarop" + "!",
+      showConfirmButton: false,
+      timer: 2000,
+    });
+    localStorage.setItem("vinc-jwt", user.data.data.data);
+    router.push("/home");
+  }
+};
+
+const nextvalue = async () => {
   if (indexReg.value < goToGo.length - 1) indexReg.value++;
-  else router.push({ path: "/home" });
+  else createNewUser();
 };
 const prevtvalue = () => {
   if (indexReg.value > 0) indexReg.value--;
@@ -162,6 +193,8 @@ const prevtvalue = () => {
     &-group {
       display: flex;
       flex-direction: column;
+      justify-content: center;
+      align-items: center;
       gap: 10px;
     }
     &-input {
@@ -190,6 +223,7 @@ const prevtvalue = () => {
   }
   &__interest {
     display: flex;
+    justify-content: center;
     align-items: center;
     gap: 10px;
     height: 50px;
@@ -197,6 +231,7 @@ const prevtvalue = () => {
     border-radius: 10px;
     border: 1px solid #ccc;
     width: 97%;
+    max-width: 350px;
     background-color: rgba(128, 128, 128, 0.144);
     cursor: pointer;
     i {
@@ -208,12 +243,11 @@ const prevtvalue = () => {
       color: #777;
     }
     p {
-      font-size: 12px;
+      font-size: 14px;
       color: black;
-      font-weight: bold;
       margin: 0;
     }
-    &-active{
+    &-active {
       background-color: #e2dbfb;
     }
   }
