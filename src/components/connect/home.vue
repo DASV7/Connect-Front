@@ -47,6 +47,14 @@ export default defineComponent({
         </div>
       </Slide>
     </Carousel>    
+    <div class="homeVinc__information">
+      <div class="homeVinc__info">
+        <p class="homeVinc__info-txt">USER esta aqui para...</p>     
+        <div class="homeVinc__info-state">
+
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -70,7 +78,18 @@ export default defineComponent({
       font-weight: 800;
     }
   }
+  &__information {
+    height: 100%;
+  }
+  &__info-txt {
+    font-size: 12px;
+    font-weight: 700;
+  }
+  &__info-state {
+    
+  }
 }
+
 .carousel__item {
   display: flex;
   justify-content: center;
@@ -110,6 +129,7 @@ export default defineComponent({
       font-size: 20px;
     }
   }
+
 }
 
 .carousel * {

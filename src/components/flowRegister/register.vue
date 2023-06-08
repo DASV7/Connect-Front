@@ -1,97 +1,106 @@
 <template>
-  <div class="flowRegister__percentage" :style="`width: ${percentage}%`"></div>
-  <div class="flowRegister__return" @click="prevtvalue()">
-    <i class="fa-solid fa-arrow-left"></i>
-  </div>
-  <div class="flowRegister">
-    <div class="loginConnect__containerTitle">
-      <h2 class="loginConnect__title">VINC</h2>
+  <div class="">
+    <div
+      class="flowRegister__percentage"
+      :style="`width: ${percentage}%`"
+    ></div>
+    <div class="flowRegister__return" @click="prevtvalue()">
+      <i class="fa-solid fa-arrow-left"></i>
     </div>
-    <div class="flowRegister__wrapper">
-      <div class="flowRegister__containerTitle">
-        <h3 class="flowRegister__title">{{ goToGo[indexReg].title }}</h3>
-        <h7 class="flowRegister__description">{{
-          goToGo[indexReg].description
-        }}</h7>
+    <div class="flowRegister">
+      <div class="loginConnect__containerTitle">
+        <h2 class="loginConnect__title">VINC</h2>
       </div>
-      <div class="flowRegister__formContainer">
-        <div class="flowRegister__form-group" v-if="indexReg == 0">
-          <input
-            type="text"
-            class="flowRegister__form-input"
-            placeholder="Nombre Completo"
-            v-model="userNew.name"
-          />
+      <div class="flowRegister__wrapper">
+        <div class="flowRegister__containerTitle">
+          <h3 class="flowRegister__title">{{ goToGo[indexReg].title }}</h3>
+          <h7 class="flowRegister__description">{{
+            goToGo[indexReg].description
+          }}</h7>
         </div>
-        <div class="flowRegister__form-group" v-if="indexReg == 1">
-          <div
-            class="flowRegister__interest"
-            :class="val[index] == userNew.interesting ? 'flowRegister__interest-active' : ''"
-            v-for="(item, index) in interest"
-            :key="index"
-            @click="interestClick(index)"
-          >
-            <i :class="item.icon"></i>
-            <span
-              ><p>{{ item.desciption }}</p>
-              {{ item.text }}</span
+        <div class="flowRegister__formContainer">
+          <div class="flowRegister__form-group" v-if="indexReg == 0">
+            <input
+              type="text"
+              class="flowRegister__form-input"
+              placeholder="Nombre Completo"
+              v-model="userNew.name"
+            />
+          </div>
+          <div class="flowRegister__form-group" v-if="indexReg == 1">
+            <div
+              class="flowRegister__interest"
+              :class="
+                val[index] == userNew.interesting
+                  ? 'flowRegister__interest-active'
+                  : ''
+              "
+              v-for="(item, index) in interest"
+              :key="index"
+              @click="interestClick(index)"
             >
+              <i :class="item.icon"></i>
+              <span
+                ><p>{{ item.desciption }}</p>
+                {{ item.text }}</span
+              >
+            </div>
+          </div>
+          <div class="flowRegister__form-group" v-if="indexReg == 2">
+            <input
+              type="date"
+              class="flowRegister__form-input"
+              max="2005-12-31"
+              placeholder="Fecha de nacimiento"
+              v-model="userNew.birthday"
+            />
+          </div>
+          <div class="flowRegister__form-group" v-if="indexReg == 3">
+            <input
+              type="text"
+              class="flowRegister__form-input"
+              placeholder="Correo Electronico"
+              v-model="userNew.email"
+            />
+          </div>
+          <div class="flowRegister__pictureIcons" v-if="indexReg == 4">
+            <label class="flowRegister__picture" for="img"
+              ><i class="fa-solid fa-camera-retro"></i
+            ></label>
+            <input
+              v-show="false"
+              type="file"
+              id="img"
+              class="flowRegister__form-input"
+              placeholder="Img1"
+              accept="image/*"
+            />
+            <label class="flowRegister__picture" for="img2"
+              ><i class="fa-solid fa-camera-retro"></i
+            ></label>
+            <input
+              v-show="false"
+              id="img2"
+              type="file"
+              class="flowRegister__form-input"
+              placeholder="img2"
+              accept="image/*"
+            />
+          </div>
+          <div class="flowRegister__form-group" v-if="indexReg == 5">
+            <input
+              type="password"
+              class="flowRegister__form-input"
+              placeholder="Contraseña"
+              v-model="userNew.password"
+            />
           </div>
         </div>
-        <div class="flowRegister__form-group" v-if="indexReg == 2">
-          <input
-            type="date"
-            class="flowRegister__form-input"
-            max="2005-12-31"
-            placeholder="Fecha de nacimiento"
-            v-model="userNew.birthday"
-          />
+        <div class="flowRegister__button">
+          <button class="flowRegister__button-register" @click="nextvalue()">
+            Continuar
+          </button>
         </div>
-        <div class="flowRegister__form-group" v-if="indexReg == 3">
-          <input
-            type="text"
-            class="flowRegister__form-input"
-            placeholder="Correo Electronico"
-            v-model="userNew.email"
-          />
-        </div>
-        <div class="flowRegister__pictureIcons" v-if="indexReg == 4">
-          <label class="flowRegister__picture" for="img"
-            ><i class="fa-solid fa-camera-retro"></i
-          ></label>
-          <input
-            v-show="false"
-            type="file"
-            id="img"
-            class="flowRegister__form-input"
-            placeholder="Img1"
-            accept="image/*"
-          />
-          <label class="flowRegister__picture" for="img2"
-            ><i class="fa-solid fa-camera-retro"></i
-          ></label>
-          <input
-            v-show="false"
-            id="img2"
-            type="file"
-            class="flowRegister__form-input"
-            placeholder="img2"
-            accept="image/*"
-          />
-        </div>
-        <div class="flowRegister__form-group" v-if="indexReg == 5">
-          <input
-            type="password"
-            class="flowRegister__form-input"
-            placeholder="Contraseña"
-            v-model="userNew.password"
-          />
-        </div>
-      </div>
-      <div class="flowRegister__button">
-        <button class="flowRegister__button-register" @click="nextvalue()">
-          Continuar
-        </button>
       </div>
     </div>
   </div>
@@ -213,7 +222,7 @@ const prevtvalue = () => {
       font-weight: bold;
       margin: 0;
     }
-    &-active{
+    &-active {
       background-color: #e2dbfb;
     }
   }
