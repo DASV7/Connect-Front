@@ -1,27 +1,22 @@
 <template>
-  <div class="flowRegister__percentage" :style="`width: ${percentage}%`"></div>
-  <div class="flowRegister__return" @click="prevtvalue()">
-    <i class="fa-solid fa-arrow-left"></i>
-  </div>
-  <div class="flowRegister">
-    <div class="loginConnect__containerTitle">
-      <h2 class="loginConnect__title">VINC</h2>
+  <div class="">
+    <div
+      class="flowRegister__percentage"
+      :style="`width: ${percentage}%`"
+    ></div>
+    <div class="flowRegister__return" @click="prevtvalue()">
+      <i class="fa-solid fa-arrow-left"></i>
     </div>
-    <div class="flowRegister__wrapper">
-      <div class="flowRegister__containerTitle">
-        <h3 class="flowRegister__title">{{ goToGo[indexReg].title }}</h3>
-        <h7 class="flowRegister__description">{{
-          goToGo[indexReg].description
-        }}</h7>
+    <div class="flowRegister">
+      <div class="loginConnect__containerTitle">
+        <h2 class="loginConnect__title">VINC</h2>
       </div>
-      <div class="flowRegister__formContainer">
-        <div class="flowRegister__form-group" v-if="indexReg == 0">
-          <input
-            type="text"
-            class="flowRegister__form-input"
-            placeholder="Nombre Completo"
-            v-model="userNew.name"
-          />
+      <div class="flowRegister__wrapper">
+        <div class="flowRegister__containerTitle">
+          <h3 class="flowRegister__title">{{ goToGo[indexReg].title }}</h3>
+          <h7 class="flowRegister__description">{{
+            goToGo[indexReg].description
+          }}</h7>
         </div>
         <div class="flowRegister__form-group" v-if="indexReg == 1">
           <div
@@ -35,6 +30,11 @@
             :key="index"
             @click="interestClick(index)"
           >
+            <i :class="item.icon"></i>
+            <span
+              ><p>{{ item.desciption }}</p>
+              {{ item.text }}</span
+            >
             <i :class="item.icon"></i>
             <span
               ><p>{{ item.desciption }}</p>

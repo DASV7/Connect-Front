@@ -54,8 +54,7 @@ export default defineComponent({
     </Carousel>
     <div class="homeVinc__buttonsAction">
       <button
-        class="homeVinc__buttonsAction-button"
-        :class="index === 1 ? 'homeVinc__buttonsAction-button-active' : ''"
+        class="homeVinc__buttonsAction-button"        
         v-for="(item, index) of buttonsActions"
         :key="index"
       >
@@ -106,7 +105,18 @@ export default defineComponent({
       font-weight: 800;
     }
   }
+  &__information {
+    height: 100%;
+  }
+  &__info-txt {
+    font-size: 12px;
+    font-weight: 700;
+  }
+  &__info-state {
+    
+  }
 }
+
 .carousel__item {
   display: flex;
   justify-content: center;
@@ -146,6 +156,7 @@ export default defineComponent({
       font-size: 20px;
     }
   }
+
 }
 
 .carousel * {
