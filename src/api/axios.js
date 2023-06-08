@@ -3,8 +3,8 @@ const axiosInstance = axios.create({
     baseURL: import.meta.env.VITE_HOST + import.meta.env.VITE_PREFIX,
     headers: {
         "Content-Type": "application/json",
-        "jwt": localStorage.getItem("jwt") || null,
-        app: "autologin",
+        "vinc-jwt": localStorage.getItem("vinc-jwt") || null,
+        app: "VINC",
     },
 });
 

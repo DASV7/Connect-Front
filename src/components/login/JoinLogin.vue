@@ -10,12 +10,13 @@
         Ingresa tu correo o numero de telefono
       </p>
     </div>
-    <form class="joinConnect__formJoin">
+    <div class="joinConnect__formJoin">
       <div class="joinConnect__formJoin-container">
         <input
           class="joinConnect__formJoin-input"
           type="text"
           placeholder="Correo o numero de celular"
+          v-model="userData.email"
         />
       </div>
       <div class="joinConnect__formJoin-container">
@@ -23,20 +24,21 @@
           class="joinConnect__formJoin-input"
           type="password"
           placeholder="Contraseña"
+          v-model="userData.password"
         />
       </div>
       <div class="joinConnect__formJoin-btn">
-        <button  @click="$router.push('/home')" class="joinConnect__formJoin-btnSend">Entrar</button>
+        <button @click="loginUser()" class="joinConnect__formJoin-btnSend">
+          Entrar
+        </button>
       </div>
-    </form>
+    </div>
     <div class="joinConnect__types">
       <p class="joinConnect__types-p">¿Olvidaste tu Contraseña?</p>
     </div>
     <div class="joinConnect__joinS">
       <div class="loginConnect__join-info">
-        <a
-          class="loginConnect__join-link"
-          @click="$router.push('/')"
+        <a class="loginConnect__join-link" @click="$router.push('/')"
           >Continuar de otra forma</a
         >
       </div>
@@ -52,6 +54,21 @@
 </template>
 
 <script setup>
+import axios from "../../api/axios";
+import { useRouter } from "vue-router";
+import { ref } from "vue";
+const router = useRouter();
+
+let userData = ref({
+  email: "",
+  password: "",
+});
+
+const loginUser = async () => {
+  const user = await axios.post("/usersmodule/login", userData.value);
+  localStorage.setItem("vinc-jwt", user.data.data.data);
+  router.push("/home");
+};
 </script>
 
 <style lang="scss">
