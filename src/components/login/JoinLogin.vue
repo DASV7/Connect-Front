@@ -57,6 +57,7 @@
 import axios from "../../api/axios";
 import { useRouter } from "vue-router";
 import { ref } from "vue";
+import Swal from "sweetalert2";
 const router = useRouter();
 
 let userData = ref({
@@ -65,9 +66,28 @@ let userData = ref({
 });
 
 const loginUser = async () => {
-  const user = await axios.post("/usersmodule/login", userData.value);
-  localStorage.setItem("vinc-jwt", user.data.data.data);
-  router.push("/home");
+  const user = await axios
+    .post("/usersmodule/login", userData.value)
+    .catch((error) => {      
+      Swal.fire({
+        icon: "error",
+        title: "Ocurrio un error",
+        text: "Correo o contraseña incorrectos",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    });
+  if (user.data.data.data) {
+    Swal.fire({
+      icon: "success",
+      title: "Bienvenido",
+      text: "¡Hola " + "nombre de usuarop" + "!",
+      showConfirmButton: false,
+      timer: 2000,
+    });
+    localStorage.setItem("vinc-jwt", user.data.data.data);
+    router.push("/home");
+  }
 };
 </script>
 

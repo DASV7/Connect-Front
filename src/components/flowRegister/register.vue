@@ -106,6 +106,7 @@ import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { computed } from "@vue/reactivity";
 import axios from "../../api/axios";
+import Swal from "sweetalert2";
 const router = useRouter();
 
 let userNew = ref({
@@ -133,8 +134,28 @@ onMounted(() => {
 });
 
 const createNewUser = async () => {
-  await axios.post("/usersModule", userNew.value);
-  router.push({ path: "/home" });
+  const user = await axios
+    .post("/usersModule", userNew.value)
+    .catch((error) => {
+      Swal.fire({
+        icon: "error",
+        title: "Ocurrio un error",
+        text: "Correo o contraseña incorrectos",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    });
+  if (user.data.data.data) {
+    Swal.fire({
+      icon: "success",
+      title: "Bienvenido",
+      text: "¡Hola " + "nombre de usuarop" + "!",
+      showConfirmButton: false,
+      timer: 2000,
+    });
+    localStorage.setItem("vinc-jwt", user.data.data.data);
+    router.push("/home");
+  }
 };
 
 const nextvalue = async () => {

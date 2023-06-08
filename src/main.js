@@ -4,7 +4,7 @@ import router from "./routes/index"
 import App from './App.vue'
 import axios from './api/axios'
 import { createPinia } from 'pinia'
-// import Swal from 'sweetalert2'
+
 
 
 const app = createApp(App)
