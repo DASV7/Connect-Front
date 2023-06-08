@@ -5,7 +5,8 @@
   </div>
   <div class="flowRegister">
     <div class="loginConnect__containerTitle">
-      <h2 class="loginConnect__title">VINC</h2>
+      <!-- <h2 class="loginConnect__title">VINC</h2> -->
+      <img class="loginConnect__title" src="../../../public/svgLogoComplete.svg" alt="" >
     </div>
     <div class="flowRegister__wrapper">
       <div class="flowRegister__containerTitle">

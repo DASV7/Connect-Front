@@ -1,7 +1,7 @@
 <template>
   <div class="loginConnect">
     <div class="loginConnect__containerTitle">
-      <h2 class="loginConnect__title">VINC</h2>
+      <img class="loginConnect__title" src="../../../public/svgLogoComplete.svg" alt="" >
     </div>
 
     <div class="joinConnect">
