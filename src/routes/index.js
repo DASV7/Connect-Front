@@ -8,11 +8,18 @@ import profile from "../components/profile/profile.vue";
 
 
 const ifAuthenticated = (to, from, next) => {
-  // if (!store.getters["user/isAuthenticated"]) {
-  //   next("/login");
-  //   return;
-  // }
-  // next();
+  if (!localStorage.getItem("vinc-jwt")) {
+    next("/");
+    return;
+  }
+  next();
+};
+const ifIsAuthenticated = (to, from, next) => {
+  if (localStorage.getItem("vinc-jwt")) {
+    next("/home");
+    return;
+  }
+  next();
 };
 
 
@@ -21,12 +28,14 @@ const routes = [
     path: "/",
     name: "login",
     component: Login,
+    beforeEnter: ifIsAuthenticated,
   },
 
   {
     path: "/JoinLogin",
     name: "JoinLogin",
     component: JoinLogin,
+    beforeEnter: ifIsAuthenticated,
   },
   {
     path: "/register",
@@ -37,17 +46,24 @@ const routes = [
     path: "/home",
     name: "home",
     component: home,
+    beforeEnter: ifAuthenticated,
   },
   {
     path: "/gps",
     name: "hogpsme",
     component: gps,
+    beforeEnter: ifAuthenticated,
   },
   {
     path: "/profile",
     name: "profile",
     component: profile,
+    beforeEnter: ifAuthenticated,
   },
+  {
+    path: '/:catchAll(.*)',
+    redirect: '/'
+  }
 ];
 
 const router = createRouter({

@@ -18,89 +18,84 @@
             goToGo[indexReg].description
           }}</h7>
         </div>
-        <div class="flowRegister__formContainer">
-          <div class="flowRegister__form-group" v-if="indexReg == 0">
-            <input
-              type="text"
-              class="flowRegister__form-input"
-              placeholder="Nombre Completo"
-              v-model="userNew.name"
-            />
-          </div>
-          <div class="flowRegister__form-group" v-if="indexReg == 1">
-            <div
-              class="flowRegister__interest"
-              :class="
-                val[index] == userNew.interesting
-                  ? 'flowRegister__interest-active'
-                  : ''
-              "
-              v-for="(item, index) in interest"
-              :key="index"
-              @click="interestClick(index)"
+        <div class="flowRegister__form-group" v-if="indexReg == 1">
+          <div
+            class="flowRegister__interest"
+            :class="
+              val[index] == userNew.interesting
+                ? 'flowRegister__interest-active'
+                : ''
+            "
+            v-for="(item, index) in interest"
+            :key="index"
+            @click="interestClick(index)"
+          >
+            <i :class="item.icon"></i>
+            <span
+              ><p>{{ item.desciption }}</p>
+              {{ item.text }}</span
             >
-              <i :class="item.icon"></i>
-              <span
-                ><p>{{ item.desciption }}</p>
-                {{ item.text }}</span
-              >
-            </div>
-          </div>
-          <div class="flowRegister__form-group" v-if="indexReg == 2">
-            <input
-              type="date"
-              class="flowRegister__form-input"
-              max="2005-12-31"
-              placeholder="Fecha de nacimiento"
-              v-model="userNew.birthday"
-            />
-          </div>
-          <div class="flowRegister__form-group" v-if="indexReg == 3">
-            <input
-              type="text"
-              class="flowRegister__form-input"
-              placeholder="Correo Electronico"
-              v-model="userNew.email"
-            />
-          </div>
-          <div class="flowRegister__pictureIcons" v-if="indexReg == 4">
-            <label class="flowRegister__picture" for="img"
-              ><i class="fa-solid fa-camera-retro"></i
-            ></label>
-            <input
-              v-show="false"
-              type="file"
-              id="img"
-              class="flowRegister__form-input"
-              placeholder="Img1"
-              accept="image/*"
-            />
-            <label class="flowRegister__picture" for="img2"
-              ><i class="fa-solid fa-camera-retro"></i
-            ></label>
-            <input
-              v-show="false"
-              id="img2"
-              type="file"
-              class="flowRegister__form-input"
-              placeholder="img2"
-              accept="image/*"
-            />
-          </div>
-          <div class="flowRegister__form-group" v-if="indexReg == 5">
-            <input
-              type="password"
-              class="flowRegister__form-input"
-              placeholder="Contraseña"
-              v-model="userNew.password"
-            />
+            <i :class="item.icon"></i>
+            <span
+              ><p>{{ item.desciption }}</p>
+              {{ item.text }}</span
+            >
           </div>
         </div>
-        <div class="flowRegister__button">
-          <button class="flowRegister__button-register" @click="nextvalue()">
-            Continuar
-          </button>
+        <div class="flowRegister__form-group" v-if="indexReg == 2">
+          <input
+            type="date"
+            class="flowRegister__form-input"
+            max="2005-12-31"
+            placeholder="Fecha de nacimiento"
+            v-model="userNew.birthday"
+          />
         </div>
+        <div class="flowRegister__form-group" v-if="indexReg == 3">
+          <input
+            type="text"
+            class="flowRegister__form-input"
+            placeholder="Correo Electronico"
+            v-model="userNew.email"
+          />
+        </div>
+        <div class="flowRegister__pictureIcons" v-if="indexReg == 4">
+          <label class="flowRegister__picture" for="img"
+            ><i class="fa-solid fa-camera-retro"></i
+          ></label>
+          <input
+            v-show="false"
+            type="file"
+            id="img"
+            class="flowRegister__form-input"
+            placeholder="Img1"
+            accept="image/*"
+          />
+          <label class="flowRegister__picture" for="img2"
+            ><i class="fa-solid fa-camera-retro"></i
+          ></label>
+          <input
+            v-show="false"
+            id="img2"
+            type="file"
+            class="flowRegister__form-input"
+            placeholder="img2"
+            accept="image/*"
+          />
+        </div>
+        <div class="flowRegister__form-group" v-if="indexReg == 5">
+          <input
+            type="password"
+            class="flowRegister__form-input"
+            placeholder="Contraseña"
+            v-model="userNew.password"
+          />
+        </div>
+      </div>
+      <div class="flowRegister__button">
+        <button class="flowRegister__button-register" @click="nextvalue()">
+          Continuar
+        </button>
       </div>
     </div>
   </div>
@@ -110,13 +105,15 @@ import { goToGo, interest } from "../../utils/sharedObjects";
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { computed } from "@vue/reactivity";
+import axios from "../../api/axios";
+import Swal from "sweetalert2";
 const router = useRouter();
+
 let userNew = ref({
   name: "",
   email: "",
   password: "",
-  confirmPassword: "",
-  sex: "",
+  biologicalSex: "",
   birthday: "",
   phone: "",
   interesting: "",
@@ -133,12 +130,37 @@ const interestClick = (index) => {
 };
 
 onMounted(() => {
-  userNew.value.sex = router.currentRoute.value.query.sex;
+  userNew.value.biologicalSex = router.currentRoute.value.query.sex;
 });
 
-const nextvalue = () => {
+const createNewUser = async () => {
+  const user = await axios
+    .post("/usersModule", userNew.value)
+    .catch((error) => {
+      Swal.fire({
+        icon: "error",
+        title: "Ocurrio un error",
+        text: "Correo o contraseña incorrectos",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    });
+  if (user.data.data.data) {
+    Swal.fire({
+      icon: "success",
+      title: "Bienvenido",
+      text: "¡Hola " + "nombre de usuarop" + "!",
+      showConfirmButton: false,
+      timer: 2000,
+    });
+    localStorage.setItem("vinc-jwt", user.data.data.data);
+    router.push("/home");
+  }
+};
+
+const nextvalue = async () => {
   if (indexReg.value < goToGo.length - 1) indexReg.value++;
-  else router.push({ path: "/home" });
+  else createNewUser();
 };
 const prevtvalue = () => {
   if (indexReg.value > 0) indexReg.value--;
@@ -171,6 +193,8 @@ const prevtvalue = () => {
     &-group {
       display: flex;
       flex-direction: column;
+      justify-content: center;
+      align-items: center;
       gap: 10px;
     }
     &-input {
@@ -199,6 +223,7 @@ const prevtvalue = () => {
   }
   &__interest {
     display: flex;
+    justify-content: center;
     align-items: center;
     gap: 10px;
     height: 50px;
@@ -206,6 +231,7 @@ const prevtvalue = () => {
     border-radius: 10px;
     border: 1px solid #ccc;
     width: 97%;
+    max-width: 350px;
     background-color: rgba(128, 128, 128, 0.144);
     cursor: pointer;
     i {
@@ -217,9 +243,8 @@ const prevtvalue = () => {
       color: #777;
     }
     p {
-      font-size: 12px;
+      font-size: 14px;
       color: black;
-      font-weight: bold;
       margin: 0;
     }
     &-active {
