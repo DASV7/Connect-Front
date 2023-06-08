@@ -76,8 +76,7 @@ const loginUser = async () => {
         showConfirmButton: false,
         timer: 2000,
       });
-    });
-    console.log(user);
+    });    
   if (user.data.data.data) {
     Swal.fire({
       icon: "success",
