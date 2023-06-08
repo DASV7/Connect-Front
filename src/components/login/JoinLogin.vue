@@ -77,6 +77,7 @@ const loginUser = async () => {
         timer: 2000,
       });
     });
+    console.log(user);
   if (user.data.data.data) {
     Swal.fire({
       icon: "success",
