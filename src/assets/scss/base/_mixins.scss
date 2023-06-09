@@ -28,3 +28,11 @@
     justify-content: $justify;
     align-items: $align;
 }
+
+@mixin Ellipsis($lines: 1) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-clamp: $lines;
+    -webkit-line-clamp: $lines;
+  }

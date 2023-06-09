@@ -1,7 +1,11 @@
 <template>
   <div class="loginConnect">
     <div class="loginConnect__containerTitle">
-      <img class="loginConnect__title" src="../../../public/svgLogoComplete.svg" alt="" >
+      <img
+        class="loginConnect__title"
+        src="../../../public/svgLogoComplete.svg"
+        alt=""
+      />
     </div>
     <p class="loginConnect__subtitle">Ingresa tu genero</p>
     <div class="loginConnect__formContainer">
@@ -71,7 +75,6 @@ const goRegister = (param) => {
 };
 </script>
 <style lang="scss">
-$violetColor: #886eea;
 $secondary-color: #f9f9f9;
 $border-color: #ccc;
 $breakpoint: 768px;
@@ -103,7 +106,8 @@ $breakpoint: 768px;
   &__title {
     margin: 0px;
     font-size: 40px;
-    color: $violetColor;
+    color: $primary-color;
+    margin-left: 20px;
   }
 
   &__subtitle {
@@ -124,8 +128,8 @@ $breakpoint: 768px;
     &__btn {
       width: 92%;
       height: 42px;
-      border: solid 3px $violetColor;
-      color: $violetColor;
+      border: solid 3px $primary-color;
+      color: $primary-color;
       border-radius: 30px;
       background-color: #fff;
       cursor: pointer;
@@ -191,7 +195,7 @@ $breakpoint: 768px;
     }
     &-link {
       text-decoration: none;
-      color: $violetColor;
+      color: $primary-color;
       cursor: pointer;
     }
 

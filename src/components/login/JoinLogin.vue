@@ -144,7 +144,7 @@ const loginUser = async () => {
       width: 80%;
       height: 45px;
       border: none;
-      background-color: #886eea;
+      background-color: $primary-color;
       color: #fff;
       border-radius: 30px;
       font-weight: 700;
@@ -156,7 +156,7 @@ const loginUser = async () => {
 
     &-p {
       font-size: 13px;
-      color: #886eea;
+      color: $primary-color;
       font-weight: 700;
       cursor: pointer;
     }

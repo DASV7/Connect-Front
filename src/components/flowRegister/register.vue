@@ -216,7 +216,7 @@ const prevtvalue = () => {
       width: 80%;
       height: 45px;
       border: none;
-      background-color: #886eea;
+      background-color: $primary-color;
       color: #fff;
       border-radius: 30px;
       font-weight: 700;
@@ -237,7 +237,7 @@ const prevtvalue = () => {
     cursor: pointer;
     i {
       font-size: 20px;
-      color: #886eea;
+      color: $primary-color;
     }
     span {
       font-size: 10px;
@@ -260,7 +260,7 @@ const prevtvalue = () => {
   }
   &__percentage {
     height: 5px;
-    background-color: #886eea;
+    background-color: $primary-color;
   }
   &__picture {
     display: flex;
