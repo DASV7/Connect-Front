@@ -103,12 +103,12 @@ const albumUser = [
         </div>
         <!-- Description-->
 
+        <interestingIn />
+
+        <p class="information__InfoUser-tittle">
+          Información de "Nombre usuario":
+        </p>
         <div class="information__InfoUser" v-if="preferencesUser">
-          <div>
-            <p class="information__InfoUser-tittle">
-              Información de "Nombre usuario":
-            </p>
-          </div>
           <p
             class="information__InfoUser-preferences"
             v-for="(item, index) in preferencesUser"
@@ -191,9 +191,8 @@ const albumUser = [
     text-align: center;
     position: absolute;
     top: 0;
-    z-index: 100;
-    width: 100%;    
-    margin: 0;    
+    z-index: 1;
+    width: 100%;
 
     background: linear-gradient(
       to bottom,
@@ -337,9 +336,9 @@ const albumUser = [
 }
 
 .carousel * {
-  width: 100%;
   border-radius: 20px 20px 0 0;
-  margin-top: -13px;
+  height: 100%;
+  width: 100%;
 }
 
 .carousel {
@@ -348,6 +347,7 @@ const albumUser = [
     justify-content: center;
     align-items: center;
     height: 100%;
+    width: 100%;
     margin-top: -16px;
 
     &-img {

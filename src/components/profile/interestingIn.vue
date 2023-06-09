@@ -9,42 +9,42 @@ const interest = [
 </script>
 
 <template>
-  <div class="interesti1ngIn__InfoUser">
-    <p class="interestingIn__InfoUser-tittle">Mis intereses</p>
-
-    <p
-      class="interestingIn__InfoUser-preferences"
-      v-for="(item, index) in interest"
-      :key="index"
-    >
-      <i :class="item.icon"></i>
-      {{ item.name }}
-    </p>
+  <div class="interesti1ngIn">
+    <p class="interestingIn__tittle">Mis intereses</p>
+    <div class="interestingIn__preferences">
+      <div
+        class="interestingIn__preferences-item"
+        v-for="(item, index) in interest"
+        :key="index"
+      >
+        <i :class="item.icon"></i>
+        {{ item.name }}
+      </div>
+    </div>
   </div>
 </template>
 
 <style lang="scss">
 .interestingIn {
-  display: flex;
-  
-  &__InfoUser {
+  gap: 5px;
+  margin-top: 20px;
+
+  &__preferences {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+    font-size: 13px;
     gap: 5px;
-    margin-top: 20px;
-
-    &-preferences {
+    &-item {
+      border-radius: 100px;
+      padding: 5px;
       background-color: #e7dfdf;
-      font-size: 13px;
-      border-radius: 30px;
-      padding: 4px;
-      margin: 0%;
     }
-    &-tittle {
-      font-size: 10px;
-      color: $primary-color;
-    }
+  }
+  &__tittle {
+    font-size: 10px;
+    color: $primary-color;
   }
 }
 </style>

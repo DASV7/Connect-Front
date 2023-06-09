@@ -39,6 +39,8 @@ import connect from "./connect.vue";
   &__container {
     display: flex;
     justify-content: center;
+    overflow: hidden;
+    position: relative;
   }
 
   &__component {
