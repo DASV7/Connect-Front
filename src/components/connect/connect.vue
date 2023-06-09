@@ -3,6 +3,7 @@ import { ref } from "vue";
 import { Carousel, Slide } from "vue3-carousel";
 import "vue3-carousel/dist/carousel.css";
 import interestingIn from "../profile/interestingIn.vue";
+import Modal from "../shared/modal.vue";
 
 const closeSesion = () => {
   localStorage.clear();
@@ -54,6 +55,10 @@ const albumUser = [
     name: "https://thumbs.dreamstime.com/b/fairy-glen-autumn-valley-strange-stone-structures-isle-skye-scotland-84421989.jpg",
   },
 ];
+const showModal = ref(false);
+const changeModal = () => {
+  showModal.value = !showModal.value;
+};
 </script>
 <template>
   <div class="homeVinc">
@@ -72,14 +77,32 @@ const albumUser = [
             </div>
           </div>
         </div>
+        <div class="carousel__item" @click="changeModal()">
+          <img
+            class="carouserl__item-img"
+            src="https://cdn.wallpapersafari.com/16/10/Yylg4B.jpg"
+            alt="imgUser"
+          />
+        </div>
 
-        <Carousel v-bind="settings" :breakpoints="breakpoints">
-          <Slide v-for="img of imgsUser" :key="img">
-            <div class="carousel__item">
-              <img class="carouserl__item-img" :src="img" alt="imgUser" />
-            </div>
-          </Slide>
-        </Carousel>
+        <!-- Carousel -->
+        <Modal :showModal="true" @changeModal="changeModal()" v-if="showModal">
+          <template v-slot:content>
+            <Carousel
+              v-bind="settings"
+              :breakpoints="breakpoints"
+              v-if="showModal"
+            >
+              <Slide v-for="img of imgsUser" :key="img">
+                <div class="carousel__item">
+                  <img class="carouserl__item-img" :src="img" alt="imgUser" />
+                </div>
+              </Slide>
+            </Carousel>
+          </template>
+        </Modal>
+
+        <!-- Carousel -->
 
         <!-- Reason for interest-->
         <div class="information__user-p">
