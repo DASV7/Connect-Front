@@ -6,6 +6,7 @@ import connect from "./connect.vue";
   <div class="homeConnect">
     <div class="homeConnect__header">
       <p>Encuentros</p>
+      <img class="homeConnect__img" src="../../../public/svgLogoComplete.svg" alt="" srcset="">
       <div class="homeConnect__header-icons">
         <i class="fa fa-undo" aria-hidden="true"></i>
         <i class="fa fa-sliders" aria-hidden="true"></i>
@@ -22,6 +23,10 @@ import connect from "./connect.vue";
 
 <style lang="scss">
 .homeConnect {
+
+  &__img {
+    width: 90px;
+  }
   &__header {
     display: flex;
     justify-content: space-between;
