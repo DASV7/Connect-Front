@@ -52,7 +52,7 @@ onMounted(() => {});
       height: 73%;
       padding: 0%;
       background-color: #f9f9f9;
-      color: #886eea;
+      color: $primary-color;
       border: none;
       font-size: 20px;
     }
