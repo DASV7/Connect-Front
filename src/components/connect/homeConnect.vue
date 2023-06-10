@@ -16,6 +16,18 @@ const getListUsers = async () => {
 onMounted(() => {
   getListUsers();
 });
+
+const sendLike = async (id) => {
+  // const response = await axios.post(`/connect/like/${id}`);
+};
+
+const sendDislike = async (id) => {
+  // const response = await axios.post(`/connect/dislike/${id}`);
+};
+
+const sendMessage = async (id) => {
+  // const response = await axios.post(`/connect/message/${id}`);
+};
 </script>
 
 <template>
@@ -36,7 +48,13 @@ onMounted(() => {
 
     <div class="homeConnect__container">
       <div class="homeConnect__component">
-        <connect v-if="!isLoading" :user="users[2]" />
+        <connect
+          v-if="!isLoading"
+          :user="users[1]"
+          @like=""
+          @dislike=""
+          @message=""
+        />
       </div>
     </div>
   </div>

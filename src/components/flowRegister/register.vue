@@ -112,7 +112,7 @@
         </div>
         <div class="flowRegister__form-group" v-if="indexReg == 6">
           <input
-            type="password"
+            type="text"
             class="flowRegister__form-input"
             placeholder="Descripcion: Ejm..'Soy un estudiante Apasionado...'"
             v-model="userNew.description"
