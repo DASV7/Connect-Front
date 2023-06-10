@@ -1,7 +1,11 @@
 <template>
   <div class="loginConnect">
     <div class="loginConnect__containerTitle">
-      <img class="loginConnect__title" src="../../../public/svgLogoComplete.svg" alt="" >
+      <img
+        class="loginConnect__title"
+        src="../../../public/svgLogoComplete.svg"
+        alt=""
+      />
     </div>
 
     <div class="joinConnect">
@@ -27,10 +31,8 @@
           v-model="userData.password"
         />
       </div>
-      <div class="joinConnect__formJoin-btn">
-        <button @click="loginUser()" class="joinConnect__formJoin-btnSend">
-          Entrar
-        </button>
+      <div class="joinConnect__formJoin-btn" @click="loginUser()">
+        <button class="joinConnect__formJoin-btnSend">Entrar</button>
       </div>
     </div>
     <div class="joinConnect__types">
@@ -68,7 +70,7 @@ let userData = ref({
 const loginUser = async () => {
   const user = await axios
     .post("/usersmodule/login", userData.value)
-    .catch((error) => {      
+    .catch((error) => {
       Swal.fire({
         icon: "error",
         title: "Ocurrio un error",
@@ -76,7 +78,7 @@ const loginUser = async () => {
         showConfirmButton: false,
         timer: 2000,
       });
-    });    
+    });
   if (user.data.data.data) {
     Swal.fire({
       icon: "success",
