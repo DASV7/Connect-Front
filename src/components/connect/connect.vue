@@ -5,16 +5,14 @@ import "vue3-carousel/dist/carousel.css";
 import interestingIn from "../profile/interestingIn.vue";
 import Modal from "../shared/modal.vue";
 import { useRouter } from "vue-router";
-const router = useRouter();
+import { calculateAge } from "../../utils/calculateAge";
+import { interest } from "../../utils/sharedObjects";
 
-const closeSesion = () => {
-  localStorage.clear();
-  router.push("/");
-};
 const isLoading = ref(true);
 const userCard = ref(null);
 
 const props = defineProps(["user"]);
+const router = useRouter();
 
 onBeforeMount(() => {
   userCard.value = props.user;
@@ -26,7 +24,15 @@ const settings = {
   snapAlign: "center",
   infinity: true,
 };
-
+const hereFor = {
+  relationship: interest[0],
+  chat: interest[1],
+  contact: interest[2],
+};
+const closeSesion = () => {
+  localStorage.clear();
+  router.push("/");
+};
 const breakpoints = {
   700: {
     itemsToShow: 3.5,
@@ -37,6 +43,7 @@ const breakpoints = {
     snapAlign: "start",
   },
 };
+
 const buttonsActions = [
   { text: "Ignorar", icon: "fa fa-times-circle" },
   { text: "Mensaje", icon: "fa fa-paper-plane" },
@@ -63,7 +70,9 @@ const changeModal = () => {
           <div class="homeVinc__userInfo-user">
             <div class="homeVinc__userInfo-profile">
               <i class="fa-solid fa-user"></i>
-              <p class="homeVinc__userInfo-p">{{ userCard?.name }},21</p>
+              <p class="homeVinc__userInfo-p">
+                {{ userCard?.name }},{{ calculateAge(userCard?.birthday) }}
+              </p>
               <div class="homeVinc__userInfo.status"></div>
             </div>
             <div class="homeVinc__userInfo-interesting">
@@ -105,11 +114,13 @@ const changeModal = () => {
 
         <!-- Reason for interest-->
         <div class="information__user-p">
-          <p class="information__user-txt">USER esta aqui para...</p>
+          <p class="information__user-txt">
+            {{ userCard?.name.split(" ")[0] }} esta aqui para...
+          </p>
           <div class="information__state">
             <div class="flowRegister__interest">
-              <i class="fa-sharp fa-solid fa-heart-circle-check"></i>
-              <span> Quiero una relación</span>
+              <i :class="hereFor[userCard?.hereFor]?.icon"></i>
+              <span> {{ hereFor[userCard?.hereFor]?.text }}</span>
             </div>
           </div>
         </div>
@@ -125,7 +136,7 @@ const changeModal = () => {
         </div>
         <!-- Description-->
 
-        <interestingIn />
+        <interestingIn :hereFor="userCard" />
 
         <p class="information__InfoUser-tittle">
           Información de "Nombre usuario":

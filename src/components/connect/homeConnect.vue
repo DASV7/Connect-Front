@@ -36,7 +36,7 @@ onMounted(() => {
 
     <div class="homeConnect__container">
       <div class="homeConnect__component">
-        <connect v-if="!isLoading" :user="users[0]" />
+        <connect v-if="!isLoading" :user="users[2]" />
       </div>
     </div>
   </div>

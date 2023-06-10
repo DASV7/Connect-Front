@@ -32,7 +32,7 @@
           <div
             class="flowRegister__interest"
             :class="
-              val[index] == userNew.interesting
+              val[index] == userNew.hereFor
                 ? 'flowRegister__interest-active'
                 : ''
             "
@@ -110,6 +110,14 @@
             v-model="userNew.password"
           />
         </div>
+        <div class="flowRegister__form-group" v-if="indexReg == 6">
+          <input
+            type="password"
+            class="flowRegister__form-input"
+            placeholder="Descripcion: Ejm..'Soy un estudiante Apasionado...'"
+            v-model="userNew.description"
+          />
+        </div>
       </div>
       <div class="flowRegister__button">
         <button class="flowRegister__button-register" @click="nextvalue()">
@@ -135,7 +143,8 @@ let userNew = ref({
   biologicalSex: "",
   birthday: "",
   phone: "",
-  interesting: "",
+  hereFor: "",
+  description: "",
   city: "",
 });
 let indexReg = ref(0);
@@ -145,7 +154,7 @@ const percentage = computed(() => {
   return (100 / (goToGo.length - 1)) * indexReg.value;
 });
 const interestClick = (index) => {
-  userNew.value.interesting = val[index];
+  userNew.value.hereFor = val[index];
 };
 
 onMounted(() => {

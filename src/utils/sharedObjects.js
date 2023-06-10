@@ -1,3 +1,21 @@
+export const interest = [
+    {
+        text: "Quiero una relación",
+        icon: "fa-sharp fa-solid fa-heart-circle-check",
+        desciption: "Busco algo duradero. Nada de juegos.",
+    },
+    {
+        text: "Abierto a conocer",
+        icon: "fa-solid fa-comments",
+        desciption: "Estoy aqui para chatear y ver que pasa.",
+    },
+    {
+        text: "Para negocios",
+        icon: "fa-solid fa-briefcase",
+        desciption: "Quiero Tener contactos, que sean estrategicos",
+    },
+];
+
 export const goToGo = [
     {
         title:
@@ -28,10 +46,16 @@ export const goToGo = [
         info: ["photos"],
     },
     {
-        title: "Solo un paso mas. Elige una contraseña",
+        title: "Queda 2 paso mas. Elige una contraseña",
         description:
             "Asegurate de que sea unica. de almenos 8 Caracteres y que no la hayas usado en otro sitio.",
         info: ["password"],
+    },
+    {
+        title: "Queda el ultimo paso. Crea una descripción",
+        description:
+            "Dile al mundo la increible persona que eres.",
+        info: ["description"],
     },
 
     {
@@ -40,21 +64,3 @@ export const goToGo = [
             "Disfruta de la experiencia en la aplicacion,Has que sea un ambiente agradable para todos ",
     },
 ];
-
-export const interest = [
-    {
-      text: "Quiero una relación",
-      icon: "fa-sharp fa-solid fa-heart-circle-check",
-      desciption: "Busco algo duradero. Nada de juegos.",
-    },
-    {
-      text: "Abierto a conocer",
-      icon: "fa-solid fa-comments",
-      desciption: "Estoy aqui para chatear y ver que pasa.",
-    },
-    {
-      text: "Para negocios",
-      icon: "fa-solid fa-briefcase",
-      desciption: "Quiero Tener contactos, que sean estrategicos",
-    },
-  ];
