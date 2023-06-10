@@ -9,6 +9,7 @@ const users = ref([]);
 const getListUsers = async () => {
   isLoading.value = true;
   const response = await axios.post("/connect");
+  console.log(response);
   users.value = response.data;
   isLoading.value = false;
 };
@@ -17,17 +18,18 @@ onMounted(() => {
   getListUsers();
 });
 
+
 const sendLike = async (id) => {
   // const response = await axios.post(`/connect/like/${id}`);
-};
+}
 
 const sendDislike = async (id) => {
   // const response = await axios.post(`/connect/dislike/${id}`);
-};
+}
 
 const sendMessage = async (id) => {
   // const response = await axios.post(`/connect/message/${id}`);
-};
+}
 </script>
 
 <template>

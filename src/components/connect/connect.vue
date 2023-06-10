@@ -29,10 +29,7 @@ const hereFor = {
   chat: interest[1],
   contact: interest[2],
 };
-const closeSesion = () => {
-  localStorage.clear();
-  router.push("/");
-};
+
 const breakpoints = {
   700: {
     itemsToShow: 3.5,
@@ -173,9 +170,7 @@ const changeModal = () => {
           >
             <i class="homeVinc__buttonsAction-icon" :class="item.icon"></i>
           </button>
-          <button class="homeVinc__buttonsAction-button" @click="closeSesion()">
-            <i class="fa fa-sign-out" aria-hidden="true"></i>
-          </button>
+          
         </div>
         <!-- Buttons actions-->
       </div>
