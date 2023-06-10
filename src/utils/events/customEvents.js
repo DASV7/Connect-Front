@@ -1,17 +1,18 @@
 // Definir un objeto EventEmitter personalizado
-export class EventEmitter {
+import { useCounterStore } from "../../store/events.store";
+export default class EventEmitter {
     constructor() {
-        this.listeners = {};
+        window.eventsNoificarions ||= {};
     }
-
     on(event, callback) {
-        if (!this.listeners[event]) {
-            this.listeners[event] = [];
-        }
-        this.listeners[event].push(callback);
+        
+        window.eventsNoificarions[event] ||= []
+        window.eventsNoificarions[event].push(callback);
     }
     emit(event, data) {
-        const eventListeners = this.listeners[event];
+        console.log(event, data);
+        const eventListeners = window.eventsNoificarions[event];
+        console.log(eventListeners, data);
         if (eventListeners) {
             eventListeners.forEach(callback => {
                 callback(data);
