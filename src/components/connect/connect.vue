@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onBeforeMount } from "vue";
 import { Carousel, Slide } from "vue3-carousel";
 import "vue3-carousel/dist/carousel.css";
 import interestingIn from "../profile/interestingIn.vue";
@@ -11,12 +11,16 @@ const closeSesion = () => {
   localStorage.clear();
   router.push("/");
 };
+const isLoading = ref(true);
+const userCard = ref(null);
 
-const imgsUser = [
-  "https://images.unsplash.com/photo-1526512340740-9217d0159da9?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dmVydGljYWx8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80",
-  "https://th.bing.com/th/id/OIP.kwVLESGkY1umyMj2JyQL5wHaNK?pid=ImgDet&rs=1",
-  "https://thumbs.dreamstime.com/b/fairy-glen-autumn-valley-strange-stone-structures-isle-skye-scotland-84421989.jpg",
-];
+const props = defineProps(["user"]);
+
+onBeforeMount(() => {
+  userCard.value = props.user;
+  isLoading.value = false;
+});
+
 const settings = {
   itemsToShow: 1,
   snapAlign: "center",
@@ -46,31 +50,20 @@ const preferencesUser = [
   { name: "Idioma", icon: "fa-solid fa-language" },
 ];
 
-const albumUser = [
-  {
-    name: "https://images.unsplash.com/photo-1526512340740-9217d0159da9?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dmVydGljYWx8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80",
-  },
-  {
-    name: " https://th.bing.com/th/id/OIP.kwVLESGkY1umyMj2JyQL5wHaNK?pid=ImgDet&rs=1",
-  },
-  {
-    name: "https://thumbs.dreamstime.com/b/fairy-glen-autumn-valley-strange-stone-structures-isle-skye-scotland-84421989.jpg",
-  },
-];
 const showModal = ref(false);
 const changeModal = () => {
   showModal.value = !showModal.value;
 };
 </script>
 <template>
-  <div class="homeVinc">
+  <div class="homeVinc" v-if="!isLoading">
     <div class="homeVinc__Container">
       <div class="">
         <div class="homeVinc__userInfo">
           <div class="homeVinc__userInfo-user">
             <div class="homeVinc__userInfo-profile">
               <i class="fa-solid fa-user"></i>
-              <p class="homeVinc__userInfo-p">Juliana Gorder,21</p>
+              <p class="homeVinc__userInfo-p">{{ userCard?.name }},21</p>
               <div class="homeVinc__userInfo.status"></div>
             </div>
             <div class="homeVinc__userInfo-interesting">
@@ -82,7 +75,7 @@ const changeModal = () => {
         <div class="carousel__item" @click="changeModal()">
           <img
             class="carouserl__item-img"
-            src="https://cdn.wallpapersafari.com/16/10/Yylg4B.jpg"
+            :src="userCard?.pictures[0].url"
             alt="imgUser"
           />
         </div>
@@ -95,9 +88,13 @@ const changeModal = () => {
               :breakpoints="breakpoints"
               v-if="showModal"
             >
-              <Slide v-for="img of imgsUser" :key="img">
+              <Slide v-for="img of userCard.pictures" :key="img">
                 <div class="carousel__item">
-                  <img class="carouserl__item-img" :src="img" alt="imgUser" />
+                  <img
+                    class="carouserl__item-img"
+                    :src="img.url"
+                    alt="imgUser"
+                  />
                 </div>
               </Slide>
             </Carousel>
@@ -147,8 +144,8 @@ const changeModal = () => {
             <div class="information__album-container">
               <img
                 class="information__album-img"
-                v-for="(item, index) in albumUser"
-                :src="item.name"
+                v-for="(item, index) of userCard?.pictures"
+                :src="item.url"
                 alt=""
                 :key="index"
               />

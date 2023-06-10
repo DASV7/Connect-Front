@@ -65,8 +65,13 @@
           />
         </div>
         <div class="flowRegister__pictureIcons" v-show="indexReg == 4">
-          <label class="flowRegister__picture" for="img"
-            ><i class="fa-solid fa-camera-retro"></i
+          <label class="flowRegister__picture" for="img">
+            <img
+              id="image"
+              src="#"
+              alt="Previsualizacion Imagen"
+              v-show="selectedFile[0]" />
+            <i class="fa-solid fa-camera-retro"></i
           ></label>
           <input
             v-show="false"
@@ -77,8 +82,15 @@
             placeholder="Img1"
             accept="image/*"
           />
-          <label class="flowRegister__picture" for="img2"
-            ><i class="fa-solid fa-camera-retro"></i
+          <label class="flowRegister__picture" for="img2">
+            <img
+              id="image1"
+              src="#"
+              alt="Previsualizacion Imagen"
+              class="flowRegister__picture"
+              v-show="selectedFile[1]" />
+
+            <i class="fa-solid fa-camera-retro"></i
           ></label>
           <input
             v-show="false"
@@ -141,8 +153,20 @@ onMounted(() => {
 });
 let selectedFile = ref([null, null]);
 const handleFileUpload = (event, index) => {
-  console.log("Selected file:", event.target.files[0]);
-  selectedFile.value[index] = event.target.files[0];
+  const file = event.target.files[0];
+  if (file) {
+    selectedFile.value[index] = file;
+
+    const value = "image" + (index ? index : "");
+    const previewImage = document.getElementById(value);
+
+    const reader = new FileReader();
+    reader.addEventListener("load", (event) => {
+      previewImage.src = event.target.result;
+    });
+
+    reader.readAsDataURL(file);
+  }
 };
 
 const createNewUser = async () => {
@@ -167,33 +191,36 @@ const createNewUser = async () => {
     });
 
     localStorage.setItem("vinc-jwt", user.data.data.data);
-    for (let index = 0; index < selectedFile.value.length; index++) {
-      const element = selectedFile.value[index];
-      let formData = new FormData();
-      formData.append("id", user.data.data.id);
-      formData.append("index", index);
-
-      formData.append("filename", element);
-      const postImg = await axios
-        .post("/usersModule/updloadpicture", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .catch((error) => {
-          Swal.fire({
-            icon: "error",
-            title: "Ocurrio un error",
-            text: "Correo o contraseña incorrectos",
-            showConfirmButton: false,
-            timer: 2000,
-          });
-        });
-    }
+    updaloadPictures(user);
     router.push("/home");
   }
 };
 
+const updaloadPictures = async (user) => {
+  for (let index = 0; index < selectedFile.value.length; index++) {
+    const element = selectedFile.value[index];
+    let formData = new FormData();
+    formData.append("id", user.data.data.id);
+    formData.append("index", index);
+
+    formData.append("filename", element);
+    await axios
+      .post("/usersModule/updloadpicture", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          title: "Ocurrio un error",
+          text: "Correo o contraseña incorrectos",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+      });
+  }
+};
 const nextvalue = async () => {
   if (indexReg.value < goToGo.length - 1) indexReg.value++;
   else createNewUser();
@@ -306,6 +333,16 @@ const prevtvalue = () => {
     height: 120px;
     border-radius: 10px;
     border: 1px solid gray;
+    overflow: hidden;
+    i {
+      position: absolute;
+      z-index: 10;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
   &__title {
     margin-bottom: 0;
