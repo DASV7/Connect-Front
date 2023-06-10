@@ -83,7 +83,7 @@ const changeModal = () => {
         </div>
         <div class="carousel__item" @click="changeModal()">
           <img
-            class="carouserl__item-img"
+            class="information__album-img"
             :src="userCard?.pictures[0].url"
             alt="imgUser"
           />
