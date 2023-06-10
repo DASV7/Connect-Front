@@ -142,10 +142,8 @@ let userNew = ref({
   password: "",
   biologicalSex: "",
   birthday: "",
-  phone: "",
   hereFor: "",
   description: "",
-  city: "",
 });
 let indexReg = ref(0);
 const val = ["relationship", "chat", "contact"];
@@ -231,12 +229,14 @@ const updaloadPictures = async (user) => {
   }
 };
 const nextvalue = async () => {
-  if (indexReg.value < goToGo.length - 1) indexReg.value++;
-  else createNewUser();
+  if (indexReg.value < goToGo.length - 1) {
+    if (userNew.value[goToGo[indexReg.value].info]) indexReg.value++;
+  } else createNewUser();
 };
 const prevtvalue = () => {
-  if (indexReg.value > 0) indexReg.value--;
-  else router.push({ path: "/" });
+  if (indexReg.value > 0) {
+    if (userNew.value[goToGo[indexReg.value].info]) indexReg.value--;
+  } else router.push({ path: "/" });
 };
 </script>
 <style lang="scss">

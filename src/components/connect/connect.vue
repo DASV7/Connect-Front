@@ -29,10 +29,7 @@ const hereFor = {
   chat: interest[1],
   contact: interest[2],
 };
-const closeSesion = () => {
-  localStorage.clear();
-  router.push("/");
-};
+
 const breakpoints = {
   700: {
     itemsToShow: 3.5,
@@ -83,8 +80,8 @@ const changeModal = () => {
         </div>
         <div class="carousel__item" @click="changeModal()">
           <img
-            class="information__album-img"
-            :src="userCard?.pictures[0].url"
+            class="carouserl__item-img"
+            :src="userCard?.pictures[0]?.url"
             alt="imgUser"
           />
         </div>
@@ -101,7 +98,7 @@ const changeModal = () => {
                 <div class="carousel__item">
                   <img
                     class="carouserl__item-img"
-                    :src="img.url"
+                    :src="img?.url"
                     alt="imgUser"
                   />
                 </div>
@@ -130,8 +127,7 @@ const changeModal = () => {
         <div class="information__description">
           <p class="information__description-txt">
             <i class="information__description-i">Sobre mi:</i> <br />
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi iste
-            fugiat tenetur.
+            {{ userCard?.description }}
           </p>
         </div>
         <!-- Description-->
@@ -156,7 +152,7 @@ const changeModal = () => {
               <img
                 class="information__album-img"
                 v-for="(item, index) of userCard?.pictures"
-                :src="item.url"
+                :src="item?.url"
                 alt=""
                 :key="index"
               />
@@ -173,9 +169,7 @@ const changeModal = () => {
           >
             <i class="homeVinc__buttonsAction-icon" :class="item.icon"></i>
           </button>
-          <button class="homeVinc__buttonsAction-button" @click="closeSesion()">
-            <i class="fa fa-sign-out" aria-hidden="true"></i>
-          </button>
+          
         </div>
         <!-- Buttons actions-->
       </div>
