@@ -4,10 +4,12 @@ import { Carousel, Slide } from "vue3-carousel";
 import "vue3-carousel/dist/carousel.css";
 import interestingIn from "../profile/interestingIn.vue";
 import Modal from "../shared/modal.vue";
+import { useRouter } from "vue-router";
+const router = useRouter();
 
 const closeSesion = () => {
   localStorage.clear();
-  this.$router.push("/");
+  router.push("/");
 };
 
 const imgsUser = [

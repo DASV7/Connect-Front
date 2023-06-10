@@ -6,7 +6,11 @@
   <div class="flowRegister">
     <div class="loginConnect__containerTitle">
       <!-- <h2 class="loginConnect__title">VINC</h2> -->
-      <img class="loginConnect__title" src="../../../public/svgLogoComplete.svg" alt="" >
+      <img
+        class="loginConnect__title"
+        src="../../../public/svgLogoComplete.svg"
+        alt=""
+      />
     </div>
     <div class="flowRegister__wrapper">
       <div class="flowRegister__containerTitle">
@@ -60,12 +64,13 @@
             v-model="userNew.email"
           />
         </div>
-        <div class="flowRegister__pictureIcons" v-if="indexReg == 4">
+        <div class="flowRegister__pictureIcons" v-show="indexReg == 4">
           <label class="flowRegister__picture" for="img"
             ><i class="fa-solid fa-camera-retro"></i
           ></label>
           <input
             v-show="false"
+            @change="handleFileUpload"
             type="file"
             id="img"
             class="flowRegister__form-input"
@@ -133,10 +138,22 @@ const interestClick = (index) => {
 onMounted(() => {
   userNew.value.biologicalSex = router.currentRoute.value.query.sex;
 });
+let selectedFile = ref(null);
+const handleFileUpload = (event) => {
+  console.log("Selected file:", event.target.files[0]);
+  selectedFile.value = event.target.files[0];
+};
 
 const createNewUser = async () => {
+  let formData = new FormData();
+  formData.append("id", "Holas");
+  formData.append("filename", selectedFile.value);
   const user = await axios
-    .post("/usersModule", userNew.value)
+    .post("/usersModule/updloadpicture", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
     .catch((error) => {
       Swal.fire({
         icon: "error",
@@ -145,18 +162,49 @@ const createNewUser = async () => {
         showConfirmButton: false,
         timer: 2000,
       });
-    });  
-  if (user.data.data.data) {
-    Swal.fire({
-      icon: "success",
-      title: "Bienvenido",
-      text: "¡Hola " + "nombre de usuarop" + "!",
-      showConfirmButton: false,
-      timer: 2000,
     });
-    localStorage.setItem("vinc-jwt", user.data.data.data);
-    router.push("/home");
-  }
+
+  // const user = await axios
+  //   .post("/usersModule", userNew.value)
+  //   .catch((error) => {
+  //     Swal.fire({
+  //       icon: "error",
+  //       title: "Ocurrio un error",
+  //       text: "Correo o contraseña incorrectos",
+  //       showConfirmButton: false,
+  //       timer: 2000,
+  //     });
+  //   });
+  // if (user.data.data.data) {
+  //   Swal.fire({
+  //     icon: "success",
+  //     title: "Bienvenido",
+  //     text: "¡Hola " + "nombre de usuarop" + "!",
+  //     showConfirmButton: false,
+  //     timer: 2000,
+  //   });
+
+  //   localStorage.setItem("vinc-jwt", user.data.data.data);
+  //   router.push("/home");
+
+  //   const img = document.getElementById("img");
+  //   const img2 = document.getElementById("img2");
+
+  //   const formData = new FormData();
+  //   formData.append("img", img.files[0]);
+  //   formData.append("img2", img2.files[0]);
+  //   const user = await axios
+  //     .post("/usersModule/updloadpicture", formData)
+  //     .catch((error) => {
+  //       Swal.fire({
+  //         icon: "error",
+  //         title: "Ocurrio un error",
+  //         text: "Correo o contraseña incorrectos",
+  //         showConfirmButton: false,
+  //         timer: 2000,
+  //       });
+  //     });
+  // }
 };
 
 const nextvalue = async () => {
