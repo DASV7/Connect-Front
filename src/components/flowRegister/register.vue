@@ -70,7 +70,7 @@
           ></label>
           <input
             v-show="false"
-            @change="handleFileUpload"
+            @change="handleFileUpload($event, 0)"
             type="file"
             id="img"
             class="flowRegister__form-input"
@@ -82,6 +82,7 @@
           ></label>
           <input
             v-show="false"
+            @change="handleFileUpload($event, 1)"
             id="img2"
             type="file"
             class="flowRegister__form-input"
@@ -138,22 +139,15 @@ const interestClick = (index) => {
 onMounted(() => {
   userNew.value.biologicalSex = router.currentRoute.value.query.sex;
 });
-let selectedFile = ref(null);
-const handleFileUpload = (event) => {
+let selectedFile = ref([null, null]);
+const handleFileUpload = (event, index) => {
   console.log("Selected file:", event.target.files[0]);
-  selectedFile.value = event.target.files[0];
+  selectedFile.value[index] = event.target.files[0];
 };
 
 const createNewUser = async () => {
-  let formData = new FormData();
-  formData.append("id", "Holas");
-  formData.append("filename", selectedFile.value);
   const user = await axios
-    .post("/usersModule/updloadpicture", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    })
+    .post("/usersModule", userNew.value)
     .catch((error) => {
       Swal.fire({
         icon: "error",
@@ -163,48 +157,41 @@ const createNewUser = async () => {
         timer: 2000,
       });
     });
+  if (user.data.data.data) {
+    Swal.fire({
+      icon: "success",
+      title: "Bienvenido",
+      text: "¡Hola " + "nombre de usuarop" + "!",
+      showConfirmButton: false,
+      timer: 2000,
+    });
 
-  // const user = await axios
-  //   .post("/usersModule", userNew.value)
-  //   .catch((error) => {
-  //     Swal.fire({
-  //       icon: "error",
-  //       title: "Ocurrio un error",
-  //       text: "Correo o contraseña incorrectos",
-  //       showConfirmButton: false,
-  //       timer: 2000,
-  //     });
-  //   });
-  // if (user.data.data.data) {
-  //   Swal.fire({
-  //     icon: "success",
-  //     title: "Bienvenido",
-  //     text: "¡Hola " + "nombre de usuarop" + "!",
-  //     showConfirmButton: false,
-  //     timer: 2000,
-  //   });
+    localStorage.setItem("vinc-jwt", user.data.data.data);
+    for (let index = 0; index < selectedFile.value.length; index++) {
+      const element = selectedFile.value[index];
+      let formData = new FormData();
+      formData.append("id", user.data.data.id);
+      formData.append("index", index);
 
-  //   localStorage.setItem("vinc-jwt", user.data.data.data);
-  //   router.push("/home");
-
-  //   const img = document.getElementById("img");
-  //   const img2 = document.getElementById("img2");
-
-  //   const formData = new FormData();
-  //   formData.append("img", img.files[0]);
-  //   formData.append("img2", img2.files[0]);
-  //   const user = await axios
-  //     .post("/usersModule/updloadpicture", formData)
-  //     .catch((error) => {
-  //       Swal.fire({
-  //         icon: "error",
-  //         title: "Ocurrio un error",
-  //         text: "Correo o contraseña incorrectos",
-  //         showConfirmButton: false,
-  //         timer: 2000,
-  //       });
-  //     });
-  // }
+      formData.append("filename", element);
+      const postImg = await axios
+        .post("/usersModule/updloadpicture", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .catch((error) => {
+          Swal.fire({
+            icon: "error",
+            title: "Ocurrio un error",
+            text: "Correo o contraseña incorrectos",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+        });
+    }
+    router.push("/home");
+  }
 };
 
 const nextvalue = async () => {
