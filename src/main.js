@@ -7,8 +7,8 @@ import { createPinia } from 'pinia'
 
 
 const app = createApp(App)
-const pinia = createPinia()   
-window.axios = axios
+
+const pinia = createPinia()
 app.use(router);
 app.use(pinia)
 
