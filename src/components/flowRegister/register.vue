@@ -230,12 +230,16 @@ const updaloadPictures = async (user) => {
 };
 const nextvalue = async () => {
   if (indexReg.value < goToGo.length - 1) {
-    if (userNew.value[goToGo[indexReg.value].info]) indexReg.value++;
+    if (
+      userNew.value[goToGo[indexReg.value].info] ||
+      goToGo[indexReg.value].info == "photos"
+    )
+      indexReg.value++;
   } else createNewUser();
 };
 const prevtvalue = () => {
   if (indexReg.value > 0) {
-    if (userNew.value[goToGo[indexReg.value].info]) indexReg.value--;
+    indexReg.value--;
   } else router.push({ path: "/" });
 };
 </script>

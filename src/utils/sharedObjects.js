@@ -28,7 +28,7 @@ export const goToGo = [
             "¡Ahora Cuentanos nombrePersona! Dile a las personas por qué estás aquí",
         description:
             "Sé honesto,asi los demas tambien haran lo mismo,puedes cabiar esto cuando quieras",
-        info: ["interesting"],
+        info: ["hereFor"],
     },
     {
         title: "¿Cual es tu fecha de nacimiento?",
