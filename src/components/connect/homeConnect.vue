@@ -2,7 +2,7 @@
 import connect from "./connect.vue";
 import axios from "../../api/axios";
 import { onMounted, ref } from "vue";
-
+import Modal from "../shared/modal.vue";
 const isLoading = ref(false);
 const users = ref([]);
 
@@ -29,6 +29,11 @@ const sendDislike = async (id) => {
 
 const sendMessage = async (id) => {
   // const response = await axios.post(`/connect/message/${id}`);
+}
+
+const showModal = ref(true);
+const changeModal = () => {
+  showModal.value = !showModal.value;
 }
 </script>
 
@@ -60,6 +65,13 @@ const sendMessage = async (id) => {
       </div>
     </div>
   </div>
+  <modal :showModal="true" @changeModal="changeModal()" v-if="showModal">
+    <template>
+      <div class="1">
+        <h1>HOla</h1>
+      </div>
+    </template>
+  </modal>
 </template>
 
 <style lang="scss">
