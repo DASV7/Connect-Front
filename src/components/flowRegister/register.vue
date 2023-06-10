@@ -141,11 +141,9 @@ let userNew = ref({
   email: "",
   password: "",
   biologicalSex: "",
-  birthday: "",
-  phone: "",
+  birthday: "",  
   hereFor: "",
-  description: "",
-  city: "",
+  description: "",  
 });
 let indexReg = ref(0);
 const val = ["relationship", "chat", "contact"];
