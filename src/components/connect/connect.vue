@@ -81,7 +81,7 @@ const changeModal = () => {
         <div class="carousel__item" @click="changeModal()">
           <img
             class="carouserl__item-img"
-            :src="userCard?.pictures[0].url"
+            :src="userCard?.pictures[0]?.url"
             alt="imgUser"
           />
         </div>
@@ -98,7 +98,7 @@ const changeModal = () => {
                 <div class="carousel__item">
                   <img
                     class="carouserl__item-img"
-                    :src="img.url"
+                    :src="img?.url"
                     alt="imgUser"
                   />
                 </div>
@@ -127,8 +127,7 @@ const changeModal = () => {
         <div class="information__description">
           <p class="information__description-txt">
             <i class="information__description-i">Sobre mi:</i> <br />
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi iste
-            fugiat tenetur.
+            {{ userCard?.description }}
           </p>
         </div>
         <!-- Description-->
@@ -153,7 +152,7 @@ const changeModal = () => {
               <img
                 class="information__album-img"
                 v-for="(item, index) of userCard?.pictures"
-                :src="item.url"
+                :src="item?.url"
                 alt=""
                 :key="index"
               />

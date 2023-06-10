@@ -52,7 +52,7 @@ const sendMessage = async (id) => {
       <div class="homeConnect__component">
         <connect
           v-if="!isLoading"
-          :user="users[1]"
+          :user="users[0]"
           @like=""
           @dislike=""
           @message=""
