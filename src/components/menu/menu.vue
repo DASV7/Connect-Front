@@ -40,7 +40,7 @@ onMounted(() => {});
   margin-top: 15px;
   left: -1px;
   border-top: 1px solid #000;
-  bottom: -16px;
+  bottom: -24px;
 
   &__container {
     width: 100%;

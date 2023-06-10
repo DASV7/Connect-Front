@@ -18,23 +18,22 @@ onMounted(() => {
   getListUsers();
 });
 
-
 const sendLike = async (id) => {
   // const response = await axios.post(`/connect/like/${id}`);
-}
+};
 
 const sendDislike = async (id) => {
   // const response = await axios.post(`/connect/dislike/${id}`);
-}
+};
 
 const sendMessage = async (id) => {
   // const response = await axios.post(`/connect/message/${id}`);
-}
+};
 
 const showModal = ref(true);
 const changeModal = () => {
   showModal.value = !showModal.value;
-}
+};
 </script>
 
 <template>
@@ -65,16 +64,12 @@ const changeModal = () => {
       </div>
     </div>
   </div>
-  <modal :showModal="true" @changeModal="changeModal()" v-if="showModal">
-    <template>
-      <div class="1">
-        <h1>HOla</h1>
-      </div>
-    </template>
-  </modal>
 </template>
 
 <style lang="scss">
+* {
+  font-family: sans-serif;
+}
 .homeConnect {
   &__img {
     width: 90px;

@@ -10,7 +10,7 @@ watchEffect(() => {
 });
 
 const routePermission = computed(() => {
-  const diferents = ["/", "/Register", "/JoinLogin"];
+  const diferents = ["/", "/Register", "/JoinLogin", "/preferences"];
   return !diferents.includes(fullPath.value.split("?")[0]);
 });
 </script>

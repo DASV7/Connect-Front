@@ -5,6 +5,7 @@ import home from "../components/connect/homeConnect.vue";
 import register from "../components/flowRegister/register.vue"
 import gps from "../components/gps/gps.vue";
 import profile from "../components/profile/profile.vue";
+import preferences from "../components/preferencesFlow/preferences.vue"
 
 
 const ifAuthenticated = (to, from, next) => {
@@ -59,6 +60,12 @@ const routes = [
     name: "profile",
     component: profile,
     beforeEnter: ifAuthenticated,
+  },
+  {
+    path: "/preferences",
+    name: "preferences",
+    component: preferences,
+    // beforeEnter: ifAuthenticated,
   },
   {
     path: '/:catchAll(.*)',
