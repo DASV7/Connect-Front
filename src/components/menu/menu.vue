@@ -1,33 +1,29 @@
-<template>
-  <div class="menu">
-    <div class="menu__container">
-      <button @click="$router.push('/messages')" class="menu__container-btn">
-        <i class="fa-solid fa-comment"></i>
-      </button>
-    </div>
-    <div class="menu__container">
-      <button @click="$router.push('/gps')" class="menu__container-btn">
-        <i class="fa-solid fa-location-dot"></i>
-      </button>
-    </div>
-    <div class="menu__container">
-      <button @click="$router.push('/home')" class="menu__container-btn">
-        <i class="fa-solid fa-barcode"></i>
-      </button>
-    </div>
-    <div class="menu__container">
-      <button @click="$router.push('/profile')" class="menu__container-btn">
-        <i class="fa-solid fa-user"></i>
-      </button>
-    </div>
-  </div>
-</template>
-
 <script setup>
 import { onMounted } from "vue";
 
 onMounted(() => {});
+
+const routers = [
+  { path: "/messages", icon: "fa-solid fa-comment" },
+  { path: "/gps", icon: "fa-solid fa-location-dot" },
+  { path: "/home", icon: "fa-solid fa-barcode" },
+  { path: "/profile", icon: "fa-solid fa-user" },
+];
 </script>
+
+<template>
+  <div class="menu">
+    <div
+      class="menu__container"
+      v-for="(router, index) in routers"
+      :key="index"
+    >
+      <button @click="$router.push(router.path)" class="menu__container-btn">
+        <i :class="router.icon"></i>
+      </button>
+    </div>
+  </div>
+</template>
 
 <style lang="scss">
 .menu {
@@ -35,12 +31,10 @@ onMounted(() => {});
   justify-content: space-between;
   z-index: 1;
   width: 100%;
-  height: 10%;
   position: fixed;
   margin-top: 15px;
-  left: -1px;
+  bottom: 0;
   border-top: 1px solid #000;
-  bottom: -16px;
 
   &__container {
     width: 100%;
@@ -49,8 +43,7 @@ onMounted(() => {});
       justify-content: center;
       align-items: center;
       width: 100%;
-      height: 73%;
-      padding: 0%;
+      height: 50px;
       background-color: #f9f9f9;
       color: $primary-color;
       border: none;
