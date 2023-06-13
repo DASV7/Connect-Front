@@ -19,10 +19,8 @@ onMounted(() => {
 });
 
 const sendLike = async (user) => {
-  isLoading.value = true;
-  console.log(index.value, users.value.length);
-  if (index.value < users.value.length) {
-    console.log(index.value);
+  isLoading.value = true;  
+  if (index.value < users.value.length) {    
     const response = await axios.post(`/connect/like/`, {
       userWhoLike: user._id,
     });
