@@ -1,9 +1,50 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import { VitePWA } from "vite-plugin-pwa";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+    vue(),
+    VitePWA({
+      base: "/",
+      includeAssets: ["favicon.svg", "favicon.ico", "robots.txt", "apple-touch-icon.png"],
+      manifest: {
+        name: "Desarrollador fullStack Jaime Ortiz",
+        short_name: "jaalorsa",
+        description:
+          "Desarrollador fullStack Jaime Ortiz, con experiencia en desarrollo web, usando NodeJs y VueJs.",
+        theme_color: "#ffffff",
+        background_color: "#ffffff",
+        orientation: "portrait",
+        lang: "es",
+        icons: [
+          {
+            src: "pwa-192x192.png",
+            sizes: "192x192",
+            type: "image/png",
+          },
+          {
+            src: "pwa-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+          },
+          {
+            src: "pwa-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "any maskable",
+          },
+        ],
+      },
+      workbox: {
+        cleanupOutdatedCaches: true,
+        clientsClaim: true,
+        sourcemap: true,
+      },
+    })
+
+  ],
   css: {
     preprocessorOptions: {
       scss: {
@@ -14,3 +55,5 @@ export default defineConfig({
     }
   }
 })
+
+

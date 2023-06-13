@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onBeforeMount } from "vue";
+import { ref, onBeforeMount, computed } from "vue";
 import { Carousel, Slide } from "vue3-carousel";
 import "vue3-carousel/dist/carousel.css";
 import interestingIn from "../profile/interestingIn.vue";
@@ -9,7 +9,6 @@ import { calculateAge } from "../../utils/calculateAge";
 import { interest } from "../../utils/sharedObjects";
 
 const isLoading = ref(true);
-const userCard = ref(null);
 
 const props = defineProps(["user"]);
 const router = useRouter();
@@ -40,6 +39,10 @@ const breakpoints = {
     snapAlign: "start",
   },
 };
+
+let userCard = computed(() => {
+  return props.user;
+});
 
 const buttonsActions = [
   { text: "Ignorar", icon: "fa fa-times-circle", action: "dislike" },
