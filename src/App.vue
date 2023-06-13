@@ -14,6 +14,7 @@ watchEffect(() => {
   fullPath.value = route.fullPath;
 });
 
+
 const EventUser = new EventEmittler();
 
 const userStore = useCounterStore();

@@ -1,15 +1,15 @@
 <script setup>
 import connect from "./connect.vue";
 import axios from "../../api/axios";
-import { onMounted, ref } from "vue";
-import Modal from "../shared/modal.vue";
+import { onMounted, ref, computed } from "vue";
+
 const isLoading = ref(false);
 const users = ref([]);
 
 const getListUsers = async () => {
   isLoading.value = true;
   const response = await axios.post("/connect");
-  users.value = response.data;
+  users.value = response.data.data;
   isLoading.value = false;
 };
 const index = ref(0);
@@ -19,10 +19,11 @@ onMounted(() => {
 });
 
 const sendLike = async (user) => {
-  isLoading.value = true;
-  // const response = await axios.post(`/connect/like/${id}`);
-  if (index.value <= users.value.length) {
-    console.log("Juliana esta gorda", user);
+  isLoading.value = true;  
+  if (index.value < users.value.length) {    
+    const response = await axios.post(`/connect/like/`, {
+      userWhoLike: user._id,
+    });
     index.value++;
   }
   isLoading.value = false;
@@ -31,11 +32,12 @@ const sendLike = async (user) => {
 const sendDislike = async (user) => {
   isLoading.value = true;
   if (index.value < users.value.length && index.value >= 0) {
-    console.log(index);
-    index.value--;
+    const response = await axios.post(`/connect/dislike`, {
+      userRejected: user._id,
+    });
+    index.value++;
   }
   isLoading.value = false;
-  // const response = await axios.post(`/connect/dislike/${id}`);
 };
 
 const sendMessage = async (user) => {
