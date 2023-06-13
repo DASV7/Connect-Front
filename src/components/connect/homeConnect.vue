@@ -9,30 +9,37 @@ const users = ref([]);
 const getListUsers = async () => {
   isLoading.value = true;
   const response = await axios.post("/connect");
-  console.log(response);
   users.value = response.data;
   isLoading.value = false;
 };
-
+const index = ref(0);
+const total = ref(users.value.length);
 onMounted(() => {
   getListUsers();
 });
 
-const sendLike = async (id) => {
+const sendLike = async (user) => {
+  isLoading.value = true;
   // const response = await axios.post(`/connect/like/${id}`);
+  if (index.value <= users.value.length) {
+    console.log("Juliana esta gorda", user);
+    index.value++;
+  }
+  isLoading.value = false;
 };
 
-const sendDislike = async (id) => {
+const sendDislike = async (user) => {
+  isLoading.value = true;
+  if (index.value < users.value.length && index.value >= 0) {
+    console.log(index);
+    index.value--;
+  }
+  isLoading.value = false;
   // const response = await axios.post(`/connect/dislike/${id}`);
 };
 
-const sendMessage = async (id) => {
+const sendMessage = async (user) => {
   // const response = await axios.post(`/connect/message/${id}`);
-};
-
-const showModal = ref(true);
-const changeModal = () => {
-  showModal.value = !showModal.value;
 };
 </script>
 
@@ -56,10 +63,10 @@ const changeModal = () => {
       <div class="homeConnect__component">
         <connect
           v-if="!isLoading"
-          :user="users[0]"
-          @like=""
-          @dislike=""
-          @message=""
+          :user="users[index]"
+          @like="sendLike($event)"
+          @dislike="sendDislike($event)"
+          @message="sendMessage($event)"
         />
       </div>
     </div>
@@ -72,16 +79,18 @@ const changeModal = () => {
 }
 .homeConnect {
   &__img {
-    width: 90px;
+    width: 98px;
+    position: relative;
+    left: -25px;
+    margin: 5px 0;
   }
   &__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 10px;
+    padding: 0 24px;
     font-size: 20px;
     font-weight: bold;
-    margin-top: -15px;
     &-icons {
       display: flex;
       gap: 10px;

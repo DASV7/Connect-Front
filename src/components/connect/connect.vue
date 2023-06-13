@@ -42,9 +42,9 @@ const breakpoints = {
 };
 
 const buttonsActions = [
-  { text: "Ignorar", icon: "fa fa-times-circle" },
-  { text: "Mensaje", icon: "fa fa-paper-plane" },
-  { text: "Like", icon: "fa fa-heart-o" },
+  { text: "Ignorar", icon: "fa fa-times-circle", action: "dislike" },
+  { text: "Mensaje", icon: "fa fa-paper-plane", action: "message" },
+  { text: "Like", icon: "fa fa-heart-o", action: "like" },
 ];
 const preferencesUser = [
   { name: "Soltero", icon: "fa-solid fa-heart" },
@@ -166,10 +166,10 @@ const changeModal = () => {
             class="homeVinc__buttonsAction-button"
             v-for="(item, index) of buttonsActions"
             :key="index"
+            @click="$emit(item.action, userCard)"
           >
             <i class="homeVinc__buttonsAction-icon" :class="item.icon"></i>
           </button>
-          
         </div>
         <!-- Buttons actions-->
       </div>
@@ -237,6 +237,7 @@ const changeModal = () => {
     }
     &-user {
       gap: 10px;
+      margin-top: 10px;
     }
     &-profile {
       display: flex;
