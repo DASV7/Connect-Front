@@ -5,6 +5,7 @@ import home from "../components/connect/homeConnect.vue";
 import register from "../components/flowRegister/register.vue"
 import gps from "../components/gps/gps.vue";
 import profile from "../components/profile/profile.vue";
+import whoLikesMe from "../components/likes/whoLikesMe.vue"
 
 
 const ifAuthenticated = (to, from, next) => {
@@ -52,6 +53,12 @@ const routes = [
     path: "/gps",
     name: "hogpsme",
     component: gps,
+    beforeEnter: ifAuthenticated,
+  },
+  {
+    path: "/likes",
+    name: "likes",
+    component: whoLikesMe,
     beforeEnter: ifAuthenticated,
   },
   {

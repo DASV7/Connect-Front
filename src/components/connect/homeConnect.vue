@@ -2,9 +2,12 @@
 import connect from "./connect.vue";
 import axios from "../../api/axios";
 import { onMounted, ref, computed } from "vue";
+import { useSocketStore } from '../../store/socketStore';
 
 const isLoading = ref(false);
 const users = ref([]);
+const socket = useSocketStore().socket;
+
 
 const getListUsers = async () => {
   isLoading.value = true;
@@ -14,9 +17,6 @@ const getListUsers = async () => {
 };
 const index = ref(0);
 const total = ref(users.value.length);
-onMounted(() => {
-  getListUsers();
-});
 
 const sendLike = async (user) => {
   isLoading.value = true;  
@@ -40,9 +40,13 @@ const sendDislike = async (user) => {
   isLoading.value = false;
 };
 
-const sendMessage = async (user) => {
-  // const response = await axios.post(`/connect/message/${id}`);
+const sendMessage = async (user) => {  
 };
+
+onMounted(() => {
+  getListUsers();
+  socket.emit('myEvent', { data: 'Hola desde Vue' })
+});
 </script>
 
 <template>
