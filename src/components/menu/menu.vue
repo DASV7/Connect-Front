@@ -5,7 +5,7 @@ onMounted(() => {});
 
 const routers = [
   { path: "/messages", icon: "fa-solid fa-comment" },
-  { path: "/gps", icon: "fa-solid fa-location-dot" },
+  { path: "/likes", icon: "fa fa-eye" },
   { path: "/home", icon: "fa-solid fa-barcode" },
   { path: "/profile", icon: "fa-solid fa-user" },
 ];

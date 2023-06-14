@@ -1,3 +1,119 @@
+<script setup>
+import { goToGo, interest } from "../../utils/sharedObjects";
+import { onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
+import { computed } from "@vue/reactivity";
+import axios from "../../api/axios";
+import Swal from "sweetalert2";
+const router = useRouter();
+
+let userNew = ref({
+  name: "",
+  email: "",
+  password: "",
+  biologicalSex: "",
+  birthday: "",
+  hereFor: "",
+  description: "",
+});
+let indexReg = ref(0);
+const val = ["relationship", "chat", "contact"];
+
+const percentage = computed(() => {
+  return (100 / (goToGo.length - 1)) * indexReg.value;
+});
+const interestClick = (index) => {
+  userNew.value.hereFor = val[index];
+};
+
+onMounted(() => {
+  userNew.value.biologicalSex = router.currentRoute.value.query.sex;
+});
+let selectedFile = ref([null, null]);
+const handleFileUpload = (event, index) => {
+  const file = event.target.files[0];
+  if (file) {
+    selectedFile.value[index] = file;
+
+    const value = "image" + (index ? index : "");
+    const previewImage = document.getElementById(value);
+
+    const reader = new FileReader();
+    reader.addEventListener("load", (event) => {
+      previewImage.src = event.target.result;
+    });
+
+    reader.readAsDataURL(file);
+  }
+};
+
+const createNewUser = async () => {
+  const user = await axios
+    .post("/usersModule", userNew.value)
+    .catch((error) => {
+      Swal.fire({
+        icon: "error",
+        title: "Ocurrio un error",
+        text: "Correo o contraseña incorrectos",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    });
+  if (user.data.data.data) {
+    Swal.fire({
+      icon: "success",
+      title: "Bienvenido",
+      text: "¡Hola " + "nombre de usuarop" + "!",
+      showConfirmButton: false,
+      timer: 2000,
+    });
+
+    localStorage.setItem("vinc-jwt", user.data.data.data);
+    updaloadPictures(user);
+    router.push("/home");
+  }
+};
+
+const updaloadPictures = async (user) => {
+  for (let index = 0; index < selectedFile.value.length; index++) {
+    const element = selectedFile.value[index];
+    let formData = new FormData();
+    formData.append("id", user.data.data.id);
+    formData.append("index", index);
+
+    formData.append("filename", element);
+    await axios
+      .post("/usersModule/updloadpicture", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          title: "Ocurrio un error",
+          text: "Correo o contraseña incorrectos",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+      });
+  }
+};
+const nextvalue = async () => {
+  if (indexReg.value < goToGo.length - 1) {
+    if (
+      userNew.value[goToGo[indexReg.value].info] ||
+      goToGo[indexReg.value].info == "photos"
+    )
+      indexReg.value++;
+  } else createNewUser();
+};
+const prevtvalue = () => {
+  if (indexReg.value > 0) {
+    indexReg.value--;
+  } else router.push({ path: "/" });
+};
+</script>
 <template>
   <div class="flowRegister__percentage" :style="`width: ${percentage}%`"></div>
   <div class="flowRegister__return" @click="prevtvalue()">
@@ -127,122 +243,7 @@
     </div>
   </div>
 </template>
-<script setup>
-import { goToGo, interest } from "../../utils/sharedObjects";
-import { onMounted, ref } from "vue";
-import { useRouter } from "vue-router";
-import { computed } from "@vue/reactivity";
-import axios from "../../api/axios";
-import Swal from "sweetalert2";
-const router = useRouter();
 
-let userNew = ref({
-  name: "",
-  email: "",
-  password: "",
-  biologicalSex: "",
-  birthday: "",
-  hereFor: "",
-  description: "",
-});
-let indexReg = ref(0);
-const val = ["relationship", "chat", "contact"];
-
-const percentage = computed(() => {
-  return (100 / (goToGo.length - 1)) * indexReg.value;
-});
-const interestClick = (index) => {
-  userNew.value.hereFor = val[index];
-};
-
-onMounted(() => {
-  userNew.value.biologicalSex = router.currentRoute.value.query.sex;
-});
-let selectedFile = ref([null, null]);
-const handleFileUpload = (event, index) => {
-  const file = event.target.files[0];
-  if (file) {
-    selectedFile.value[index] = file;
-
-    const value = "image" + (index ? index : "");
-    const previewImage = document.getElementById(value);
-
-    const reader = new FileReader();
-    reader.addEventListener("load", (event) => {
-      previewImage.src = event.target.result;
-    });
-
-    reader.readAsDataURL(file);
-  }
-};
-
-const createNewUser = async () => {
-  const user = await axios
-    .post("/usersModule", userNew.value)
-    .catch((error) => {
-      Swal.fire({
-        icon: "error",
-        title: "Ocurrio un error",
-        text: "Correo o contraseña incorrectos",
-        showConfirmButton: false,
-        timer: 2000,
-      });
-    });
-  if (user.data.data.data) {
-    Swal.fire({
-      icon: "success",
-      title: "Bienvenido",
-      text: "¡Hola " + "nombre de usuarop" + "!",
-      showConfirmButton: false,
-      timer: 2000,
-    });
-
-    localStorage.setItem("vinc-jwt", user.data.data.data);
-    updaloadPictures(user);
-    router.push("/home");
-  }
-};
-
-const updaloadPictures = async (user) => {
-  for (let index = 0; index < selectedFile.value.length; index++) {
-    const element = selectedFile.value[index];
-    let formData = new FormData();
-    formData.append("id", user.data.data.id);
-    formData.append("index", index);
-
-    formData.append("filename", element);
-    await axios
-      .post("/usersModule/updloadpicture", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .catch((error) => {
-        Swal.fire({
-          icon: "error",
-          title: "Ocurrio un error",
-          text: "Correo o contraseña incorrectos",
-          showConfirmButton: false,
-          timer: 2000,
-        });
-      });
-  }
-};
-const nextvalue = async () => {
-  if (indexReg.value < goToGo.length - 1) {
-    if (
-      userNew.value[goToGo[indexReg.value].info] ||
-      goToGo[indexReg.value].info == "photos"
-    )
-      indexReg.value++;
-  } else createNewUser();
-};
-const prevtvalue = () => {
-  if (indexReg.value > 0) {
-    indexReg.value--;
-  } else router.push({ path: "/" });
-};
-</script>
 <style lang="scss">
 .flowRegister {
   display: flex;

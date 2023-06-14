@@ -5,8 +5,8 @@ import home from "../components/connect/homeConnect.vue";
 import register from "../components/flowRegister/register.vue"
 import gps from "../components/gps/gps.vue";
 import profile from "../components/profile/profile.vue";
+import whoLikesMe from "../components/likes/whoLikesMe.vue"
 import preferences from "../components/preferencesFlow/preferences.vue"
-
 
 const ifAuthenticated = (to, from, next) => {
   if (!localStorage.getItem("vinc-jwt")) {
@@ -53,6 +53,12 @@ const routes = [
     path: "/gps",
     name: "hogpsme",
     component: gps,
+    beforeEnter: ifAuthenticated,
+  },
+  {
+    path: "/likes",
+    name: "likes",
+    component: whoLikesMe,
     beforeEnter: ifAuthenticated,
   },
   {
