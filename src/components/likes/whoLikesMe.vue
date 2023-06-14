@@ -57,7 +57,7 @@ onMounted(async () => {
     flex-direction: column;
     align-items: center;
     overflow: hidden;
-    border: 1px solid #000;
+    border: 1px solid #00000057;
     border-radius: 10px;
     width: 170px;
     height: 170px;
