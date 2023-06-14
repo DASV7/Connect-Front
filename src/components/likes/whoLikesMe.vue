@@ -57,9 +57,9 @@ onMounted(async () => {
     flex-direction: column;
     align-items: center;
     overflow: hidden;
-    border: 1px solid #00000057;
+    border: 1px solid rgba(0,0,0,.3411764706);
     border-radius: 10px;
-    width: 170px;
+    width: 162px;
     height: 170px;
     &-img {
       width: 100%;
