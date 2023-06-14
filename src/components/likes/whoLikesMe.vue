@@ -44,12 +44,12 @@ onMounted(async () => {
 
 <style lang="scss">
 .whoLikesMe {
-  padding: 20px;
+  padding: 10px;
 
   &__container {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 5px;
   }
 
   &__user {
@@ -59,11 +59,11 @@ onMounted(async () => {
     overflow: hidden;
     border: 1px solid rgba(0, 0, 0, 0.3411764706);
     border-radius: 10px;
-    width: 162px;
-    height: 170px;
+    width: 149px;
+    height: 159px;
     &-img {
       width: 100%;
-      height: 120px;
+      height: 110px;
     }
     &-name {
       max-width: 160px;
