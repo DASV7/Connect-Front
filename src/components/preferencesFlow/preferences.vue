@@ -1,5 +1,10 @@
 <template>
   <div class="preferens">
+    <div class="GoBack">
+      <button v-if="indexReg < 10 && indexReg >0" @click="nextView(true)" class="GoBack__btn">
+        <i class="fa-solid fa-arrow-left"></i>
+      </button>
+    </div>
     <div v-if="indexReg == 0" class="preferens__container">
       <div class="preferens__img">
         <img
@@ -39,15 +44,11 @@
           class="container__sexuality-buttons"
         >
           <button
-            @click="dataSexuality(item.text)"
+            @click="dataSexuality(item.sexuality)"
             class="container__sexuality-btn"
           >
-            {{ item.text }}
-            <i
-              :class="[
-                item.active ? 'fa-solid fa-circle' : 'fa-regular fa-circle',
-              ]"
-            ></i>
+            {{ item.sexuality }}
+            <div class="btn__circle"></div>
           </button>
         </div>
         <div class="container__sexuality-continue">
@@ -76,14 +77,203 @@
           @input="updateHeight"
         />
       </div>
-      
+      <p class="information__user-txt">Prefiero no decirlo</p>
+
       <div class="container__sexuality-continue">
+        <button @click="nextView()" class="container__sexuality-next">
+          Continuar
+        </button>
+      </div>
+    </div>
+    <div v-if="indexReg == 3" class="preferens__container">
+      <div class="preferens__img">
+        <img
+          class="preferens__img-link"
+          src="https://firebasestorage.googleapis.com/v0/b/connect-e76fc.appspot.com/o/icons%2F3262978.jpg?alt=media&token=0592dce1-6f60-474c-9f4a-94d53ca1c284"
+        />
+        <p class="preferens__img-p">¿Y tu situación sentimental?</p>
+      </div>
+
+      <div class="container__sexuality">
+        <div
+          v-for="(item, index) in btnTextsentimental"
+          :key="index"
+          class="container__sexuality-buttons"
+        >
+          <button
+            @click="dataSexuality(item.sentimentalStatus)"
+            class="container__sexuality-btn"
+          >
+            {{ item.sentimentalStatus }}
+            <i
+              :class="[
+                item.active ? 'fa-solid fa-circle' : 'fa-regular fa-circle',
+              ]"
+            ></i>
+          </button>
+        </div>
+        <div class="container__sexuality-continue">
           <button @click="nextView()" class="container__sexuality-next">
             Continuar
           </button>
         </div>
+      </div>
     </div>
-    <div></div>
+    <div v-if="indexReg == 4" class="preferens__container">
+      <div class="preferens__img">
+        <img
+          class="preferens__img-link"
+          src="https://firebasestorage.googleapis.com/v0/b/connect-e76fc.appspot.com/o/icons%2F2466249.jpg?alt=media&token=57fdb4ee-8650-4ccc-a841-d04ba7816556z"
+        />
+        <p class="preferens__img-p">¿Que nivel educativo tienes?</p>
+      </div>
+
+      <div class="container__sexuality">
+        <div
+          v-for="(item, index) in btnTextEducation"
+          :key="index"
+          class="container__sexuality-buttons"
+        >
+          <button
+            @click="dataSexuality(item.education)"
+            class="container__sexuality-btn"
+          >
+            {{ item.education }}
+            <i
+              :class="[
+                item.active ? 'fa-solid fa-circle' : 'fa-regular fa-circle',
+              ]"
+            ></i>
+          </button>
+        </div>
+        <div class="container__sexuality-continue">
+          <button @click="nextView()" class="container__sexuality-next">
+            Continuar
+          </button>
+        </div>
+      </div>
+    </div>
+    <div v-if="indexReg == 5" class="preferens__container">
+      <div class="preferens__img">
+        <img
+          class="preferens__img-link"
+          src="https://firebasestorage.googleapis.com/v0/b/connect-e76fc.appspot.com/o/icons%2F13239.jpg?alt=media&token=6ca137d1-2c45-4be1-b7e1-eb66794fb1a0"
+        />
+        <p class="preferens__img-p">¿Fumas?</p>
+      </div>
+
+      <div class="container__sexuality">
+        <div
+          v-for="(item, index) in btnTextSmoke"
+          :key="index"
+          class="container__sexuality-buttons"
+        >
+          <button
+            @click="dataSexuality(item.smokeDrink)"
+            class="container__sexuality-btn"
+          >
+            {{ item.smokeDrink }}
+            <i
+              :class="[
+                item.active ? 'fa-solid fa-circle' : 'fa-regular fa-circle',
+              ]"
+            ></i>
+          </button>
+        </div>
+        <div class="container__sexuality-continue">
+          <button @click="nextView()" class="container__sexuality-next">
+            Continuar
+          </button>
+        </div>
+      </div>
+    </div>
+    <div v-if="indexReg == 6" class="preferens__container">
+      <div class="preferens__img">
+        <img
+          class="preferens__img-link"
+          src="https://firebasestorage.googleapis.com/v0/b/connect-e76fc.appspot.com/o/icons%2F2466249.jpg?alt=media&token=57fdb4ee-8650-4ccc-a841-d04ba7816556z"
+        />
+        <p class="preferens__img-p">¿Que nivel educativo tienes?</p>
+      </div>
+
+      <div class="container__sexuality">
+        <div
+          v-for="(item, index) in btnTextEducation"
+          :key="index"
+          class="container__sexuality-buttons"
+        >
+          <button
+            @click="dataSexuality(item.education)"
+            class="container__sexuality-btn"
+          >
+            {{ item.education }}
+            <i
+              :class="[
+                item.active ? 'fa-solid fa-circle' : 'fa-regular fa-circle',
+              ]"
+            ></i>
+          </button>
+        </div>
+        <div class="container__sexuality-continue">
+          <button @click="nextView()" class="container__sexuality-next">
+            Continuar
+          </button>
+        </div>
+      </div>
+    </div>
+    <div v-if="indexReg == 7" class="preferens__container">
+      <div class="preferens__img">
+        <img
+          class="preferens__img-link"
+          src="https://firebasestorage.googleapis.com/v0/b/connect-e76fc.appspot.com/o/icons%2F7325788.jpg?alt=media&token=6886ee96-7e97-4302-a085-4dbc113b6cc3"
+        />
+        <p class="preferens__img-p">¿Tomas?</p>
+      </div>
+
+      <div class="container__sexuality">
+        <div
+          v-for="(item, index) in btnTextSmoke"
+          :key="index"
+          class="container__sexuality-buttons"
+        >
+          <button
+            @click="dataSexuality(item.smokeDrink)"
+            class="container__sexuality-btn"
+          >
+            {{ item.smokeDrink }}
+            <i
+              :class="[
+                item.active ? 'fa-solid fa-circle' : 'fa-regular fa-circle',
+              ]"
+            ></i>
+          </button>
+        </div>
+        <div class="container__sexuality-continue">
+          <button @click="nextView()" class="container__sexuality-next">
+            Continuar
+          </button>
+        </div>
+      </div>
+    </div>
+    <div v-if="indexReg == 8" class="preferens__container">
+      <div class="preferens__img">
+        <img
+          class="preferens__img-link"
+          src="https://firebasestorage.googleapis.com/v0/b/connect-e76fc.appspot.com/o/icons%2F3531361.jpg?alt=media&token=602a217f-ba0f-450c-beb8-7caf7955fe56"
+        />
+        <p class="preferens__img-p">Acabamos Ahora inicia tu busqueda</p>
+      </div>
+      <div class="container__sexuality">
+        <div class="container__sexuality-continue">
+          <button
+            @click="$router.push('/home')"
+            class="container__sexuality-next"
+          >
+            Finalizar
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -102,21 +292,49 @@ let userPreferences = ref({
 });
 
 let btnText = [
-  { text: "Hetero" },
-  { text: "Gay" },
-  { text: "Bisexual" },
-  { text: "Asexual" },
-  { text: "Lesbiana" },
-  { none: "Prefiero no decirlo" },
+  { sexuality: "Hetero" },
+  { sexuality: "Gay" },
+  { sexuality: "Bisexual" },
+  { sexuality: "Asexual" },
+  { sexuality: "Lesbiana" },
+  { sexuality: "Prefiero no decirlo" },
 ];
+
+let btnTextsentimental = [
+  { sentimentalStatus: "Soltero" },
+  { sentimentalStatus: "En relacion" },
+  { sentimentalStatus: "Es complicado" },
+  { sentimentalStatus: "Abierta" },
+  { sentimentalStatus: "Prefiero no decirlo" },
+];
+let btnTextEducation = [
+  { education: "Bachillerato" },
+  { education: "Titulo de posgrado" },
+  { education: "En la universidad" },
+  { education: "Titulo de pregrado" },
+  { education: "Prefiero no decirlo" },
+];
+let btnTextSmoke = [
+  { smokeDrink: "Si" },
+  { smokeDrink: "No" },
+  { smokeDrink: "A veces" },
+  { smokeDrink: "Nunca" },
+  { smokeDrink: "Prefiero no decirlo" },
+];
+
+let goBack = ref(false);
 
 function dataSexuality(text) {
   userPreferences.sexuality = text;
   userPreferences.active = true;
   console.log(userPreferences.sexuality);
 }
-function nextView() {
-  indexReg.value++;
+function nextView(i) {
+  if (i === undefined) {
+    indexReg.value++;
+    return;
+  }
+  indexReg.value--;
   console.log(indexReg.value);
 }
 </script>
@@ -125,6 +343,31 @@ function nextView() {
 * {
   font-family: sans-serif;
 }
+.btn__circle {
+  width: 13px;
+  height: 13px;
+  border: 1px solid #000;
+  border-radius: 100%;
+}
+.btn__circle:hover {
+  background-color: #000;
+}
+
+.GoBack {
+  position: absolute;
+  margin: 10px 0px 0px 10px;
+
+  &__btn {
+    border: none;
+    background-color: $primary-color;
+    width: 45px;
+    height: 30px;
+    text-align: center;
+    color: #fff;
+    border-radius: 30px;
+  }
+}
+
 .preferens {
   width: 100vw;
   height: 100vh;
@@ -140,10 +383,13 @@ function nextView() {
     height: 100%;
   }
   &__img {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
 
     &-link {
-      width: 100%;
+      width: 90%;
     }
     &-p {
       font-size: 20px;
