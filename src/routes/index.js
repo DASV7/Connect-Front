@@ -6,7 +6,7 @@ import register from "../components/flowRegister/register.vue"
 import gps from "../components/gps/gps.vue";
 import profile from "../components/profile/profile.vue";
 import whoLikesMe from "../components/likes/whoLikesMe.vue"
-
+import messages from "../components/messages/messages.vue"
 
 const ifAuthenticated = (to, from, next) => {
   if (!localStorage.getItem("vinc-jwt")) {
@@ -59,6 +59,12 @@ const routes = [
     path: "/likes",
     name: "likes",
     component: whoLikesMe,
+    beforeEnter: ifAuthenticated,
+  },
+  {
+    path: "/messages",
+    name: "messages",
+    component: messages,
     beforeEnter: ifAuthenticated,
   },
   {

@@ -7,8 +7,9 @@ import { useCounterStore } from "../../store/users";
 const myEmitter = new notifyEvents();
 const notification = ref(null);
 const userStore = useCounterStore();
-const user = ref(userStore.user);
+const user = ref(null);
 const widthPercentage = ref(100);
+
 
 const restarPorcentaje = (time, inter) => {
   let porcentaje = 100;
@@ -27,11 +28,10 @@ const restarPorcentaje = (time, inter) => {
 };
 
 onMounted(() => {
-  myEmitter.on("newNotification", (data) => {
-    console.log("Evento personalizado recibido:", data.notification);
+  myEmitter.on("newNotification", (data) => {  
+    
     notification.value = data.notification;
-    user.value = userStore.user;
-    console.log(userStore.user);
+    user.value = data.user;    
     restarPorcentaje(5000, 50);
     setTimeout(() => {
       notification.value = null;
@@ -44,7 +44,7 @@ onMounted(() => {
   <div class="alertNoti" v-if="notification">
     <div class="alertNoti__container">
       <div class="alertNoti__img">
-        <Avatar :user="userStore.user" />
+        <Avatar :user="user" />
       </div>
       <div class="alertNoti__noti">
         <p>{{ notification.title }}</p>

@@ -30,15 +30,16 @@ onMounted(() => {
       user: decodeToken,
     });
 
-  // setTimeout(() => {
-  //   console.log("Evento personalizadoEnviadp:");
-  //   EventUser.emit("newNotification", {
-  //     notification: {
-  //       title: "Bienvenido",
-  //       message: "Bienvenido a Vinc",
-  //     },
-  //   });
-  // }, 1000);
+  socket.on("connect/newLike", (data) => {
+    console.log("recibi el evento Melo ", data);
+    EventUser.emit("newNotification", {
+      notification: {
+        title: "Le gustas a alguien",
+        message: data.user.name + "",
+      },
+      user: data.user,
+    });
+  });
 });
 
 onUnmounted(() => {
