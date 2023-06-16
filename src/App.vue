@@ -8,7 +8,7 @@ import notifications from "./components/notifications/alertNotification.vue";
 import EventEmittler from "../src/utils/events/customEvents";
 import { useSocketStore } from "../src/store/socketStore";
 
-const socket = useSocketStore().socket;
+const socket = useSocketStore();
 const route = useRoute();
 const fullPath = ref(route.fullPath);
 
@@ -23,27 +23,27 @@ const routePermission = computed(() => {
   const diferents = ["/", "/Register", "/JoinLogin"];
   return !diferents.includes(fullPath.value.split("?")[0]);
 });
-onMounted(() => {
+onMounted(async () => {
   const decodeToken = jwt_decode(localStorage.getItem("vinc-jwt"));
-  if (decodeToken)
-    userStore.$patch({
-      user: decodeToken,
-    });
 
-  socket.on("connect/newLike", (data) => {
-    console.log("recibi el evento Melo ", data);
+  if (decodeToken) userStore.$patch({ user: decodeToken });
+  
+  socket.userConnected();
+
+  await socket.socket.on("connect/newLike", (user) => {
+        
     EventUser.emit("newNotification", {
       notification: {
         title: "Le gustas a alguien",
-        message: data.user.name + "",
+        message: user.name + "",
       },
-      user: data.user,
+      user: user,
     });
   });
 });
 
 onUnmounted(() => {
-  socket.disconnect();
+  socket.socket.disconnect();
 });
 </script>
 
