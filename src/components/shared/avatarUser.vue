@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from "@vue/reactivity";
 import { ref } from "vue";
-const props = defineProps(["user"]);
+const props = defineProps(["user", "size"]);
 const isLoading = ref(false);
 
 const isShow = computed(() => {
@@ -17,7 +17,11 @@ const avatar = () => {
 };
 </script>
 <template>
-  <div class="globalAvatar" v-if="props.user">
+  <div
+    class="globalAvatar"
+    v-if="props.user"
+    :style="`width: ${props.size}px; height: ${props.size}px`"
+  >
     <img
       :src="props.user.pictures[0].url"
       :alt="user?.name"
@@ -35,9 +39,7 @@ const avatar = () => {
   border-radius: 50%;
   overflow: hidden;
   background-color: #6c757d;
-  position: relative;
-  width: 50px;
-  height: 50px;
+  position: relative;  
   img {
     width: 100%;
     height: 100%;

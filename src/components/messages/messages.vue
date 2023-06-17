@@ -1,7 +1,18 @@
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import axios from "../../api/axios";
 import Swal from "sweetalert2";
+import avatarUser from "../shared/avatarUser.vue";
+import { useCounterStore } from "../../store/users.js";
+const users = ref([]);
+const usersStore = useCounterStore();
+const avatarUsers = ref({});
+const otherAvatar = (users) => {
+  return users.find((user) => {
+    const val = user._id != usersStore.user._id;
+    return val;
+  });
+};
 
 onMounted(async () => {
   const user = await axios.get("/messages/conversations").catch((error) => {
@@ -13,23 +24,32 @@ onMounted(async () => {
       timer: 2000,
     });
   });
-  console.log(user);
+  const response = user.data.data;
+  console.log(response);
+  users.value = response;
 });
 </script>
 <template>
-  <div class="messagesView">
+  <div class="messagesView" v-if="users.length">
     <div class="messagesView__container">
       <div
         class="messagesView__cardChat"
-        v-for="(message, index) in 10"
+        v-for="(user, index) in users"
         :key="index"
+        @click="$router.push(`/messages/${user._id}`)"
       >
-        <div class="messagesView__cardChat-img"></div>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-        <!-- <div class="messagesView__cardChat-info">
-          <div class="messagesView__cardChat-userName">Diego velez</div>
-          <div class="messagesView__cardChat-text">Hola, Soy un acosador dame tu alma </div>
-        </div> -->
+        <div class="messagesView__cardChat-img">
+          <avatarUser :user="otherAvatar(user.members)" :size="40" />
+        </div>
+
+        <div class="messagesView__cardChat-info">
+          <div class="messagesView__cardChat-userName">
+            {{ otherAvatar(user.members).name }}
+          </div>
+          <div class="messagesView__cardChat-text">
+            {{ otherAvatar(user.members).message || "Da el primer paso" }}
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -47,10 +67,12 @@ onMounted(async () => {
   }
 
   &__cardChat {
+    display: flex;
     border: 1px solid #5e5e5ec9;
     border-radius: 10px;
     padding: 10px;
     height: 40px;
+    min-width: 250px;
   }
 }
 </style>

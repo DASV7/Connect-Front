@@ -25,17 +25,14 @@ const routePermission = computed(() => {
 });
 onMounted(async () => {
   const decodeToken = jwt_decode(localStorage.getItem("vinc-jwt"));
-
   if (decodeToken) userStore.$patch({ user: decodeToken });
-  
   socket.userConnected();
-
   await socket.socket.on("connect/newLike", (user) => {
-        
     EventUser.emit("newNotification", {
       notification: {
         title: "Le gustas a alguien",
         message: user.name + "",
+        go: "/likes",
       },
       user: user,
     });
