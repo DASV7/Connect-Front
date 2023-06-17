@@ -8,7 +8,7 @@ const isShow = computed(() => {
   return false;
 });
 
-const returnPick = () => {    
+const returnPick = () => {
   return props.user.pictures.length > 0 ? props.user.pictures[0].url : "";
 };
 </script>
