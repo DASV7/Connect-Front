@@ -21,7 +21,7 @@ onMounted(async () => {
   const user = await axios.get("/messages?id=" + route.params.id).catch((error) => {
     Swal.fire({ icon: "error", title: "Ocurrio un error", text: "Error al solicitar los mensajes", showConfirmButton: false, timer: 2000 });
   });
-  
+
   const response = user.data.data;
   members.value = response.members;
   messagesUser.splice(messagesUser.length, 0, ...response.messages);
@@ -35,6 +35,7 @@ const filterMembers = (message) => {
   const filter = members.value.find((member) => member._id == message.sender);
   return filter;
 };
+
 const itsMe = (message) => {
   return message.sender == userSesion.user._id;
 };
