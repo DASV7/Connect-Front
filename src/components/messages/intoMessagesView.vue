@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, onBeforeUnmount, ref, getCurrentInstance, computed } from "vue";
+import { onMounted, onBeforeUnmount, ref, getCurrentInstance, computed, reactive } from "vue";
 import axios from "../../api/axios";
 import avatarUser from "../shared/avatarUser.vue";
 import { useRoute } from "vue-router";
@@ -9,7 +9,7 @@ import messageCard from "./messageCard.vue";
 import { useSocketStore } from "../../store/socketStore";
 
 const message = ref("");
-let messagesUser = ref([]);
+let messagesUser = reactive([]);
 const route = useRoute();
 const userSesion = useCounterStore();
 const members = ref([]);
@@ -21,13 +21,14 @@ onMounted(async () => {
   const user = await axios.get("/messages?id=" + route.params.id).catch((error) => {
     Swal.fire({ icon: "error", title: "Ocurrio un error", text: "Error al solicitar los mensajes", showConfirmButton: false, timer: 2000 });
   });
+  
   const response = user.data.data;
   members.value = response.members;
-  messagesUser.value = response.messages;
+  messagesUser.splice(messagesUser.length, 0, ...response.messages);
 });
 
 socket.socket.on("messages/newMessage/", async (message) => {
-  messagesUser.value = [...messagesUser.value, message];
+  messagesUser.push(message);
 });
 
 const filterMembers = (message) => {
@@ -37,9 +38,7 @@ const filterMembers = (message) => {
 const itsMe = (message) => {
   return message.sender == userSesion.user._id;
 };
-const msg = computed(() => {
-  return messagesUser.value;
-});
+
 const newMessage = async () => {
   const user = await axios.post("/messages", { message: message.value, conversationId: route.params.id }).catch((error) => {
     Swal.fire({
@@ -51,7 +50,7 @@ const newMessage = async () => {
     });
   });
   message.value = "";
-  messagesUser.value.push(user.data.data);
+  messagesUser.splice(messagesUser.length, 0, user.data.data);
 };
 
 onBeforeUnmount(() => {
@@ -60,8 +59,8 @@ onBeforeUnmount(() => {
 </script>
 <template>
   <div class="intoMessages">
-    <div class="intoMessages__messages" v-if="bindRef">
-      <div class="intoMessages__messageItem" v-for="(message, index) of msg" :key="index">
+    <div class="intoMessages__messages">
+      <div class="intoMessages__messageItem" v-for="message in messagesUser" :key="message._id">
         <messageCard :message="message" :user="filterMembers(message)" :idx="itsMe(message)"></messageCard>
       </div>
     </div>
