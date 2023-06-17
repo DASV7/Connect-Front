@@ -59,7 +59,7 @@ const newMessage = async () => {
     </div>
     <div class="intoMessages__container">
       <input class="intoMessages__container-input" type="text" placeholder="Nuevo Mensaje " v-model="message" />
-      <button class="intoMessages__container-send" @click="newMessage">Enviar</button>
+      <button class="intoMessages__container-send" @click="newMessage"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
     </div>
   </div>
 </template>
