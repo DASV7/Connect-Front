@@ -126,7 +126,7 @@ const newMessage = async () => {
     }
 
     &-send:hover {
-      background-color: #0d8bff;
+      background-color: $primary-color;
     }
   }
 }
