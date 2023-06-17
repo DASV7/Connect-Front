@@ -47,6 +47,7 @@ const newMessage = async () => {
       timer: 2000,
     });
   });
+  message.value = "";
   messages.value.push(user.data.data);
 };
 </script>
