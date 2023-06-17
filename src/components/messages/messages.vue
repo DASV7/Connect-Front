@@ -25,29 +25,34 @@ onMounted(async () => {
     });
   });
   const response = user.data.data;
-  console.log(response);
   users.value = response;
 });
 </script>
 <template>
-  <div class="messagesView" v-if="users.length">
-    <div class="messagesView__container">
-      <div
-        class="messagesView__cardChat"
-        v-for="(user, index) in users"
-        :key="index"
-        @click="$router.push(`/messages/${user._id}`)"
-      >
-        <div class="messagesView__cardChat-img">
-          <avatarUser :user="otherAvatar(user.members)" :size="40" />
-        </div>
-
-        <div class="messagesView__cardChat-info">
-          <div class="messagesView__cardChat-userName">
-            {{ otherAvatar(user.members).name }}
+  <div class="">
+    <h3>Hoy sera un excelente día...</h3>
+    <div class="messagesView" v-if="users.length">
+      <div class="messagesView__container">
+        <div
+          class="messagesView__cardChat"
+          v-for="(user, index) in users"
+          :key="index"
+          @click="$router.push(`/messages/${user._id}`)"
+        >
+          <div class="messagesView__cardChat-img">
+            <avatarUser :user="otherAvatar(user.members)" :size="40" />
           </div>
-          <div class="messagesView__cardChat-text">
-            {{ otherAvatar(user.members).message || "Da el primer paso" }}
+
+          <div class="messagesView__cardChat-info">
+            <div class="messagesView__cardChat-userName">
+              {{ otherAvatar(user.members).name }}
+            </div>
+            <div class="messagesView__cardChat-text">
+              {{ otherAvatar(user.members).message || "Da el primer paso" }}
+            </div>
+          </div>
+          <div class="messagesView__cardChat-countMessages">
+            {{ otherAvatar(user.members).countMessages || 0 }}
           </div>
         </div>
       </div>
@@ -59,6 +64,7 @@ onMounted(async () => {
 .messagesView {
   display: flex;
   justify-content: center;
+  padding: 20px;
 
   &__container {
     display: flex;
@@ -68,11 +74,40 @@ onMounted(async () => {
 
   &__cardChat {
     display: flex;
-    border: 1px solid #5e5e5ec9;
+    justify-content: space-between;
+    align-self: center;
+    gap: 10px;
+    border-bottom: 1px solid #5e5e5ec9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
+    cursor: pointer;
     padding: 10px;
     height: 40px;
-    min-width: 250px;
+    width: 300px;
+
+    &-userName {
+      font-weight: bold;
+    }
+
+    &-text,
+    &-userName {
+      max-width: 250px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    &-countMessages {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 25px;
+      width: 25px;
+      text-align: center;
+      font-size: 12px;
+      background-color: $primary-color;
+      border-radius: 50%;
+    }
   }
 }
 </style>

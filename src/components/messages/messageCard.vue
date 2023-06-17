@@ -1,67 +1,44 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from "vue";
+import AvatarUser from "../shared/avatarUser.vue";
 
-const props = defineProps(["message", "idx", "media"]);
-const messages =  ref(this.message);
+const props = defineProps(["message", "idx", "media", "user"]);
 
-const yes=  "--dato:#f0f0f0; --raius:0 10px 10px 10px;"
-const  not = "--dato:rgba(189, 9, 9, 0.05); --raius:10px 0 10px 10px;"
-const  center=  "--dato:#d9fdd3; --raius:10px; --center:center;"
-const  options= { month: "2-digit", day: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit", hourCycle: "h12" }
+const yes = "--dato:#f0f0f0;  --raius:10px 0 10px 10px;";
+const not = "--dato:rgb(237 7 7 / 35%); --raius:0 10px 10px 10px;";
+const center = "--dato:#d9fdd3; --raius:10px; --center:center;";
 
-     const validPosition = () =>{
-       if (this.message?.type && this.message?.type !== "helpMessage") return this.center;
-       if (this.idx) return this.yes;
-       return this.not;
-     }
-     const validtype = () =>{
-       if (this.message?.type && this.message?.type !== "helpMessage") return "center";
-       if (this.idx) return "";
-       return "left";
-     }
-    const  validTextPisition = () =>{
-       if (this.message?.type && this.message?.type !== "helpMessage") return "messageDefault__content-date-center";
-       if (!this.idx) return "messageDefault__content-date-left";
-       return "";
-     }
-
- };
+onMounted(() => {});
+const validPosition = () => {
+  if (props.idx == "vincMessage") return center;
+  if (props.idx == true) return yes;
+  return not;
+};
+const validtype = () => {
+  if (props.idx) return "left";
+  return "";
+};
+const validTextPisition = () => {
+  if (props.idx == "vincMessage") return "messageDefault__content-date-center";
+  if (props.idx) return "messageDefault__content-date-left";
+  return "";
+};
 </script>
 <template>
-  <div class="messageDefault" :style="validPosition()" v-if="messages.idUser">
+  <div class="messageDefault" :style="validPosition()" v-if="props?.message?.sender">
     <div class="messageDefault__container" :class="validtype()">
-      <avatar
-        v-show="idx"
-        class="messageDefault__avatar"
-        :user="messages.idUser"
-      ></avatar>
+      <AvatarUser v-show="!props.idx" :user="props.user" :size="30"></AvatarUser>
       <div class="messageDefault__content">
         <p class="messageDefault__content-text">
-          {{ messages.description }}
-        </p>
-        <p
-          class="messageDefault__seeMedia"
-          v-if="message.files[0]"
-          @click="media(message.files)"
-        >
-          <iconic name="eye"></iconic>
-          Multimedia
+          {{ props.message.message }}
         </p>
       </div>
-      <avatar
-        v-show="!idx"
-        class="messageDefault__avatar"
-        :user="messages.idUser"
-      ></avatar>
+      <AvatarUser v-show="props.idx" class="messageDefault__avatar" :user="props.user" :size="30"></AvatarUser>
     </div>
     <div></div>
     <p :class="['messageDefault__content-date', validTextPisition()]">
-      <strong class="messageDefault__userName p">{{
-        messages.idUser.user
-      }}</strong>
-      <strong class="p2">{{
-        messages.date ? $global.dateLocaleFormat(messages.date, options) : ""
-      }}</strong>
+      <strong class="messageDefault__userName p">{{ props.user.name }}</strong>
+      <strong class="p2">{{ props.message.date }}</strong>
     </p>
   </div>
 </template>
@@ -71,6 +48,7 @@ const  options= { month: "2-digit", day: "2-digit", year: "numeric", hour: "2-di
   padding: 10px;
   border-radius: 5px;
   margin-bottom: 10px;
+
   &__container {
     display: flex;
     align-items: center;
