@@ -27,12 +27,7 @@ onMounted(async () => {
 });
 
 socket.socket.on("messages/newMessage/", async (message) => {
-  messagesUser.value.push(message);
-  bindRef.value = false;
-
-  setTimeout(() => {
-    bindRef.value = true;
-  }, 1000);
+  messagesUser.value = [...messagesUser.value, message];
 });
 
 const filterMembers = (message) => {
@@ -42,7 +37,9 @@ const filterMembers = (message) => {
 const itsMe = (message) => {
   return message.sender == userSesion.user._id;
 };
-
+const msg = computed(() => {
+  return messagesUser.value;
+});
 const newMessage = async () => {
   const user = await axios.post("/messages", { message: message.value, conversationId: route.params.id }).catch((error) => {
     Swal.fire({
@@ -64,7 +61,7 @@ onBeforeUnmount(() => {
 <template>
   <div class="intoMessages">
     <div class="intoMessages__messages" v-if="bindRef">
-      <div class="intoMessages__messageItem" v-for="(message, index) of messagesUser" :key="index">
+      <div class="intoMessages__messageItem" v-for="(message, index) of msg" :key="index">
         <messageCard :message="message" :user="filterMembers(message)" :idx="itsMe(message)"></messageCard>
       </div>
     </div>
