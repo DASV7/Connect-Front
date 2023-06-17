@@ -4,6 +4,7 @@
     <button class="homeVinc__buttonsAction-button" @click="closeSesion()">
       <i class="fa fa-sign-out" aria-hidden="true"></i>
     </button>
+    <button @click="$router.push('/editProfile')">EDIT PROFILE</button>
   </div>
 </template>
 

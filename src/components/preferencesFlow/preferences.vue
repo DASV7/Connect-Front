@@ -1,7 +1,11 @@
 <template>
   <div class="preferens">
     <div class="GoBack">
-      <button v-if="indexReg < 10 && indexReg >0" @click="nextView(true)" class="GoBack__btn">
+      <button
+        v-if="indexReg < 10 && indexReg > 0"
+        @click="nextView(true)"
+        class="GoBack__btn"
+      >
         <i class="fa-solid fa-arrow-left"></i>
       </button>
     </div>
@@ -29,28 +33,63 @@
         </div>
       </div>
     </div>
-    <div v-if="indexReg == 1" class="preferens__container">
+    <div class="preferens__container">
       <div class="preferens__img">
-        <img
-          class="preferens__img-link"
-          src="https://firebasestorage.googleapis.com/v0/b/connect-e76fc.appspot.com/o/icons%2Ffamilia%20.jpg?alt=media&token=af1efa09-1ec7-4dc8-b025-532942ceb69a&_gl=1*5zcs70*_ga*MTcyNzMzMzExNS4xNjg1ODkwODY2*_ga_CW55HF8NVT*MTY4NjY3MjQ4Ni4xNi4xLjE2ODY2NzI2NjkuMC4wLjA"
-        />
-        <p class="preferens__img-p">¿Cual es tu orientacion sexual?</p>
+        <img class="preferens__img-link" :src="imgViews[indexReg]" />
+        <p class="preferens__img-p">{{ titleViews[indexReg] }}</p>
       </div>
+      <!-- sexuality-->
       <div class="container__sexuality">
+        <div class="" v-if="indexReg == 1">
+          <div
+            v-for="(item, index) in btnText"
+            :key="index"
+            class="container__sexuality-buttons"
+          >
+            <button
+              @click="dataSexuality(item.sexuality)"
+              class="container__sexuality-btn"
+            >
+              {{ item.sexuality }}
+              <div class="btn__circle"></div>
+            </button>
+          </div>
+        </div>
+        <!-- sexuality-->
+
+        <!-- heigth -->
+        <div class="preferens__height" v-if="indexReg==2">
+          <p>{{ userPreferences.height }} cm</p>
+          <input
+            class="preferens__height-input"
+            type="range"
+            min="0"
+            max="200"
+            v-model="userPreferences.height"
+            @input="updateHeight"
+          />
+        </div>
+        <p class="information__user-txt">Prefiero no decirlo</p>
+        <!-- heigth -->
+
         <div
-          v-for="(item, index) in btnText"
+          v-for="(item, index) in btnTextsentimental"
           :key="index"
           class="container__sexuality-buttons"
         >
           <button
-            @click="dataSexuality(item.sexuality)"
+            @click="dataSexuality(item.sentimentalStatus)"
             class="container__sexuality-btn"
           >
-            {{ item.sexuality }}
-            <div class="btn__circle"></div>
+            {{ item.sentimentalStatus }}
+            <i
+              :class="[
+                item.active ? 'fa-solid fa-circle' : 'fa-regular fa-circle',
+              ]"
+            ></i>
           </button>
         </div>
+
         <div class="container__sexuality-continue">
           <button @click="nextView()" class="container__sexuality-next">
             Continuar
@@ -291,37 +330,56 @@ let userPreferences = ref({
   drink: "",
 });
 
+let imgViews = [
+  "https://firebasestorage.googleapis.com/v0/b/connect-e76fc.appspot.com/o/icons%2Ffamilia%20.jpg?alt=media&token=af1efa09-1ec7-4dc8-b025-532942ceb69a&_gl=1*5zcs70*_ga*MTcyNzMzMzExNS4xNjg1ODkwODY2*_ga_CW55HF8NVT*MTY4NjY3MjQ4Ni4xNi4xLjE2ODY2NzI2NjkuMC4wLjA",
+  "https://firebasestorage.googleapis.com/v0/b/connect-e76fc.appspot.com/o/icons%2F6242766.jpg?alt=media&token=668d5502-01b9-4186-bf11-5c6c9dc48007",
+  "https://firebasestorage.googleapis.com/v0/b/connect-e76fc.appspot.com/o/icons%2F3262978.jpg?alt=media&token=0592dce1-6f60-474c-9f4a-94d53ca1c284",
+  "https://firebasestorage.googleapis.com/v0/b/connect-e76fc.appspot.com/o/icons%2F2466249.jpg?alt=media&token=57fdb4ee-8650-4ccc-a841-d04ba7816556z",
+  "https://firebasestorage.googleapis.com/v0/b/connect-e76fc.appspot.com/o/icons%2F13239.jpg?alt=media&token=6ca137d1-2c45-4be1-b7e1-eb66794fb1a0",
+  "https://firebasestorage.googleapis.com/v0/b/connect-e76fc.appspot.com/o/icons%2F7325788.jpg?alt=media&token=6886ee96-7e97-4302-a085-4dbc113b6cc3",
+];
+
+let titleViews = [
+  "¿Cual es tu orientacion",
+  "¿Cuanto mides?",
+  "¿Y tu situacion sentimental?",
+  "¿Cual es tu nivel educativo?",
+  "¿Fumas?",
+  "¿Tomas?",
+];
+
 let btnText = [
-  { sexuality: "Hetero" },
-  { sexuality: "Gay" },
-  { sexuality: "Bisexual" },
-  { sexuality: "Asexual" },
-  { sexuality: "Lesbiana" },
-  { sexuality: "Prefiero no decirlo" },
+  { text: "Hetero" },
+  { text: "Gay" },
+  { text: "Bisexual" },
+  { text: "Asexual" },
+  { text: "Lesbiana" },
+  { text: "Prefiero no decirlo" },
 ];
 
 let btnTextsentimental = [
-  { sentimentalStatus: "Soltero" },
-  { sentimentalStatus: "En relacion" },
-  { sentimentalStatus: "Es complicado" },
-  { sentimentalStatus: "Abierta" },
-  { sentimentalStatus: "Prefiero no decirlo" },
+  { text: "Soltero" },
+  { text: "En relacion" },
+  { text: "Es complicado" },
+  { text: "Abierta" },
+  { text: "Prefiero no decirlo" },
 ];
 let btnTextEducation = [
-  { education: "Bachillerato" },
-  { education: "Titulo de posgrado" },
-  { education: "En la universidad" },
-  { education: "Titulo de pregrado" },
-  { education: "Prefiero no decirlo" },
+  { text: "Bachillerato" },
+  { text: "Titulo de posgrado" },
+  { text: "En la universidad" },
+  { text: "Titulo de pregrado" },
+  { text: "Prefiero no decirlo" },
 ];
 let btnTextSmoke = [
-  { smokeDrink: "Si" },
-  { smokeDrink: "No" },
-  { smokeDrink: "A veces" },
-  { smokeDrink: "Nunca" },
-  { smokeDrink: "Prefiero no decirlo" },
+  { text: "Si" },
+  { text: "No" },
+  { text: "A veces" },
+  { text: "Nunca" },
+  { text: "Prefiero no decirlo" },
 ];
 
+let allBtn = [btnText, btnTextsentimental, btnTextEducation, btnTextSmoke];
 let goBack = ref(false);
 
 function dataSexuality(text) {

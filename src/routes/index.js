@@ -7,6 +7,7 @@ import gps from "../components/gps/gps.vue";
 import profile from "../components/profile/profile.vue";
 import whoLikesMe from "../components/likes/whoLikesMe.vue"
 import preferences from "../components/preferencesFlow/preferences.vue"
+import editProfile from "../components/editProfile/editProfile.vue"
 
 const ifAuthenticated = (to, from, next) => {
   if (!localStorage.getItem("vinc-jwt")) {
@@ -66,6 +67,12 @@ const routes = [
     name: "profile",
     component: profile,
     beforeEnter: ifAuthenticated,
+  },
+  {
+    path: "/editProfile",
+    name: "editProfile",
+    component: editProfile,
+    // beforeEnter: ifAuthenticated,
   },
   {
     path: "/preferences",
