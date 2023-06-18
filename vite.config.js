@@ -8,7 +8,7 @@ export default defineConfig({
     vue(),
     VitePWA({
       base: "/",
-      includeAssets: ["favicon.svg", "favicon.ico", "robots.txt", "apple-touch-icon.png"],
+      
       manifest: {
         name: "Desarrollador fullStack Jaime Ortiz",
         short_name: "jaalorsa",
@@ -18,24 +18,7 @@ export default defineConfig({
         background_color: "#ffffff",
         orientation: "portrait",
         lang: "es",
-        icons: [
-          {
-            src: "pwa-192x192.png",
-            sizes: "192x192",
-            type: "image/png",
-          },
-          {
-            src: "pwa-512x512.png",
-            sizes: "512x512",
-            type: "image/png",
-          },
-          {
-            src: "pwa-512x512.png",
-            sizes: "512x512",
-            type: "image/png",
-            purpose: "any maskable",
-          },
-        ],
+
       },
       workbox: {
         cleanupOutdatedCaches: true,
@@ -57,3 +40,23 @@ export default defineConfig({
 })
 
 
+
+// includeAssets: ["favicon.svg", "favicon.ico", "robots.txt", "apple-touch-icon.png"],
+// icons: [
+//   {
+//     src: "pwa-192x192.png",
+//     sizes: "192x192",
+//     type: "image/png",
+//   },
+//   {
+//     src: "pwa-512x512.png",
+//     sizes: "512x512",
+//     type: "image/png",
+//   },
+//   {
+//     src: "pwa-512x512.png",
+//     sizes: "512x512",
+//     type: "image/png",
+//     purpose: "any maskable",
+//   },
+// ],
