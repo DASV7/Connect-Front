@@ -3,55 +3,60 @@ import notifyEvents from "../../utils/events/customEvents";
 import Avatar from "../shared/avatarUser.vue";
 import { ref, onMounted } from "vue";
 import { useCounterStore } from "../../store/users";
+import { useRoute } from "vue-router";
 
 const myEmitter = new notifyEvents();
 const notification = ref(null);
 const userStore = useCounterStore();
-const user = ref(userStore.user);
+const user = ref(null);
 const widthPercentage = ref(100);
+const route = useRoute();
 
 const restarPorcentaje = (time, inter) => {
   let porcentaje = 100;
   const duracion = time;
   const intervalo = inter;
   const paso = (porcentaje / duracion) * intervalo;
+
   const temporizador = setInterval(() => {
     porcentaje -= paso;
     porcentaje = Math.max(porcentaje, 0);
     widthPercentage.value = porcentaje;
-    if (porcentaje <= 0) {
-      clearInterval(temporizador);
-      console.log("¡Resta completada!");
-    }
+    if (porcentaje <= 0) clearInterval(temporizador);
   }, intervalo);
 };
+const goRoute = ref("");
 
 onMounted(() => {
   myEmitter.on("newNotification", (data) => {
-    console.log("Evento personalizado recibido:", data.notification);
-    notification.value = data.notification;
-    user.value = userStore.user;
-    console.log(userStore.user);
+    notification.value = data.notification;    
+    goRoute.value = data.notification.go;
+    user.value = data.user;
     restarPorcentaje(5000, 50);
     setTimeout(() => {
       notification.value = null;
-    }, 5000);
+    }, 3000);
   });
 });
 </script>
 
 <template>
   <div class="alertNoti" v-if="notification">
-    <div class="alertNoti__container">
-      <div class="alertNoti__img">
-        <Avatar :user="userStore.user" />
+    <RouterLink :to="goRoute">
+      <div class="alertNoti__container">
+        <div class="alertNoti__img">
+          <Avatar :user="user" size="40" />
+        </div>
+        <div class="alertNoti__noti">
+          <p>{{ notification.title }}</p>
+          <p>{{ notification.message }}</p>
+        </div>
       </div>
-      <div class="alertNoti__noti">
-        <p>{{ notification.title }}</p>
-        <p>{{ notification.message }}</p>
-      </div>
-    </div>
-    <div class="alertNoti__restar" :style="`width: ${widthPercentage}%`"></div>
+      <div
+        class="alertNoti__restar"
+        :style="`width: ${widthPercentage}%`"
+      ></div>
+    </RouterLink>
   </div>
 </template>
 

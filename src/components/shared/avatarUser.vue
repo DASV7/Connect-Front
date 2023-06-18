@@ -1,31 +1,21 @@
 <script setup>
-import { computed } from "@vue/reactivity";
-import { ref } from "vue";
-const props = defineProps(["user"]);
+import { ref, computed } from "vue";
+const props = defineProps(["user", "size"]);
 const isLoading = ref(false);
 
 const isShow = computed(() => {
-  if (!props.user?.pictures[0]) return true;
-  if (!isLoading.value) return true;
+  if (props.user?.pictures[0]?.url && isLoading.value) return true;
   return false;
 });
 
-const avatar = () => {
-  if (props.user.value && props.user.value?.name)
-    return props.user.value?.name?.substring(0, 1);
-  return "";
+const returnPick = () => {
+  return props.user.pictures.length > 0 ? props.user.pictures[0].url : "";
 };
 </script>
 <template>
-  <div class="globalAvatar" v-if="props.user">
-    <img
-      :src="props.user.pictures[0].url"
-      :alt="user?.name"
-      v-if="user?.pictures"
-      v-show="isLoading"
-      @load="isLoading = true"
-    />
-    <span v-if="isShow" fcenter>{{ avatar }}</span>
+  <div class="globalAvatar" v-if="props.user" :style="`width: ${props.size}px; height: ${props.size}px`">
+    <img :src="returnPick(props.user)" :alt="user?.name" v-show="isShow" @load="isLoading = true" />
+    <span v-if="!isShow" fcenter>{{ props.user?.name?.substring(0, 1) }}</span>
   </div>
 </template>
 
@@ -36,8 +26,8 @@ const avatar = () => {
   overflow: hidden;
   background-color: #6c757d;
   position: relative;
-  width: 50px;
-  height: 50px;
+
+  text-align: center;
   img {
     width: 100%;
     height: 100%;
@@ -45,8 +35,7 @@ const avatar = () => {
     animation: fadeIn 0.5s ease-in-out;
   }
   span {
-    width: 100%;
-    height: 100%;
+    font-weight: bold;
     color: white;
     text-transform: uppercase;
   }
