@@ -2,15 +2,15 @@ import { createWebHistory, createRouter } from "vue-router";
 import Login from "../components/login/Login.vue";
 import JoinLogin from "../components/login/JoinLogin.vue";
 import home from "../components/connect/homeConnect.vue";
-import register from "../components/flowRegister/register.vue"
+import register from "../components/flowRegister/register.vue";
 import gps from "../components/gps/gps.vue";
 import profile from "../components/profile/profile.vue";
-import whoLikesMe from "../components/likes/whoLikesMe.vue"
-import preferences from "../components/preferencesFlow/preferences.vue"
-import editProfile from "../components/editProfile/editProfile.vue"
+import whoLikesMe from "../components/likes/whoLikesMe.vue";
+import preferences from "../components/preferencesFlow/preferences.vue";
+import editProfile from "../components/editProfile/editProfile.vue";
 
-import messages from "../components/messages/messages.vue"
-import intoMessages from "../components/messages/intoMessagesView.vue"
+import messages from "../components/messages/messages.vue";
+import intoMessages from "../components/messages/intoMessagesView.vue";
 const ifAuthenticated = (to, from, next) => {
   if (!localStorage.getItem("vinc-jwt")) {
     next("/");
@@ -25,7 +25,6 @@ const ifIsAuthenticated = (to, from, next) => {
   }
   next();
 };
-
 
 const routes = [
   {
@@ -95,9 +94,9 @@ const routes = [
     // beforeEnter: ifAuthenticated,
   },
   {
-    path: '/:catchAll(.*)',
-    redirect: '/'
-  }
+    path: "/:catchAll(.*)",
+    redirect: "/",
+  },
 ];
 
 const router = createRouter({
