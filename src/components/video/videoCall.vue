@@ -9,7 +9,6 @@ const context = ref(null);
 
 const socketStore = useSocketStore();
 onMounted(() => {
-  // No es necesario esperar 500ms, ya que no estás haciendo ninguna animación
   canvas.value = document.querySelector("#preview");
   context.value = canvas.value.getContext("2d");
 
@@ -22,25 +21,30 @@ onMounted(() => {
   video.value = document.querySelector("#video");
 });
 
-const verVideo = (context) => {
-  context.drawImage(video.value, 0, 0, context.width, context.height);
-  socketStore.socket.emit("videoCall/streamVideoCall", canvas.value.toDataURL("image/webp"));
+const verVideo = () => {
+  // Dibuja el video en el canvas
+  context.value.drawImage(video.value, 0, 0, context.value.width, context.value.height);
+  // Emite el stream a través del socket
+  // socketStore.socket.emit("videoCall/streamVideoCall", canvas.value.toDataURL("image/webp"));
 };
 
 const loadCamera = function (stream) {
   video.value.srcObject = stream;
   textStatus.value = "Conecta";
+  // Inicia la transmisión de video
+  setInterval(verVideo, 10);
 };
 
 const loadCamerainfo = () => {
   navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
   if (navigator.getUserMedia) {
-    navigator.getUserMedia({ video: true }, (stream) => {
-      loadCamera(stream);
-      setInterval(() => {
-        verVideo(context.value);
-      }, 100);
-    }, errorCamara);
+    navigator.getUserMedia(
+      { video: true },
+      (stream) => {
+        loadCamera(stream);
+      },
+      errorCamara
+    );
   }
 };
 
@@ -93,7 +97,6 @@ const errorCamara = () => {
   }
 }
 </style>
-
 
 <!-- <script setup>
 import { onMounted, ref } from "vue";
