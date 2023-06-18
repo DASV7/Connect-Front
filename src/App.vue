@@ -8,7 +8,7 @@ import notifications from "./components/notifications/alertNotification.vue";
 import EventEmittler from "../src/utils/events/customEvents";
 import { useSocketStore } from "../src/store/socketStore";
 
-const socket = useSocketStore().socket;
+const socket = useSocketStore();
 const route = useRoute();
 const fullPath = ref(route.fullPath);
 
@@ -23,26 +23,24 @@ const routePermission = computed(() => {
   const diferents = ["/", "/Register", "/JoinLogin", "/preferences"];
   return !diferents.includes(fullPath.value.split("?")[0]);
 });
-onMounted(() => {
+onMounted(async () => {
   const decodeToken = jwt_decode(localStorage.getItem("vinc-jwt"));
-  if (decodeToken)
-    userStore.$patch({
-      user: decodeToken,
+  if (decodeToken) userStore.$patch({ user: decodeToken });
+  socket.userConnected();
+  await socket.socket.on("connect/newLike", (user) => {
+    EventUser.emit("newNotification", {
+      notification: {
+        title: "Le gustas a alguien",
+        message: user.name + "",
+        go: "/likes",
+      },
+      user: user,
     });
-
-  // setTimeout(() => {
-  //   console.log("Evento personalizadoEnviadp:");
-  //   EventUser.emit("newNotification", {
-  //     notification: {
-  //       title: "Bienvenido",
-  //       message: "Bienvenido a Vinc",
-  //     },
-  //   });
-  // }, 1000);
+  });
 });
 
 onUnmounted(() => {
-  socket.disconnect();
+  socket.socket.disconnect();
 });
 </script>
 
