@@ -8,12 +8,12 @@ export default defineConfig({
     vue(),
     VitePWA({
       base: "/",
-      
+
       manifest: {
-        name: "Desarrollador fullStack Jaime Ortiz",
-        short_name: "jaalorsa",
+        name: "Vinc",
+        short_name: "Vinc",
         description:
-          "Desarrollador fullStack Jaime Ortiz, con experiencia en desarrollo web, usando NodeJs y VueJs.",
+          "usando NodeJs y VueJs.",
         theme_color: "#ffffff",
         background_color: "#ffffff",
         orientation: "portrait",
