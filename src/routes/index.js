@@ -8,6 +8,8 @@ import profile from "../components/profile/profile.vue";
 import whoLikesMe from "../components/likes/whoLikesMe.vue"
 import messages from "../components/messages/messages.vue"
 import intoMessages from "../components/messages/intoMessagesView.vue"
+import videoCall from "../components/video/videoCall.vue"
+
 const ifAuthenticated = (to, from, next) => {
   if (!localStorage.getItem("vinc-jwt")) {
     next("/");
@@ -47,6 +49,12 @@ const routes = [
     path: "/home",
     name: "home",
     component: home,
+    beforeEnter: ifAuthenticated,
+  },
+  {
+    path: "/video",
+    name: "video",
+    component: videoCall,
     beforeEnter: ifAuthenticated,
   },
   {
