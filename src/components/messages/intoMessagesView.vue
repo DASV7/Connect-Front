@@ -26,6 +26,7 @@ onMounted(async () => {
   if (!response) return;
   members.value = response.members;
   messagesUser.splice(messagesUser.length, 0, ...response.messages);
+  setTimeout(() => goToBottom(), 100);
 });
 
 socket.socket.on("messages/newMessage/", async (message) => {
@@ -41,6 +42,11 @@ const itsMe = (message) => {
   return message.sender == userSesion.user._id;
 };
 
+const goToBottom = () => {
+  const element = document.getElementById("elemento-final");
+  element.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
+};
+
 const newMessage = async () => {
   const user = await axios.post("/messages", { message: message.value, conversationId: route.params.id }).catch((error) => {
     Swal.fire({
@@ -51,15 +57,10 @@ const newMessage = async () => {
       timer: 2000,
     });
   });
-  
+
   message.value = "";
   messagesUser.splice(messagesUser.length, 0, user.data.data);
-  goToBottom();
-};
-
-const goToBottom = () => {
-  const element = document.querySelector(".intoMessages__messages");
-  element.scrollTop = 0;
+  setTimeout(() => goToBottom(), 150);
 };
 
 onBeforeUnmount(() => {
@@ -72,6 +73,7 @@ onBeforeUnmount(() => {
       <div :id="index" class="intoMessages__messageItem" v-for="(message, index) in messagesUser" :key="message._id">
         <messageCard :message="message" :user="filterMembers(message)" :idx="itsMe(message)"></messageCard>
       </div>
+      <div id="elemento-final"></div>
     </div>
     <div class="intoMessages__container">
       <input class="intoMessages__container-input" type="text" placeholder="Nuevo Mensaje " v-model="message" />
