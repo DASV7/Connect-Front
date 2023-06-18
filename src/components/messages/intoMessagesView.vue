@@ -51,6 +51,7 @@ const newMessage = async () => {
       timer: 2000,
     });
   });
+  
   message.value = "";
   messagesUser.splice(messagesUser.length, 0, user.data.data);
   goToBottom();
