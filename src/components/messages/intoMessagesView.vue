@@ -23,6 +23,7 @@ onMounted(async () => {
   });
 
   const response = user.data.data;
+  if (!response) return;
   members.value = response.members;
   messagesUser.splice(messagesUser.length, 0, ...response.messages);
 });
@@ -52,6 +53,12 @@ const newMessage = async () => {
   });
   message.value = "";
   messagesUser.splice(messagesUser.length, 0, user.data.data);
+  goToBottom();
+};
+
+const goToBottom = () => {
+  const element = document.querySelector(".intoMessages__messages");
+  element.scrollTop = 0;
 };
 
 onBeforeUnmount(() => {
@@ -61,7 +68,7 @@ onBeforeUnmount(() => {
 <template>
   <div class="intoMessages">
     <div class="intoMessages__messages">
-      <div class="intoMessages__messageItem" v-for="message in messagesUser" :key="message._id">
+      <div :id="index" class="intoMessages__messageItem" v-for="(message, index) in messagesUser" :key="message._id">
         <messageCard :message="message" :user="filterMembers(message)" :idx="itsMe(message)"></messageCard>
       </div>
     </div>
@@ -75,6 +82,15 @@ onBeforeUnmount(() => {
 .intoMessages {
   height: 100vh;
   width: 100vw;
+
+  &__messageItem {
+  }
+
+  &__messages {
+    max-height: 85%;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
   &__container {
     display: flex;
     align-items: center;
