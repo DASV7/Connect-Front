@@ -9,6 +9,8 @@ import whoLikesMe from "../components/likes/whoLikesMe.vue"
 import preferences from "../components/preferencesFlow/preferences.vue"
 import editProfile from "../components/editProfile/editProfile.vue"
 
+import messages from "../components/messages/messages.vue"
+import intoMessages from "../components/messages/intoMessagesView.vue"
 const ifAuthenticated = (to, from, next) => {
   if (!localStorage.getItem("vinc-jwt")) {
     next("/");
@@ -60,6 +62,18 @@ const routes = [
     path: "/likes",
     name: "likes",
     component: whoLikesMe,
+    beforeEnter: ifAuthenticated,
+  },
+  {
+    path: "/messages",
+    name: "messages",
+    component: messages,
+    beforeEnter: ifAuthenticated,
+  },
+  {
+    path: "/messages/:id",
+    name: "message",
+    component: intoMessages,
     beforeEnter: ifAuthenticated,
   },
   {
