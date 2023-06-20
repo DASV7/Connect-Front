@@ -1,6 +1,7 @@
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 
+const activeRote = ref();
 onMounted(() => {});
 
 const routers = [
@@ -10,18 +11,21 @@ const routers = [
   { path: "/home", icon: "fa-solid fa-barcode" },
   { path: "/profile", icon: "fa-solid fa-user" },
 ];
+
+const goRouter = (index) => {
+  console.log("si entra");
+  activeRote.value = index;
+};
 </script>
 
 <template>
   <div class="menu">
-    <div
-      class="menu__container"
-      v-for="(router, index) in routers"
-      :key="index"
-    >
-      <button @click="$router.push(router.path)" class="menu__container-btn">
-        <i :class="router.icon"></i>
-      </button>
+    <div class="menu__container">
+      <div class="menu__items" v-for="(router, index) in routers" :key="index" :class="activeRote == index ? 'menu__container-btn-active' : ''">
+        <button @click="$router.push(router.path), goRouter(router.path)" class="menu__container-btn">
+          <i :class="router.icon"></i>
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -37,7 +41,13 @@ const routers = [
   bottom: 0;
   border-top: 1px solid #000;
 
+  &__items {
+    width: 100%;
+    display: flex;
+  }
+
   &__container {
+    display: flex;
     width: 100%;
     &-btn {
       display: flex;
@@ -49,6 +59,9 @@ const routers = [
       color: $primary-color;
       border: none;
       font-size: 20px;
+      &-active {
+        background-color: $primary-color;
+      }
     }
   }
 }

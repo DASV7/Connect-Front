@@ -2,12 +2,11 @@
 import connect from "./connect.vue";
 import axios from "../../api/axios";
 import { onMounted, ref, computed } from "vue";
-import { useSocketStore } from '../../store/socketStore';
+import { useSocketStore } from "../../store/socketStore";
 
 const isLoading = ref(false);
 const users = ref([]);
 const socket = useSocketStore().socket;
-
 
 const getListUsers = async () => {
   isLoading.value = true;
@@ -19,8 +18,8 @@ const index = ref(0);
 const total = ref(users.value.length);
 
 const sendLike = async (user) => {
-  isLoading.value = true;  
-  if (index.value < users.value.length) {    
+  isLoading.value = true;
+  if (index.value < users.value.length) {
     const response = await axios.post(`/connect/like/`, {
       userWhoLike: user._id,
     });
@@ -40,12 +39,11 @@ const sendDislike = async (user) => {
   isLoading.value = false;
 };
 
-const sendMessage = async (user) => {  
-};
+const sendMessage = async (user) => {};
 
 onMounted(() => {
   getListUsers();
-  socket.emit('myEvent', { data: 'Hola desde Vue' })
+  socket.emit("myEvent", { data: "Hola desde Vue" });
 });
 </script>
 
@@ -53,12 +51,7 @@ onMounted(() => {
   <div class="homeConnect">
     <div class="homeConnect__header">
       <p>Encuentros</p>
-      <img
-        class="homeConnect__img"
-        src="../../../public/svgLogoComplete.svg"
-        alt=""
-        srcset=""
-      />
+      <img class="homeConnect__img" src="../../../public/svgLogoComplete.svg" alt="" srcset="" />
       <div class="homeConnect__header-icons">
         <i class="fa fa-undo" aria-hidden="true"></i>
         <i class="fa fa-sliders" aria-hidden="true"></i>
@@ -67,13 +60,7 @@ onMounted(() => {
 
     <div class="homeConnect__container">
       <div class="homeConnect__component">
-        <connect
-          v-if="!isLoading"
-          :user="users[index]"
-          @like="sendLike($event)"
-          @dislike="sendDislike($event)"
-          @message="sendMessage($event)"
-        />
+        <connect v-if="!isLoading" :user="users[index]" @like="sendLike($event)" @dislike="sendDislike($event)" @message="sendMessage($event)" />
       </div>
     </div>
   </div>

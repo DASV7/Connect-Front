@@ -1,35 +1,19 @@
 <template>
   <div class="loginConnect">
     <div class="loginConnect__containerTitle">
-      <img
-        class="loginConnect__title"
-        src="../../../public/svgLogoComplete.svg"
-        alt=""
-      />
+      <img class="loginConnect__title" src="../../../public/svgLogoComplete.svg" alt="" />
     </div>
 
     <div class="joinConnect">
-      <h3 class="joinConnect__greeting">!Hola de nuevo¡</h3>
-      <p class="joinConnect__greeting-p">
-        Ingresa tu correo o numero de telefono
-      </p>
+      <h3 class="joinConnect__greeting">! Hola de regreso ¡</h3>
+      <p class="joinConnect__greeting-p">Ingresa tu correo o numero de telefono</p>
     </div>
     <div class="joinConnect__formJoin">
       <div class="joinConnect__formJoin-container">
-        <input
-          class="joinConnect__formJoin-input"
-          type="text"
-          placeholder="Correo o numero de celular"
-          v-model="userData.email"
-        />
+        <input class="joinConnect__formJoin-input" type="text" placeholder="Correo o numero de celular" v-model="userData.email" />
       </div>
       <div class="joinConnect__formJoin-container">
-        <input
-          class="joinConnect__formJoin-input"
-          type="password"
-          placeholder="Contraseña"
-          v-model="userData.password"
-        />
+        <input class="joinConnect__formJoin-input" type="password" placeholder="Contraseña" v-model="userData.password" @keypress.enter="loginUser()" />
       </div>
       <div class="joinConnect__formJoin-btn" @click="loginUser()">
         <button class="joinConnect__formJoin-btnSend">Entrar</button>
@@ -40,15 +24,12 @@
     </div>
     <div class="joinConnect__joinS">
       <div class="loginConnect__join-info">
-        <a class="loginConnect__join-link" @click="$router.push('/')"
-          >Continuar de otra forma</a
-        >
+        <a class="loginConnect__join-link" @click="$router.push('/')">Continuar de otra forma</a>
       </div>
       <div class="loginConnect__join-private">
         <p class="loginConnect__join-text">
           Al crear una cuenta aceptas nuestros
-          <a href="">Terminos y condiciones.</a> Averigua como usamos tu
-          informacion en nuestras <a href="">Politicas de privacidad</a>
+          <a href="">Terminos y condiciones.</a> Averigua como usamos tu informacion en nuestras <a href="">Politicas de privacidad</a>
         </p>
       </div>
     </div>
@@ -68,17 +49,15 @@ let userData = ref({
 });
 
 const loginUser = async () => {
-  const user = await axios
-    .post("/usersmodule/login", userData.value)
-    .catch((error) => {
-      Swal.fire({
-        icon: "error",
-        title: "Ocurrio un error",
-        text: "Correo o contraseña incorrectos",
-        showConfirmButton: false,
-        timer: 2000,
-      });
+  const user = await axios.post("/usersmodule/login", userData.value).catch((error) => {
+    Swal.fire({
+      icon: "error",
+      title: "Ocurrio un error",
+      text: "Correo o contraseña incorrectos",
+      showConfirmButton: false,
+      timer: 2000,
     });
+  });
   if (user.data.data.data) {
     Swal.fire({
       icon: "success",
@@ -118,7 +97,11 @@ const loginUser = async () => {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
+    width: 65%;
+
+    @include dynamicScreen(650px) {
+      width: 40%;
+    }
     height: 25%;
     gap: 5px;
 

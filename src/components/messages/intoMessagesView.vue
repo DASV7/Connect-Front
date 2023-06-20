@@ -85,6 +85,7 @@ onBeforeUnmount(() => {
 .intoMessages {
   height: 100vh;
   width: 100vw;
+  
 
   &__messageItem {
   }
@@ -94,6 +95,7 @@ onBeforeUnmount(() => {
     overflow-y: auto;
     overflow-x: hidden;
   }
+
   &__container {
     display: flex;
     align-items: center;
