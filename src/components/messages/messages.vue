@@ -29,16 +29,11 @@ onMounted(async () => {
 });
 </script>
 <template>
-  <div class="">
+  <div class="messagesView">
     <h3>Hoy sera un excelente día...</h3>
-    <div class="messagesView" v-if="users.length">
+    <div class="messagesView__wrapper" v-if="users.length">
       <div class="messagesView__container">
-        <div
-          class="messagesView__cardChat"
-          v-for="(user, index) in users"
-          :key="index"
-          @click="$router.push(`/messages/${user._id}`)"
-        >
+        <div class="messagesView__cardChat" v-for="(user, index) in users" :key="index" @click="$router.push(`/messages/${user._id}`)">
           <div class="messagesView__cardChat-img">
             <avatarUser :user="otherAvatar(user.members)" :size="40" />
           </div>
@@ -62,9 +57,17 @@ onMounted(async () => {
 
 <style lang="scss">
 .messagesView {
+  padding: 10px;
   display: flex;
   justify-content: center;
-  padding: 20px;
+  flex-direction: column;
+  align-items: center;
+
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+  }
 
   &__container {
     display: flex;

@@ -57,10 +57,11 @@ onMounted(() => {
         <i class="fa fa-sliders" aria-hidden="true"></i>
       </div>
     </div>
-
-    <div class="homeConnect__container">
-      <div class="homeConnect__component">
-        <connect v-if="!isLoading" :user="users[index]" @like="sendLike($event)" @dislike="sendDislike($event)" @message="sendMessage($event)" />
+    <div class="homeConnect__content">
+      <div class="homeConnect__container">
+        <div class="homeConnect__component">
+          <connect v-if="!isLoading" :user="users[index]" @like="sendLike($event)" @dislike="sendDislike($event)" @message="sendMessage($event)" />
+        </div>
       </div>
     </div>
   </div>
@@ -68,6 +69,14 @@ onMounted(() => {
 
 <style lang="scss">
 .homeConnect {
+  overflow: hidden;
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
   &__img {
     width: 98px;
     position: relative;
@@ -92,6 +101,10 @@ onMounted(() => {
     justify-content: center;
     overflow: hidden;
     position: relative;
+    overflow: hidden;
+    @include dynamicScreen(650px) {
+      width: 400px;
+    }
   }
 
   &__component {
