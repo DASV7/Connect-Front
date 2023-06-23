@@ -9,31 +9,40 @@ onMounted(async () => {
     usersLike.value = res.data;
   });
 });
+
+const sendLike = async (user) => {
+  const response = await axios.post(`/connect/like/`, {
+    userWhoLike: user._id,
+  });
+  const toDelete = usersLike.value.findIndex((item) => item._id == user._id);
+  usersLike.value.splice(toDelete, 1);
+};
+
+const sendRejected = async (user) => {
+  const response = await axios.post(`/connect/dislike`, {
+    userRejected: user._id,
+  });
+  const toDelete = usersLike.value.findIndex((item) => item._id == user._id);
+  usersLike.value.splice(toDelete, 1);
+};
 </script>
 <template>
   <div class="whoLikesMe">
     <div class="whoLikesMe__container">
-      <div
-        class="whoLikesMe__user"
-        v-for="(user, index) in usersLike"
-        :key="index"
-      >
+      <p>Si cobrasemos por ver quien te da like estariamos limitando Una posible relacion a futuro y el amor tiene que tener via libre</p>
+      <div class="whoLikesMe__user" v-for="(user, index) in usersLike" :key="index">
         <div class="whoLikesMe__user-img">
-          <img
-            class="whoLikesMe__user-img"
-            :src="user.pictures[0].url"
-            alt=""
-          />
+          <img class="whoLikesMe__user-img" :src="user.pictures[0].url" alt="" />
         </div>
         <p class="whoLikesMe__user-name">
           {{ user.name }}
         </p>
 
         <div class="whoLikesMe__user-actions">
-          <button class="whoLikesMe__user-btn">
+          <button class="whoLikesMe__user-btn" @click="sendRejected(user)">
             <i class="fa fa-times" aria-hidden="true"></i>
           </button>
-          <button class="whoLikesMe__user-btn">
+          <button @click="sendLike(user)" class="whoLikesMe__user-btn">
             <i class="fa fa-heart"></i>
           </button>
         </div>

@@ -67,7 +67,7 @@ $breakpoint: 768px;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 97vh;
+  height: 99vh;
   background-color: $secondary-color;
 
   &__content {

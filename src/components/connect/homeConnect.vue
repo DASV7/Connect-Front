@@ -59,8 +59,14 @@ onMounted(() => {
     </div>
     <div class="homeConnect__content">
       <div class="homeConnect__container">
-        <div class="homeConnect__component">
+        <div class="homeConnect__component" v-if="users[index]">
           <connect v-if="!isLoading" :user="users[index]" @like="sendLike($event)" @dislike="sendDislike($event)" @message="sendMessage($event)" />
+        </div>
+        <div class="homeConnect__notAvaliable" v-else>
+          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+          Wow vas muy rapido campeon, Vuelve en un momento
+
+          Se han acabado los usuarios registrados para ti Brothasdjiahsdhjaskd
         </div>
       </div>
     </div>
@@ -75,6 +81,25 @@ onMounted(() => {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    max-height: 91vh;
+  }
+
+  &__notAvaliable {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(128, 128, 128, 0.027);
+    height: 80vh;
+    border-radius: 5px;
+    text-align: center;
+    padding: 5px;
+    background-color: $primary-color;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 10, 0.2);
+    i {
+      font-size: 120px;
+    }
   }
 
   &__img {

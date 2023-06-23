@@ -180,13 +180,13 @@ const changeModal = () => {
   }
 
   &__buttonsAction {
-    position: fixed;
+    position: sticky;
     display: flex;
     justify-content: center;
     cursor: pointer;
     gap: 5px;
     z-index: 100;
-    bottom: 60px;
+    bottom: 95px;
     width: 100%;
 
     &-button {
