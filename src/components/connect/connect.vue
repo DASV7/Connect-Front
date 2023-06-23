@@ -345,6 +345,10 @@ const changeModal = () => {
   height: 100vh;
   overflow-x: hidden;
   overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  
 }
 
 .carousel * {
