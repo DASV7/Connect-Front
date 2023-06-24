@@ -13,7 +13,6 @@ const routers = [
 ];
 
 const goRouter = (index) => {
-  console.log("si entra");
   activeRote.value = index;
 };
 </script>
