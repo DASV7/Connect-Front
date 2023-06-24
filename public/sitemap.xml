@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <url>
+    <loc>https://vinculados.netlify.app/</loc>
+    <lastmod>2023-06-24</lastmod>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://vinculados.netlify.app/Register</loc>
+    <lastmod>2023-06-24</lastmod>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>http://localhost:5173/home</loc>
+    <lastmod>2023-06-24</lastmod>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://vinculados.netlify.app/messages</loc>
+    <lastmod>2023-06-24</lastmod>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://vinculados.netlify.app/likes</loc>
+    <lastmod>2023-06-24</lastmod>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://vinculados.netlify.app/video</loc>
+    <lastmod>2023-06-24</lastmod>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://vinculados.netlify.app/profile</loc>
+    <lastmod>2023-06-24</lastmod>
+    <priority>0.3</priority>
+  </url>
+
+</urlset>
