@@ -8,14 +8,15 @@ const users = ref([]);
 const usersStore = useCounterStore();
 const avatarUsers = ref({});
 const otherAvatar = (users) => {
-  const valor = users.find((user) => {    
-    const val = user._id != usersStore.user?._id;    
+  const valor = users.find((user) => {
+    const val = user._id != usersStore.user?._id;
     return val;
-  });  
+  });
   return valor;
 };
-
+const loading = ref(false);
 onMounted(async () => {
+  loading.value = true;
   const user = await axios.get("/messages/conversations").catch((error) => {
     Swal.fire({
       icon: "error",
@@ -25,12 +26,13 @@ onMounted(async () => {
       timer: 2000,
     });
   });
+  loading.value = false;
   const response = user.data.data;
   users.value = response;
 });
 </script>
 <template>
-  <div class="messagesView">
+  <div class="messagesView" v-if="!loading">
     <h3>Hoy sera un excelente día...</h3>
     <div class="messagesView__wrapper" v-if="users.length">
       <div class="messagesView__container">
