@@ -8,10 +8,11 @@ const users = ref([]);
 const usersStore = useCounterStore();
 const avatarUsers = ref({});
 const otherAvatar = (users) => {
-  return users.find((user) => {
-    const val = user._id != usersStore.user._id;
+  const valor = users.find((user) => {    
+    const val = user._id != usersStore.user?._id;    
     return val;
-  });
+  });  
+  return valor;
 };
 
 onMounted(async () => {
