@@ -56,14 +56,41 @@ const preferencesUser = [
   { name: "Gato(s)", icon: "fa-solid fa-paw" },
   { name: "Idioma", icon: "fa-solid fa-language" },
 ];
-
+let startTouch = ref(null);
+let touchEndX = ref(null);
 const showModal = ref(false);
+const touchCurrentX = ref(null);
 const changeModal = () => {
   showModal.value = !showModal.value;
 };
+
+const touchStart = (event) => {
+  startTouch.value = event.touches[0].clientX;
+};
+
+const touchMove = (event) => {
+  touchCurrentX.value = event.touches[0].clientX;
+  let touchDiff = touchCurrentX.value - startTouch.value;
+  const card = document.querySelector(".homeVinc");
+  card.style.transform = `translateX(${touchDiff + 20}px)`;
+};
+
+const handleTouchEnd = (event) => {
+  touchEndX.value = event.changedTouches[0].clientX;
+  let touchDiff = touchEndX.value - startTouch.value;
+  const card = document.querySelector(".homeVinc");
+
+  if (touchDiff > 100) {
+    card.classList.add("like");
+  } else if (touchDiff < -100) {
+    card.classList.add("dislike");
+  }
+
+  card.style.transform = "";
+};
 </script>
 <template>
-  <div class="homeVinc" v-if="!isLoading">
+  <div class="homeVinc" v-if="!isLoading" @touchstart="touchStart($event)" @touchmove="touchMove($event)" @touchend="handleTouchEnd($event)">
     <div class="homeVinc__Container">
       <div class="homeVinc__userInfo">
         <div class="homeVinc__userInfo-user">
@@ -153,10 +180,12 @@ const changeModal = () => {
   width: 100%;
   height: 100vh;
   position: relative;
+  overflow: hidden;
 
   &__Container {
     position: relative;
     overflow: hidden;
+    text-align: center;
     border-radius: 20px 20px 0 0;
     &::-webkit-scrollbar-thumb {
       height: 80px;
@@ -196,6 +225,10 @@ const changeModal = () => {
       height: 40px;
       width: 40px;
       border-radius: 50%;
+      cursor: pointer;
+      &:hover {
+        transform: scale(1.2);
+      }
     }
   }
   &__userInfo {
@@ -348,7 +381,6 @@ const changeModal = () => {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  
 }
 
 .carousel * {
@@ -368,10 +400,21 @@ const changeModal = () => {
 
     &-img {
       display: flex;
-      max-width: 500px;
-      max-width: 500px;
+      max-width: 97vw;
       height: 100%;
     }
   }
+}
+
+.like {
+  transform: translateX(200px);
+  background-color: #4caf50;
+}
+
+.dislike {
+  transform: translateX(-200px);
+  background-color: #ff1100;
+  color: #ffffff;
+  z-index: 100;
 }
 </style>

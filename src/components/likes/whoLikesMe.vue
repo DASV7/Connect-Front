@@ -1,13 +1,20 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import axios from "../../api/axios.js";
-
+import miniLoading from "../shared/miniLoading.vue";
 const usersLike = ref([]);
-
+const isLoading = ref(false);
 onMounted(async () => {
-  await axios.get("/viewlikes").then((res) => {
-    usersLike.value = res.data;
-  });
+  isLoading.value = true;
+  await axios
+    .get("/viewlikes")
+    .then((res) => {
+      usersLike.value = res.data;
+      isLoading.value = false;
+    })
+    .catch((error) => {
+      isLoading.value = false;
+    });
 });
 
 const sendLike = async (user) => {
@@ -28,8 +35,9 @@ const sendRejected = async (user) => {
 </script>
 <template>
   <div class="whoLikesMe">
+    <p>Si cobrasemos por ver quien te da like estariamos limitando Una posible relacion a futuro y el amor tiene que tener via libre</p>
     <div class="whoLikesMe__container">
-      <p>Si cobrasemos por ver quien te da like estariamos limitando Una posible relacion a futuro y el amor tiene que tener via libre</p>
+      <miniLoading v-if="isLoading"></miniLoading>
       <div class="whoLikesMe__user" v-for="(user, index) in usersLike" :key="index">
         <div class="whoLikesMe__user-img">
           <img class="whoLikesMe__user-img" :src="user.pictures[0].url" alt="" />

@@ -3,7 +3,7 @@ import connect from "./connect.vue";
 import axios from "../../api/axios";
 import { onMounted, ref, computed } from "vue";
 import { useSocketStore } from "../../store/socketStore";
-
+import miniLoading from "../shared/miniLoading.vue";
 const isLoading = ref(false);
 const users = ref([]);
 const socket = useSocketStore().socket;
@@ -62,12 +62,11 @@ onMounted(() => {
         <div class="homeConnect__component" v-if="users[index]">
           <connect v-if="!isLoading" :user="users[index]" @like="sendLike($event)" @dislike="sendDislike($event)" @message="sendMessage($event)" />
         </div>
-        <div class="homeConnect__notAvaliable" v-else>
+        <div class="homeConnect__notAvaliable" v-if="!users[index] && !isLoading">
           <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-          Wow vas muy rapido campeon, Vuelve en un momento
-
-          Se han acabado los usuarios registrados para ti Brothasdjiahsdhjaskd
+          Wow vas muy rapido campeon, Vuelve en un momento Se han acabado los usuarios registrados para ti Brothasdjiahsdhjaskd
         </div>
+        <miniLoading v-if="isLoading"></miniLoading>
       </div>
     </div>
   </div>

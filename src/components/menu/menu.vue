@@ -18,7 +18,7 @@ const goRouter = (index) => {
 </script>
 
 <template>
-  <div class="menu">
+  <nav class="menu">
     <div class="menu__container">
       <div class="menu__items" v-for="(router, index) in routers" :key="index" :class="activeRote == index ? 'menu__container-btn-active' : ''">
         <button @click="$router.push(router.path), goRouter(router.path)" class="menu__container-btn">
@@ -26,7 +26,7 @@ const goRouter = (index) => {
         </button>
       </div>
     </div>
-  </div>
+  </nav>
 </template>
 
 <style lang="scss">
@@ -38,29 +38,32 @@ const goRouter = (index) => {
   position: fixed;
   margin-top: 15px;
   bottom: 0;
-  border-top: 1px solid #000;
+  border-top: 1px solid #5050503f;
+}
 
-  &__items {
-    width: 100%;
-    display: flex;
-  }
+.menu__items {
+  width: 100%;
+  display: flex;
+}
 
-  &__container {
+.menu__container {
+  display: flex;
+  width: 100%;
+
+  &-btn {
     display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    &-btn {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      height: 50px;
-      background-color: #f9f9f9;
-      color: $primary-color;
-      border: none;
-      font-size: 20px;
-      &-active {
-        background-color: $primary-color;
-      }
+    height: 50px;
+    background-color: #f9f9f9;
+    color: $primary-color;
+    border: none;
+    font-size: 20px;
+
+    &-active {
+      background-color: $primary-color;
+      color: #fff;
     }
   }
 }
