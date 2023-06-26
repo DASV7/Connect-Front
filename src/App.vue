@@ -47,8 +47,8 @@ onUnmounted(() => {
 <template>
   <div class="mainApp"></div>
   <notifications></notifications>
-  <MenuHome v-if="routePermission"> </MenuHome>
   <router-view></router-view>
+  <MenuHome v-if="routePermission"> </MenuHome>
 </template>
 
 <style lang="scss"></style>

@@ -2,12 +2,11 @@
 import connect from "./connect.vue";
 import axios from "../../api/axios";
 import { onMounted, ref, computed } from "vue";
-import { useSocketStore } from '../../store/socketStore';
-
+import { useSocketStore } from "../../store/socketStore";
+import miniLoading from "../shared/miniLoading.vue";
 const isLoading = ref(false);
 const users = ref([]);
 const socket = useSocketStore().socket;
-
 
 const getListUsers = async () => {
   isLoading.value = true;
@@ -19,8 +18,8 @@ const index = ref(0);
 const total = ref(users.value.length);
 
 const sendLike = async (user) => {
-  isLoading.value = true;  
-  if (index.value < users.value.length) {    
+  isLoading.value = true;
+  if (index.value < users.value.length) {
     const response = await axios.post(`/connect/like/`, {
       userWhoLike: user._id,
     });
@@ -40,12 +39,11 @@ const sendDislike = async (user) => {
   isLoading.value = false;
 };
 
-const sendMessage = async (user) => {  
-};
+const sendMessage = async (user) => {};
 
 onMounted(() => {
   getListUsers();
-  socket.emit('myEvent', { data: 'Hola desde Vue' })
+  socket.emit("myEvent", { data: "Hola desde Vue" });
 });
 </script>
 
@@ -53,27 +51,22 @@ onMounted(() => {
   <div class="homeConnect">
     <div class="homeConnect__header">
       <p>Encuentros</p>
-      <img
-        class="homeConnect__img"
-        src="../../../public/svgLogoComplete.svg"
-        alt=""
-        srcset=""
-      />
+      <img class="homeConnect__img" src="../../../public/svgLogoComplete.svg" alt="" srcset="" />
       <div class="homeConnect__header-icons">
         <i class="fa fa-undo" aria-hidden="true"></i>
         <i class="fa fa-sliders" aria-hidden="true"></i>
       </div>
     </div>
-
-    <div class="homeConnect__container">
-      <div class="homeConnect__component">
-        <connect
-          v-if="!isLoading"
-          :user="users[index]"
-          @like="sendLike($event)"
-          @dislike="sendDislike($event)"
-          @message="sendMessage($event)"
-        />
+    <div class="homeConnect__content">
+      <div class="homeConnect__container">
+        <div class="homeConnect__component" v-if="users[index]">
+          <connect v-if="!isLoading" :user="users[index]" @like="sendLike($event)" @dislike="sendDislike($event)" @message="sendMessage($event)" />
+        </div>
+        <div class="homeConnect__notAvaliable" v-if="!users[index] && !isLoading">
+          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+          Wow vas muy rapido campeon, Vuelve en un momento Se han acabado los usuarios registrados para ti Brothasdjiahsdhjaskd
+        </div>
+        <miniLoading v-if="isLoading"></miniLoading>
       </div>
     </div>
   </div>
@@ -84,6 +77,33 @@ onMounted(() => {
   font-family: sans-serif;
 }
 .homeConnect {
+  overflow: hidden;
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-height: 91vh;
+  }
+
+  &__notAvaliable {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(128, 128, 128, 0.027);
+    height: 80vh;
+    border-radius: 5px;
+    text-align: center;
+    padding: 5px;
+    background-color: $primary-color;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 10, 0.2);
+    i {
+      font-size: 120px;
+    }
+  }
+
   &__img {
     width: 98px;
     position: relative;
@@ -108,6 +128,10 @@ onMounted(() => {
     justify-content: center;
     overflow: hidden;
     position: relative;
+    overflow: hidden;
+    @include dynamicScreen(650px) {
+      width: 400px;
+    }
   }
 
   &__component {

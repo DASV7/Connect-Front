@@ -1,61 +1,44 @@
 <template>
   <div class="loginConnect">
-    <div class="loginConnect__containerTitle">
-      <img
-        class="loginConnect__title"
-        src="../../../public/svgLogoComplete.svg"
-        alt=""
-      />
-    </div>
-    <p class="loginConnect__subtitle">Ingresa tu genero</p>
-    <div class="loginConnect__formContainer">
-      <div class="loginConnect__form-group">
-        <button
-          @click="goRegister('male')"
-          class="loginConnect__form-group__btn"
-        >
-          Hombre
-        </button>
+    <div class="loginConnect__content">
+      <div class="loginConnect__containerTitle">
+        <img class="loginConnect__title" src="../../../public/svgLogoComplete.svg" alt="" />
       </div>
-      <div class="loginConnect__form-group">
-        <button
-          @click="goRegister('female')"
-          class="loginConnect__form-group__btn"
-        >
-          Mujer
-        </button>
-      </div>
-    </div>
-
-    <div class="loginConnect__social">
-      <button class="loginConnect__social-facebook">
-        Iniciar Seccion Con facebook
-        <i class="fab fa-facebook-f"></i>
-      </button>
-
-      <button class="loginConnect__social-google">
-        Inicar Seccion Con Google
-        <i class="fab fa-google"></i>
-      </button>
-    </div>
-    <div class="loginConnect__politict">
-      <div class="loginConnect__politict-info">
-        <p class="loginConnect__politict-text">
-          Nunca compartiremos nada sin tu permiso
-        </p>
-      </div>
-      <div class="loginConnect__join">
-        <div class="loginConnect__join-info">
-          <a class="loginConnect__join-link" @click="$router.push('/JoinLogin')"
-            >Continuar de otra forma</a
-          >
+      <p class="loginConnect__subtitle">Ingresa tu genero</p>
+      <div class="loginConnect__formContainer">
+        <div class="loginConnect__form-group">
+          <button @click="goRegister('male')" class="loginConnect__form-group__btn">Hombre</button>
         </div>
-        <div class="loginConnect__join-private">
-          <p class="loginConnect__join-text">
-            Al crear una cuenta aceptas nuestros
-            <a href="">Terminos y condiciones.</a> Averigua como usamos tu
-            informacion en nuestras <a href="">Politicas de privacidad</a>
-          </p>
+        <div class="loginConnect__form-group">
+          <button @click="goRegister('female')" class="loginConnect__form-group__btn">Mujer</button>
+        </div>
+      </div>
+
+      <div class="loginConnect__social">
+        <button class="loginConnect__social-facebook">
+          Iniciar Seccion Con facebook
+          <i class="fab fa-facebook-f"></i>
+        </button>
+
+        <button class="loginConnect__social-google">
+          Inicar Seccion Con Google
+          <i class="fab fa-google"></i>
+        </button>
+      </div>
+      <div class="loginConnect__politict">
+        <div class="loginConnect__politict-info">
+          <p class="loginConnect__politict-text">Nunca compartiremos nada sin tu permiso</p>
+        </div>
+        <div class="loginConnect__join">
+          <div class="loginConnect__join-info">
+            <a class="loginConnect__join-link" @click="$router.push('/JoinLogin')">Continuar de otra forma</a>
+          </div>
+          <div class="loginConnect__join-private">
+            <p class="loginConnect__join-text">
+              Al crear una cuenta aceptas nuestros
+              <a href="">Terminos y condiciones.</a> Averigua como usamos tu informacion en nuestras <a href="">Politicas de privacidad</a>
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -84,10 +67,16 @@ $breakpoint: 768px;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 97vh;
+  height: 99vh;
   background-color: $secondary-color;
-  overflow: auto;
 
+  &__content {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
   &__containerTitle,
   &__formContainer,
   &__form-group,

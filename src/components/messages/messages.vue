@@ -8,13 +8,15 @@ const users = ref([]);
 const usersStore = useCounterStore();
 const avatarUsers = ref({});
 const otherAvatar = (users) => {
-  return users.find((user) => {
-    const val = user._id != usersStore.user._id;
+  const valor = users.find((user) => {
+    const val = user._id != usersStore.user?._id;
     return val;
   });
+  return valor;
 };
-
+const loading = ref(false);
 onMounted(async () => {
+  loading.value = true;
   const user = await axios.get("/messages/conversations").catch((error) => {
     Swal.fire({
       icon: "error",
@@ -24,21 +26,17 @@ onMounted(async () => {
       timer: 2000,
     });
   });
+  loading.value = false;
   const response = user.data.data;
   users.value = response;
 });
 </script>
 <template>
-  <div class="">
+  <div class="messagesView" v-if="!loading">
     <h3>Hoy sera un excelente día...</h3>
-    <div class="messagesView" v-if="users.length">
+    <div class="messagesView__wrapper" v-if="users.length">
       <div class="messagesView__container">
-        <div
-          class="messagesView__cardChat"
-          v-for="(user, index) in users"
-          :key="index"
-          @click="$router.push(`/messages/${user._id}`)"
-        >
+        <div class="messagesView__cardChat" v-for="(user, index) in users" :key="index" @click="$router.push(`/messages/${user._id}`)">
           <div class="messagesView__cardChat-img">
             <avatarUser :user="otherAvatar(user.members)" :size="40" />
           </div>
@@ -62,9 +60,17 @@ onMounted(async () => {
 
 <style lang="scss">
 .messagesView {
+  padding: 10px;
   display: flex;
   justify-content: center;
-  padding: 20px;
+  flex-direction: column;
+  align-items: center;
+
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+  }
 
   &__container {
     display: flex;

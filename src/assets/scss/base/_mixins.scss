@@ -1,38 +1,58 @@
 @mixin Flex($direction: row, $justify: center, $align: center) {
-    display: flex;
-    flex-direction: $direction;
-    justify-content: $justify;
-    align-items: $align;
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
 }
 
-
 @mixin Input() {
-    padding: 5px;
-    border-radius: 4px;
-    border: 1px solid $alto;
-    outline: none;
-    transition: border 500ms;
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid $alto;
+  outline: none;
+  transition: border 500ms;
 }
 
 @mixin Row($justify: center, $align: center) {
-    display: flex;
-    flex-direction: row;
-    justify-content: $justify;
-    align-items: $align;
+  display: flex;
+  flex-direction: row;
+  justify-content: $justify;
+  align-items: $align;
 }
 
-
 @mixin Column($justify: center, $align: center) {
-    display: flex;
-    flex-direction: column;
-    justify-content: $justify;
-    align-items: $align;
+  display: flex;
+  flex-direction: column;
+  justify-content: $justify;
+  align-items: $align;
 }
 
 @mixin Ellipsis($lines: 1) {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    line-clamp: $lines;
-    -webkit-line-clamp: $lines;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-clamp: $lines;
+  -webkit-line-clamp: $lines;
+}
+
+@mixin tabletScreen() {
+  @media screen and (min-width: 600px) {
+    @content;
   }
+}
+@mixin celScreen() {
+  @media screen and (min-width: 768px) {
+    @content;
+  }
+}
+@mixin computerScreen() {
+  @media screen and (min-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin dynamicScreen($size) {
+  @media screen and (min-width: $size) {
+    @content;
+  }
+}

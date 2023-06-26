@@ -56,126 +56,117 @@ const preferencesUser = [
   { name: "Gato(s)", icon: "fa-solid fa-paw" },
   { name: "Idioma", icon: "fa-solid fa-language" },
 ];
-
+let startTouch = ref(null);
+let touchEndX = ref(null);
 const showModal = ref(false);
+const touchCurrentX = ref(null);
 const changeModal = () => {
   showModal.value = !showModal.value;
 };
+
+const touchStart = (event) => {
+  startTouch.value = event.touches[0].clientX;
+};
+
+const touchMove = (event) => {
+  touchCurrentX.value = event.touches[0].clientX;
+  let touchDiff = touchCurrentX.value - startTouch.value;
+  const card = document.querySelector(".homeVinc");
+  card.style.transform = `translateX(${touchDiff + 20}px)`;
+};
+
+const handleTouchEnd = (event) => {
+  touchEndX.value = event.changedTouches[0].clientX;
+  let touchDiff = touchEndX.value - startTouch.value;
+  const card = document.querySelector(".homeVinc");
+
+  if (touchDiff > 100) {
+    card.classList.add("like");
+  } else if (touchDiff < -100) {
+    card.classList.add("dislike");
+  }
+
+  card.style.transform = "";
+};
 </script>
 <template>
-  <div class="homeVinc" v-if="!isLoading">
+  <div class="homeVinc" v-if="!isLoading" @touchstart="touchStart($event)" @touchmove="touchMove($event)" @touchend="handleTouchEnd($event)">
     <div class="homeVinc__Container">
-      <div class="">
-        <div class="homeVinc__userInfo">
-          <div class="homeVinc__userInfo-user">
-            <div class="homeVinc__userInfo-profile">
-              <i class="fa-solid fa-user"></i>
-              <p class="homeVinc__userInfo-p">
-                {{ userCard?.name }},{{ calculateAge(userCard?.birthday) }}
-              </p>
-              <div class="homeVinc__userInfo.status"></div>
-            </div>
-            <div class="homeVinc__userInfo-interesting">
-              <i class="fa fa-commenting-o"></i>
-              <p class="">Abierto a una relación</p>
-            </div>
+      <div class="homeVinc__userInfo">
+        <div class="homeVinc__userInfo-user">
+          <div class="homeVinc__userInfo-profile">
+            <i class="fa-solid fa-user"></i>
+            <p class="homeVinc__userInfo-p">{{ userCard?.name }},{{ calculateAge(userCard?.birthday) }}</p>
+            <div class="homeVinc__userInfo.status"></div>
+          </div>
+          <div class="homeVinc__userInfo-interesting">
+            <i class="fa fa-commenting-o"></i>
+            <p class="">Abierto a una relación</p>
           </div>
         </div>
-        <div class="carousel__item" @click="changeModal()">
-          <img
-            class="information__album-img"
-            :src="userCard?.pictures[0]?.url"
-            alt="imgUser"
-          />
-        </div>
-
-        <!-- Carousel -->
-        <Modal :showModal="true" @changeModal="changeModal()" v-if="showModal">
-          <template v-slot:content>
-            <Carousel
-              v-bind="settings"
-              :breakpoints="breakpoints"
-              v-if="showModal"
-            >
-              <Slide v-for="img of userCard.pictures" :key="img">
-                <div class="carousel__item">
-                  <img
-                    class="carouserl__item-img"
-                    :src="img?.url"
-                    alt="imgUser"
-                  />
-                </div>
-              </Slide>
-            </Carousel>
-          </template>
-        </Modal>
-
-        <!-- Carousel -->
-
-        <!-- Reason for interest-->
-        <div class="information__user-p">
-          <p class="information__user-txt">
-            {{ userCard?.name.split(" ")[0] }} esta aqui para...
-          </p>
-          <div class="information__state">
-            <div class="flowRegister__interest">
-              <i :class="hereFor[userCard?.hereFor]?.icon"></i>
-              <span> {{ hereFor[userCard?.hereFor]?.text }}</span>
-            </div>
-          </div>
-        </div>
-        <!-- Reason for interest-->
-
-        <!-- Description-->
-        <div class="information__description">
-          <p class="information__description-txt">
-            <i class="information__description-i">Sobre mi:</i> <br />
-            {{ userCard?.description }}
-          </p>
-        </div>
-        <!-- Description-->
-
-        <interestingIn :hereFor="userCard" />
-
-        <p class="information__InfoUser-tittle">
-          Información de "Nombre usuario":
-        </p>
-        <div class="information__InfoUser" v-if="preferencesUser">
-          <p
-            class="information__InfoUser-preferences"
-            v-for="(item, index) in preferencesUser"
-            :key="index"
-          >
-            <i :class="item.icon"></i>
-            {{ item.name }}
-          </p>
-
-          <div class="information__album">
-            <div class="information__album-container">
-              <img
-                class="information__album-img"
-                v-for="(item, index) of userCard?.pictures"
-                :src="item?.url"
-                alt=""
-                :key="index"
-              />
-            </div>
-          </div>
-        </div>
-
-        <!-- Buttons actions-->
-        <div class="homeVinc__buttonsAction">
-          <button
-            class="homeVinc__buttonsAction-button"
-            v-for="(item, index) of buttonsActions"
-            :key="index"
-            @click="$emit(item.action, userCard)"
-          >
-            <i class="homeVinc__buttonsAction-icon" :class="item.icon"></i>
-          </button>
-        </div>
-        <!-- Buttons actions-->
       </div>
+      <div class="carousel__item" @click="changeModal()">
+        <img class="carousel__item-img" :src="userCard?.pictures[0]?.url" alt="imgUser" />
+      </div>
+
+      <!-- Carousel -->
+      <Modal :showModal="true" @changeModal="changeModal()" v-if="showModal">
+        <template v-slot:content>
+          <Carousel v-bind="settings" :breakpoints="breakpoints" v-if="showModal">
+            <Slide v-for="img of userCard.pictures" :key="img">
+              <div class="carousel__item">
+                <img class="carousel__item-img" :src="img?.url" alt="imgUser" />
+              </div>
+            </Slide>
+          </Carousel>
+        </template>
+      </Modal>
+
+      <!-- Carousel -->
+
+      <!-- Reason for interest-->
+      <div class="information__user-p">
+        <p class="information__user-txt">{{ userCard?.name.split(" ")[0] }} esta aqui para...</p>
+        <div class="information__state">
+          <div class="flowRegister__interest">
+            <i :class="hereFor[userCard?.hereFor]?.icon"></i>
+            <span> {{ hereFor[userCard?.hereFor]?.text }}</span>
+          </div>
+        </div>
+      </div>
+      <!-- Reason for interest-->
+
+      <!-- Description-->
+      <div class="information__description">
+        <p class="information__description-txt">
+          <i class="information__description-i">Sobre mi:</i> <br />
+          {{ userCard?.description }}
+        </p>
+      </div>
+      <!-- Description-->
+
+      <interestingIn :hereFor="userCard" />
+
+      <p class="information__InfoUser-tittle">Información de "Nombre usuario":</p>
+      <div class="information__InfoUser" v-if="preferencesUser">
+        <p class="information__InfoUser-preferences" v-for="(item, index) in preferencesUser" :key="index">
+          <i :class="item.icon"></i>
+          {{ item.name }}
+        </p>
+      </div>
+      <div class="information__album">
+        <div class="information__album-container">
+          <img class="information__album-img" v-for="(item, index) of userCard?.pictures" :src="item?.url" alt="" :key="index" />
+        </div>
+      </div>
+
+      <!-- Buttons actions-->
+      <div class="homeVinc__buttonsAction">
+        <button class="homeVinc__buttonsAction-button" v-for="(item, index) of buttonsActions" :key="index" @click="$emit(item.action, userCard)">
+          <i class="homeVinc__buttonsAction-icon" :class="item.icon"></i>
+        </button>
+      </div>
+      <!-- Buttons actions-->
     </div>
   </div>
 </template>
@@ -187,22 +178,44 @@ const changeModal = () => {
 
 .homeVinc {
   width: 100%;
-  height: 94vh;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
 
   &__Container {
     position: relative;
     overflow: hidden;
+    text-align: center;
     border-radius: 20px 20px 0 0;
+    &::-webkit-scrollbar-thumb {
+      height: 80px;
+    }
+
+    scrollbar-width: thin;
+    scrollbar-color: #bbbbbb transparent;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #bbbbbb;
+      border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
   }
 
   &__buttonsAction {
-    position: fixed;
+    position: sticky;
     display: flex;
     justify-content: center;
     cursor: pointer;
     gap: 5px;
     z-index: 100;
-    bottom: 60px;
+    bottom: 95px;
     width: 100%;
 
     &-button {
@@ -212,6 +225,10 @@ const changeModal = () => {
       height: 40px;
       width: 40px;
       border-radius: 50%;
+      cursor: pointer;
+      &:hover {
+        transform: scale(1.2);
+      }
     }
   }
   &__userInfo {
@@ -224,11 +241,7 @@ const changeModal = () => {
     z-index: 1;
     width: 100%;
 
-    background: linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, 0.724),
-      rgba(0, 0, 0, 0)
-    );
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.724), rgba(0, 0, 0, 0));
 
     &-p {
       font-weight: 800;
@@ -326,6 +339,7 @@ const changeModal = () => {
     gap: 5px;
 
     &-preferences {
+      display: flex;
       background-color: #e7dfdf;
       font-size: 13px;
       border-radius: 30px;
@@ -346,7 +360,7 @@ const changeModal = () => {
     width: 100%;
   }
   &__album-img {
-    width: 100%;
+    max-width: 500px;
   }
   &__state,
   &__album-container {
@@ -364,6 +378,9 @@ const changeModal = () => {
   height: 100vh;
   overflow-x: hidden;
   overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .carousel * {
@@ -383,9 +400,21 @@ const changeModal = () => {
 
     &-img {
       display: flex;
-      width: 100%;
+      max-width: 97vw;
       height: 100%;
     }
   }
+}
+
+.like {
+  transform: translateX(200px);
+  background-color: #4caf50;
+}
+
+.dislike {
+  transform: translateX(-200px);
+  background-color: #ff1100;
+  color: #ffffff;
+  z-index: 100;
 }
 </style>
