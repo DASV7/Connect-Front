@@ -1,7 +1,7 @@
 <template>
   <div class="preferens">
     <div class="GoBack">
-      <button v-if="indexReg < 10 && indexReg > 0" @click="nextView(true)" class="GoBack__btn">
+      <button v-if="indexReg < 10 && indexReg > 0" @click="nextView('back')" class="GoBack__btn">
         <i class="fa-solid fa-arrow-left"></i>
       </button>
     </div>
@@ -16,7 +16,7 @@
         <p class="preferens__img-p">Haz un quiz rapido para completar tu perfil</p>
         <p class="information__user-txt">Logra un perfil increible en tan solo unos minutos</p>
         <div class="preferens__img-btnContainer">
-          <button @click="nextView()" class="preferens__img-btn">Empezar Quiz</button>
+          <button @click="nextViewFirst(true)" class="preferens__img-btn">Empezar Quiz</button>
           <button @click="$router.push('/home')" class="preferens__img-late">Quizas mas tarde</button>
         </div>
       </div>
@@ -30,7 +30,7 @@
       <div class="container__sexuality">
         <div class="container__sexuality" v-if="indexReg == 0">
           <div v-for="(item, index) in btnText" :key="index" class="container__sexuality-buttons">
-            <button @click="dataSexuality(item.text)" class="container__sexuality-btn">
+            <button @click="dataSexuality(item.text, 'sexuality')" class="container__sexuality-btn">
               {{ item.text }}
               <div class="btn__circle"></div>
             </button>
@@ -45,16 +45,16 @@
 
         <div class="container__sexuality" v-if="indexReg == 2">
           <div v-for="(item, index) in btnTextsentimental" :key="index" class="container__sexuality-buttons">
-            <button @click="dataSexuality(item.text)" class="container__sexuality-btn">
+            <button @click="dataSexuality(item.text, 'feelings')" class="container__sexuality-btn">
               {{ item.text }}
-              <i :class="[item.active ? 'fa-solid fa-circle' : 'fa-regular fa-circle']"></i>
+              <div class="btn__circle"></div>
             </button>
           </div>
         </div>
 
         <div class="container__sexuality" v-if="indexReg == 3">
           <div v-for="(item, index) in btnTextEducation" :key="index" class="container__sexuality-buttons">
-            <button @click="dataSexuality(item.text)" class="container__sexuality-btn">
+            <button @click="dataSexuality(item.text, 'education')" class="container__sexuality-btn">
               {{ item.text }}
               <i :class="[item.active ? 'fa-solid fa-circle' : 'fa-regular fa-circle']"></i>
             </button>
@@ -62,24 +62,24 @@
         </div>
         <div class="container__sexuality" v-if="indexReg == 4">
           <div v-for="(item, index) in btnTextSmoke" :key="index" class="container__sexuality-buttons">
-            <button @click="dataSexuality(item.text)" class="container__sexuality-btn">
+            <button @click="dataSexuality(item.text, 'smoke')" class="container__sexuality-btn">
               {{ item.text }}
-              <i :class="[item.active ? 'fa-solid fa-circle' : 'fa-regular fa-circle']"></i>
+              <div class="btn__circle"></div>
             </button>
           </div>
         </div>
 
         <div class="container__sexuality" v-if="indexReg == 5">
           <div v-for="(item, index) in btnTextSmoke" :key="index" class="container__sexuality-buttons">
-            <button @click="dataSexuality(item.text)" class="container__sexuality-btn">
+            <button @click="dataSexuality(item.text, 'drink')" class="container__sexuality-btn">
               {{ item.text }}
-              <i :class="[item.active ? 'fa-solid fa-circle' : 'fa-regular fa-circle']"></i>
+              <div class="btn__circle"></div>
             </button>
           </div>
         </div>
 
         <div class="container__sexuality-continue" v-if="indexReg == 6">
-          <button @click="$router.push('/home')" class="container__sexuality-next">Finalizar</button>
+          <button @click="$router.push('/home'), sendDataBack()" class="container__sexuality-next">Finalizar</button>
         </div>
 
         <div class="container__sexuality-continue" v-if="indexReg != 6">
@@ -92,8 +92,9 @@
 
 <script setup>
 import { ref } from "vue";
-
+import axios from "../../api/axios";
 let indexReg = ref(null);
+
 let userPreferences = ref({
   sexuality: "",
   height: "0",
@@ -122,18 +123,45 @@ let btnTextsentimental = [{ text: "Soltero" }, { text: "En relacion" }, { text: 
 let btnTextEducation = [{ text: "Bachillerato" }, { text: "Titulo de posgrado" }, { text: "En la universidad" }, { text: "Titulo de pregrado" }, { text: "Prefiero no decirlo" }];
 let btnTextSmoke = [{ text: "Si" }, { text: "No" }, { text: "A veces" }, { text: "Nunca" }, { text: "Prefiero no decirlo" }];
 
-function dataSexuality(text) {
-  userPreferences.sexuality = text;
-  userPreferences.active = true;
-  console.log(userPreferences.sexuality);
+let isButtonDisabled = ref(false);
+
+let backView = ref(undefined);
+function dataSexuality(text, value) {
+  userPreferences.value[value] = text;
+
+  nextView(text, value);
 }
-function nextView(i) {
-  if (i === undefined) {
-    if (indexReg.value == null) indexReg.value = 0;
-    else indexReg.value++;
-    return;
+function sendDataBack() {
+  axios
+    .post("/userPreferences", userPreferences.value)
+    .then((response) => {
+      console.log(response.data.data);
+    })
+    .catch((error) => console.error(error));
+  console.log(userPreferences.value);
+}
+function nextView(i, value) {
+  if (i == "back") return indexReg.value--;
+  if (userPreferences.value[value]) indexReg.value++;
+  else {
+    const arrayPosition = Object.keys(userPreferences.value);
+    const position = arrayPosition[indexReg.value];
+    if (userPreferences.value[position]) indexReg.value++;
   }
-  indexReg.value--;
+
+  // if (i === undefined) {
+  //   if (indexReg.value == null) {
+  //     indexReg.value = 0;
+  //   userPreferences.value[value]
+
+  //   } else indexReg.value++;
+  //   return;
+  // }
+  // return;
+  // indexReg.value--;
+}
+function nextViewFirst() {
+  indexReg.value = 0;
 }
 </script>
 

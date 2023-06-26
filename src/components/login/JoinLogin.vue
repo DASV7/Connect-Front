@@ -9,7 +9,7 @@
     </div>
 
     <div class="joinConnect">
-      <h3 class="joinConnect__greeting">!Hola de nuevo¡</h3>
+      <h3 class="joinConnect__greeting">¡Hola de nuevo!</h3>
       <p class="joinConnect__greeting-p">
         Ingresa tu correo o numero de telefono
       </p>
@@ -120,7 +120,6 @@ const loginUser = async () => {
     align-items: center;
     width: 100%;
     height: 25%;
-    gap: 5px;
 
     &-container {
       width: 100%;
@@ -154,6 +153,7 @@ const loginUser = async () => {
     }
   }
   &__types {
+    margin-top: 10px;
     text-align: center;
 
     &-p {

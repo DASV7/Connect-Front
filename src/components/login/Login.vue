@@ -98,16 +98,16 @@ $breakpoint: 768px;
   }
 
   &__containerTitle {
+    justify-content: center;
     width: 100%;
     height: 50%;
-    justify-content: center;
   }
 
   &__title {
     margin: 0px;
     font-size: 40px;
     color: $primary-color;
-    margin-left: 20px;
+    margin-left: 50px;
   }
 
   &__subtitle {

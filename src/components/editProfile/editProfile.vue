@@ -1,41 +1,35 @@
 <script setup>
-let imgProfile = [
-  "https://firebasestorage.googleapis.com/v0/b/connect-e76fc.appspot.com/o/icons%2F2466249.jpg?alt=media&token=57fdb4ee-8650-4ccc-a841-d04ba7816556z",
-];
+let imgProfile = ["https://firebasestorage.googleapis.com/v0/b/connect-e76fc.appspot.com/o/icons%2F2466249.jpg?alt=media&token=57fdb4ee-8650-4ccc-a841-d04ba7816556z"];
 </script>
 <template>
   <div class="editProfile">
+    <div class="editProfile__top">
+      <button class="editProfile__top-btn" @click="$router.push('/profile')"><i class="fa-solid fa-arrow-left"></i></button>
+      <p class="editProfile__top-tittle">Edita perfil tu perfil</p>
+    </div>
     <div class="editProfile__album">
       <div class="editProfile__album-first">
-      <div class="">
-        <img class="editProfile__album-firstImg" :src="imgProfile[0]" />
-      </div>
-      <div class="editProfile__album-third">
-        <div class="editProfile__album-containerThird">
-          <img class="editProfile__album-thirdImg" :src="imgProfile[0]" />
+        <div class="">
+          <img class="editProfile__album-firstImg" :src="imgProfile[0]" />
         </div>
-        <div class="editProfile__album-containerThird">
-          <img class="editProfile__album-thirdImg" :src="imgProfile[0]" />
+        <div class="editProfile__album-third">
+          <div class="editProfile__album-containerThird">
+            <img class="editProfile__album-thirdImg" :src="imgProfile[0]" />
+          </div>
+          <div class="editProfile__album-containerThird">
+            <img class="editProfile__album-thirdImg" :src="imgProfile[0]" />
+          </div>
         </div>
       </div>
-    </div>
       <div class="editProfile__album-second">
-        <div>
+        <div class="editProfile__album-containerThird">
           <img class="editProfile__album-secondImg" :src="imgProfile[0]" />
         </div>
-        <div>
-          <img
-            class="editProfile__album-secondImg"
-            :src="imgProfile[0]"
-            alt=""
-          />
+        <div class="editProfile__album-containerThird">
+          <img class="editProfile__album-secondImg" :src="imgProfile[0]" alt="" />
         </div>
-        <div>
-          <img
-            class="editProfile__album-secondImg"
-            :src="imgProfile[0]"
-            alt=""
-          />
+        <div class="editProfile__album-containerThird">
+          <img class="editProfile__album-secondImg" :src="imgProfile[0]" alt="" />
         </div>
       </div>
     </div>
@@ -43,9 +37,7 @@ let imgProfile = [
       <button class="editProfile__btn-add">Añadir Fotos</button>
     </div>
     <div class="editProfile__info">
-      <div class="editProfile__tags">
-        
-      </div>
+      <div class="editProfile__tags"></div>
       <div class="editProfile__tags"></div>
       <div class="editProfile__tags"></div>
       <div class="editProfile__tags"></div>
@@ -87,7 +79,6 @@ let imgProfile = [
       height: 100%;
     }
     &-containerThird {
-      width: 40%;
       height: 100%;
     }
     &-secondImg {
@@ -104,14 +95,14 @@ let imgProfile = [
     display: flex;
     justify-content: center;
     margin-top: 10px;
-  &-add {
-    width: 70%;
-    height: 35px;
-    border: none;
-    background-color: $primary-color;
-    color: #fff;
-    border-radius: 30px;
-  }
+    &-add {
+      width: 70%;
+      height: 35px;
+      border: none;
+      background-color: $primary-color;
+      color: #fff;
+      border-radius: 30px;
+    }
   }
   &__info {
     display: flex;
@@ -125,6 +116,28 @@ let imgProfile = [
     border-radius: 10px;
     height: 45px;
     background-color: #ece5e5;
+  }
+  &__top {
+    display: flex;
+    // align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    width: 96%;
+
+    &-btn {
+      border: none;
+      background-color: $primary-color;
+      width: 45px;
+      height: 30px;
+      text-align: center;
+      color: #fff;
+      border-radius: 30px;
+    }
+    &-tittle {
+      font-size: 13px;
+      font-weight: 700;
+      color: #bfbaba;
+    }
   }
 }
 </style>
