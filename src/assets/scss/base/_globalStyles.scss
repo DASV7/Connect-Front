@@ -1,0 +1,21 @@
+[scrollDefault] {
+  &::-webkit-scrollbar-thumb {
+    height: 80px;
+  }
+
+  scrollbar-width: thin;
+  scrollbar-color: #bbbbbb transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #bbbbbb;
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+}

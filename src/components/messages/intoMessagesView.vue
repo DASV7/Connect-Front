@@ -69,7 +69,7 @@ onBeforeUnmount(() => {
 </script>
 <template>
   <div class="intoMessages">
-    <div class="intoMessages__messages">
+    <div class="intoMessages__messages" scrollDefault>
       <div :id="index" class="intoMessages__messageItem" v-for="(message, index) in messagesUser" :key="message._id">
         <messageCard :message="message" :user="filterMembers(message)" :idx="itsMe(message)"></messageCard>
       </div>
@@ -85,13 +85,12 @@ onBeforeUnmount(() => {
 .intoMessages {
   height: 100vh;
   width: 100vw;
-  
 
   &__messageItem {
   }
 
   &__messages {
-    max-height: 85%;
+    max-height: 83%;
     overflow-y: auto;
     overflow-x: hidden;
   }
@@ -99,46 +98,26 @@ onBeforeUnmount(() => {
   &__container {
     display: flex;
     align-items: center;
-    &-input {
-      display: flex;
-      align-items: center;
-      border: 1px solid #ccc;
-      border-radius: 25px;
-      margin-top: 20px;
-      padding: 10px 20px;
-      background-color: #f2f2f2;
-    }
-
-    &-input {
-      flex: 1;
-      border: none;
-      outline: none;
-      font-size: 16px;
-      font-weight: bold;
-      color: #333;
-      background-color: transparent;
-      margin-right: 10px;
-    }
-
-    &-input ::placeholder {
-      color: #999;
-    }
-
+    position: absolute;
+    bottom: 55px;
+    width: 100%;
     &-input {
       background-color: #2195f37a;
       color: #000000;
       border: none;
-      height: 20px;
       border-radius: 25px;
-      padding: 10px 20px;
+      width: 100%;
+      height: 30px;
       font-size: 16px;
       font-weight: bold;
       cursor: pointer;
       transition: all 0.3s ease;
+      text-align: center;
     }
 
     &-input:hover {
       background-color: #0d8bff;
+      outline: none;
     }
 
     &-send {
@@ -146,7 +125,8 @@ onBeforeUnmount(() => {
       color: #fff;
       border: none;
       border-radius: 25px;
-      padding: 10px 20px;
+      height: 30px;
+      width: 40px;
       font-size: 16px;
       font-weight: bold;
       cursor: pointer;

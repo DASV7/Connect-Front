@@ -5,15 +5,12 @@ import home from "../components/connect/homeConnect.vue";
 import register from "../components/flowRegister/register.vue";
 import gps from "../components/gps/gps.vue";
 import profile from "../components/profile/profile.vue";
-import whoLikesMe from "../components/likes/whoLikesMe.vue";
 import preferences from "../components/preferencesFlow/preferences.vue";
 import editProfile from "../components/editProfile/editProfile.vue";
 
 import messages from "../components/messages/messages.vue";
 import intoMessages from "../components/messages/intoMessagesView.vue";
 import whoLikesMe from "../components/likes/whoLikesMe.vue";
-import messages from "../components/messages/messages.vue";
-import intoMessages from "../components/messages/intoMessagesView.vue";
 import videoCall from "../components/video/videoCall.vue";
 
 const ifAuthenticated = (to, from, next) => {
