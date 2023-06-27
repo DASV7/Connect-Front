@@ -5,6 +5,8 @@ import { useRouter } from "vue-router";
 import { computed } from "@vue/reactivity";
 import axios from "../../api/axios";
 import Swal from "sweetalert2";
+import totalLoading from "../shared/totalLoading.vue";
+
 const router = useRouter();
 
 let userNew = ref({
@@ -47,18 +49,21 @@ const handleFileUpload = (event, index) => {
   }
 };
 
+const isCreatingUser = ref(false);
+
 const createNewUser = async () => {
-  const user = await axios
-    .post("/usersModule", userNew.value)
-    .catch((error) => {
-      Swal.fire({
-        icon: "error",
-        title: "Ocurrio un error",
-        text: "Correo o contraseña incorrectos",
-        showConfirmButton: false,
-        timer: 2000,
-      });
+  if (isCreatingUser.value) return;
+  isCreatingUser.value = true;
+  const user = await axios.post("/usersModule", userNew.value).catch((error) => {
+    Swal.fire({
+      icon: "error",
+      title: "Ocurrio un error",
+      text: "Correo o contraseña incorrectos",
+      showConfirmButton: false,
+      timer: 2000,
     });
+  });
+  isCreatingUser.value = false;
   if (user.data.data.data) {
     Swal.fire({
       icon: "success",
@@ -101,11 +106,7 @@ const updaloadPictures = async (user) => {
 };
 const nextvalue = async () => {
   if (indexReg.value < goToGo.length - 1) {
-    if (
-      userNew.value[goToGo[indexReg.value].info] ||
-      goToGo[indexReg.value].info == "photos"
-    )
-      indexReg.value++;
+    if (userNew.value[goToGo[indexReg.value].info] || goToGo[indexReg.value].info == "photos") indexReg.value++;
   } else createNewUser();
 };
 const prevtvalue = () => {
@@ -119,39 +120,25 @@ const prevtvalue = () => {
   <div class="flowRegister__return" @click="prevtvalue()">
     <i class="fa-solid fa-arrow-left"></i>
   </div>
+  <totalLoading v-if="isCreatingUser" />
   <div class="flowRegister">
     <div class="loginConnect__containerTitle">
       <!-- <h2 class="loginConnect__title">VINC</h2> -->
-      <img
-        class="loginConnect__title"
-        src="../../../public/svgLogoComplete.svg"
-        alt=""
-      />
+      <img class="loginConnect__title" src="../../../public/svgLogoComplete.svg" alt="" />
     </div>
     <div class="flowRegister__wrapper">
       <div class="flowRegister__containerTitle">
         <h3 class="flowRegister__title">{{ goToGo[indexReg].title }}</h3>
-        <h7 class="flowRegister__description">{{
-          goToGo[indexReg].description
-        }}</h7>
+        <h7 class="flowRegister__description">{{ goToGo[indexReg].description }}</h7>
       </div>
       <div class="flowRegister__formContainer">
         <div class="flowRegister__form-group" v-if="indexReg == 0">
-          <input
-            type="text"
-            class="flowRegister__form-input"
-            placeholder="Nombre Completo"
-            v-model="userNew.name"
-          />
+          <input type="text" class="flowRegister__form-input" placeholder="Nombre Completo" v-model="userNew.name" />
         </div>
         <div class="flowRegister__form-group" v-if="indexReg == 1">
           <div
             class="flowRegister__interest"
-            :class="
-              val[index] == userNew.hereFor
-                ? 'flowRegister__interest-active'
-                : ''
-            "
+            :class="val[index] == userNew.hereFor ? 'flowRegister__interest-active' : ''"
             v-for="(item, index) in interest"
             :key="index"
             @click="interestClick(index)"
@@ -164,81 +151,33 @@ const prevtvalue = () => {
           </div>
         </div>
         <div class="flowRegister__form-group" v-if="indexReg == 2">
-          <input
-            type="date"
-            class="flowRegister__form-input"
-            max="2005-12-31"
-            placeholder="Fecha de nacimiento"
-            v-model="userNew.birthday"
-          />
+          <input type="date" class="flowRegister__form-input" max="2005-12-31" placeholder="Fecha de nacimiento" v-model="userNew.birthday" />
         </div>
         <div class="flowRegister__form-group" v-if="indexReg == 3">
-          <input
-            type="text"
-            class="flowRegister__form-input"
-            placeholder="Correo Electronico"
-            v-model="userNew.email"
-          />
+          <input type="text" class="flowRegister__form-input" placeholder="Correo Electronico" v-model="userNew.email" />
         </div>
         <div class="flowRegister__pictureIcons" v-show="indexReg == 4">
           <label class="flowRegister__picture" for="img">
-            <img
-              id="image"
-              src="#"
-              alt="Previsualizacion Imagen"
-              v-show="selectedFile[0]" />
+            <img id="image" src="#" alt="Previsualizacion Imagen" v-show="selectedFile[0]" />
             <i class="fa-solid fa-camera-retro"></i
           ></label>
-          <input
-            v-show="false"
-            @change="handleFileUpload($event, 0)"
-            type="file"
-            id="img"
-            class="flowRegister__form-input"
-            placeholder="Img1"
-            accept="image/*"
-          />
+          <input v-show="false" @change="handleFileUpload($event, 0)" type="file" id="img" class="flowRegister__form-input" placeholder="Img1" accept="image/*" />
           <label class="flowRegister__picture" for="img2">
-            <img
-              id="image1"
-              src="#"
-              alt="Previsualizacion Imagen"
-              class="flowRegister__picture"
-              v-show="selectedFile[1]" />
+            <img id="image1" src="#" alt="Previsualizacion Imagen" class="flowRegister__picture" v-show="selectedFile[1]" />
 
             <i class="fa-solid fa-camera-retro"></i
           ></label>
-          <input
-            v-show="false"
-            @change="handleFileUpload($event, 1)"
-            id="img2"
-            type="file"
-            class="flowRegister__form-input"
-            placeholder="img2"
-            accept="image/*"
-          />
+          <input v-show="false" @change="handleFileUpload($event, 1)" id="img2" type="file" class="flowRegister__form-input" placeholder="img2" accept="image/*" />
         </div>
         <div class="flowRegister__form-group" v-if="indexReg == 5">
-          <input
-            type="password"
-            class="flowRegister__form-input"
-            placeholder="Contraseña"
-            v-model="userNew.password"
-          />
+          <input type="password" class="flowRegister__form-input" placeholder="Contraseña" v-model="userNew.password" />
         </div>
         <div class="flowRegister__form-group" v-if="indexReg == 6">
-          <input
-            type="text"
-            class="flowRegister__form-input"
-            placeholder="Descripcion: Ejm..'Soy un estudiante Apasionado...'"
-            v-model="userNew.description"
-          />
+          <input type="text" class="flowRegister__form-input" placeholder="Descripcion: Ejm..'Soy un estudiante Apasionado...'" v-model="userNew.description" />
         </div>
       </div>
       <div class="flowRegister__button">
-        <button class="flowRegister__button-register" @click="nextvalue()">
-          Continuar
-        </button>
+        <button class="flowRegister__button-register" @click="nextvalue()">Continuar</button>
       </div>
     </div>
   </div>

@@ -8,6 +8,7 @@ import { useCounterStore } from "../../store/users";
 import messageCard from "./messageCard.vue";
 import { useSocketStore } from "../../store/socketStore";
 
+
 const message = ref("");
 let messagesUser = reactive([]);
 const route = useRoute();
@@ -78,7 +79,7 @@ onBeforeUnmount(() => {
     <div class="intoMessages__container">
       <input class="intoMessages__container-input" type="text" placeholder="Nuevo Mensaje " v-model="message" />
       <button class="intoMessages__container-send" @click="newMessage"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
-    </div>
+    </div>    
   </div>
 </template>
 <style lang="scss">
