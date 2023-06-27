@@ -6,6 +6,7 @@ import { computed } from "@vue/reactivity";
 import axios from "../../api/axios";
 import Swal from "sweetalert2";
 import totalLoading from "../shared/totalLoading.vue";
+import { usePush } from "notivue";
 
 const router = useRouter();
 
@@ -31,6 +32,9 @@ const interestClick = (index) => {
 onMounted(() => {
   userNew.value.biologicalSex = router.currentRoute.value.query.sex;
 });
+
+const push = usePush();
+
 let selectedFile = ref([null, null]);
 const handleFileUpload = (event, index) => {
   const file = event.target.files[0];
@@ -55,22 +59,16 @@ const createNewUser = async () => {
   if (isCreatingUser.value) return;
   isCreatingUser.value = true;
   const user = await axios.post("/usersModule", userNew.value).catch((error) => {
-    Swal.fire({
-      icon: "error",
-      title: "Ocurrio un error",
-      text: "Correo o contraseña incorrectos",
-      showConfirmButton: false,
-      timer: 2000,
+    push.error({
+      title: "Ocurrio un al registrarte",
+      message: "Intenta nuevamente en unos minutos",
     });
   });
   isCreatingUser.value = false;
   if (user.data.data.data) {
-    Swal.fire({
-      icon: "success",
-      title: "Bienvenido",
-      text: "¡Hola " + "nombre de usuarop" + "!",
-      showConfirmButton: false,
-      timer: 2000,
+    push.success({
+      title: "Registro Correcto.",
+      message: "Bienvenido a tu lugar especial.",
     });
 
     localStorage.setItem("vinc-jwt", user.data.data.data);

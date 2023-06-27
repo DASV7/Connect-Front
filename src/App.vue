@@ -4,9 +4,10 @@ import { useRoute } from "vue-router";
 import { ref, watchEffect, computed, onMounted, onUnmounted } from "vue";
 import { useCounterStore } from "../src/store/users";
 import jwt_decode from "jwt-decode";
-import notifications from "./components/notifications/alertNotification.vue";
+import notificati from "./components/notifications/alertNotification.vue";
 import EventEmittler from "../src/utils/events/customEvents";
 import { useSocketStore } from "../src/store/socketStore";
+import { Notivue, notifications } from "notivue";
 
 const socket = useSocketStore();
 const route = useRoute();
@@ -19,10 +20,13 @@ watchEffect(() => {
 const EventUser = new EventEmittler();
 
 const userStore = useCounterStore();
+
 const routePermission = computed(() => {
   const diferents = ["/", "/Register", "/JoinLogin", "/preferences"];
   return !diferents.includes(fullPath.value.split("?")[0]);
 });
+
+const options = { error: { duration: 2000, close: false } };
 onMounted(async () => {
   const decodeToken = jwt_decode(localStorage.getItem("vinc-jwt"));
   if (decodeToken) userStore.$patch({ user: decodeToken });
@@ -46,8 +50,9 @@ onUnmounted(() => {
 
 <template>
   <div class="mainApp"></div>
-  <notifications></notifications>
+  <notificati></notificati>
   <router-view></router-view>
+  <Notivue :use="notifications" :options="options" />
   <MenuHome v-if="routePermission"> </MenuHome>
 </template>
 

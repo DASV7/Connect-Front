@@ -4,6 +4,8 @@
       <img class="loginConnect__title" src="../../../public/svgLogoComplete.svg" alt="" />
     </div>
 
+    <totalLoading v-if="isLoading" />
+
     <div class="joinConnect">
       <h3 class="joinConnect__greeting">! Hola de regreso ¡</h3>
       <p class="joinConnect__greeting-p">Ingresa tu correo o numero de telefono</p>
@@ -42,29 +44,32 @@ import { useRouter } from "vue-router";
 import { ref } from "vue";
 import Swal from "sweetalert2";
 const router = useRouter();
+import totalLoading from "../shared/totalLoading.vue";
+import { usePush } from "notivue";
 
 let userData = ref({
   email: "",
   password: "",
 });
 
+const isLoading = ref(false);
+
+const push = usePush();
+
 const loginUser = async () => {
+  if (isLoading.value) return;
+  isLoading.value = true;
   const user = await axios.post("/usersmodule/login", userData.value).catch((error) => {
-    Swal.fire({
-      icon: "error",
+    push.error({
       title: "Ocurrio un error",
-      text: "Correo o contraseña incorrectos",
-      showConfirmButton: false,
-      timer: 2000,
+      message: "Correo o contraseña incorrectos",
     });
   });
+  isLoading.value = false;
   if (user.data.data.data) {
-    Swal.fire({
-      icon: "success",
-      title: "Bienvenido",
-      text: "¡Hola " + "nombre de usuarop" + "!",
-      showConfirmButton: false,
-      timer: 2000,
+    push.success({
+      title: "Inicio de sesion Correcto.",
+      message: "Bienvenido nuevamente.",
     });
     localStorage.setItem("vinc-jwt", user.data.data.data);
     router.push("/home");
