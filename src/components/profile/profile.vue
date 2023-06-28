@@ -4,26 +4,28 @@
       <div class="profileUser__header">
         <p class="profileUser__header-p">Perfil</p>
         <div class="profileUser__header-settings">
-          <button class="profileUser__header-btn"><i class="fa fa-cog" aria-hidden="true"></i></button>
-          <button @click="$router.push('/editProfile')" class="profileUser__header-btn"><i class="fa-solid fa-user-pen"></i></button>
           <button class="profileUser__header-btn" @click="closeSesion()">
             <i class="fa fa-sign-out" aria-hidden="true"></i>
           </button>
         </div>
       </div>
-      <div @click="$router.push('/editProfile')" class="profileUser__info">
-        <div class="profileUser__photoProfile">
-          <div class="profileUser__photoProfile-cont">
-            <img class="profileUser__photoProfile-img" :src="user.pictures[0].url" />
+      <div class="profileUser__info">
+        <button class="profileUser__header-btn"><i class="fa fa-cog" aria-hidden="true"></i></button>
+        <div  class="profileUser__info-container">
+          <div class="profileUser__photoProfile">
+            <div class="profileUser__photoProfile-cont">
+              <img  @click="$router.push('/editProfile')" class="profileUser__photoProfile-img" :src="user.pictures[0].url" />
+            </div>
+          </div>
+          <div class="profileUser__info-name">
+            <p class="profileUser__info-p">{{ user.name }}, {{ calculateAge(user.birthday) }}</p>
+            <p class="profileUser__info-txt">
+              <i class="fa-solid fa-message"></i>
+              Estas aqui {{ hereFor[user.hereFor]?.text }}
+            </p>
           </div>
         </div>
-        <div class="profileUser__info-name">
-          <p class="profileUser__info-p">{{ user.name }}, {{ calculateAge(user.birthday) }}</p>
-          <p class="profileUser__info-txt">
-            <i class="fa-solid fa-message"></i>
-            Estas aqui {{ hereFor[user.hereFor]?.text }}
-          </p>
-        </div>
+        <button @click="$router.push('/editProfile')" class="profileUser__header-btn"><i class="fa-solid fa-user-pen"></i></button>
       </div>
     </div>
     <div class="infoPremium">
@@ -177,10 +179,9 @@ const advantages = [
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 25%;
+    height: 30%;
     border-bottom: 2px solid $primary-color;
     box-shadow: 0 2px 15px $primary-color;
-    gap: 10px;
   }
   &__header {
     display: flex;
@@ -200,20 +201,23 @@ const advantages = [
       margin-right: 10px;
     }
     &-btn {
-      width: 30px;
-      height: 20px;
-      font-size: 16px;
+      text-align: center;
+      width: 40px;
+      height: 40px;
+      font-size: 20px;
+      border-radius: 30px;
+      color: #3e4446;
+      background-color: #f8f4f4;
       border: none;
-      background-color: #fff;
     }
   }
   &__photoProfile {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 10px;
-    margin-left: 20px;
-    height: 75%;
+    flex-direction: column;
+    width: 65%;
+    height: 90%;
 
     &-cont {
       display: flex;
@@ -228,7 +232,7 @@ const advantages = [
     }
 
     &-img {
-      width: 71px;
+      width: 108%;
       height: 100%;
       // border-radius: 100%;
       object-fit: cover;
@@ -236,12 +240,13 @@ const advantages = [
   }
   &__info {
     display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 10px;
     width: 100%;
     height: 60%;
 
     &-p {
+      margin-top: 5px;
       font-weight: 700;
       font-size: 14px;
     }
@@ -256,10 +261,17 @@ const advantages = [
       width: 70%;
       min-width: 150px;
     }
+    &-container {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      width: 50%;
+      height: 100%;
+    }
   }
-  // &__info-name {
-
-  // }
+  &__info-name {
+    text-align: center;
+  }
 }
 .infoPremium {
   display: flex;
