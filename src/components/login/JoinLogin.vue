@@ -12,7 +12,7 @@
     </div>
     <div class="joinConnect__formJoin">
       <div class="joinConnect__formJoin-container">
-        <input class="joinConnect__formJoin-input" type="text" placeholder="Correo o numero de celular" v-model="userData.email" />
+        <input class="joinConnect__formJoin-input" type="email" placeholder="Correo o numero de celular" v-model="userData.email" />
       </div>
       <div class="joinConnect__formJoin-container">
         <input class="joinConnect__formJoin-input" type="password" placeholder="Contraseña" v-model="userData.password" @keypress.enter="loginUser()" />

@@ -6,6 +6,9 @@
         <div class="profileUser__header-settings">
           <button class="profileUser__header-btn"><i class="fa fa-cog" aria-hidden="true"></i></button>
           <button @click="$router.push('/editProfile')" class="profileUser__header-btn"><i class="fa-solid fa-user-pen"></i></button>
+          <button class="profileUser__header-btn" @click="closeSesion()">
+      <i class="fa fa-sign-out" aria-hidden="true"></i>
+    </button>
         </div>
       </div>
       <div class="profileUser__info">
@@ -50,9 +53,7 @@
         </div>
       </div>
     </div>
-    <!-- <button class="homeVinc__buttonsAction-button" @click="closeSesion()">
-      <i class="fa fa-sign-out" aria-hidden="true"></i>
-    </button> -->
+
   </div>
 </template>
 
