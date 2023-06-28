@@ -30,7 +30,7 @@
       <div class="infoPremium__vinc">
         <div class="infoPremium__vinc-tittle">
           <img class="infoPremium__vinc-logo" src="http://localhost:5173/public/svgLogoComplete.svg" alt="" />
-          <p class="infoPremium__vinc-txt">VINC PREMIUM</p>
+          <p class="infoPremium__vinc-txt">PREMIUM</p>
         </div>
         <div class="infoPremium__txt">
           <p class="infoPremium__txt-exp">Controla toda tu experiencia con Premium y obten hasta 12 + 1 mas matches* que la gente sin Premium</p>
@@ -39,7 +39,14 @@
       </div>
       <div class="infoPremium__advantages">
         <div class="infoPremium__advantages-target" v-for="(item, index) in advantages" :key="index">
-          <i class="fa fa-heart" aria-hidden="true"></i>
+          <div class="infoPremium__advantages-cont">
+            <i :class="item.icon" aria-hidden="true"></i>
+            <p class="infoPremium__advantages-txt">{{ item.txt }}</p>
+          </div>
+          <div class="infoPremium__advantages-cont2">
+            <i :class="item.checkOn" aria-hidden="true"></i>
+            <i :class="item.checkOff" aria-hidden="true"></i>
+          </div>
         </div>
       </div>
     </div>
@@ -58,18 +65,81 @@ const closeSesion = () => {
   router.push("/");
 };
 
-const advantages = [{
-  icon: "fa fa-heart",
-  txt: "Descubre a quien le gustas",
-  check: "",
-}];
+const advantages = [
+  {
+    icon: "fa fa-heart",
+    txt: "Descubre a quien le gustas",
+    checkOn: "fa fa-check",
+    checkOff: "fa fa-check-square-o",
+  },
+  {
+    icon: "fa fa-commenting",
+    txt: "Desbloquea 2 chats cada semana sin match",
+    checkOn: "fa fa-check",
+    checkOff: "fa fa-check-square-o",
+  },
+  {
+    icon: "fa fa-bolt",
+    txt: "1 Vizualizacion extra cada semana",
+    checkOn: "fa fa-check",
+    checkOff: "fa fa-check-square-o",
+  },
+  {
+    icon: "fa-solid fa-check-double",
+    txt: "Ver mesajes leidos",
+    checkOn: "fa fa-check",
+    checkOff: "fa fa-check-square-o",
+  },
+  {
+    icon: "fa fa-arrow-circle-up",
+    txt: "Dar prioridad a tus mensajes",
+    checkOn: "fa fa-check",
+    checkOff: "fa fa-check-square-o",
+  },
+  {
+    icon: "fa-solid fa-bars",
+    txt: "Nunca te quedas sin votos",
+    checkOn: "fa fa-check",
+    checkOff: "fa fa-check-square-o",
+  },
+  {
+    icon: "fa-solid fa-rotate-left",
+    txt: "Anula tus votos a la izquierda",
+    checkOn: "fa fa-check",
+    checkOff: "fa fa-check-square-o",
+  },
+  {
+    icon: "fa-solid fa-sliders",
+    txt: "Filtros sin limites",
+    checkOn: "fa fa-check",
+    checkOff: "fa fa-check-square-o",
+  },
+  {
+    icon: "fa-solid fa-user-ninja",
+    txt: "Vista de perfiles sin que te vean",
+    checkOn: "fa fa-check",
+    checkOff: "fa fa-check-square-o",
+  },
+  {
+    icon: "fa-solid fa-ban",
+    txt: "Nunca te quedas sin votos",
+    checkOn: "fa fa-check",
+    checkOff: "fa fa-check-square-o",
+  },
+  {
+    icon: "fa-solid fa-bars",
+    txt: "Elimina toda la publicidad",
+    checkOn: "fa fa-check",
+    checkOff: "fa fa-check-square-o",
+  },
+];
 </script>
 
 <style lang="scss">
 .profileUser {
   width: 100%;
   height: 100vh;
-  overflow: hidden;
+  // overflow: hidden;
 
   &__container {
     display: flex;
@@ -78,7 +148,6 @@ const advantages = [{
     height: 160px;
     border-bottom: 2px solid $primary-color;
     box-shadow: 0 2px 15px $primary-color;
-    padding: 5px;
     gap: 10px;
   }
   &__header {
@@ -91,6 +160,7 @@ const advantages = [{
     &-p {
       font-size: 15px;
       font-weight: 700;
+      margin-left: 10px;
     }
     &-settings {
       display: flex;
@@ -110,7 +180,7 @@ const advantages = [{
     align-items: center;
     justify-content: center;
     margin-top: 10px;
-    margin-left: 10px;
+    margin-left: 20px;
     height: 75%;
 
     &-cont {
@@ -166,9 +236,11 @@ const advantages = [{
     justify-content: center;
     align-items: center;
     width: 90%;
-    height: 150px;
+    height: 180px;
     border-radius: 20px;
+    gap: 15px;
     background-image: linear-gradient(to top, rgba(80, 189, 237, 0.8), #50bded);
+
     &-tittle {
       display: flex;
       justify-content: center;
@@ -214,15 +286,35 @@ const advantages = [{
     }
   }
   &__advantages {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    gap: 10px;
     width: 90%;
     margin-top: 15px;
     &-target {
       display: flex;
+      justify-content: space-between;
       align-items: center;
+      gap: 10px;
       width: 100%;
       height: 30px;
-      border: solid 1px #000;
+      border-bottom: solid 1px #d0cece;
       color: #50bded;
+    }
+    &-cont {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    &-cont2 {
+      display: flex;
+      gap: 15px;
+    }
+    &-txt {
+      color: #000;
+      font-size: 8px;
+      font-weight: 600;
     }
   }
 }
