@@ -13,7 +13,7 @@
           <div class="profileUser__photoProfile-cont">
             <img
               class="profileUser__photoProfile-img"
-              src="https://scontent.feoh3-1.fna.fbcdn.net/v/t1.6435-9/144497356_2781816275366132_2569166611012571515_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=8bfeb9&_nc_eui2=AeFPMtG-r1dYyuuSv_Q9K7svpkNvGSurx4OmQ28ZK6vHg5KzvRRn7dYxnkiq10XUhOddCNb9tclirBfJ1B-ESB-M&_nc_ohc=8VwUS4iDoC8AX-iXdSN&_nc_ht=scontent.feoh3-1.fna&oh=00_AfDlYlgZ4JWyOSjv2GVgDsiGipguLpLiZFIdLntS_aFNdA&oe=64C2E6CF"
+              src="https://scontent.fpei3-1.fna.fbcdn.net/v/t1.6435-9/144497356_2781816275366132_2569166611012571515_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=8bfeb9&_nc_eui2=AeFPMtG-r1dYyuuSv_Q9K7svpkNvGSurx4OmQ28ZK6vHg5KzvRRn7dYxnkiq10XUhOddCNb9tclirBfJ1B-ESB-M&_nc_ohc=8VwUS4iDoC8AX-iXdSN&_nc_ht=scontent.fpei3-1.fna&oh=00_AfCBXHbriqLbowCfsPIEWwBTjtK0EUtEgogZFdS8z6ZBIA&oe=64C31F0F"
             />
           </div>
         </div>
@@ -145,7 +145,7 @@ const advantages = [
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 160px;
+    height: 185px;
     border-bottom: 2px solid $primary-color;
     box-shadow: 0 2px 15px $primary-color;
     gap: 10px;
@@ -184,6 +184,9 @@ const advantages = [
     height: 75%;
 
     &-cont {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       width: 100%;
       height: 100%;
       border-radius: 100%;
@@ -203,7 +206,8 @@ const advantages = [
     align-items: center;
     gap: 10px;
     width: 100%;
-    height: 106px;
+    height: 125px;
+    
     &-p {
       font-weight: 700;
       font-size: 14px;
@@ -254,9 +258,9 @@ const advantages = [
       width: 90px;
     }
     &-txt {
-      font-size: 13px;
+      font-size: 17px;
       font-weight: 700;
-      color: #666565;
+      color: #50bded;
     }
   }
   &__txt {
