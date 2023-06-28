@@ -12,6 +12,7 @@ import messages from "../components/messages/messages.vue";
 import intoMessages from "../components/messages/intoMessagesView.vue";
 import whoLikesMe from "../components/likes/whoLikesMe.vue";
 import videoCall from "../components/video/videoCall.vue";
+import settings from "../components/settings/setting.vue"
 
 const ifAuthenticated = (to, from, next) => {
   if (!localStorage.getItem("vinc-jwt")) {
@@ -99,6 +100,12 @@ const routes = [
     path: "/preferences",
     name: "preferences",
     component: preferences,
+    // beforeEnter: ifAuthenticated,
+  },
+  {
+    path: "/settings",
+    name: "settings",
+    component: settings,
     // beforeEnter: ifAuthenticated,
   },
   {

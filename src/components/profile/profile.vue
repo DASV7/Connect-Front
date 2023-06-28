@@ -4,13 +4,10 @@
       <div class="profileUser__header">
         <p class="profileUser__header-p">Perfil</p>
         <div class="profileUser__header-settings">
-          <button class="profileUser__header-btn" @click="closeSesion()">
-            <i class="fa fa-sign-out" aria-hidden="true"></i>
-          </button>
         </div>
       </div>
       <div class="profileUser__info">
-        <button class="profileUser__header-btn"><i class="fa fa-cog" aria-hidden="true"></i></button>
+        <button @click="$router.push('/settings')" class="profileUser__header-btn"><i class="fa fa-cog" aria-hidden="true"></i></button>
         <div  class="profileUser__info-container">
           <div class="profileUser__photoProfile">
             <div class="profileUser__photoProfile-cont">

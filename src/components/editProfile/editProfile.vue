@@ -1,7 +1,19 @@
 <script setup>
+import { onMounted, ref } from "vue";
 import { useCounterStore } from "../../store/users";
-
 const userStore = useCounterStore();
+
+let dateString = null;
+let date = null;
+let formattedDate = ref("")
+let text = ref()
+onMounted(() => {
+  dateString = userStore.user.birthday;
+  date = new Date(dateString);
+  formattedDate.value = date.toDateString();
+  console.log(formattedDate);
+});
+
 let imgProfile = ["https://firebasestorage.googleapis.com/v0/b/connect-e76fc.appspot.com/o/icons%2F2466249.jpg?alt=media&token=57fdb4ee-8650-4ccc-a841-d04ba7816556z"];
 </script>
 <template>
@@ -11,18 +23,34 @@ let imgProfile = ["https://firebasestorage.googleapis.com/v0/b/connect-e76fc.app
       <p class="editProfile__top-tittle">Edita tu perfil</p>
     </div>
     <div class="editProfile__album">
-      <div class="editProfile__album-item">Celda1</div>
-      <div class="editProfile__album-item">Celda2</div>
-
+      <div class="editProfile__album-item">
+        <img class="editProfile__album-img" :src="userStore.user.pictures[0].url" alt="" />
+      </div>
+      <div class="editProfile__album-item">
+        <img class="editProfile__album-img" :src="userStore.user.pictures[0].url" alt="" />
+      </div>
     </div>
     <div class="editProfile__btn">
       <button class="editProfile__btn-add">Añadir Fotos</button>
     </div>
+    <div>
+      <p class="editProfile__txt">Informacion Basica</p>
+    </div>
     <div class="editProfile__info">
-      <div class="editProfile__tags"></div>
-      <div class="editProfile__tags"></div>
-      <div class="editProfile__tags"></div>
-      <div class="editProfile__tags"></div>
+      <div class="editProfile__tags">
+        <p class="editProfile__tags-p">Nombre:</p>
+        <p class="editProfile__tags-p">{{ userStore.user.name }}</p>
+      </div>
+      <div class="editProfile__tags">
+        <p class="editProfile__tags-p">Sexo:</p>
+        <p class="editProfile__tags-p">{{ userStore.user.biologicalSex }}</p>
+      </div>
+      <div class="editProfile__tags">
+        <p class="editProfile__tags-p">Fecha de cumpleaños:</p>
+        <p class="editProfile__tags-p">{{ formattedDate }}</p>
+      </div>
+      <div contenteditable="true" class="editProfile__tags-input"  ></div>
+      <div>{{text}}</div>
     </div>
   </div>
 </template>
@@ -33,17 +61,24 @@ let imgProfile = ["https://firebasestorage.googleapis.com/v0/b/connect-e76fc.app
   height: 100vh;
 
   &__album {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    grid-gap: 10px;
+    display: flex;
+    justify-content: space-evenly;
     width: 100%;
-    height: 50%;
+    height: 27%;
+    margin-top: 10px;
 
     &-item {
-    border: 1px solid black;
-    padding: 10px;
-  }
+      width: 40%;
+      border-radius: 15px;
+      overflow: hidden;
+      outline: solid 5px $primary-color;
+      border: solid 2px #fff;
+    }
+    &-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
   &__btn {
     display: flex;
@@ -65,12 +100,27 @@ let imgProfile = ["https://firebasestorage.googleapis.com/v0/b/connect-e76fc.app
     align-items: center;
     gap: 8px;
     margin-top: 5px;
+    height: 50%;
   }
   &__tags {
-    width: 97%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    width: 85%;
+    padding: 4px 10px 4px 10px;
     border-radius: 10px;
-    height: 45px;
+    height: 20px;
     background-color: #ece5e5;
+
+    &-p {
+      font-size: 13px;
+      font-weight: 700;
+    }
+    &-input {
+      width: 90%;
+      height: 40%;
+    }
   }
   &__top {
     display: flex;
@@ -93,6 +143,12 @@ let imgProfile = ["https://firebasestorage.googleapis.com/v0/b/connect-e76fc.app
       font-weight: 700;
       color: #bfbaba;
     }
+  }
+  &__txt {
+    font-size: 13px;
+    font-weight: 700;
+    margin-top: 10px;
+    margin-left: 10px;
   }
 }
 </style>
