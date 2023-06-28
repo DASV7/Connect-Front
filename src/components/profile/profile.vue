@@ -1,30 +1,27 @@
 <template>
-  <div class="profileUser">
+  <div v-if="!isLoading" class="profileUser">
     <div class="profileUser__container">
       <div class="profileUser__header">
-        <p class="profileUser__header-p">Profile</p>
+        <p class="profileUser__header-p">Perfil</p>
         <div class="profileUser__header-settings">
           <button class="profileUser__header-btn"><i class="fa fa-cog" aria-hidden="true"></i></button>
           <button @click="$router.push('/editProfile')" class="profileUser__header-btn"><i class="fa-solid fa-user-pen"></i></button>
           <button class="profileUser__header-btn" @click="closeSesion()">
-      <i class="fa fa-sign-out" aria-hidden="true"></i>
-    </button>
+            <i class="fa fa-sign-out" aria-hidden="true"></i>
+          </button>
         </div>
       </div>
-      <div class="profileUser__info">
+      <div @click="$router.push('/editProfile')" class="profileUser__info">
         <div class="profileUser__photoProfile">
           <div class="profileUser__photoProfile-cont">
-            <img
-              class="profileUser__photoProfile-img"
-              src="https://scontent.fpei3-1.fna.fbcdn.net/v/t1.6435-9/144497356_2781816275366132_2569166611012571515_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=8bfeb9&_nc_eui2=AeFPMtG-r1dYyuuSv_Q9K7svpkNvGSurx4OmQ28ZK6vHg5KzvRRn7dYxnkiq10XUhOddCNb9tclirBfJ1B-ESB-M&_nc_ohc=8VwUS4iDoC8AX-iXdSN&_nc_ht=scontent.fpei3-1.fna&oh=00_AfCBXHbriqLbowCfsPIEWwBTjtK0EUtEgogZFdS8z6ZBIA&oe=64C31F0F"
-            />
+            <img class="profileUser__photoProfile-img" :src="user.pictures[0].url" />
           </div>
         </div>
         <div class="profileUser__info-name">
-          <p class="profileUser__info-p">Emanuel, 18</p>
+          <p class="profileUser__info-p">{{ user.name }}, {{ calculateAge(user.birthday) }}</p>
           <p class="profileUser__info-txt">
             <i class="fa-solid fa-message"></i>
-            Hablar y conocer gente nueva
+            Estas aqui {{ hereFor[user.hereFor]?.text }}
           </p>
         </div>
       </div>
@@ -33,7 +30,7 @@
       <div class="infoPremium__vinc">
         <div class="infoPremium__vinc-tittle">
           <img class="infoPremium__vinc-logo" src="../../../public/svgLogoComplete.svg" alt="" />
-          <p class="infoPremium__vinc-txt">VINC PREMIUM</p>
+          <p class="infoPremium__vinc-txt">PREMIUM</p>
         </div>
         <div class="infoPremium__txt">
           <p class="infoPremium__txt-exp">Controla toda tu experiencia con Premium y obten hasta 12 + 1 mas matches* que la gente sin Premium</p>
@@ -53,17 +50,51 @@
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
 <script setup>
+import axios from "../../api/axios";
+import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { goToGo, interest } from "../../utils/sharedObjects";
+import { calculateAge } from "../../utils/calculateAge";
+import { useCounterStore } from "../../store/users";
+
+const userStore = useCounterStore();
 const router = useRouter();
 const closeSesion = () => {
   localStorage.clear();
   router.push("/");
+};
+
+onMounted(() => {
+  userProfile();
+});
+let isLoading = ref(true);
+
+let dataUser = ref({});
+let user = ref({});
+let preferences = ref({});
+
+const userProfile = async () => {
+  isLoading.value = true;
+  axios
+    .get("/profile")
+    .then((response) => {
+      dataUser.value = response.data;
+      user.value = dataUser.value.user;
+      preferences.value = dataUser.value.preferences;
+      isLoading.value = false;
+      userStore.$patch({ user: user.value, preferences: preferences.value });
+    })
+    .catch((error) => console.error(error));
+};
+
+const hereFor = {
+  relationship: interest[0],
+  chat: interest[1],
+  contact: interest[2],
 };
 
 const advantages = [
@@ -146,7 +177,7 @@ const advantages = [
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 185px;
+    height: 25%;
     border-bottom: 2px solid $primary-color;
     box-shadow: 0 2px 15px $primary-color;
     gap: 10px;
@@ -156,7 +187,7 @@ const advantages = [
     justify-content: space-between;
     align-items: end;
     width: 100%;
-    height: 30px;
+    height: 20%;
 
     &-p {
       font-size: 15px;
@@ -197,6 +228,7 @@ const advantages = [
     }
 
     &-img {
+      width: 71px;
       height: 100%;
       // border-radius: 100%;
       object-fit: cover;
@@ -207,8 +239,8 @@ const advantages = [
     align-items: center;
     gap: 10px;
     width: 100%;
-    height: 125px;
-    
+    height: 60%;
+
     &-p {
       font-weight: 700;
       font-size: 14px;
@@ -221,6 +253,8 @@ const advantages = [
       font-weight: 700;
       padding: 5px 5px 5px 5px;
       margin-top: 5px;
+      width: 70%;
+      min-width: 150px;
     }
   }
   // &__info-name {
@@ -232,7 +266,7 @@ const advantages = [
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 100%;
+  height: 112%;
   margin-top: 20px;
 
   &__vinc {
@@ -241,7 +275,7 @@ const advantages = [
     justify-content: center;
     align-items: center;
     width: 90%;
-    height: 180px;
+    height: 25%;
     border-radius: 20px;
     gap: 15px;
     background-image: linear-gradient(to top, rgba(80, 189, 237, 0.8), #50bded);
@@ -297,6 +331,7 @@ const advantages = [
     gap: 10px;
     width: 90%;
     margin-top: 15px;
+
     &-target {
       display: flex;
       justify-content: space-between;

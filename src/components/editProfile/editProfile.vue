@@ -1,37 +1,19 @@
 <script setup>
+import { useCounterStore } from "../../store/users";
+
+const userStore = useCounterStore();
 let imgProfile = ["https://firebasestorage.googleapis.com/v0/b/connect-e76fc.appspot.com/o/icons%2F2466249.jpg?alt=media&token=57fdb4ee-8650-4ccc-a841-d04ba7816556z"];
 </script>
 <template>
   <div class="editProfile">
     <div class="editProfile__top">
       <button class="editProfile__top-btn" @click="$router.push('/profile')"><i class="fa-solid fa-arrow-left"></i></button>
-      <p class="editProfile__top-tittle">Edita perfil tu perfil</p>
+      <p class="editProfile__top-tittle">Edita tu perfil</p>
     </div>
     <div class="editProfile__album">
-      <div class="editProfile__album-first">
-        <div class="">
-          <img class="editProfile__album-firstImg" :src="imgProfile[0]" />
-        </div>
-        <div class="editProfile__album-third">
-          <div class="editProfile__album-containerThird">
-            <img class="editProfile__album-thirdImg" :src="imgProfile[0]" />
-          </div>
-          <div class="editProfile__album-containerThird">
-            <img class="editProfile__album-thirdImg" :src="imgProfile[0]" />
-          </div>
-        </div>
-      </div>
-      <div class="editProfile__album-second">
-        <div class="editProfile__album-containerThird">
-          <img class="editProfile__album-secondImg" :src="imgProfile[0]" />
-        </div>
-        <div class="editProfile__album-containerThird">
-          <img class="editProfile__album-secondImg" :src="imgProfile[0]" alt="" />
-        </div>
-        <div class="editProfile__album-containerThird">
-          <img class="editProfile__album-secondImg" :src="imgProfile[0]" alt="" />
-        </div>
-      </div>
+      <div class="editProfile__album-item">Celda1</div>
+      <div class="editProfile__album-item">Celda2</div>
+
     </div>
     <div class="editProfile__btn">
       <button class="editProfile__btn-add">Añadir Fotos</button>
@@ -51,50 +33,23 @@ let imgProfile = ["https://firebasestorage.googleapis.com/v0/b/connect-e76fc.app
   height: 100vh;
 
   &__album {
-    display: flex;
-    width: 99%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 10px;
+    width: 100%;
     height: 50%;
-    &-second {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      width: 30%;
-      height: 100%;
-    }
-    &-first {
-      width: 70%;
-      height: 60%;
-      max-width: 300px;
-      //   height: 300px;
-      max-height: 221px;
-    }
-    &-third {
-      display: flex;
-      justify-content: center;
-      width: 100%;
-      height: 48%;
-    }
-    &-thirdImg {
-      width: 100%;
-      height: 100%;
-    }
-    &-containerThird {
-      height: 100%;
-    }
-    &-secondImg {
-      width: 100%;
-      height: 100%;
-    }
-    &-firstImg {
-      width: 100%;
-      height: 100%;
-      max-height: 221px;
-    }
+
+    &-item {
+    border: 1px solid black;
+    padding: 10px;
+  }
   }
   &__btn {
     display: flex;
     justify-content: center;
     margin-top: 10px;
+
     &-add {
       width: 70%;
       height: 35px;
