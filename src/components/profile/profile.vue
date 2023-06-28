@@ -29,7 +29,7 @@
     <div class="infoPremium">
       <div class="infoPremium__vinc">
         <div class="infoPremium__vinc-tittle">
-          <img class="infoPremium__vinc-logo" src="http://localhost:5173/public/svgLogoComplete.svg" alt="" />
+          <img class="infoPremium__vinc-logo" src="../../../public///svgLogoComplete.svg" alt="" />
           <p class="infoPremium__vinc-txt">VINC PREMIUM</p>
         </div>
         <div class="infoPremium__txt">
@@ -58,11 +58,13 @@ const closeSesion = () => {
   router.push("/");
 };
 
-const advantages = [{
-  icon: "fa fa-heart",
-  txt: "Descubre a quien le gustas",
-  check: "",
-}];
+const advantages = [
+  {
+    icon: "fa fa-heart",
+    txt: "Descubre a quien le gustas",
+    check: "",
+  },
+];
 </script>
 
 <style lang="scss">
