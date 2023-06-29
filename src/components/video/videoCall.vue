@@ -83,6 +83,7 @@ let warning = [
 </script>
 
 <template>
+  
   <div class="videoCall">
     <div v-if="!searchPeople" class="videoCall__header">
       <img src="../../../public/svgLogoComplete.svg" alt="Vinc logo" />
