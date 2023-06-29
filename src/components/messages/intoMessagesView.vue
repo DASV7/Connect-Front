@@ -49,7 +49,7 @@ const goToBottom = () => {
 };
 
 const newMessage = async () => {
-  if(!message.value.trim()) return;
+  if (!message.value.trim()) return;
   const user = await axios.post("/messages", { message: message.value, conversationId: route.params.id }).catch((error) => {
     Swal.fire({
       icon: "error",
