@@ -216,8 +216,7 @@ const advantages = [
       max-height: 150px;
       border-radius: 100%;
       overflow: hidden;
-      border: 2px solid #fff;
-      outline: solid 4px $primary-color;
+      border: 4px solid $primary-color;
     }
 
     &-img {
@@ -225,6 +224,7 @@ const advantages = [
       height: 100%;
       // border-radius: 100%;
       object-fit: cover;
+
     }
   }
   &__info {

@@ -210,14 +210,17 @@ const handleTouchEnd = (event) => {
   }
 
   &__buttonsAction {
-    position: sticky;
+    position: fixed;
     display: flex;
     justify-content: center;
     cursor: pointer;
     gap: 5px;
     z-index: 100;
-    bottom: 95px;
+    bottom: 70px;
     width: 100%;
+    right: 0;
+    left: 0;
+
 
     &-button {
       background-color: #f9f9f9;
@@ -362,6 +365,8 @@ const handleTouchEnd = (event) => {
   }
   &__album-img {
     max-width: 500px;
+    width: 100%;
+    border-radius: 30px;
   }
   &__state,
   &__album-container {

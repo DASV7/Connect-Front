@@ -52,56 +52,52 @@ const loadCamerainfo = () => {
 const errorCamara = () => {
   textStatus.value = "Error EN la camara";
 };
+
+let warning = [
+  { 
+    tittle: "Recuerda:", 
+    text: "Estás hablando con personas reales.", 
+    icon: "fa fa-exclamation-circle fa-3x" 
+},
+  { 
+    icon: "fa fa-camera fa-3x",
+    tittle: "Reporte:", 
+    text: "Si alguien comparte escenas sexuales, se tomará una captura de pantalla.", 
+},
+  { 
+    icon: "fa fa-check-circle fa-3x", 
+    tittle: "Evaluación:", 
+    text: "El contenido se evaluará para determinar si es obsceno.", 
+},
+  { 
+    icon: "fa-sharp fa-solid fa-circle-xmark" ,
+    tittle: "Contenido explícito:", 
+    text: "No está permitido ningún tipo de contenido explícito.", 
+},
+  { 
+    icon: "fa fa-ban fa-3x" ,
+    tittle: "Al reportar un usuario:", 
+    text: "Si se confirma que es contenido obsceno, se bloqueará al usuario.", 
+},
+];
 </script>
 
 <template>
   <div class="videoCall">
-    <div class="videoCall__header">
+    <div v-if="!searchPeople" class="videoCall__header">
       <img src="../../../public/svgLogoComplete.svg" alt="Vinc logo" />
     </div>
-    <div class="videoCall__alertStart" v-if="!searchPeople">
-      <div class="videoCall__alertStart-message">
-        <i class="fa fa-exclamation-circle fa-3x"></i>
+    <div v-if="!searchPeople" class="videoCall__alertStart" >
+      <div  v-for="(item, index) in warning" :key="index" class="videoCall__alertStart-message">
+        <i :class="item.icon"></i>
         <div class="message-content">
-          <p class="message-heading">Recuerda</p>
-          <p>Estás hablando con personas reales.</p>
+          <p class="message-heading">{{ item.tittle }}</p>
+          <p class="message-heading">{{ item.text }}</p>
         </div>
       </div>
 
-      <div class="videoCall__alertStart-message">
-        <i class="fa fa-camera fa-3x"></i>
-        <div class="message-content">
-          <p class="message-heading">Reporte</p>
-          <p>Si alguien comparte escenas sexuales, se tomará una captura de pantalla.</p>
-        </div>
-      </div>
-
-      <div class="videoCall__alertStart-message">
-        <i class="fa fa-check-circle fa-3x"></i>
-        <div class="message-content">
-          <p class="message-heading">Evaluación</p>
-          <p>El contenido se evaluará para determinar si es obsceno.</p>
-        </div>
-      </div>
-
-      <div class="videoCall__alertStart-message">
-        <i class="fa fa-ban fa-3x"></i>
-        <div class="message-content">
-          <p class="message-heading">Contenido explícito</p>
-          <p>No está permitido ningún tipo de contenido explícito.</p>
-        </div>
-      </div>
-
-      <div class="videoCall__alertStart-message">
-        <i class="fa fa-ban fa-3x"></i>
-        <div class="message-content">
-          <p class="message-heading">Al reportar un usuario:</p>
-          <p>Si se confirma que es contenido obsceno, se bloqueará al usuario.</p>
-        </div>
-      </div>
-
-      <button id="btn" class="videoCall__alertStart-continue" @click="startCalls()">Empezar</button>
     </div>
+    <button v-if="!searchPeople" id="btn" class="videoCall__alertStart-continue" @click="startCalls()">Empezar</button>
     <div class="videoCall__container" v-show="searchPeople">
       <div class="videoCall__imgOne">
         <video src="" id="video" style="width: 300px; height: 300px" autoplay="true"></video>
@@ -138,8 +134,15 @@ const errorCamara = () => {
   }
 
   &__alertStart {
+    display: flex;
+    flex-direction: column;
     margin: 0 auto;
+    gap: 10px ;
     padding: 20px;
+     p {
+      font-size: 10px;
+      font-weight: 700;
+     }
     &-message {
       display: flex;
       align-items: center;
@@ -147,8 +150,10 @@ const errorCamara = () => {
       i {
         margin-right: 10px;
         color: #ff0000;
+        font-size: 35px;
       }
     }
+
     &-messageContent {
       flex: 1;
     }
@@ -157,7 +162,7 @@ const errorCamara = () => {
       margin-bottom: 5px;
     }
     &-continue {
-      width: 80%;
+      width: 50%;
       height: 45px;
       border: none;
       background-color: #50bded;
