@@ -48,6 +48,7 @@
         </div>
       </div>
     </div>
+    <button class="profileUser__header-btnbutton" @click="closeSesion()">Cerrar sesión </button>
   </div>
 </template>
 
@@ -65,6 +66,12 @@ const router = useRouter();
 onMounted(() => {
   userProfile();
 });
+
+const closeSesion = () => {
+  localStorage.clear();
+  router.push("/");
+  window.location.reload();
+};
 let isLoading = ref(true);
 
 let dataUser = ref({});
@@ -73,7 +80,7 @@ let preferences = ref({});
 
 const userProfile = async () => {
   isLoading.value = true;
-  axios
+  const info = axios
     .get("/profile")
     .then((response) => {
       dataUser.value = response.data;
@@ -83,6 +90,7 @@ const userProfile = async () => {
       userStore.$patch({ user: user.value, preferences: preferences.value });
     })
     .catch((error) => console.error(error));
+  console.log(info);
 };
 
 const hereFor = {
@@ -164,7 +172,6 @@ const advantages = [
 <style lang="scss">
 .profileUser {
   width: 100%;
-  height: 100vh;
 
   &__container {
     display: flex;
@@ -201,6 +208,18 @@ const advantages = [
       background-color: #f8f4f4;
       border: none;
     }
+    &-btnbutton {
+      text-align: center;
+      margin-left: 20px;
+      height: 40px;
+      font-size: 20px;
+      border-radius: 30px;
+      background-color: transparent;
+      color: #3e4446;
+      border: none;
+      cursor: pointer;
+      display: flex;
+    }
   }
   &__photoProfile {
     @include flexCenter;
@@ -224,7 +243,6 @@ const advantages = [
       height: 100%;
       // border-radius: 100%;
       object-fit: cover;
-
     }
   }
   &__info {
