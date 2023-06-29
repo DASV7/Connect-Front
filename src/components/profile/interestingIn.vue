@@ -35,15 +35,18 @@ const interest = [
     flex-wrap: wrap;
     font-size: 13px;
     gap: 5px;
+
     &-item {
       border-radius: 100px;
       padding: 5px;
-      background-color: #e7dfdf;
+      background-color: #e7dfdf38;
     }
   }
   &__tittle {
     font-size: 10px;
     color: $primary-color;
+    margin-top: 5px;
+    margin-bottom: 5px;
   }
 }
 </style>

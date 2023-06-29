@@ -11,10 +11,12 @@ let text = ref();
 const sex = ref({ male: "Masculino", female: "Femenino" });
 const description = ref("");
 onMounted(() => {
+
   dateString = userStore.user.birthday;
   date = new Date(dateString);
   formattedDate.value = date.toDateString();
   description.value = userStore.user.description || "Agrega una descripción";
+  
 });
 
 let imgProfile = ["https://firebasestorage.googleapis.com/v0/b/connect-e76fc.appspot.com/o/icons%2F2466249.jpg?alt=media&token=57fdb4ee-8650-4ccc-a841-d04ba7816556z"];

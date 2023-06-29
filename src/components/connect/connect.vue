@@ -157,7 +157,7 @@ const handleTouchEnd = (event) => {
       </div>
       <div class="information__album">
         <div class="information__album-container">
-          <img class="information__album-img" v-for="(item, index) of userCard?.pictures" :src="item?.url" alt="" :key="index" />
+          <img class="information__album-img"  :src="userCard.pictures[1]?.url" alt="" />
         </div>
       </div>
 
@@ -171,7 +171,7 @@ const handleTouchEnd = (event) => {
     </div>
   </div>
 </template>
-
+v-for="(item, index) of userCard?.pictures"
 <style lang="scss">
 * {
   font-family: sans-serif;
@@ -188,6 +188,7 @@ const handleTouchEnd = (event) => {
     overflow: hidden;
     text-align: center;
     border-radius: 20px 20px 0 0;
+    border: solid 1px #00000014;
     &::-webkit-scrollbar-thumb {
       height: 80px;
     }
@@ -248,7 +249,7 @@ const handleTouchEnd = (event) => {
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.724), rgba(0, 0, 0, 0));
 
     &-p {
-      font-weight: 800;
+      font-weight: 600;
     }
     &-status {
       background-color: rgb(0, 255, 0);
@@ -256,7 +257,9 @@ const handleTouchEnd = (event) => {
       height: 10px;
     }
     &-user {
-      gap: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
       margin-top: 10px;
     }
     &-profile {
@@ -313,26 +316,35 @@ const handleTouchEnd = (event) => {
   &__user {
     width: 100%;
     height: 100vh;
+    
+    &-p {
+      text-align: start;
+      margin-top: 5px;
+    }
     &-txt {
       font-size: 10px;
       font-weight: 700;
+      margin-bottom: 5px;
+      margin-left: 20px;
+
     }
   }
   &__description {
-    margin-top: 10px;
+    width: 100%;
     border-radius: 10px;
-    border: #d1cdcd solid 1px;
-    text-align: center;
+    text-align: start;
+    background-color: #ffffff3c;
+
     &-txt {
-      font-size: 12px;
-      font-weight: 700;
+      font-size: 10px;
+      font-weight: 500;
       padding: 5px;
       margin: 0%;
     }
     &-i {
       margin: 0%;
       text-align: start;
-      font-size: 20px;
+      font-size: 15px;
       color: $primary-color;
     }
   }
@@ -344,7 +356,7 @@ const handleTouchEnd = (event) => {
 
     &-preferences {
       display: flex;
-      background-color: #e7dfdf;
+      background-color: rgba(231, 223, 223, 0.2196078431);
       font-size: 13px;
       border-radius: 30px;
       padding: 4px;
@@ -381,7 +393,7 @@ const handleTouchEnd = (event) => {
 }
 
 .homeVinc__Container {
-  height: 100vh;
+  height: 88vh;
   overflow-x: hidden;
   overflow-y: scroll;
   display: flex;
