@@ -11,7 +11,7 @@ const otherAvatar = (users) => {
   const valor = users.find((user) => {
     const val = user._id != usersStore.user?._id;
     return val;
-  });
+  });  
   return valor;
 };
 const loading = ref(false);
@@ -28,6 +28,7 @@ onMounted(async () => {
   });
   loading.value = false;
   const response = user.data.data;
+  console.log(response);
   users.value = response;
 });
 </script>
@@ -46,11 +47,11 @@ onMounted(async () => {
               {{ otherAvatar(user.members).name }}
             </div>
             <div class="messagesView__cardChat-text">
-              {{ otherAvatar(user.members).message || "Da el primer paso" }}
+              {{ user.ultimateMessage || "Da el primer paso" }}
             </div>
           </div>
           <div class="messagesView__cardChat-countMessages">
-            {{ otherAvatar(user.members).countMessages || 0 }}
+            {{ user.countMessages || 0 }}
           </div>
         </div>
       </div>

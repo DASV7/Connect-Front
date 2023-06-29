@@ -94,19 +94,19 @@ const routes = [
     path: "/editProfile",
     name: "editProfile",
     component: editProfile,
-    // beforeEnter: ifAuthenticated,
+    beforeEnter: ifAuthenticated,
   },
   {
     path: "/preferences",
     name: "preferences",
     component: preferences,
-    // beforeEnter: ifAuthenticated,
+    beforeEnter: ifAuthenticated,
   },
   {
     path: "/settings",
     name: "settings",
     component: settings,
-    // beforeEnter: ifAuthenticated,
+    beforeEnter: ifAuthenticated,
   },
   {
     path: "/:catchAll(.*)",

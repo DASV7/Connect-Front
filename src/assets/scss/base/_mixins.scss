@@ -13,6 +13,12 @@
   transition: border 500ms;
 }
 
+@mixin flexCenter() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @mixin Row($justify: center, $align: center) {
   display: flex;
   flex-direction: row;

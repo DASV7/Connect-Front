@@ -64,7 +64,7 @@ const changeModal = () => {
   showModal.value = !showModal.value;
 };
 
-const touchStart = (event) => {
+/*const touchStart = (event) => {
   startTouch.value = event.touches[0].clientX;
 };
 
@@ -87,10 +87,11 @@ const handleTouchEnd = (event) => {
   }
 
   card.style.transform = "";
-};
+@touchstart="touchStart($event)" @touchmove="touchMove($event)" @touchend="handleTouchEnd($event)"
+};*/
 </script>
 <template>
-  <div class="homeVinc" v-if="!isLoading" @touchstart="touchStart($event)" @touchmove="touchMove($event)" @touchend="handleTouchEnd($event)">
+  <div class="homeVinc" v-if="!isLoading">
     <div class="homeVinc__Container">
       <div class="homeVinc__userInfo">
         <div class="homeVinc__userInfo-user">

@@ -8,14 +8,13 @@ import { useCounterStore } from "../../store/users";
 import messageCard from "./messageCard.vue";
 import { useSocketStore } from "../../store/socketStore";
 
-
 const message = ref("");
 let messagesUser = reactive([]);
 const route = useRoute();
 const userSesion = useCounterStore();
 const members = ref([]);
 const socket = useSocketStore();
-
+const isLoading = ref(true);
 const bindRef = ref(true);
 
 onMounted(async () => {
@@ -28,6 +27,7 @@ onMounted(async () => {
   members.value = response.members;
   messagesUser.splice(messagesUser.length, 0, ...response.messages);
   setTimeout(() => goToBottom(), 100);
+  isLoading.value = false;
 });
 
 socket.socket.on("messages/newMessage/", async (message) => {
@@ -40,7 +40,7 @@ const filterMembers = (message) => {
 };
 
 const itsMe = (message) => {
-  return message.sender == userSesion.user._id;
+  return message.sender == userSesion.user?._id;
 };
 
 const goToBottom = () => {
@@ -69,7 +69,7 @@ onBeforeUnmount(() => {
 });
 </script>
 <template>
-  <div class="intoMessages">
+  <div class="intoMessages" v-if="!isLoading">
     <div class="intoMessages__messages" scrollDefault>
       <div :id="index" class="intoMessages__messageItem" v-for="(message, index) in messagesUser" :key="message._id">
         <messageCard :message="message" :user="filterMembers(message)" :idx="itsMe(message)"></messageCard>
@@ -79,7 +79,7 @@ onBeforeUnmount(() => {
     <div class="intoMessages__container">
       <input class="intoMessages__container-input" type="text" placeholder="Nuevo Mensaje " v-model="message" />
       <button class="intoMessages__container-send" @click="newMessage"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
-    </div>    
+    </div>
   </div>
 </template>
 <style lang="scss">

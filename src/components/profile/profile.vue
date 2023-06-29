@@ -3,15 +3,14 @@
     <div class="profileUser__container">
       <div class="profileUser__header">
         <p class="profileUser__header-p">Perfil</p>
-        <div class="profileUser__header-settings">
-        </div>
+        <div class="profileUser__header-settings"></div>
       </div>
       <div class="profileUser__info">
         <button @click="$router.push('/settings')" class="profileUser__header-btn"><i class="fa fa-cog" aria-hidden="true"></i></button>
-        <div  class="profileUser__info-container">
+        <div class="profileUser__info-container">
           <div class="profileUser__photoProfile">
             <div class="profileUser__photoProfile-cont">
-              <img  @click="$router.push('/editProfile')" class="profileUser__photoProfile-img" :src="user.pictures[0].url" />
+              <img @click="$router.push('/editProfile')" class="profileUser__photoProfile-img" :src="user.pictures[0].url" />
             </div>
           </div>
           <div class="profileUser__info-name">
@@ -62,10 +61,6 @@ import { useCounterStore } from "../../store/users";
 
 const userStore = useCounterStore();
 const router = useRouter();
-const closeSesion = () => {
-  localStorage.clear();
-  router.push("/");
-};
 
 onMounted(() => {
   userProfile();
@@ -170,13 +165,12 @@ const advantages = [
 .profileUser {
   width: 100%;
   height: 100vh;
-  // overflow: hidden;
 
   &__container {
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 30%;
+    height: 34%;
     border-bottom: 2px solid $primary-color;
     box-shadow: 0 2px 15px $primary-color;
   }
@@ -185,7 +179,7 @@ const advantages = [
     justify-content: space-between;
     align-items: end;
     width: 100%;
-    height: 20%;
+    height: 12%;
 
     &-p {
       font-size: 15px;
@@ -209,19 +203,17 @@ const advantages = [
     }
   }
   &__photoProfile {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include flexCenter;
     flex-direction: column;
     width: 65%;
     height: 90%;
 
     &-cont {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      @include flexCenter;
       width: 100%;
       height: 100%;
+      max-width: 150px;
+      max-height: 150px;
       border-radius: 100%;
       overflow: hidden;
       border: 2px solid #fff;
@@ -236,9 +228,7 @@ const advantages = [
     }
   }
   &__info {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include flexCenter;
     width: 100%;
     height: 60%;
 
@@ -279,10 +269,8 @@ const advantages = [
   margin-top: 20px;
 
   &__vinc {
-    display: flex;
+    @include flexCenter;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     width: 90%;
     height: 25%;
     border-radius: 20px;
@@ -290,9 +278,7 @@ const advantages = [
     background-image: linear-gradient(to top, rgba(80, 189, 237, 0.8), #50bded);
 
     &-tittle {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      @include flexCenter;
       width: 90%;
       height: 35px;
       border-radius: 20px;
@@ -308,10 +294,8 @@ const advantages = [
     }
   }
   &__txt {
-    display: flex;
+    @include flexCenter;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     width: 85%;
     // background-color: #fff;
     border-radius: 20px;

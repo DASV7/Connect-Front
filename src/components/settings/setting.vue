@@ -7,6 +7,14 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { useRouter } from "vue-router";
+const router = useRouter();
+const closeSesion = () => {
+  localStorage.clear();
+  router.push("/");
+  window.location.reload();
+};
+</script>
 
 <style></style>

@@ -5,13 +5,16 @@ const userStore = useCounterStore();
 
 let dateString = null;
 let date = null;
-let formattedDate = ref("")
-let text = ref()
+let formattedDate = ref("");
+let text = ref();
+
+const sex = ref({ male: "Masculino", female: "Femenino" });
+const description = ref("");
 onMounted(() => {
   dateString = userStore.user.birthday;
   date = new Date(dateString);
   formattedDate.value = date.toDateString();
-  console.log(formattedDate);
+  description.value = userStore.user.description || "Agrega una descripción";
 });
 
 let imgProfile = ["https://firebasestorage.googleapis.com/v0/b/connect-e76fc.appspot.com/o/icons%2F2466249.jpg?alt=media&token=57fdb4ee-8650-4ccc-a841-d04ba7816556z"];
@@ -27,7 +30,7 @@ let imgProfile = ["https://firebasestorage.googleapis.com/v0/b/connect-e76fc.app
         <img class="editProfile__album-img" :src="userStore.user.pictures[0].url" alt="" />
       </div>
       <div class="editProfile__album-item">
-        <img class="editProfile__album-img" :src="userStore.user.pictures[0].url" alt="" />
+        <img class="editProfile__album-img" :src="userStore.user.pictures[1]?.url" alt="" />
       </div>
     </div>
     <div class="editProfile__btn">
@@ -43,14 +46,14 @@ let imgProfile = ["https://firebasestorage.googleapis.com/v0/b/connect-e76fc.app
       </div>
       <div class="editProfile__tags">
         <p class="editProfile__tags-p">Sexo:</p>
-        <p class="editProfile__tags-p">{{ userStore.user.biologicalSex }}</p>
+        <p class="editProfile__tags-p">{{ sex[userStore.user.biologicalSex] }}</p>
       </div>
       <div class="editProfile__tags">
         <p class="editProfile__tags-p">Fecha de cumpleaños:</p>
         <p class="editProfile__tags-p">{{ formattedDate }}</p>
       </div>
-      <div contenteditable="true" class="editProfile__tags-input"  ></div>
-      <div>{{text}}</div>
+      <textarea class="editProfile__tags-input" v-model="description"> </textarea>
+      <div>{{ text }}</div>
     </div>
   </div>
 </template>
@@ -118,8 +121,9 @@ let imgProfile = ["https://firebasestorage.googleapis.com/v0/b/connect-e76fc.app
       font-weight: 700;
     }
     &-input {
-      width: 90%;
+      width: 86%;
       height: 40%;
+      padding: 5px;
     }
   }
   &__top {

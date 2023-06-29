@@ -1,5 +1,7 @@
 <script setup>
 import { onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
+const router = useRouter();
 
 const activeRote = ref();
 onMounted(() => {});
@@ -15,13 +17,18 @@ const routers = [
 const goRouter = (index) => {
   activeRote.value = index;
 };
+
+onMounted(() => {
+  const actualRoute = router.currentRoute.value.path;
+  goRouter(actualRoute);
+});
 </script>
 
 <template>
   <nav class="menu">
     <div class="menu__container">
-      <div class="menu__items" v-for="(router, index) in routers" :key="index" :class="activeRote == index ? 'menu__container-btn-active' : ''">
-        <button @click="$router.push(router.path), goRouter(router.path)" class="menu__container-btn">
+      <div class="menu__items" v-for="(router, index) in routers" :key="index">
+        <button @click="$router.push(router.path), goRouter(router.path)" class="menu__container-btn" :class="router.path.includes(activeRote) ? 'menu__container-btn-active' : ''">
           <i :class="router.icon"></i>
         </button>
       </div>
@@ -57,13 +64,13 @@ const goRouter = (index) => {
     width: 100%;
     height: 50px;
     background-color: #f9f9f9;
-    color: $primary-color;
+    color: rgba(128, 128, 128, 0.384);
     border: none;
     font-size: 20px;
-
+    animation: fadeIn 1s ease-in-out;
     &-active {
-      background-color: $primary-color;
-      color: #fff;
+      color: $primary-color;
+      animation: fadeIn 1s ease-in-out;
     }
   }
 }
