@@ -35,7 +35,7 @@ const sendRejected = async (user) => {
 </script>
 <template>
   <div class="whoLikesMe">
-    <p>Si cobrasemos por ver quien te da like estariamos limitando Una posible relacion a futuro y el amor tiene que tener via libre</p>
+    <p>Cobrar por los "me gusta" limita el amor. Dejemos que fluya sin barreras.</p>
     <div class="whoLikesMe__container">
       <miniLoading v-if="isLoading"></miniLoading>
       <div class="whoLikesMe__user" v-for="(user, index) in usersLike" :key="index">
