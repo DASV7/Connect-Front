@@ -76,9 +76,11 @@ onBeforeUnmount(() => {
       </div>
       <div id="elemento-final"></div>
     </div>
-    <div class="intoMessages__container">
-      <input class="intoMessages__container-input" type="text" placeholder="Nuevo Mensaje " v-model="message" />
-      <button class="intoMessages__container-send" @click="newMessage"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+    <div class="intoMessages__all">
+      <div class="intoMessages__container">
+        <input class="intoMessages__container-input" type="text" placeholder="Nuevo Mensaje " v-model="message" />
+        <button class="intoMessages__container-send" @click="newMessage"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+      </div>
     </div>
   </div>
 </template>
@@ -87,48 +89,54 @@ onBeforeUnmount(() => {
   height: 100vh;
   width: 100vw;
 
-  &__messageItem {
-  }
+  // &__messageItem {
+  // }
 
   &__messages {
     max-height: 83%;
     overflow-y: auto;
     overflow-x: hidden;
   }
-
+  &__all {
+    display: flex;
+    justify-content: center;
+  }
   &__container {
     display: flex;
     align-items: center;
     position: absolute;
     bottom: 55px;
-    width: 100%;
+    width: 90%;
+    gap: 10px;
+
     &-input {
-      background-color: #2195f37a;
+      background-color: #96a0a77a;
       color: #000000;
       border: none;
-      border-radius: 25px;
+      border-radius: 15px;
       width: 100%;
-      height: 30px;
-      font-size: 16px;
-      font-weight: bold;
+      height: 35px;
+      font-size: 10px;
       cursor: pointer;
       transition: all 0.3s ease;
-      text-align: center;
+      text-align: start;
+      padding-left: 15px;
     }
 
     &-input:hover {
-      background-color: #0d8bff;
+      // background-color: #0d8bff;
       outline: none;
     }
 
     &-send {
+      align-items: center;
       background-color: #2196f3;
       color: #fff;
       border: none;
-      border-radius: 25px;
-      height: 30px;
-      width: 40px;
-      font-size: 16px;
+      border-radius: 20px;
+      height: 35px;
+      width: 50px;
+      font-size: 13px;
       font-weight: bold;
       cursor: pointer;
       transition: all 0.3s ease;
