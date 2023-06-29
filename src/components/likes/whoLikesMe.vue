@@ -65,6 +65,8 @@ const sendRejected = async (user) => {
 
   &__container {
     display: flex;
+    align-items: center;
+    
     flex-wrap: wrap;
     gap: 5px;
   }
