@@ -239,16 +239,15 @@ const prevtvalue = () => {
   }
   &__interest {
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
+    padding-left: 15px;
     gap: 10px;
-    height: 50px;
-    padding: 5px;
+    height: 30px;
     border-radius: 10px;
-    border: 1px solid #ccc;
-    width: 97%;
+    width: 85%;
     max-width: 350px;
-    background-color: rgba(128, 128, 128, 0.144);
+    background-color: rgb(0 0 0 / 3%);
     cursor: pointer;
     i {
       font-size: 20px;
