@@ -100,7 +100,7 @@ const errorCamara = () => {
         </div>
       </div>
 
-      <button id="btn" @click="startCalls()">Empezar</button>
+      <button id="btn" class="videoCall__alertStart-continue" @click="startCalls()">Empezar</button>
     </div>
     <div class="videoCall__container" v-show="searchPeople">
       <div class="videoCall__imgOne">
@@ -155,6 +155,15 @@ const errorCamara = () => {
     &-message-heading {
       font-weight: bold;
       margin-bottom: 5px;
+    }
+    &-continue {
+      width: 80%;
+      height: 45px;
+      border: none;
+      background-color: #50bded;
+      color: #fff;
+      border-radius: 30px;
+      font-weight: 700;
     }
   }
 

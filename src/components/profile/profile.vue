@@ -10,11 +10,11 @@
         <div class="profileUser__info-container">
           <div class="profileUser__photoProfile">
             <div class="profileUser__photoProfile-cont">
-              <img @click="$router.push('/editProfile')" class="profileUser__photoProfile-img" :src="user.pictures[0].url" />
+              <img @click="$router.push('/editProfile')" class="profileUser__photoProfile-img" :src="user?.pictures[0].url" />
             </div>
           </div>
           <div class="profileUser__info-name">
-            <p class="profileUser__info-p">{{ user.name }}, {{ calculateAge(user.birthday) }}</p>
+            <p class="profileUser__info-p">{{ user.name }}, {{ calculateAge(user?.birthday) }}</p>
             <p class="profileUser__info-txt">
               <i class="fa-solid fa-message"></i>
               Estas aqui {{ hereFor[user.hereFor]?.text }}

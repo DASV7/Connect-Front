@@ -3,9 +3,17 @@ import connect from "./connect.vue";
 import axios from "../../api/axios";
 import { onMounted, ref, computed } from "vue";
 import { useSocketStore } from "../../store/socketStore";
+import { useCounterStore } from "../../store/users";
 import miniLoading from "../shared/miniLoading.vue";
 const isLoading = ref(false);
 const users = ref([]);
+import jwt_decode from "jwt-decode";
+import { useRouter } from "vue-router";
+
+const userStore = useCounterStore();
+
+const router = useRouter();
+
 const socket = useSocketStore().socket;
 
 const getListUsers = async () => {
@@ -42,8 +50,12 @@ const sendDislike = async (user) => {
 const sendMessage = async (user) => {};
 
 onMounted(() => {
+  const isNew = router.currentRoute.value.query.reg;
+  if (isNew) {
+    const decodeToken = jwt_decode(localStorage.getItem("vinc-jwt"));
+    if (decodeToken) userStore.$patch({ user: decodeToken });
+  }
   getListUsers();
-  socket.emit("myEvent", { data: "Hola desde Vue" });
 });
 </script>
 

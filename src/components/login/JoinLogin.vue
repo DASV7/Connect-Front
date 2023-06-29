@@ -100,7 +100,6 @@
         <p>6.2 Jurisdicción Exclusiva: Cualquier disputa que surja de estos Términos se someterá a la jurisdicción exclusiva de los tribunales competentes del [País].</p>
 
         <p>Derechos de Autor Vinc.inc</p>
-
       </div>
       <button @click="politics(false)" class="politicsModal__container-btn">Cerrar</button>
     </div>
@@ -146,7 +145,7 @@
 <script setup>
 import axios from "../../api/axios";
 import { useRouter } from "vue-router";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import Swal from "sweetalert2";
 const router = useRouter();
 import totalLoading from "../shared/totalLoading.vue";
@@ -155,6 +154,10 @@ import { usePush } from "notivue";
 let userData = ref({
   email: "",
   password: "",
+});
+
+onMounted(() => {
+  localStorage.clear();
 });
 
 const isLoading = ref(false);

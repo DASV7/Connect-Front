@@ -72,8 +72,10 @@ const createNewUser = async () => {
     });
 
     localStorage.setItem("vinc-jwt", user.data.data.data);
-    updaloadPictures(user);
-    router.push("/home");
+    const userWithPictures = await updaloadPictures(user);
+    localStorage.clear();
+    localStorage.setItem("vinc-jwt", userWithPictures.data.token);
+    router.push({ path: "/home", query: { reg: 1 } });
   }
 };
 
@@ -85,7 +87,7 @@ const updaloadPictures = async (user) => {
     formData.append("index", index);
 
     formData.append("filename", element);
-    await axios
+    return await axios
       .post("/usersModule/updloadpicture", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -127,7 +129,7 @@ const prevtvalue = () => {
     <div class="flowRegister__wrapper">
       <div class="flowRegister__containerTitle">
         <h3 class="flowRegister__title">{{ goToGo[indexReg].title }}</h3>
-        <h7 class="flowRegister__description">{{ goToGo[indexReg].description }}</h7>
+        <h6 class="flowRegister__description">{{ goToGo[indexReg].description }}</h6>
       </div>
       <div class="flowRegister__formContainer">
         <div class="flowRegister__form-group" v-if="indexReg == 0">
