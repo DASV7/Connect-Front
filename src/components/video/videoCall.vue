@@ -52,6 +52,34 @@ const loadCamerainfo = () => {
 const errorCamara = () => {
   textStatus.value = "Error EN la camara";
 };
+
+let warning = [
+  { 
+    tittle: "Recuerda:", 
+    text: "Estás hablando con personas reales.", 
+    icon: "fa fa-exclamation-circle fa-3x" 
+},
+  { 
+    tittle: "Recuerda:", 
+    text: "Estás hablando con personas reales.", 
+    icon: "fa fa-exclamation-circle fa-3x" 
+},
+  { 
+    tittle: "Recuerda:", 
+    text: "Estás hablando con personas reales.", 
+    icon: "fa fa-exclamation-circle fa-3x" 
+},
+  { 
+    tittle: "Recuerda:", 
+    text: "Estás hablando con personas reales.", 
+    icon: "fa fa-exclamation-circle fa-3x" 
+},
+  { 
+    tittle: "Recuerda:", 
+    text: "Estás hablando con personas reales.", 
+    icon: "fa fa-exclamation-circle fa-3x" 
+}
+];
 </script>
 
 <template>
@@ -59,19 +87,19 @@ const errorCamara = () => {
     <div class="videoCall__header">
       <img src="../../../public/svgLogoComplete.svg" alt="Vinc logo" />
     </div>
-    <div class="videoCall__alertStart" v-if="!searchPeople">
-      <div class="videoCall__alertStart-message">
-        <i class="fa fa-exclamation-circle fa-3x"></i>
+    <div  class="videoCall__alertStart" >
+      <div  v-for="(item, index) in warning" :key="index" class="videoCall__alertStart-message">
+        <i :class="item.icon"></i>
         <div class="message-content">
-          <p class="message-heading">Recuerda</p>
-          <p>Estás hablando con personas reales.</p>
+          <p class="message-heading">{{ item.tittle }}</p>
+          <p>{{ item.text }}</p>
         </div>
       </div>
-
+<!-- 
       <div class="videoCall__alertStart-message">
         <i class="fa fa-camera fa-3x"></i>
         <div class="message-content">
-          <p class="message-heading">Reporte</p>
+          <p class="message-heading">Reporte:</p>
           <p>Si alguien comparte escenas sexuales, se tomará una captura de pantalla.</p>
         </div>
       </div>
@@ -98,7 +126,7 @@ const errorCamara = () => {
           <p class="message-heading">Al reportar un usuario:</p>
           <p>Si se confirma que es contenido obsceno, se bloqueará al usuario.</p>
         </div>
-      </div>
+      </div> -->
 
       <button id="btn" class="videoCall__alertStart-continue" @click="startCalls()">Empezar</button>
     </div>
