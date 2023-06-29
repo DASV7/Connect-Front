@@ -8,7 +8,21 @@ const yes = "--dato:#f0f0f0;  --raius:10px 0 10px 10px;";
 const not = "--dato:rgb(237 7 7 / 35%); --raius:0 10px 10px 10px;";
 const center = "--dato:#d9fdd3; --raius:10px; --center:center;";
 
-onMounted(() => {});
+onMounted(() => {
+  const date = new Date(props.message.date);
+
+  // Obtener los componentes de la fecha
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1; // Los meses en JavaScript comienzan en 0, por eso se suma 1
+  const day = date.getDate();
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+
+  // Formatear los componentes en un string
+  const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}`;
+  console.log(formattedDate);
+  props.message.date = formattedDate;
+});
 const validPosition = () => {
   if (props.idx == "vincMessage") return center;
   if (props.idx == true) return yes;
