@@ -39,7 +39,7 @@ const sendRejected = async (user) => {
       <img class="whoLikesMe__logo-img" src="/public/svgLogoComplete.svg" alt="" />
     </div>
     <p class="whoLikesMe__tittle">LIKES</p>
-    <p class="whoLikesMe__tittle-sub">Si cobrasemos por ver quien te da like estariamos limitando Una posible relacion a futuro y el amor tiene que tener via libre</p>
+    <p class="whoLikesMe__tittle-sub"> Cobrar por los "me gusta" limita el amor. Dejemos que fluya sin barreras.</p>
     <div class="whoLikesMe__container">
       <miniLoading v-if="isLoading"></miniLoading>
       <div class="whoLikesMe__user" v-for="(user, index) in usersLike" :key="index">
@@ -98,6 +98,8 @@ const sendRejected = async (user) => {
 
   &__container {
     display: flex;
+    align-items: center;
+    
     flex-wrap: wrap;
     gap: 40px;
   }
