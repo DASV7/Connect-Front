@@ -47,8 +47,10 @@
           </div>
         </div>
       </div>
+      <button class="profileUser__header-btn" @click="closeSesion()">
+        <i class="fa fa-sign-out" aria-hidden="true"></i>
+      </button>
     </div>
-    <button class="profileUser__header-btnbutton" @click="closeSesion()">Cerrar sesión </button>
   </div>
 </template>
 
@@ -66,12 +68,6 @@ const router = useRouter();
 onMounted(() => {
   userProfile();
 });
-
-const closeSesion = () => {
-  localStorage.clear();
-  router.push("/");
-  window.location.reload();
-};
 let isLoading = ref(true);
 
 let dataUser = ref({});
@@ -91,6 +87,12 @@ const userProfile = async () => {
     })
     .catch((error) => console.error(error));
   console.log(info);
+};
+
+const closeSesion = () => {
+  localStorage.clear();
+  router.push("/");
+  window.location.reload();
 };
 
 const hereFor = {
@@ -172,6 +174,7 @@ const advantages = [
 <style lang="scss">
 .profileUser {
   width: 100%;
+  height: 100vh;
 
   &__container {
     display: flex;
@@ -207,18 +210,6 @@ const advantages = [
       color: #3e4446;
       background-color: #f8f4f4;
       border: none;
-    }
-    &-btnbutton {
-      text-align: center;
-      margin-left: 20px;
-      height: 40px;
-      font-size: 20px;
-      border-radius: 30px;
-      background-color: transparent;
-      color: #3e4446;
-      border: none;
-      cursor: pointer;
-      display: flex;
     }
   }
   &__photoProfile {
