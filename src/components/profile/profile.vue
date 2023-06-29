@@ -5,7 +5,7 @@
         <p class="profileUser__header-p">Perfil</p>
         <div class="profileUser__header-settings"></div>
       </div>
-      <div class="profileUser__info" v-if="user.name">
+      <div class="profileUser__info" v-if="user?.name">
         <button @click="$router.push('/settings')" class="profileUser__header-btn"><i class="fa fa-cog" aria-hidden="true"></i></button>
         <div class="profileUser__info-container">
           <div class="profileUser__photoProfile">
