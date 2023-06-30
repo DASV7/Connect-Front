@@ -51,9 +51,23 @@ onUnmounted(() => {
 <template>
   <div class="mainApp"></div>
   <notificati></notificati>
-  <router-view></router-view>
+  <div class="mainApp__routerView">
+    <router-view></router-view>
+  </div>
   <Notivue :use="notifications" :options="options" />
   <MenuHome v-if="routePermission"> </MenuHome>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss">
+.mainApp__routerView {
+  height: 93vh;
+}
+
+@media screen and (min-width: 1024px) {
+  .mainApp__routerView {
+    height: 100vh;
+    overflow: hidden;
+    margin-left: 70px;
+  }
+}
+</style>

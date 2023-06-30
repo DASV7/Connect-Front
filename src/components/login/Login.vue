@@ -1,5 +1,6 @@
 <template>
   <div class="loginConnect">
+    <politicsModal v-if="showPoliticis"></politicsModal>
     <div class="loginConnect__content">
       <div class="loginConnect__containerTitle">
         <img class="loginConnect__title" src="../../../public/svgLogoComplete.svg" alt="" />
@@ -35,9 +36,9 @@
           </div>
           <div class="loginConnect__join-private">
             <p class="loginConnect__join-text">
-              Al crear una cuenta aceptas nuestros
-              <a href="">Terminos y condiciones.</a> Averigua como usamos tu informacion en nuestras <a href="">Politicas de privacidad</a>
-            </p>
+          Al crear una cuenta aceptas nuestros
+          <i class="politics" @click="politics(true)">Terminos y condiciones y nuestra Políticas de privacidad</i>
+        </p>
           </div>
         </div>
       </div>
@@ -46,6 +47,8 @@
 </template>
 <script setup>
 import { useRouter } from "vue-router";
+import { ref } from "vue";
+import politicsModal from "../politics/politics.vue";
 const router = useRouter();
 
 const goRegister = (param) => {
@@ -56,6 +59,10 @@ const goRegister = (param) => {
     },
   });
 };
+let showPoliticis = ref(false)
+function politics(item) {
+  showPoliticis.value = item;
+}
 </script>
 <style lang="scss">
 $secondary-color: #f9f9f9;
@@ -67,8 +74,9 @@ $breakpoint: 768px;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 99vh;
+  height: 100vh;
   background-color: $secondary-color;
+
 
   &__content {
     height: 100vh;
@@ -89,7 +97,7 @@ $breakpoint: 768px;
   &__containerTitle {
     justify-content: center;
     width: 100%;
-    height: 50%;
+    height: 30%;
   }
 
   &__title {
@@ -130,6 +138,7 @@ $breakpoint: 768px;
     margin-top: 25px;
     width: 100%;
     gap: 10px;
+
     &-icons {
       width: 100%;
       gap: 15px;
@@ -174,7 +183,7 @@ $breakpoint: 768px;
   &__join {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
     height: 90%;
 
     &-info {
@@ -191,6 +200,7 @@ $breakpoint: 768px;
     &-text {
       text-align: center;
       font-size: 12px;
+      cursor: pointer;
     }
   }
 }

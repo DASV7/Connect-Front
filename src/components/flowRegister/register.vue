@@ -245,10 +245,11 @@ const prevtvalue = () => {
     gap: 10px;
     height: 30px;
     border-radius: 10px;
-    width: 85%;
+    width: 95%;
     max-width: 350px;
     background-color: rgb(0 0 0 / 3%);
     cursor: pointer;
+
     i {
       font-size: 20px;
       color: $primary-color;
@@ -303,6 +304,30 @@ const prevtvalue = () => {
     font-size: 12px;
     font-weight: bold;
     color: #777;
+    margin-top: 10px;
+  }
+}
+@media (min-width: 500px) {
+  .flowRegister__interest {
+    width: 100%;
+    height: 45px;
+  }
+  .flowRegister__wrapper {
+    width: 35%;
+  }
+  .flowRegister__button-register {
+    cursor: pointer;
+    width: 50%;
+  }
+  .flowRegister__button {
+
+    margin-top: 25px;
+  }
+  .flowRegister__form-input {
+    width: 75%;
+  }
+  .flowRegister__pictureIcons {
+    justify-content: center;
   }
 }
 </style>
