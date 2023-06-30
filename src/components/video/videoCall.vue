@@ -84,7 +84,7 @@ let warning = [
 
 <template>
   <div class="videoCall">
-    <div class="videoCall__logo">
+    <div v-if="searchPeople" class="videoCall__logo">
       <img class="videoCall__logo-img" src="../../../public/svgLogoComplete.svg" alt="" />
     </div>
     <div v-if="!searchPeople" class="videoCall__header">
@@ -120,6 +120,7 @@ let warning = [
 .videoCall {
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-direction: column;
   height: 92vh;
   background-color: #000;
@@ -134,6 +135,8 @@ let warning = [
     &-img {
       width: 100px;
       height: 26px;
+      padding-top: 20px;
+      margin-left: 20px;
     }
   }
 
