@@ -98,7 +98,7 @@ onMounted(async () => {
 
     &-text,
     &-userName {
-      max-width: 250px;
+      max-width: 204px;
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
