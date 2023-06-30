@@ -35,6 +35,7 @@ const interest = [
     flex-wrap: wrap;
     font-size: 13px;
     gap: 5px;
+    margin-left: 10px;
 
     &-item {
       border-radius: 100px;

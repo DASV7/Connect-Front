@@ -11,12 +11,10 @@ let text = ref();
 const sex = ref({ male: "Masculino", female: "Femenino" });
 const description = ref("");
 onMounted(() => {
-
   dateString = userStore.user.birthday;
   date = new Date(dateString);
   formattedDate.value = date.toDateString();
-  description.value = userStore.user.description || "Agrega una descripción";
-  
+  description.value = userStore.user.description;
 });
 
 let imgProfile = ["https://firebasestorage.googleapis.com/v0/b/connect-e76fc.appspot.com/o/icons%2F2466249.jpg?alt=media&token=57fdb4ee-8650-4ccc-a841-d04ba7816556z"];
@@ -54,7 +52,11 @@ let imgProfile = ["https://firebasestorage.googleapis.com/v0/b/connect-e76fc.app
         <p class="editProfile__tags-p">Fecha de cumpleaños:</p>
         <p class="editProfile__tags-p">{{ formattedDate }}</p>
       </div>
-      <textarea class="editProfile__tags-input" v-model="description"> </textarea>
+      <textarea resize="none" 
+      class="editProfile__tags-input" 
+      v-model="description" 
+      placeholder="Ingresa tu descipcion"
+      > </textarea>
       <div>{{ text }}</div>
     </div>
   </div>
@@ -124,8 +126,12 @@ let imgProfile = ["https://firebasestorage.googleapis.com/v0/b/connect-e76fc.app
     }
     &-input {
       width: 86%;
-      height: 40%;
+      height: 25%;
       padding: 5px;
+      resize: none;
+      border-radius: 10px;
+      outline: none;
+      background-color: #ece5e5;
     }
   }
   &__top {

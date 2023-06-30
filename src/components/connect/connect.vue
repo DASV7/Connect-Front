@@ -249,7 +249,8 @@ v-for="(item, index) of userCard?.pictures"
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.724), rgba(0, 0, 0, 0));
 
     &-p {
-      font-weight: 600;
+      font-weight: 500;
+      font-size: 13px;
     }
     &-status {
       background-color: rgb(0, 255, 0);
@@ -353,6 +354,7 @@ v-for="(item, index) of userCard?.pictures"
     align-items: center;
     flex-wrap: wrap;
     gap: 5px;
+    margin-left: 10px;
 
     &-preferences {
       display: flex;
