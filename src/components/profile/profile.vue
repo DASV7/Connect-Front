@@ -5,7 +5,7 @@
         <p class="profileUser__header-p">Perfil</p>
         <div class="profileUser__header-settings"></div>
       </div>
-      <div class="profileUser__info">
+      <div class="profileUser__info" v-if="user?.name">
         <button @click="$router.push('/settings')" class="profileUser__header-btn"><i class="fa fa-cog" aria-hidden="true"></i></button>
         <div class="profileUser__info-container">
           <div class="profileUser__photoProfile">
@@ -47,6 +47,9 @@
           </div>
         </div>
       </div>
+      <button class="profileUser__header-btn" @click="closeSesion()">
+        <i class="fa fa-sign-out" aria-hidden="true"></i>
+      </button>
     </div>
   </div>
 </template>
@@ -73,7 +76,7 @@ let preferences = ref({});
 
 const userProfile = async () => {
   isLoading.value = true;
-  axios
+  const info = axios
     .get("/profile")
     .then((response) => {
       dataUser.value = response.data;
@@ -83,6 +86,13 @@ const userProfile = async () => {
       userStore.$patch({ user: user.value, preferences: preferences.value });
     })
     .catch((error) => console.error(error));
+  console.log(info);
+};
+
+const closeSesion = () => {
+  localStorage.clear();
+  router.push("/");
+  window.location.reload();
 };
 
 const hereFor = {
@@ -224,7 +234,6 @@ const advantages = [
       height: 100%;
       // border-radius: 100%;
       object-fit: cover;
-
     }
   }
   &__info {
