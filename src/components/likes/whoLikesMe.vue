@@ -44,7 +44,7 @@ const sendRejected = async (user) => {
       <miniLoading v-if="isLoading"></miniLoading>
       <div class="whoLikesMe__user" v-for="(user, index) in usersLike" :key="index">
         <div class="whoLikesMe__user-img">
-          <img class="whoLikesMe__user-img" :src="user.pictures[0].url" alt="" />
+          <img class="whoLikesMe__user-img" :src="user?.pictures[0].url" alt="" />
         </div>
         <div class="whoLikesMe__user-cont">
           <p class="whoLikesMe__user-name">
