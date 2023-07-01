@@ -147,33 +147,38 @@ let warning = [
     align-items: center;
     flex-direction: column;
   }
+
+  &__containerVideo {
+    display: grid;
+    gap: 10px;
+  }
   &__containerCalls {
     width: 100%;
     overflow: hidden;
   }
 
-  // &__logo {
-  //   display: flex;
-  //   justify-content: center;
-  //   width: 100%;
-  //   margin-top: 10px;
-  //   margin-bottom: 10px;
+  &__logo {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
 
-  //   &-img {
-  //     width: 100px;
-  //     height: 26px;
-  //     padding-top: 20px;
-  //     margin-left: 20px;
-  //   }
-  // }
+    &-img {
+      width: 100px;
+      height: 26px;
+      padding-top: 20px;
+      margin-left: 20px;
+    }
+  }
 
-  // &__header {
-  //   display: flex;
-  //   padding-top: 10px;
-  //   img {
-  //     height: 35px;
-  //   }
-  // }
+  &__header {
+    display: flex;
+    padding-top: 10px;
+    img {
+      height: 35px;
+    }
+  }
 
   &__buttons {
     display: flex;
@@ -261,11 +266,8 @@ let warning = [
     &-stream {
       height: 100%;
       width: 100%;
+      border-radius: 10px;
     }
-  }
-  &__imgOne,
-  &__imgTwo {
-    border-radius: 10px;
   }
 
   &__imgOne {
@@ -280,7 +282,7 @@ let warning = [
   @media screen and (min-width: 450px) {
     &__imgOne {
       overflow: hidden;
-      width: 350px;
+      width: 396px;
       height: 300px;
       max-height: 400px;
       max-width: 500px;
@@ -291,7 +293,7 @@ let warning = [
     }
     &__imgTwo {
       overflow: hidden;
-      width: 350px;
+      width: 397px;
       height: 300px;
       max-height: 400px;
       max-width: 500px;
