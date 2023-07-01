@@ -90,6 +90,8 @@ onMounted(() => {
 }
 .homeConnect {
   overflow: hidden;
+  width: 100%;
+  height: 100%;
   &__content {
     display: flex;
     flex-direction: column;

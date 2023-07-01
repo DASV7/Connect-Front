@@ -84,7 +84,7 @@ let warning = [
 </script>
 
 <template>
-  <div class="videoCall">
+  <div class="videoCall" >
     <!--alerts -->
     <div class="videoCall__alerts" v-if="!searchPeople">
       <div class="videoCall__header">
@@ -104,7 +104,7 @@ let warning = [
     <!--alerts -->
 
     <!--Video Chat-->
-    <div class="videoCall__containerCalls" v-show="searchPeople">
+    <div class="videoCall__containerCalls" scrollDefault v-show="searchPeople">
       <div class="videoCall__video">
         <div class="videoCall__logo">
           <img class="videoCall__logo-img" src="../../../public/svgLogoComplete.svg" alt="" />
@@ -139,6 +139,7 @@ let warning = [
 .videoCall {
   height: 100%;
   width: 100%;
+  overflow: auto;
   display: flex;
   background-color: #000;
 
@@ -154,7 +155,7 @@ let warning = [
   }
   &__containerCalls {
     width: 100%;
-    overflow: hidden;
+    overflow: auto;
   }
 
   &__logo {
@@ -285,7 +286,7 @@ let warning = [
       // width: 356px;
       // height: 300px;
       width: 300px;
-    height: 250px;
+      height: 250px;
       max-height: 400px;
       max-width: 500px;
 
@@ -299,7 +300,7 @@ let warning = [
       // width: 357px;
       // height: 300px;
       width: 300px;
-    height: 200px;
+      height: 200px;
       max-height: 400px;
       max-width: 500px;
       &-stream {

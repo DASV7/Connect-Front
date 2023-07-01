@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!isLoading" class="profileUser">
+  <div v-if="!isLoading" class="profileUser" scrollDefault>
     <div class="profileUser__container">
       <div class="profileUser__header">
         <p class="profileUser__header-p">Perfil</p>
@@ -174,7 +174,8 @@ const advantages = [
 <style lang="scss">
 .profileUser {
   width: 100%;
-  height: 100vh;
+  height: 100%;
+  overflow: auto;
 
   &__container {
     display: flex;
