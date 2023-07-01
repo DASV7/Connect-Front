@@ -65,7 +65,7 @@ let imgProfile = ["https://firebasestorage.googleapis.com/v0/b/connect-e76fc.app
 <style lang="scss">
 .editProfile {
   width: 100%;
-  height: 100vh;
+  height: 100%;
 
   &__album {
     display: flex;
