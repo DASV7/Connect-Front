@@ -282,10 +282,13 @@ let warning = [
   @media screen and (min-width: 450px) {
     &__imgOne {
       overflow: hidden;
-      width: 396px;
-      height: 300px;
+      // width: 356px;
+      // height: 300px;
+      width: 300px;
+    height: 250px;
       max-height: 400px;
       max-width: 500px;
+
       &-stream {
         height: 100%;
         width: 100%;
@@ -293,8 +296,10 @@ let warning = [
     }
     &__imgTwo {
       overflow: hidden;
-      width: 397px;
-      height: 300px;
+      // width: 357px;
+      // height: 300px;
+      width: 300px;
+    height: 200px;
       max-height: 400px;
       max-width: 500px;
       &-stream {
