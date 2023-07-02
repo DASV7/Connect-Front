@@ -13,10 +13,10 @@ const router = useRouter();
 let userNew = ref({
   name: "",
   email: "",
-  password: "",
   biologicalSex: "",
   birthday: "",
   hereFor: "",
+  password: "",
   description: "",
 });
 let indexReg = ref(0);
@@ -40,7 +40,6 @@ const handleFileUpload = (event, index) => {
   const file = event.target.files[0];
   if (file) {
     selectedFile.value[index] = file;
-
     const value = "image" + (index ? index : "");
     const previewImage = document.getElementById(value);
 
@@ -81,6 +80,7 @@ const createNewUser = async () => {
 
 const updaloadPictures = async (user) => {
   isCreatingUser.value = true;
+  let token;
   for (let index = 0; index < selectedFile.value.length; index++) {
     const element = selectedFile.value[index];
     let formData = new FormData();
@@ -105,8 +105,9 @@ const updaloadPictures = async (user) => {
         });
       });
     isCreatingUser.value = false;
-    return data;
+    token = data;
   }
+  return token;
 };
 const nextvalue = async () => {
   if (indexReg.value < goToGo.length - 1) {
@@ -128,7 +129,7 @@ const prevtvalue = () => {
   <div class="flowRegister__return" @click="prevtvalue()">
     <i class="fa-solid fa-arrow-left"></i>
   </div>
-  <totalLoading v-if="isCreatingUser" />
+  <totalLoading v-if="isCreatingUser" :textLabel="'Subiendo Imagenes...'" />
   <div class="flowRegister">
     <div class="loginConnect__containerTitle">
       <!-- <h2 class="loginConnect__title">VINC</h2> -->
@@ -162,9 +163,15 @@ const prevtvalue = () => {
           <input type="date" class="flowRegister__form-input" max="2005-12-31" placeholder="Fecha de nacimiento" v-model="userNew.birthday" />
         </div>
         <div class="flowRegister__form-group" v-if="indexReg == 3">
-          <input type="text" class="flowRegister__form-input" placeholder="Correo Electronico" v-model="userNew.email" />
+          <input type="email" class="flowRegister__form-input" placeholder="Correo Electronico" v-model="userNew.email" />
         </div>
-        <div class="flowRegister__pictureIcons" v-show="indexReg == 4">
+        <div class="flowRegister__form-group" v-if="indexReg == 4">
+          <input type="text" class="flowRegister__form-input" placeholder="Descripcion: Ejm..'Soy un estudiante Apasionado...'" v-model="userNew.description" />
+        </div>
+        <div class="flowRegister__form-group" v-if="indexReg == 5">
+          <input type="password" class="flowRegister__form-input" placeholder="Contraseña" v-model="userNew.password" />
+        </div>
+        <div class="flowRegister__pictureIcons" v-show="indexReg == 6">
           <label class="flowRegister__picture" for="img">
             <img id="image" src="#" alt="Previsualizacion Imagen" v-show="selectedFile[0]" />
             <i class="fa-solid fa-camera-retro"></i
@@ -176,12 +183,6 @@ const prevtvalue = () => {
             <i class="fa-solid fa-camera-retro"></i
           ></label>
           <input v-show="false" @change="handleFileUpload($event, 1)" id="img2" type="file" class="flowRegister__form-input" placeholder="img2" accept="image/*" />
-        </div>
-        <div class="flowRegister__form-group" v-if="indexReg == 5">
-          <input type="password" class="flowRegister__form-input" placeholder="Contraseña" v-model="userNew.password" />
-        </div>
-        <div class="flowRegister__form-group" v-if="indexReg == 6">
-          <input type="text" class="flowRegister__form-input" placeholder="Descripcion: Ejm..'Soy un estudiante Apasionado...'" v-model="userNew.description" />
         </div>
       </div>
       <div class="flowRegister__button">
