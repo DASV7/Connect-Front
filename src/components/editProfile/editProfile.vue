@@ -17,7 +17,10 @@ onMounted(() => {
   description.value = userStore.user.description;
 });
 
+
+
 let imgProfile = ["https://firebasestorage.googleapis.com/v0/b/connect-e76fc.appspot.com/o/icons%2F2466249.jpg?alt=media&token=57fdb4ee-8650-4ccc-a841-d04ba7816556z"];
+
 </script>
 <template>
   <div class="editProfile">

@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import { useCounterStore } from "../../store/users";
 import messageCard from "./messageCard.vue";
 import { useSocketStore } from "../../store/socketStore";
+import AvatarUser from "../shared/avatarUser.vue";
 
 const message = ref("");
 let messagesUser = reactive([]);
@@ -69,7 +70,19 @@ onBeforeUnmount(() => {
   socket.socket.disconnect();
 });
 </script>
+
 <template>
+
+  <div class="intoMessages__header">
+      <button @click="$router.push('/messages')" class="intoMessages__header-btnBack">
+        <i class="fa-sharp fa-solid fa-arrow-left">
+        </i>
+      </button>
+    <div class="intoMessages__header-info">
+
+    </div>
+  </div>
+
   <div class="intoMessages" v-if="!isLoading">
     <div class="intoMessages__messages" scrollDefault>
       <div :id="index" class="intoMessages__messageItem" v-for="(message, index) in messagesUser" :key="message._id">
@@ -77,6 +90,7 @@ onBeforeUnmount(() => {
       </div>
       <div id="elemento-final"></div>
     </div>
+
     <div class="intoMessages__all">
       <div class="intoMessages__container">
         <input class="intoMessages__container-input" type="text" placeholder="Nuevo Mensaje " v-model="message" />
@@ -84,12 +98,36 @@ onBeforeUnmount(() => {
       </div>
     </div>
   </div>
+
 </template>
+
 <style lang="scss">
 .intoMessages {
   height: 100%;
   width: 100%;
+  margin-top: 50px;
 
+  &__header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    border: solid 1px #000;
+    position: fixed;
+
+    &-btnBack {
+      width: 50px;
+      height: 35px;
+      border: solid 1px #000;
+      background: $primary-color;
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+
+  }
   // &__messageItem {
   // }
 

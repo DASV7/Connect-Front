@@ -219,7 +219,6 @@ v-for="(item, index) of userCard?.pictures"
     position: fixed;
     display: flex;
     justify-content: center;
-    cursor: pointer;
     gap: 5px;
     z-index: 100;
     bottom: 70px;
@@ -235,6 +234,8 @@ v-for="(item, index) of userCard?.pictures"
       width: 40px;
       border-radius: 50%;
       cursor: pointer;
+    cursor: pointer;
+
       &:hover {
         transform: scale(1.2);
       }

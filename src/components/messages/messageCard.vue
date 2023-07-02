@@ -20,25 +20,31 @@ onMounted(() => {
 
   // Formatear los componentes en un string
   const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}`;
-  console.log(formattedDate);
+  // console.log(formattedDate);
   props.message.date = formattedDate;
 });
+
 const validPosition = () => {
   if (props.idx == "vincMessage") return center;
   if (props.idx == true) return yes;
   return not;
 };
+
 const validtype = () => {
   if (props.idx) return "left";
   return "";
 };
+
 const validTextPisition = () => {
   if (props.idx == "vincMessage") return "messageDefault__content-date-center";
   if (props.idx) return "messageDefault__content-date-left";
   return "";
 };
+
 </script>
+
 <template>
+
   <div class="messageDefault" :style="validPosition()" v-if="props?.message?.sender">
     <div class="messageDefault__container" :class="validtype()">
       <AvatarUser v-show="!props.idx" :user="props.user" :size="30"></AvatarUser>
@@ -49,12 +55,14 @@ const validTextPisition = () => {
       </div>
       <AvatarUser v-show="props.idx" class="messageDefault__avatar" :user="props.user" :size="30"></AvatarUser>
     </div>
+
     <div></div>
     <p :class="['messageDefault__content-date', validTextPisition()]">
       <strong class="messageDefault__userName p">{{ props.user.name }}</strong>
       <strong class="p2">{{ props.message.date }}</strong>
     </p>
   </div>
+
 </template>
 
 <style lang="scss">

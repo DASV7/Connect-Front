@@ -7,10 +7,11 @@ import { useCounterStore } from "../../store/users.js";
 const users = ref([]);
 const usersStore = useCounterStore();
 const avatarUsers = ref({});
+
 const otherAvatar = (users) => {
   const valor = users.find((user) => {
     const val = user._id != usersStore.user?._id;
-    return val;
+    return val || {}
   });  
   return valor;
 };
