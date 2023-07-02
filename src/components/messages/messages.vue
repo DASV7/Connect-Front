@@ -10,10 +10,9 @@ const avatarUsers = ref({});
 
 const otherAvatar = (users) => {
   const valor = users.find((user) => {
-    const val = user._id != usersStore.user?._id;
-    return val || {}
-  });  
-  return valor;
+    return user._id != usersStore.user._id;
+  });
+  return valor || {};
 };
 const loading = ref(false);
 onMounted(async () => {
@@ -27,16 +26,15 @@ onMounted(async () => {
       timer: 2000,
     });
   });
-  loading.value = false;
   const response = user.data.data;
-  console.log(response);
   users.value = response;
+  loading.value = false;
 });
 </script>
 <template>
   <div class="messagesView" v-if="!loading">
     <h3>Hoy sera un excelente día...</h3>
-    <div class="messagesView__wrapper" v-if="users.length && usersStore?.user?._id">
+    <div class="messagesView__wrapper" v-if="users.length">
       <div class="messagesView__container">
         <div class="messagesView__cardChat" v-for="(user, index) in users" :key="index" @click="$router.push(`/messages/${user._id}`)">
           <div class="messagesView__cardChat-img">

@@ -74,7 +74,9 @@ const createNewUser = async () => {
     const userWithPictures = await updaloadPictures(user);
     localStorage.clear();
     localStorage.setItem("vinc-jwt", userWithPictures.data.token);
+    isCreatingUser.value = false;
     router.push({ path: "/home", query: { reg: 1 } });
+
   }
 };
 
@@ -103,8 +105,7 @@ const updaloadPictures = async (user) => {
           showConfirmButton: false,
           timer: 2000,
         });
-      });
-    isCreatingUser.value = false;
+      });    
     token = data;
   }
   return token;

@@ -102,7 +102,7 @@ onBeforeUnmount(() => {
 .intoMessages {
   height: 100%;
   width: 100%;
-  margin-top: 50px;
+  
 
   &__header {
     display: flex;
@@ -111,6 +111,7 @@ onBeforeUnmount(() => {
     height: 50px;
     border: solid 1px #000;
     position: fixed;
+    top: 0;
 
     &-btnBack {
       width: 50px;
@@ -139,6 +140,7 @@ onBeforeUnmount(() => {
     max-height: 83%;
     overflow-y: auto;
     overflow-x: hidden;
+    margin-top: 50px;
   }
   &__all {
     display: flex;
