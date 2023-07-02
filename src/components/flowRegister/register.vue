@@ -35,7 +35,7 @@ onMounted(() => {
 
 const push = usePush();
 
-let selectedFile = ref([null, null]);
+let selectedFile = ref([]);
 const handleFileUpload = (event, index) => {
   const file = event.target.files[0];
   if (file) {
@@ -80,6 +80,7 @@ const createNewUser = async () => {
 };
 
 const updaloadPictures = async (user) => {
+  isCreatingUser.value = true;
   for (let index = 0; index < selectedFile.value.length; index++) {
     const element = selectedFile.value[index];
     let formData = new FormData();
@@ -87,13 +88,14 @@ const updaloadPictures = async (user) => {
     formData.append("index", index);
 
     formData.append("filename", element);
-    return await axios
+    const data = await axios
       .post("/usersModule/updloadpicture", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       })
       .catch((error) => {
+        isCreatingUser.value = false;
         Swal.fire({
           icon: "error",
           title: "Ocurrio un error",
@@ -102,13 +104,19 @@ const updaloadPictures = async (user) => {
           timer: 2000,
         });
       });
+    isCreatingUser.value = false;
+    return data;
   }
 };
 const nextvalue = async () => {
   if (indexReg.value < goToGo.length - 1) {
-    if (userNew.value[goToGo[indexReg.value].info] || goToGo[indexReg.value].info == "photos") indexReg.value++;
+    if (userNew.value[goToGo[indexReg.value].info] || selectedFile.value.length == 2) indexReg.value++;
   } else createNewUser();
 };
+
+const readyTocontinue = computed(() => {
+  return userNew.value[goToGo[indexReg.value].info] || selectedFile.value.length == 2;
+});
 const prevtvalue = () => {
   if (indexReg.value > 0) {
     indexReg.value--;
@@ -177,7 +185,7 @@ const prevtvalue = () => {
         </div>
       </div>
       <div class="flowRegister__button">
-        <button class="flowRegister__button-register" @click="nextvalue()">Continuar</button>
+        <button class="flowRegister__button-register" :disabled="!readyTocontinue" @click="nextvalue()">Continuar</button>
       </div>
     </div>
   </div>
@@ -320,7 +328,6 @@ const prevtvalue = () => {
     width: 50%;
   }
   .flowRegister__button {
-
     margin-top: 25px;
   }
   .flowRegister__form-input {

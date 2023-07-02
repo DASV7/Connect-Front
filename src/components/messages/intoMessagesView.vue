@@ -118,7 +118,7 @@ onBeforeUnmount(() => {
       width: 100%;
       height: 35px;
       font-size: 10px;
-      cursor: pointer;
+      cursor: text;
       transition: all 0.3s ease;
       text-align: start;
       padding-left: 15px;
