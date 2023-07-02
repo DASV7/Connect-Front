@@ -41,9 +41,10 @@ export const goToGo = [
         info: ["email"],
     },
     {
-        title: "Escoge tus fotos de perfil",
-        description: "Sube al menos 2 fotos para empezar",
-        info: ["photos"],
+        title: "Queda el ultimo paso. Crea una descripción",
+        description:
+            "Dile al mundo la increible persona que eres.",
+        info: ["description"],
     },
     {
         title: "Queda 2 paso mas. Elige una contraseña",
@@ -52,10 +53,9 @@ export const goToGo = [
         info: ["password"],
     },
     {
-        title: "Queda el ultimo paso. Crea una descripción",
-        description:
-            "Dile al mundo la increible persona que eres.",
-        info: ["description"],
+        title: "Escoge tus fotos de perfil",
+        description: "Sube al menos 2 fotos para empezar",
+        info: ["photos"],
     },
 
     {

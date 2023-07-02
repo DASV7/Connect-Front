@@ -1,46 +1,44 @@
 <template>
   <div class="loginConnect">
-
-    
     <div class="loginConnect__containerTitle">
       <img class="loginConnect__title" src="../../../public/svgLogoComplete.svg" alt="" />
     </div>
-    
+
     <totalLoading v-if="isLoading" />
     <politicsModal :showModal="showPoliticis" @closeModal="changeStatusView()"></politicsModal>
     <div class="joinConnect">
       <h3 class="joinConnect__greeting">¡Hola de Nuevo!</h3>
       <p class="joinConnect__greeting-p">Ingresa tu correo o número de teléfono</p>
     </div>
-    
+
     <div class="joinConnect__formJoin">
       <div class="joinConnect__formJoin-container">
-      <input class="joinConnect__formJoin-input" type="email" placeholder="Correo o número de celular" v-model="userData.email" />
+        <input class="joinConnect__formJoin-input" type="email" placeholder="Correo o número de celular" v-model="userData.email" />
+      </div>
+      <div class="joinConnect__formJoin-container">
+        <input class="joinConnect__formJoin-input" type="password" placeholder="Contraseña" v-model="userData.password" @keypress.enter="loginUser()" />
+      </div>
+      <div class="joinConnect__formJoin-btn" @click="loginUser()">
+        <button class="joinConnect__formJoin-btnSend">Entrar</button>
+      </div>
     </div>
-    <div class="joinConnect__formJoin-container">
-      <input class="joinConnect__formJoin-input" type="password" placeholder="Contraseña" v-model="userData.password" @keypress.enter="loginUser()" />
+
+    <div class="joinConnect__types">
+      <p class="joinConnect__types-p">¿Olvidaste tu Contraseña?</p>
     </div>
-    <div class="joinConnect__formJoin-btn" @click="loginUser()">
-      <button class="joinConnect__formJoin-btnSend">Entrar</button>
+
+    <div class="joinConnect__joinS">
+      <div class="loginConnect__join-info">
+        <a class="loginConnect__join-link" @click="$router.push('/')">Continuar de otra forma</a>
+      </div>
+      <div class="loginConnect__join-private">
+        <p class="loginConnect__join-text">
+          Al crear una cuenta aceptas nuestros
+          <i class="politics" @click="politics(true)">Términos y condiciones y nuestra Política de privacidad</i>
+        </p>
+      </div>
     </div>
   </div>
-  
-  <div class="joinConnect__types">
-    <p class="joinConnect__types-p">¿Olvidaste tu Contraseña?</p>
-  </div>
-  
-  <div class="joinConnect__joinS">
-    <div class="loginConnect__join-info">
-      <a class="loginConnect__join-link" @click="$router.push('/')">Continuar de otra forma</a>
-    </div>
-    <div class="loginConnect__join-private">
-      <p class="loginConnect__join-text">
-        Al crear una cuenta aceptas nuestros
-        <i class="politics" @click="politics(true)">Términos y condiciones y nuestra Política de privacidad</i>
-      </p>
-    </div>
-  </div>
-</div>
 </template>
 
 <script setup>
@@ -181,19 +179,23 @@ const changeStatusView = () => {
 }
 
 @media (min-width: 500px) {
-
   .loginConnect__title {
     margin-left: 30px;
   }
   .loginConnect__formContainer {
-    width: 55%;
-    gap: 15px;
+    display: flex;
+    justify-content: center;
+    width: 50%;
   }
   .loginConnect__social {
-    width: 56%;
+    max-width: 550px;
   }
-  .loginConnect__form-group__btn {
-    width: 100%;
+  .loginConnect__form-group {
+    display: flex;
+    justify-content: center;
+    &__btn {
+      width: 200px;
+    }
   }
   .joinConnect__formJoin-btnSend {
     width: 50%;
