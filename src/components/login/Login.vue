@@ -1,6 +1,29 @@
+<script setup>
+import { useRouter } from "vue-router";
+import { ref } from "vue";
+import politicsModal from "../politics/politics.vue";
+const router = useRouter();
+
+const goRegister = (param) => {
+  router.push({
+    path: "/Register",
+    query: {
+      sex: param,
+    },
+  });
+};
+let showPoliticis = ref(false);
+function politics(item) {
+  showPoliticis.value = item;
+}
+const changeStatusView = () => {
+  showPoliticis.value = !showPoliticis.value;
+};
+
+</script>
 <template>
   <div class="loginConnect">
-    <politicsModal v-if="showPoliticis"></politicsModal>
+    <politicsModal :showModal="showPoliticis" @closeModal="changeStatusView()"></politicsModal>
     <div class="loginConnect__content">
       <div class="loginConnect__containerTitle">
         <img class="loginConnect__title" src="../../../public/svgLogoComplete.svg" alt="" />
@@ -36,38 +59,23 @@
           </div>
           <div class="loginConnect__join-private">
             <p class="loginConnect__join-text">
-          Al crear una cuenta aceptas nuestros
-          <i class="politics" @click="politics(true)">Terminos y condiciones y nuestra Políticas de privacidad</i>
-        </p>
+              Al crear una cuenta aceptas nuestros
+              <i class="politics" @click="politics(true)">Terminos y condiciones y nuestra Políticas de privacidad</i>
+            </p>
           </div>
         </div>
       </div>
     </div>
   </div>
 </template>
-<script setup>
-import { useRouter } from "vue-router";
-import { ref } from "vue";
-import politicsModal from "../politics/politics.vue";
-const router = useRouter();
-
-const goRegister = (param) => {
-  router.push({
-    path: "/Register",
-    query: {
-      sex: param,
-    },
-  });
-};
-let showPoliticis = ref(false)
-function politics(item) {
-  showPoliticis.value = item;
-}
-</script>
 <style lang="scss">
 $secondary-color: #f9f9f9;
 $border-color: #ccc;
 $breakpoint: 768px;
+.politics {
+  cursor: pointer;
+}
+
 
 .loginConnect {
   display: flex;
@@ -76,7 +84,6 @@ $breakpoint: 768px;
   width: 100%;
   height: 100vh;
   background-color: $secondary-color;
-
 
   &__content {
     height: 100vh;

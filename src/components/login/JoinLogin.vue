@@ -7,7 +7,7 @@
     </div>
     
     <totalLoading v-if="isLoading" />
-    <politicsModal v-if="showPoliticis" ></politicsModal>
+    <politicsModal :showModal="showPoliticis" @closeModal="changeStatusView()"></politicsModal>
     <div class="joinConnect">
       <h3 class="joinConnect__greeting">¡Hola de Nuevo!</h3>
       <p class="joinConnect__greeting-p">Ingresa tu correo o número de teléfono</p>
@@ -90,6 +90,9 @@ let showPoliticis = ref(false);
 function politics(item) {
   showPoliticis.value = item;
 }
+const changeStatusView = () => {
+  showPoliticis.value = !showPoliticis.value;
+};
 </script>
 
 <style lang="scss">

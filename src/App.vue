@@ -51,7 +51,7 @@ onUnmounted(() => {
 <template>
   <div class="mainApp"></div>
   <notificati></notificati>
-  <div class="mainApp__routerView">
+  <div class="mainApp__routerView" :style="`margin-left:${!routePermission ? '0px' : '70px'}`">
     <router-view></router-view>
   </div>
   <Notivue :use="notifications" :options="options" />
@@ -67,7 +67,6 @@ onUnmounted(() => {
   .mainApp__routerView {
     height: 100vh;
     overflow: hidden;
-    margin-left: 70px;
   }
 }
 </style>

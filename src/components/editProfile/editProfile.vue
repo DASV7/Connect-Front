@@ -58,6 +58,7 @@ let imgProfile = ["https://firebasestorage.googleapis.com/v0/b/connect-e76fc.app
       placeholder="Ingresa tu descipcion"
       > </textarea>
       <div>{{ text }}</div>
+      <button class="editProfile__btn-add">Guardar</button>
     </div>
   </div>
 </template>
