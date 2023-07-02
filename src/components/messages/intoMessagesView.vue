@@ -72,12 +72,12 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="intoMessages__header">
-    <button @click="$router.push('/messages')" class="intoMessages__header-btnBack">
-      <i class="fa-sharp fa-solid fa-arrow-left"> </i>
-    </button>
-    <div class="intoMessages__header-info">
-      
+  <div class="intoMessages__header-container">
+    <div class="intoMessages__header">
+      <button @click="$router.push('/messages')" class="intoMessages__header-btnBack">
+        <i class="fa-sharp fa-solid fa-arrow-left"> </i>
+      </button>
+      <div class="intoMessages__header-info"></div>
     </div>
   </div>
 
@@ -92,7 +92,9 @@ onBeforeUnmount(() => {
     <div class="intoMessages__all">
       <div class="intoMessages__container">
         <input class="intoMessages__container-input" type="text" placeholder="Nuevo Mensaje " v-model="message" />
-        <button class="intoMessages__container-send" @click="newMessage"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+        <button class="intoMessages__container-send" @click="newMessage">
+          <i class="fa fa-paper-plane" aria-hidden="true"></i>
+        </button>
       </div>
     </div>
   </div>
@@ -102,14 +104,12 @@ onBeforeUnmount(() => {
 .intoMessages {
   height: 100%;
   width: 100%;
-  
 
   &__header {
     display: flex;
     align-items: center;
     width: 100%;
     height: 50px;
-    border: solid 1px #000;
     position: fixed;
     top: 0;
 
@@ -121,14 +121,14 @@ onBeforeUnmount(() => {
       color: #fff;
       border: none;
       border-radius: 20px;
-      margin-left: 10px;
+      margin-left: 4px;
       cursor: pointer;
     }
     &-info {
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 86%;
+      width: 92%;
       height: 100%;
       border: solid 1px red;
     }
@@ -148,6 +148,7 @@ onBeforeUnmount(() => {
   }
   &__container {
     display: flex;
+    justify-content: center;
     align-items: center;
     position: absolute;
     bottom: 55px;
@@ -159,7 +160,7 @@ onBeforeUnmount(() => {
       color: #000000;
       border: none;
       border-radius: 15px;
-      width: 100%;
+      width: 50%;
       height: 35px;
       font-size: 10px;
       cursor: text;
@@ -189,6 +190,28 @@ onBeforeUnmount(() => {
 
     &-send:hover {
       background-color: $primary-color;
+    }
+  }
+}
+@media screen and (min-width: 800px) {
+  .intoMessages {
+    width: 60%;
+    margin: auto;
+    border-right: 1px solid #0000001f;
+    border-left: 1px solid #0000001f;
+    border-top: 1px solid #0000001f;
+    &__container {
+      width: 65%;
+    }
+  }
+  .intoMessages__header {
+    width: 57%;
+    margin: auto;
+
+    &-container {
+      display: flex;
+      justify-content: center;
+      width: 100%;
     }
   }
 }
