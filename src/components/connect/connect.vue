@@ -10,7 +10,7 @@ import { interest } from "../../utils/sharedObjects";
 
 const isLoading = ref(true);
 
-const props = defineProps(["user"]);
+const props = defineProps(["user", "hiddeActions"]);
 const router = useRouter();
 
 onBeforeMount(() => {
@@ -41,7 +41,9 @@ const breakpoints = {
 };
 
 let userCard = computed(() => {
+  console.log(props.user);
   return props.user;
+
 });
 
 const buttonsActions = [
@@ -162,7 +164,7 @@ const handleTouchEnd = (event) => {
       </div>
 
       <!-- Buttons actions-->
-      <div class="homeVinc__buttonsAction">
+      <div v-if="props.hiddeActions != false" class="homeVinc__buttonsAction">
         <button class="homeVinc__buttonsAction-button" v-for="(item, index) of buttonsActions" :key="index" @click="$emit(item.action, userCard)">
           <i class="homeVinc__buttonsAction-icon" :class="item.icon"></i>
         </button>
@@ -225,6 +227,8 @@ v-for="(item, index) of userCard?.pictures"
     width: 100%;
     right: 0;
     left: 0;
+    cursor: pointer;
+
 
     &-button {
       background-color: #f9f9f9;
@@ -233,8 +237,6 @@ v-for="(item, index) of userCard?.pictures"
       height: 40px;
       width: 40px;
       border-radius: 50%;
-      cursor: pointer;
-    cursor: pointer;
 
       &:hover {
         transform: scale(1.2);

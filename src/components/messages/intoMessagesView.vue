@@ -8,6 +8,8 @@ import { useCounterStore } from "../../store/users";
 import messageCard from "./messageCard.vue";
 import { useSocketStore } from "../../store/socketStore";
 import AvatarUser from "../shared/avatarUser.vue";
+import connect from "../../components/connect/connect.vue";
+import Modal from "../shared/modal.vue";
 
 const message = ref("");
 let messagesUser = reactive([]);
@@ -17,15 +19,18 @@ const members = ref([]);
 const socket = useSocketStore();
 const isLoading = ref(true);
 const bindRef = ref(true);
-
+const userChat = ref({});
 onMounted(async () => {
   const user = await axios.get("/messages?id=" + route.params.id).catch((error) => {
     Swal.fire({ icon: "error", title: "Ocurrio un error", text: "Error al solicitar los mensajes", showConfirmButton: false, timer: 2000 });
   });
 
   const response = user.data.data;
+
   if (!response) return;
   members.value = response.members;
+  userChat.value = members.value.find((e) => e._id != userSesion.user._id);
+  console.log(userChat.value);
   messagesUser.splice(messagesUser.length, 0, ...response.messages);
   setTimeout(() => goToBottom(), 100);
   isLoading.value = false;
@@ -74,13 +79,18 @@ onBeforeUnmount(() => {
 <template>
   <div class="intoMessages__allPage">
     <div class="intoMessages" v-if="!isLoading">
-        <div class="intoMessages__header">
-          <button @click="$router.push('/messages')" class="intoMessages__header-btnBack">
-            <i class="fa-sharp fa-solid fa-arrow-left"> </i>
-          </button>
-          <div class="intoMessages__header-info"></div>
-          <button class="intoMessages__header-btnBack"><i class="fa-sharp fa-solid fa-ellipsis-vertical"></i></button>
-        </div>
+      <Modal :showModal="true">
+        <template v-slot:content>
+          <connect :user="userChat" :hiddeActions="false" />
+        </template>
+      </Modal>
+      <div class="intoMessages__header">
+        <button @click="$router.push('/messages')" class="intoMessages__header-btnBack">
+          <i class="fa-sharp fa-solid fa-arrow-left"> </i>
+        </button>
+        <div class="intoMessages__header-info"></div>
+        <button class="intoMessages__header-btnBack"><i class="fa-sharp fa-solid fa-ellipsis-vertical"></i></button>
+      </div>
 
       <div class="intoMessages__messages" scrollDefault>
         <div :id="index" class="intoMessages__messageItem" v-for="(message, index) in messagesUser" :key="message._id">
@@ -125,7 +135,7 @@ body {
     height: 50px;
     position: fixed;
     border-bottom: #000 solid 1px;
-  
+
     &-btnBack {
       width: 50px;
       height: 35px;
@@ -225,7 +235,6 @@ body {
     &__container {
       width: 700px;
       // bottom: 30px;
-       
 
       &-input {
         width: 70%;

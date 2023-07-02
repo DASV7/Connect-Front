@@ -12,7 +12,7 @@ const otherAvatar = (users) => {
   const valor = users.find((user) => {
     return user._id != usersStore.user._id;
   });
-  console.log(valor);
+  // console.log(valor);
   return valor || {};
 };
 const loading = ref(true);
@@ -37,7 +37,9 @@ onMounted(async () => {
     <h3>Hoy sera un excelente día...</h3>
     <div class="messagesView__wrapper" v-if="users.length">
       <div class="messagesView__container">
-        <div class="messagesView__cardChat" v-for="(user, index) in users" :key="index" @click="$router.push(`/messages/${user._id}`)">
+        <div class="messagesView__cardChat" 
+        v-for="(user, index) in users" :key="index" 
+        @click="$router.push(`/messages/${user._id}`)">
           <div class="messagesView__cardChat-img">
             <avatarUser :user="otherAvatar(user.members)" :size="40" />
           </div>
