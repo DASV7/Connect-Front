@@ -91,6 +91,7 @@ function politics(item) {
 const changeStatusView = () => {
   showPoliticis.value = !showPoliticis.value;
 };
+
 </script>
 
 <style lang="scss">

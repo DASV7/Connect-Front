@@ -23,6 +23,7 @@ const userStore = useCounterStore();
 
 const routePermission = computed(() => {
   const diferents = ["/", "/Register", "/JoinLogin", "/preferences"];
+
   return !diferents.includes(fullPath.value.split("?")[0]);
 });
 
@@ -51,7 +52,7 @@ onUnmounted(() => {
 <template>
   <div class="mainApp"></div>
   <notificati></notificati>
-  <div class="mainApp__routerView" :style="`margin-left:${!routePermission ? '0px' : '70px'}`">
+  <div class="mainApp__routerView" :class="`${!routePermission ? '' : 'mainApp__routerView-margin-left'}`">
     <router-view></router-view>
   </div>
   <Notivue :use="notifications" :options="options" />
@@ -67,6 +68,9 @@ onUnmounted(() => {
   .mainApp__routerView {
     height: 100vh;
     overflow: hidden;
+    &-margin-left {
+      margin-left: 70px;
+    }
   }
 }
 </style>

@@ -15,7 +15,7 @@ export const useSocketStore = defineStore('socket', {
         userConnected() {
             const userStore = useCounterStore();
             const userLocal = userStore.$state.user
-            console.log(userLocal);
+            // console.log(userLocal);
             if (userLocal?._id) this.socket.emit('connected', userLocal)
 
         },
