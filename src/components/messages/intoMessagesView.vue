@@ -72,47 +72,60 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="intoMessages__header-container">
-    <div class="intoMessages__header">
-      <button @click="$router.push('/messages')" class="intoMessages__header-btnBack">
-        <i class="fa-sharp fa-solid fa-arrow-left"> </i>
-      </button>
-      <div class="intoMessages__header-info"></div>
-    </div>
-  </div>
+  <div class="intoMessages__allPage">
+    <div class="intoMessages" v-if="!isLoading">
+        <div class="intoMessages__header">
+          <button @click="$router.push('/messages')" class="intoMessages__header-btnBack">
+            <i class="fa-sharp fa-solid fa-arrow-left"> </i>
+          </button>
+          <div class="intoMessages__header-info"></div>
+          <button class="intoMessages__header-btnBack"><i class="fa-sharp fa-solid fa-ellipsis-vertical"></i></button>
+        </div>
 
-  <div class="intoMessages" v-if="!isLoading">
-    <div class="intoMessages__messages" scrollDefault>
-      <div :id="index" class="intoMessages__messageItem" v-for="(message, index) in messagesUser" :key="message._id">
-        <messageCard :message="message" :user="filterMembers(message)" :idx="itsMe(message)"></messageCard>
+      <div class="intoMessages__messages" scrollDefault>
+        <div :id="index" class="intoMessages__messageItem" v-for="(message, index) in messagesUser" :key="message._id">
+          <messageCard :message="message" :user="filterMembers(message)" :idx="itsMe(message)"></messageCard>
+        </div>
+        <div id="elemento-final"></div>
       </div>
-      <div id="elemento-final"></div>
-    </div>
 
-    <div class="intoMessages__all">
-      <div class="intoMessages__container">
-        <input class="intoMessages__container-input" type="text" placeholder="Nuevo Mensaje " v-model="message" />
-        <button class="intoMessages__container-send" @click="newMessage">
-          <i class="fa fa-paper-plane" aria-hidden="true"></i>
-        </button>
+      <div class="intoMessages__all">
+        <div class="intoMessages__container">
+          <input class="intoMessages__container-input" type="text" placeholder="Nuevo Mensaje " v-model="message" />
+          <button class="intoMessages__container-send" @click="newMessage">
+            <i class="fa fa-paper-plane" aria-hidden="true"></i>
+          </button>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <style lang="scss">
+body {
+  background-color: #ede8e8;
+}
 .intoMessages {
-  height: 100%;
   width: 100%;
+  height: 100%;
 
+  &__allPage {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
   &__header {
     display: flex;
     align-items: center;
+    justify-content: center;
     width: 100%;
     height: 50px;
     position: fixed;
-    top: 0;
-
+    border-bottom: #000 solid 1px;
+  
     &-btnBack {
       width: 50px;
       height: 35px;
@@ -126,11 +139,16 @@ onBeforeUnmount(() => {
     }
     &-info {
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
-      width: 92%;
+      width: 80%;
       height: 100%;
-      border: solid 1px red;
+      // border: solid 1px red;
+    }
+
+    &-settings {
+      width: 50px;
+      height: 100%;
     }
   }
   // &__messageItem {
@@ -151,8 +169,8 @@ onBeforeUnmount(() => {
     justify-content: center;
     align-items: center;
     position: absolute;
-    bottom: 55px;
-    width: 90%;
+    // bottom: 30px;
+    width: 100%;
     gap: 10px;
 
     &-input {
@@ -160,7 +178,7 @@ onBeforeUnmount(() => {
       color: #000000;
       border: none;
       border-radius: 15px;
-      width: 50%;
+      width: 65%;
       height: 35px;
       font-size: 10px;
       cursor: text;
@@ -193,26 +211,39 @@ onBeforeUnmount(() => {
     }
   }
 }
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 1000px) {
   .intoMessages {
     width: 60%;
+    height: 95%;
+    background-color: #fff;
+    border-radius: 20px;
     margin: auto;
     border-right: 1px solid #0000001f;
     border-left: 1px solid #0000001f;
     border-top: 1px solid #0000001f;
+
     &__container {
-      width: 65%;
+      width: 700px;
+
+      &-input {
+        width: 70%;
+        min-width: 250px;
+      }
     }
   }
-  .intoMessages__header {
-    width: 57%;
-    margin: auto;
 
+  .intoMessages__header {
+    width: 50%;
     &-container {
       display: flex;
       justify-content: center;
       width: 100%;
     }
+  }
+}
+@media screen and (min-width: 1300px) {
+  .intoMessages {
+    width: 50%;
   }
 }
 </style>

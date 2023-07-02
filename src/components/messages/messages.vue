@@ -12,12 +12,13 @@ const otherAvatar = (users) => {
   const valor = users.find((user) => {
     return user._id != usersStore.user._id;
   });
+  console.log(valor);
   return valor || {};
 };
-const loading = ref(false);
+const loading = ref(true);
 onMounted(async () => {
-  loading.value = true;
   const user = await axios.get("/messages/conversations").catch((error) => {
+    loading.value;
     Swal.fire({
       icon: "error",
       title: "Ocurrio un error",

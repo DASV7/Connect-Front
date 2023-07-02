@@ -13,7 +13,7 @@ const returnPick = () => {
 };
 </script>
 <template>
-  <div class="globalAvatar" v-if="props.user" :style="`width: ${props.size}px; height: ${props.size}px`">
+  <div class="globalAvatar" v-if="props.user.pictures" :style="`width: ${props.size}px; height: ${props.size}px`">
     <img :src="returnPick(props.user)" :alt="user?.name" v-show="isShow" @load="isLoading = true" />
     <span v-if="!isShow" fcenter>{{ props.user?.name?.substring(0, 1) }}</span>
   </div>
