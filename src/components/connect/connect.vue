@@ -157,7 +157,7 @@ const handleTouchEnd = (event) => {
       </div>
       <div class="information__album">
         <div class="information__album-container">
-          <img class="information__album-img"  :src="userCard.pictures[1]?.url" alt="" />
+          <img class="information__album-img" :src="userCard.pictures[1]?.url" alt="" />
         </div>
       </div>
 
@@ -168,6 +168,11 @@ const handleTouchEnd = (event) => {
         </button>
       </div>
       <!-- Buttons actions-->
+
+      <div class="homeVinc__security">
+        <p class="homeVinc__security-txt">Bloquear</p>
+        <p class="homeVinc__security-txt">Reportar</p>
+      </div>
     </div>
   </div>
 </template>
@@ -221,7 +226,6 @@ v-for="(item, index) of userCard?.pictures"
     width: 100%;
     right: 0;
     left: 0;
-
 
     &-button {
       background-color: #f9f9f9;
@@ -317,7 +321,7 @@ v-for="(item, index) of userCard?.pictures"
   &__user {
     width: 100%;
     height: 100vh;
-    
+
     &-p {
       text-align: start;
       margin-top: 5px;
@@ -327,7 +331,6 @@ v-for="(item, index) of userCard?.pictures"
       font-weight: 700;
       margin-bottom: 5px;
       margin-left: 20px;
-
     }
   }
   &__description {

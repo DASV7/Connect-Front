@@ -19,3 +19,10 @@
     background-color: transparent;
   }
 }
+
+[disabled] {
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.5;
+  background-color: gray;
+}
