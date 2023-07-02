@@ -201,7 +201,8 @@ const changeStatusView = () => {
     width: 50%;
   }
   .joinConnect__formJoin-container {
-    width: 55%;
+    max-width: 550px;
   }
 }
+
 </style>
