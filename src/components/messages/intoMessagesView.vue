@@ -224,6 +224,8 @@ body {
 
     &__container {
       width: 700px;
+      // bottom: 30px;
+       
 
       &-input {
         width: 70%;
