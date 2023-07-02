@@ -76,7 +76,9 @@ onBeforeUnmount(() => {
     <button @click="$router.push('/messages')" class="intoMessages__header-btnBack">
       <i class="fa-sharp fa-solid fa-arrow-left"> </i>
     </button>
-    <div class="intoMessages__header-info"></div>
+    <div class="intoMessages__header-info">
+      
+    </div>
   </div>
 
   <div class="intoMessages" v-if="!isLoading">
@@ -120,6 +122,14 @@ onBeforeUnmount(() => {
       border-radius: 20px;
       margin-left: 10px;
       cursor: pointer;
+    }
+    &-info {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 86%;
+      height: 100%;
+      border: solid 1px red;
     }
   }
   // &__messageItem {
