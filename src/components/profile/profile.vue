@@ -32,8 +32,8 @@
         </div>
         <div class="infoPremium__txt">
           <p class="infoPremium__txt-exp">Controla toda tu experiencia con Premium y obten hasta 12 + 1 mas matches* que la gente sin Premium</p>
-          <button class="infoPremium__txt-btn">Suscribete</button>
         </div>
+        <button class="infoPremium__txt-btn">Suscribete</button>
       </div>
       <div class="infoPremium__advantages">
         <div class="infoPremium__advantages-target" v-for="(item, index) in advantages" :key="index">
@@ -173,17 +173,20 @@ const advantages = [
 
 <style lang="scss">
 .profileUser {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
   height: 100%;
   overflow: auto;
 
   &__container {
-    display: flex;
-    flex-direction: column;
+
     width: 100%;
     height: 34%;
-    border-bottom: 2px solid $primary-color;
-    box-shadow: 0 2px 15px $primary-color;
+    // border-bottom: 2px solid $primary-color;
+    // box-shadow: 0 2px 15px $primary-color;
+    max-width: 500px;
   }
   &__header {
     display: flex;
@@ -211,6 +214,7 @@ const advantages = [
       color: #3e4446;
       background-color: #f8f4f4;
       border: none;
+      cursor: pointer;
     }
   }
   &__photoProfile {
@@ -218,6 +222,9 @@ const advantages = [
     flex-direction: column;
     width: 65%;
     height: 90%;
+    max-width: 111px;
+    min-height: 111px;
+    cursor: pointer;
 
     &-cont {
       @include flexCenter;
@@ -262,7 +269,7 @@ const advantages = [
       display: flex;
       align-items: center;
       flex-direction: column;
-      width: 50%;
+      // width: 100%;
       height: 100%;
     }
   }
@@ -283,9 +290,12 @@ const advantages = [
     flex-direction: column;
     width: 90%;
     height: 25%;
+    max-width: 600px;
+    max-height: 40%;
     border-radius: 20px;
     gap: 15px;
     background-image: linear-gradient(to top, rgba(80, 189, 237, 0.8), #50bded);
+    padding: 5px;
 
     &-tittle {
       @include flexCenter;
@@ -293,6 +303,7 @@ const advantages = [
       height: 35px;
       border-radius: 20px;
       background-color: #ffffff;
+      max-width: 270px;
     }
     &-logo {
       width: 90px;
@@ -325,6 +336,9 @@ const advantages = [
       color: #fff;
       border-radius: 20px;
       font-weight: 800;
+      max-width: 290px;
+    cursor: pointer;
+
     }
   }
   &__advantages {
@@ -343,7 +357,7 @@ const advantages = [
       width: 100%;
       height: 30px;
       border-bottom: solid 1px #d0cece;
-      color: #50bded;
+      // color: #50bded;
     }
     &-cont {
       display: flex;
@@ -360,5 +374,45 @@ const advantages = [
       font-weight: 600;
     }
   }
+}
+@media (min-width: 1000px) {
+  .profileUser {
+    // display: flex;
+    // flex-direction: column;
+    // align-items: center;
+    &__container {
+      display: flex;
+    flex-direction: column;
+    }
+
+  }
+  .infoPremium__advantages {
+    width: 40%;
+
+    &-txt {
+      font-size: 14px;
+      font-weight: 100;
+    }
+  }
+  .infoPremium__vinc {
+    height: 100%;
+    width: 40%;
+
+    &-tittle {
+       margin-top: 10px;
+       font-size: 50%;
+      width: 50%;
+    }
+  }
+  .infoPremium__txt-btn{
+    margin-bottom: 10px;
+    width: 60%;
+    
+  }
+
+  .infoPremium__txt-exp {
+    font-size: 12px;
+  }
+
 }
 </style>
