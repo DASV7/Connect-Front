@@ -37,9 +37,9 @@ let imgProfile = ["https://firebasestorage.googleapis.com/v0/b/connect-e76fc.app
       <button class="editProfile__btn-add">Añadir Fotos</button>
     </div>
     <div>
-      <p class="editProfile__txt">Informacion Basica</p>
     </div>
     <div class="editProfile__info">
+      <p class="editProfile__txt">Informacion Basica</p>
       <div class="editProfile__tags">
         <p class="editProfile__tags-p">Nombre:</p>
         <p class="editProfile__tags-p">{{ userStore.user.name }}</p>
@@ -71,20 +71,23 @@ let imgProfile = ["https://firebasestorage.googleapis.com/v0/b/connect-e76fc.app
     display: flex;
     justify-content: space-evenly;
     width: 100%;
-    height: 27%;
+    // height: 27%;
     margin-top: 10px;
 
     &-item {
-      width: 40%;
+      // width: 40%;
       border-radius: 15px;
       overflow: hidden;
       outline: solid 5px $primary-color;
       border: solid 2px #fff;
+
     }
     &-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      max-width: 200px;
+      max-height: 200px;
     }
   }
   &__btn {
@@ -99,6 +102,7 @@ let imgProfile = ["https://firebasestorage.googleapis.com/v0/b/connect-e76fc.app
       background-color: $primary-color;
       color: #fff;
       border-radius: 30px;
+      max-width: 150px;
     }
   }
   &__info {
@@ -125,13 +129,14 @@ let imgProfile = ["https://firebasestorage.googleapis.com/v0/b/connect-e76fc.app
       font-weight: 700;
     }
     &-input {
-      width: 86%;
+      width: 85%;
       height: 25%;
-      padding: 5px;
+      padding: 10px;
       resize: none;
       border-radius: 10px;
       outline: none;
       background-color: #ece5e5;
+      border: none;
     }
   }
   &__top {
@@ -149,6 +154,7 @@ let imgProfile = ["https://firebasestorage.googleapis.com/v0/b/connect-e76fc.app
       text-align: center;
       color: #fff;
       border-radius: 30px;
+      cursor: pointer;
     }
     &-tittle {
       font-size: 13px;
@@ -162,5 +168,25 @@ let imgProfile = ["https://firebasestorage.googleapis.com/v0/b/connect-e76fc.app
     margin-top: 10px;
     margin-left: 10px;
   }
+}
+@media (min-width: 1000px) {
+  .editProfile__album {
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 30px;
+    &-item {
+      width: 200px;
+      height: 200px;
+    }
+  }
+  .editProfile__btn {
+    max-width: 35%;
+    margin: auto;
+  }
+  .editProfile__info{
+    width: 50%;
+    margin: auto;
+   }
+
 }
 </style>
