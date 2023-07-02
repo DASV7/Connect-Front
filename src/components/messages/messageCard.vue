@@ -40,11 +40,9 @@ const validTextPisition = () => {
   if (props.idx) return "messageDefault__content-date-left";
   return "";
 };
-
 </script>
 
 <template>
-
   <div class="messageDefault" :style="validPosition()" v-if="props?.message?.sender">
     <div class="messageDefault__container" :class="validtype()">
       <AvatarUser v-show="!props.idx" :user="props.user" :size="30"></AvatarUser>
@@ -62,14 +60,12 @@ const validTextPisition = () => {
       <strong class="p2">{{ props.message.date }}</strong>
     </p>
   </div>
-
 </template>
 
 <style lang="scss">
 .messageDefault {
-  padding: 10px;
+  padding: 5px 10px;
   border-radius: 5px;
-  margin-bottom: 10px;
 
   &__container {
     display: flex;
