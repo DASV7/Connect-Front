@@ -53,9 +53,10 @@ onUnmounted(() => {
   <div class="mainApp"></div>
   <notificati></notificati>
   <div class="mainApp__routerView" :class="`${!routePermission ? '' : 'mainApp__routerView-margin-left'}`">
-    <transition name="slide-fade">
+    <transition name="slide-fade" v-if="routePermission">
       <router-view></router-view>
     </transition>
+    <router-view v-else></router-view>
   </div>
   <Notivue :use="notifications" :options="options" />
   <MenuHome v-if="routePermission"> </MenuHome>
@@ -88,15 +89,27 @@ onUnmounted(() => {
 .slide-fade-leave-to {
   height: 100%;
   width: 100%;
-  transform: translateX(-50%);
   opacity: 0;
+
+  @media screen and (min-width: 1024px) {
+    transform: translateY(-100%);
+  }
+  @media screen and (max-width: 1024px) {
+    transform: translateX(-100%);
+  }
 }
 
 .slide-fade-enter-to,
 .slide-fade-leave-from {
   height: 100%;
   width: 100%;
-  transform: translateX(0);
   opacity: 1;
+
+  @media screen and (min-width: 1024px) {
+    transform: translateY(0);
+  }
+  @media screen and (max-width: 1024px) {
+    transform: translateX(0);
+  }
 }
 </style>
