@@ -10,7 +10,7 @@ const routers = [
   { path: "/messages", icon: "fa-solid fa-comment" },
   { path: "/functionsapp", icon: "fa fa-video-camera" },
   { path: "/likes", icon: "fa fa-eye" },
-  { path: "/home", icon: "fa-solid fa-barcode" },
+  { path: "/home", icon: "fa fa-handshake-o" },
   { path: "/profile", icon: "fa-solid fa-user" },
 ];
 
