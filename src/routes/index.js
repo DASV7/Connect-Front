@@ -55,8 +55,23 @@ const routes = [
     beforeEnter: ifAuthenticated,
   },
   {
-    path: "/video",
-    name: "video",
+    path: "/call",
+    name: "call",
+    component: () => import("../components/functionsRandom/callRamdom.vue")
+  },
+  {
+    path: "/chat",
+    name: "chat",
+    component: () => import("../components/functionsRandom/chatRamdom.vue"),
+  },
+  {
+    path: "/videocall",
+    name: "videocall",
+    component: () => import("../components/functionsRandom/videoCall.vue"),
+  },
+  {
+    path: "/functionsapp",
+    name: "functionsapp",
     component: functionsApp,
     beforeEnter: ifAuthenticated,
   },
@@ -108,10 +123,10 @@ const routes = [
     component: settings,
     beforeEnter: ifAuthenticated,
   },
-  {
-    path: "/:catchAll(.*)",
-    redirect: "/",
-  },
+  // {
+  //   path: "/:catchAll(.*)",
+  //   redirect: "/",
+  // },
 ];
 
 const router = createRouter({
