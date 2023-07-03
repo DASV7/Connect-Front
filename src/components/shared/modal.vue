@@ -22,13 +22,16 @@ const closeModal = () => {
 </template>
 <style lang="scss">
 .modalTotal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100vw;
   height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 400;
-  background-color: rgba(0, 0, 0, 0.876);
+  background-color: #ffffff8e;
 
   &__wrapper {
     display: flex;
@@ -40,10 +43,13 @@ const closeModal = () => {
   }
 
   &__container {
+    // height: 95%;
     width: auto;
+    overflow: hidden;
     height: auto;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
+    object-fit: cover;
   }
 
   &__content {
@@ -60,6 +66,8 @@ const closeModal = () => {
   font-size: 30px;
   color: #fff;
   z-index: 1;
+  color: $primary-color;
+  
   &:hover {
     color: rgba(255, 0, 0, 0.709);
   }

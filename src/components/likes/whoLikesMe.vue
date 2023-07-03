@@ -38,30 +38,31 @@ const sendRejected = async (user) => {
 };
 let hiddenProfile = ref(false);
 
-function changeModal() {
+function changeModal(user) {
   hiddenProfile.value = !hiddenProfile.value;
-  console.log(hiddenProfile.value);
+  console.log(user);
+  userModal.value = user || null;
 }
+let userModal = ref(null);
 </script>
 
 <template>
   <div class="whoLikesMe">
-  
     <div class="whoLikesMe__logo">
-      <img  class="whoLikesMe__logo-img" src="/public/svgLogoComplete.svg" alt="" />
+      <img class="whoLikesMe__logo-img" src="/public/svgLogoComplete.svg" alt="" />
     </div>
     <p class="whoLikesMe__tittle">LIKES</p>
-    <p class="whoLikesMe__tittle-sub"> Cobrar por los "me gusta" limita el amor. Dejemos que fluya sin barreras.</p>
+    <p class="whoLikesMe__tittle-sub">Cobrar por los "me gusta" limita el amor. Dejemos que fluya sin barreras.</p>
     <div class="whoLikesMe__container">
       <miniLoading v-if="isLoading"></miniLoading>
-      <div  class="whoLikesMe__user" v-for="(user, index) in usersLike" :key="index">
-        <Modal :showModal="hiddenProfile" @changeModal="changeModal()">
+      <Modal v-if="userModal" :showModal="!!userModal" @changeModal="changeModal()">
         <template v-slot:content>
-          <connect :user="user" :hiddeActions="false" />
+          <connect class="whoLikesMe__modal" :user="userModal" :hiddeActions="false" />
         </template>
       </Modal>
-        <div  @openProfile="changeModal()" class="whoLikesMe__user-img">
-          <img @click="changeModal()" class="whoLikesMe__user-img" :src="user?.pictures[0].url" alt="" />
+      <div class="whoLikesMe__user" v-for="(user, index) in usersLike" :key="index">
+        <div class="whoLikesMe__user-img">
+          <img @click="changeModal(user)" class="whoLikesMe__user-img" :src="user?.pictures[0].url" alt="" />
         </div>
         <div class="whoLikesMe__user-cont">
           <p class="whoLikesMe__user-name">
@@ -86,12 +87,18 @@ function changeModal() {
 .whoLikesMe {
   padding: 0px 10px 10px 10px;
 
+  &__modal {
+    background-color: #fff;
+    width: 400px;
+    max-width: 100%;
+  }
+
   &__logo {
     margin-top: 10px;
     display: flex;
     justify-content: center;
     width: 100%;
-    
+
     &-img {
       width: 100px;
     }
@@ -108,15 +115,14 @@ function changeModal() {
       background-color: #bababa8b;
       padding: 3px;
       border-radius: 5px;
-    text-align: center; 
-
+      text-align: center;
     }
   }
 
   &__container {
     display: flex;
     align-items: center;
-    
+
     flex-wrap: wrap;
     gap: 40px;
   }

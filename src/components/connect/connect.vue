@@ -196,6 +196,7 @@ v-for="(item, index) of userCard?.pictures"
     text-align: center;
     border-radius: 20px 20px 0 0;
     border: solid 1px #00000014;
+
     &::-webkit-scrollbar-thumb {
       height: 80px;
     }
@@ -401,7 +402,7 @@ v-for="(item, index) of userCard?.pictures"
 }
 
 .homeVinc__Container {
-  height: 88vh;
+  height: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
   display: flex;

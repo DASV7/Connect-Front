@@ -75,7 +75,7 @@ const createNewUser = async () => {
     localStorage.clear();
     localStorage.setItem("vinc-jwt", userWithPictures.data.token);
     isCreatingUser.value = false;
-    router.push({ path: "/home", query: { reg: 1 } });
+    router.push({ path: "/preferences", query: { reg: 1 } });
 
   }
 };

@@ -1,3 +1,78 @@
+<script setup>
+import { ref } from "vue";
+import axios from "../../api/axios";
+let indexReg = ref(null);
+
+let userPreferences = ref({
+  sexuality: "",
+  height: "0",
+  feelings: "",
+  interests: "",
+  education: "",
+  smoke: "",
+  drink: "",
+});
+
+let imgViews = [
+  "https://firebasestorage.googleapis.com/v0/b/connect-e76fc.appspot.com/o/icons%2Ffamilia%20.jpg?alt=media&token=af1efa09-1ec7-4dc8-b025-532942ceb69a&_gl=1*5zcs70*_ga*MTcyNzMzMzExNS4xNjg1ODkwODY2*_ga_CW55HF8NVT*MTY4NjY3MjQ4Ni4xNi4xLjE2ODY2NzI2NjkuMC4wLjA",
+  "https://firebasestorage.googleapis.com/v0/b/connect-e76fc.appspot.com/o/icons%2F6242766.jpg?alt=media&token=668d5502-01b9-4186-bf11-5c6c9dc48007",
+  "https://firebasestorage.googleapis.com/v0/b/connect-e76fc.appspot.com/o/icons%2F3262978.jpg?alt=media&token=0592dce1-6f60-474c-9f4a-94d53ca1c284",
+  "https://firebasestorage.googleapis.com/v0/b/connect-e76fc.appspot.com/o/icons%2F2466249.jpg?alt=media&token=57fdb4ee-8650-4ccc-a841-d04ba7816556z",
+  "https://firebasestorage.googleapis.com/v0/b/connect-e76fc.appspot.com/o/icons%2F13239.jpg?alt=media&token=6ca137d1-2c45-4be1-b7e1-eb66794fb1a0",
+  "https://firebasestorage.googleapis.com/v0/b/connect-e76fc.appspot.com/o/icons%2F7325788.jpg?alt=media&token=6886ee96-7e97-4302-a085-4dbc113b6cc3",
+  "https://firebasestorage.googleapis.com/v0/b/connect-e76fc.appspot.com/o/icons%2F3531361.jpg?alt=media&token=602a217f-ba0f-450c-beb8-7caf7955fe56",
+];
+
+let titleViews = ["¿Cual es tu orientacion", "¿Cuanto mides?", "¿Y tu situacion sentimental?", "¿Cual es tu nivel educativo?", "¿Fumas?", "¿Tomas?"];
+
+let btnText = [{ text: "Hetero" }, { text: "Gay" }, { text: "Bisexual" }, { text: "Asexual" }, { text: "Lesbiana" }, { text: "Prefiero no decirlo" }];
+
+let btnTextsentimental = [{ text: "Soltero" }, { text: "En relacion" }, { text: "Es complicado" }, { text: "Abierta" }, { text: "Prefiero no decirlo" }];
+let btnTextEducation = [{ text: "Bachillerato" }, { text: "Titulo de posgrado" }, { text: "En la universidad" }, { text: "Titulo de pregrado" }, { text: "Prefiero no decirlo" }];
+let btnTextSmoke = [{ text: "Si" }, { text: "No" }, { text: "A veces" }, { text: "Nunca" }, { text: "Prefiero no decirlo" }];
+
+let isButtonDisabled = ref(false);
+
+let backView = ref(undefined);
+function dataSexuality(text, value) {
+  userPreferences.value[value] = text;
+
+  nextView(text, value);
+}
+function sendDataBack() {
+  axios
+    .post("/userPreferences", userPreferences.value)
+    .then((response) => {
+      console.log(response.data.data);
+    })
+    .catch((error) => console.error(error));
+  console.log(userPreferences.value);
+}
+function nextView(i, value) {
+  if (i == "back") return indexReg.value--;
+  if (userPreferences.value[value]) indexReg.value++;
+  else {
+    const arrayPosition = Object.keys(userPreferences.value);
+    const position = arrayPosition[indexReg.value];
+    if (userPreferences.value[position]) indexReg.value++;
+  }
+
+  // if (i === undefined) {
+  //   if (indexReg.value == null) {
+  //     indexReg.value = 0;
+  //   userPreferences.value[value]
+
+  //   } else indexReg.value++;
+  //   return;
+  // }
+  // return;
+  // indexReg.value--;
+}
+function nextViewFirst() {
+  indexReg.value = 0;
+}
+</script>
+
 <template>
   <div class="preferens">
     <div class="GoBack">
@@ -90,80 +165,6 @@
   </div>
 </template>
 
-<script setup>
-import { ref } from "vue";
-import axios from "../../api/axios";
-let indexReg = ref(null);
-
-let userPreferences = ref({
-  sexuality: "",
-  height: "0",
-  feelings: "",
-  interests: "",
-  education: "",
-  smoke: "",
-  drink: "",
-});
-
-let imgViews = [
-  "https://firebasestorage.googleapis.com/v0/b/connect-e76fc.appspot.com/o/icons%2Ffamilia%20.jpg?alt=media&token=af1efa09-1ec7-4dc8-b025-532942ceb69a&_gl=1*5zcs70*_ga*MTcyNzMzMzExNS4xNjg1ODkwODY2*_ga_CW55HF8NVT*MTY4NjY3MjQ4Ni4xNi4xLjE2ODY2NzI2NjkuMC4wLjA",
-  "https://firebasestorage.googleapis.com/v0/b/connect-e76fc.appspot.com/o/icons%2F6242766.jpg?alt=media&token=668d5502-01b9-4186-bf11-5c6c9dc48007",
-  "https://firebasestorage.googleapis.com/v0/b/connect-e76fc.appspot.com/o/icons%2F3262978.jpg?alt=media&token=0592dce1-6f60-474c-9f4a-94d53ca1c284",
-  "https://firebasestorage.googleapis.com/v0/b/connect-e76fc.appspot.com/o/icons%2F2466249.jpg?alt=media&token=57fdb4ee-8650-4ccc-a841-d04ba7816556z",
-  "https://firebasestorage.googleapis.com/v0/b/connect-e76fc.appspot.com/o/icons%2F13239.jpg?alt=media&token=6ca137d1-2c45-4be1-b7e1-eb66794fb1a0",
-  "https://firebasestorage.googleapis.com/v0/b/connect-e76fc.appspot.com/o/icons%2F7325788.jpg?alt=media&token=6886ee96-7e97-4302-a085-4dbc113b6cc3",
-  "https://firebasestorage.googleapis.com/v0/b/connect-e76fc.appspot.com/o/icons%2F3531361.jpg?alt=media&token=602a217f-ba0f-450c-beb8-7caf7955fe56",
-];
-
-let titleViews = ["¿Cual es tu orientacion", "¿Cuanto mides?", "¿Y tu situacion sentimental?", "¿Cual es tu nivel educativo?", "¿Fumas?", "¿Tomas?"];
-
-let btnText = [{ text: "Hetero" }, { text: "Gay" }, { text: "Bisexual" }, { text: "Asexual" }, { text: "Lesbiana" }, { text: "Prefiero no decirlo" }];
-
-let btnTextsentimental = [{ text: "Soltero" }, { text: "En relacion" }, { text: "Es complicado" }, { text: "Abierta" }, { text: "Prefiero no decirlo" }];
-let btnTextEducation = [{ text: "Bachillerato" }, { text: "Titulo de posgrado" }, { text: "En la universidad" }, { text: "Titulo de pregrado" }, { text: "Prefiero no decirlo" }];
-let btnTextSmoke = [{ text: "Si" }, { text: "No" }, { text: "A veces" }, { text: "Nunca" }, { text: "Prefiero no decirlo" }];
-
-let isButtonDisabled = ref(false);
-
-let backView = ref(undefined);
-function dataSexuality(text, value) {
-  userPreferences.value[value] = text;
-
-  nextView(text, value);
-}
-function sendDataBack() {
-  axios
-    .post("/userPreferences", userPreferences.value)
-    .then((response) => {
-      console.log(response.data.data);
-    })
-    .catch((error) => console.error(error));
-  console.log(userPreferences.value);
-}
-function nextView(i, value) {
-  if (i == "back") return indexReg.value--;
-  if (userPreferences.value[value]) indexReg.value++;
-  else {
-    const arrayPosition = Object.keys(userPreferences.value);
-    const position = arrayPosition[indexReg.value];
-    if (userPreferences.value[position]) indexReg.value++;
-  }
-
-  // if (i === undefined) {
-  //   if (indexReg.value == null) {
-  //     indexReg.value = 0;
-  //   userPreferences.value[value]
-
-  //   } else indexReg.value++;
-  //   return;
-  // }
-  // return;
-  // indexReg.value--;
-}
-function nextViewFirst() {
-  indexReg.value = 0;
-}
-</script>
 
 <style lang="scss">
 * {
@@ -195,8 +196,8 @@ function nextViewFirst() {
 }
 
 .preferens {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   background-color: #fff;
   z-index: 10;
 
@@ -304,5 +305,20 @@ function nextViewFirst() {
     color: #fff;
     border-radius: 30px;
   }
+}
+@media screen and (min-width: 1000px) { 
+  .preferens {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .preferens__container {
+    width: 40%;
+    height: 95%;
+    border-radius: 20px;
+    border: 1px solid #999696;
+    box-shadow: 0px 5px 15px #999696;
+  }
+
 }
 </style>
