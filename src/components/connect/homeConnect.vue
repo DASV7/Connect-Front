@@ -92,6 +92,7 @@ onMounted(() => {
   overflow: hidden;
   width: 100%;
   height: 100%;
+
   &__content {
     display: flex;
     flex-direction: column;
@@ -113,6 +114,7 @@ onMounted(() => {
     font-size: 20px;
     font-weight: bold;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 10, 0.2);
+    
     i {
       font-size: 120px;
     }

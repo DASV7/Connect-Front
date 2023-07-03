@@ -21,9 +21,10 @@ const EventUser = new EventEmittler();
 
 const userStore = useCounterStore();
 
+const isPreferencesView = computed(() => fullPath.value.includes('/preferences'));
+
 const routePermission = computed(() => {
   const diferents = ["/", "/Register", "/JoinLogin", "/preferences"];
-
   return !diferents.includes(fullPath.value.split("?")[0]);
 });
 
@@ -52,7 +53,9 @@ onUnmounted(() => {
 <template>
   <div class="mainApp"></div>
   <notificati></notificati>
-  <div class="mainApp__routerView" :class="`${!routePermission ? '' : 'mainApp__routerView-margin-left'}`">
+  <div class="mainApp__routerView" 
+  :class="`${!routePermission ? '' : 'mainApp__routerView-margin-left'} 
+  ${isPreferencesView ? 'mainApp__routerView-full-height' : ''}`" >
     <transition name="slide-fade" v-if="routePermission">
       <component :is="'router-view'"></component>
     </transition>
@@ -65,9 +68,13 @@ onUnmounted(() => {
 <style lang="scss">
 .mainApp__routerView {
   height: 93vh;
+  
+  &.mainApp__routerView-full-height {
+      height: 100vh;
+    }
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 1000px) {
   .mainApp__routerView {
     height: 100vh;
     overflow: hidden;
