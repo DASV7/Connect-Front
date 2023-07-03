@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onBeforeMount, computed } from "vue";
 import { Carousel, Slide } from "vue3-carousel";
-import "vue3-carousel/dist/carousel.css";
+// import "vue3-carousel/dist/carousel.css";
 import interestingIn from "../profile/interestingIn.vue";
 import Modal from "../shared/modal.vue";
 import { useRouter } from "vue-router";
@@ -115,13 +115,11 @@ const handleTouchEnd = (event) => {
       <!-- Carousel -->
       <Modal :showModal="true" @changeModal="changeModal()" v-if="showModal">
         <template v-slot:content>
-          <Carousel v-bind="settings" :breakpoints="breakpoints" v-if="showModal">
             <Slide v-for="img of userCard.pictures" :key="img">
               <div class="carousel__item">
                 <img class="carousel__item-img" :src="img?.url" alt="imgUser" />
               </div>
             </Slide>
-          </Carousel>
         </template>
       </Modal>
 
