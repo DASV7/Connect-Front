@@ -7,10 +7,11 @@ const textStatus = ref("");
 const video = ref(null);
 const canvas = ref(null);
 const context = ref(null);
-const searchPeople = ref(false);
 
 const socketStore = useSocketStore();
-onMounted(() => {});
+onMounted(() => {
+  startCalls();
+});
 
 const startCalls = () => {
   canvas.value = document.querySelector("#preview");
@@ -20,7 +21,6 @@ const startCalls = () => {
   context.value.width = canvas.value.width;
   context.value.height = canvas.value.height;
   video.value = document.querySelector("#video");
-  searchPeople.value = true;
   loadCamerainfo();
 };
 const verVideo = () => {
@@ -53,51 +53,17 @@ const loadCamerainfo = () => {
 const errorCamara = () => {
   textStatus.value = "Error EN la camara";
 };
-
-let warning = [
-  {
-    tittle: "Recuerda:",
-    text: "Estás hablando con personas reales.",
-    icon: "fa fa-exclamation-circle fa-3x",
-  },
-  {
-    icon: "fa fa-camera fa-3x",
-    tittle: "Reporte:",
-    text: "Si alguien comparte escenas sexuales, se tomará una captura de pantalla.",
-  },
-  {
-    icon: "fa fa-check-circle fa-3x",
-    tittle: "Evaluación:",
-    text: "El contenido se evaluará para determinar si es obsceno.",
-  },
-  {
-    icon: "fa-sharp fa-solid fa-circle-xmark",
-    tittle: "Contenido explícito:",
-    text: "No está permitido ningún tipo de contenido explícito.",
-  },
-  {
-    icon: "fa fa-ban fa-3x",
-    tittle: "Al reportar un usuario:",
-    text: "Si se confirma que es contenido obsceno, se bloqueará al usuario.",
-  },
-];
-
-const functions = ref([
-  { text: "Llamadas aleatorias", path: "/functionsapp/call" },
-  { text: "Chat", path: "/functionsapp/chat" },
-  { text: "Video CHat", path: "/functionsapp/functionsapp/videocall" },
-]);
 </script>
 
 <template>
   <div class="videoCall">
     <!--Video Chat-->
-    <div class="videoCall__containerCalls" scrollDefault v-show="searchPeople">
+    <div class="videoCall__containerCalls" scrollDefault>
       <div class="videoCall__video">
         <div class="videoCall__logo">
           <img class="videoCall__logo-img" src="../../../public/svgLogoComplete.svg" alt="" />
         </div>
-        <div class="videoCall__container" v-show="searchPeople">
+        <div class="videoCall__container">
           <div class="videoCall__videoContainer">
             <div class="videoCall__containerVideo">
               <div class="videoCall__imgOne">
@@ -118,7 +84,6 @@ const functions = ref([
         <button class="videoCall__buttons-btn2">Like<i class="fa-solid fa-heart"></i></button>
         <button class="videoCall__buttons-btn3">Next<i class="fa-solid fa-right-long"></i></button>
       </div>
-      <!-- <div class="videoCall__chat" v-if="searchPeople">asdasd</div> -->
     </div>
   </div>
 </template>
