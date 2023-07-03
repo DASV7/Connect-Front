@@ -123,7 +123,7 @@ function changeModal() {
 
 <style lang="scss">
 body {
-  background-color: #ede8e8;
+  background-color: #f8f2f2;
 }
 .intoMessages {
   width: 100%;
@@ -147,6 +147,7 @@ body {
     border-bottom: #000 solid 1px;
     background-color: #fff;
     z-index: 10;
+    border-radius: 20px 20px 0px 0px;
 
     &-btnBack {
       width: 50px;
