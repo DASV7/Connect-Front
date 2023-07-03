@@ -81,28 +81,16 @@ let warning = [
     text: "Si se confirma que es contenido obsceno, se bloqueará al usuario.",
   },
 ];
+
+const functions = ref([
+  { text: "Llamadas aleatorias", path: "/call" },
+  { text: "Chat", path: "/chat" },
+  { text: "Video CHat", path: "/videocall" },
+]);
 </script>
 
 <template>
-  <div class="videoCall" >
-    <!--alerts -->
-    <div class="videoCall__alerts" v-if="!searchPeople">
-      <div class="videoCall__header">
-        <img src="../../../public/svgLogoComplete.svg" alt="Vinc logo" />
-      </div>
-      <div class="videoCall__alertStart">
-        <div v-for="(item, index) in warning" :key="index" class="videoCall__alertStart-message">
-          <i :class="item.icon"></i>
-          <div class="message-content">
-            <p class="message-heading">{{ item.tittle }}</p>
-            <p class="message-heading">{{ item.text }}</p>
-          </div>
-        </div>
-      </div>
-      <button id="btn" class="videoCall__alertStart-continue" @click="startCalls()">Empezar</button>
-    </div>
-    <!--alerts -->
-
+  <div class="videoCall">
     <!--Video Chat-->
     <div class="videoCall__containerCalls" scrollDefault v-show="searchPeople">
       <div class="videoCall__video">
@@ -213,55 +201,7 @@ let warning = [
       color: #35e743;
     }
   }
-  &__alerts {
-    margin: auto;
-    @include Column;
-  }
 
-  &__alertStart {
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    gap: 10px;
-    padding: 20px;
-    color: #fff;
-
-    p {
-      font-size: 10px;
-      font-weight: 700;
-    }
-
-    &-message {
-      display: flex;
-      align-items: center;
-      margin-bottom: 10px;
-
-      i {
-        margin-right: 10px;
-        color: #ff0000;
-        font-size: 35px;
-      }
-    }
-
-    &-messageContent {
-      flex: 1;
-    }
-
-    &-message-heading {
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-
-    &-continue {
-      width: 50%;
-      height: 45px;
-      border: none;
-      background-color: #50bded;
-      color: #fff;
-      border-radius: 30px;
-      font-weight: 700;
-    }
-  }
   &__imgOne,
   &__imgTwo {
     &-stream {

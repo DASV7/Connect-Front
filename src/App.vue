@@ -54,7 +54,7 @@ onUnmounted(() => {
   <notificati></notificati>
   <div class="mainApp__routerView" :class="`${!routePermission ? '' : 'mainApp__routerView-margin-left'}`">
     <transition name="slide-fade" v-if="routePermission">
-      <router-view></router-view>
+      <component :is="'router-view'"></component>
     </transition>
     <router-view v-else></router-view>
   </div>
