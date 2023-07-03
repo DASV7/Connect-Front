@@ -53,7 +53,7 @@ const itsMe = (message) => {
 
 const goToBottom = () => {
   const element = document.getElementById("elemento-final");
-  element.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
+  if (element) element.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
 };
 
 const newMessage = async () => {
@@ -85,7 +85,7 @@ function changeModal() {
 
 <template>
   <div class="intoMessages__allPage">
-    <div class="intoMessages" v-if="!isLoading">
+    <div class="intoMessages" v-if="!isLoading && userChat?.name">
       <Modal :showModal="hiddenProfile" @changeModal="changeModal()">
         <template v-slot:content>
           <connect :user="userChat" :hiddeActions="false" />
