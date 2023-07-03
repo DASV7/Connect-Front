@@ -9,7 +9,7 @@ const closeModal = () => {
 };
 </script>
 <template>
-  <div class="modalTotal fadeInUp" v-if="props.showModal">
+  <div class="modalTotal fadeInUp" v-if="props.showModal" @keypress.esc="closeModal()">
     <div class="modalTotal__wrapper">
       <div class="modalTotal__container">
         <i @click="closeModal()" class="fa fa-window-close" aria-hidden="true"></i>

@@ -83,9 +83,9 @@ let warning = [
 ];
 
 const functions = ref([
-  { text: "Llamadas aleatorias", path: "/call" },
-  { text: "Chat", path: "/chat" },
-  { text: "Video CHat", path: "/videocall" },
+  { text: "Llamadas aleatorias", path: "/functionsapp/call" },
+  { text: "Chat", path: "/functionsapp/chat" },
+  { text: "Video CHat", path: "/functionsapp/functionsapp/videocall" },
 ]);
 </script>
 

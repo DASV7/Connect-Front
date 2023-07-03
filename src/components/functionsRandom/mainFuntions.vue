@@ -1,58 +1,8 @@
 <script setup>
 import { onMounted, ref } from "vue";
-import { useSocketStore } from "../../store/socketStore";
-import chatVideoCall from "../../components/chatVideoCall/chatVideoCall.vue";
-
-const textStatus = ref("");
-const video = ref(null);
-const canvas = ref(null);
-const context = ref(null);
 const searchPeople = ref(false);
 
-const socketStore = useSocketStore();
 onMounted(() => {});
-
-const startCalls = () => {
-  canvas.value = document.querySelector("#preview");
-  context.value = canvas.value.getContext("2d");
-  // canvas.value.width = 250;
-  // canvas.value.height = 250;
-  context.value.width = canvas.value.width;
-  context.value.height = canvas.value.height;
-  video.value = document.querySelector("#video");
-  searchPeople.value = true;
-  loadCamerainfo();
-};
-const verVideo = () => {
-  // Dibuja el video en el canvas
-  context.value.drawImage(video.value, 0, 0, context.value.width, context.value.height);
-  // Emite el stream a través del socket
-  // socketStore.socket.emit("videoCall/streamVideoCall", canvas.value.toDataURL("image/webp"));
-};
-
-const loadCamera = function (stream) {
-  video.value.srcObject = stream;
-  textStatus.value = "Conecta";
-  // Inicia la transmisión de video
-  setInterval(verVideo, 10);
-};
-
-const loadCamerainfo = () => {
-  navigator.getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.getUserMedia;
-  if (navigator.getUserMedia) {
-    navigator.getUserMedia(
-      { video: true },
-      (stream) => {
-        loadCamera(stream);
-      },
-      errorCamara
-    );
-  }
-};
-
-const errorCamara = () => {
-  textStatus.value = "Error EN la camara";
-};
 
 let warning = [
   {
@@ -83,23 +33,33 @@ let warning = [
 ];
 
 const functions = ref([
-  { text: "Llamadas aleatorias", path: "/call" },
+  { text: "Llamadas", path: "/call" },
   { text: "Chat", path: "/chat" },
-  { text: "Video CHat", path: "/videocall" },
+  { text: "Video Chat", path: "/videocall" },
 ]);
+const indexIIcon = ["fa fa-phone-square", "fa fa-comments", "fa fa-video-camera"];
+
+const routeTogo = ref("");
+const clickGo = (path) => {
+  routeTogo.value = path;
+  console.log(routeTogo.value);
+};
 </script>
 
 <template>
+  <div class="videoCall__header">
+    <img src="../../../public/svgLogoComplete.svg" alt="Vinc logo" />
+  </div>
   <div class="videoCall">
-    <div class="videoCall__functions">
-      <div class="videoCall__functions-item" v-for="(item, index) in functions" :key="index">{{ item.text }}></div>
+    <div class="videoCall__functions" v-if="!routeTogo">
+      <div class="videoCall__functions-item" v-for="(item, index) in functions" :key="index" @click="clickGo(item.path)">
+        <i :class="indexIIcon[index]" aria-hidden="true"></i>
+        <p class="videoCall__functions-text">{{ item.text }}</p>
+      </div>
     </div>
     <!--alerts -->
-    <div class="videoCall__alerts" v-if="!searchPeople && false">
-      <div class="videoCall__header">
-        <img src="../../../public/svgLogoComplete.svg" alt="Vinc logo" />
-      </div>
-      <div class="videoCall__alertStart">
+    <div class="videoCall__alerts" v-else>
+      <div class="videoCall__alertStart" style="color: white">
         <div v-for="(item, index) in warning" :key="index" class="videoCall__alertStart-message">
           <i :class="item.icon"></i>
           <div class="message-content">
@@ -107,41 +67,12 @@ const functions = ref([
             <p class="message-heading">{{ item.text }}</p>
           </div>
         </div>
+        <button id="btn" class="videoCall__alertStart-continue" @click="$router.push({ path: routeTogo })">Empezar</button>
       </div>
-      <button id="btn" class="videoCall__alertStart-continue" @click="startCalls()">Empezar</button>
     </div>
     <!--alerts -->
-
-    <!--Video Chat-->
-    <div class="videoCall__containerCalls" scrollDefault v-show="searchPeople">
-      <div class="videoCall__video">
-        <div class="videoCall__logo">
-          <img class="videoCall__logo-img" src="../../../public/svgLogoComplete.svg" alt="" />
-        </div>
-        <div class="videoCall__container" v-show="searchPeople">
-          <div class="videoCall__videoContainer">
-            <div class="videoCall__containerVideo">
-              <div class="videoCall__imgOne">
-                <video class="videoCall__imgOne-stream" src="" id="video" autoplay="true"></video>
-              </div>
-              <div class="videoCall__imgTwo">
-                <canvas class="videoCall__imgTwo-stream" id="preview"></canvas>
-              </div>
-            </div>
-          </div>
-          <chatVideoCall></chatVideoCall>
-        </div>
-      </div>
-      <!--Video Chat-->
-
-      <div class="videoCall__buttons">
-        <button class="videoCall__buttons-btn1">Stop<i class="fa-sharp fa-solid fa-ban"></i></button>
-        <button class="videoCall__buttons-btn2">Like<i class="fa-solid fa-heart"></i></button>
-        <button class="videoCall__buttons-btn3">Next<i class="fa-solid fa-right-long"></i></button>
-      </div>
-      <!-- <div class="videoCall__chat" v-if="searchPeople">asdasd</div> -->
-    </div>
   </div>
+  <router-view></router-view>
 </template>
 
 <style lang="scss">
@@ -150,6 +81,8 @@ const functions = ref([
   width: 100%;
   overflow: auto;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   background-color: #000;
 
   &__video {
@@ -162,65 +95,10 @@ const functions = ref([
     display: grid;
     gap: 10px;
   }
+
   &__containerCalls {
     width: 100%;
     overflow: auto;
-  }
-
-  &__logo {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin-top: 10px;
-    margin-bottom: 10px;
-
-    &-img {
-      width: 100px;
-      height: 26px;
-      padding-top: 20px;
-      margin-left: 20px;
-    }
-  }
-
-  &__header {
-    display: flex;
-    padding-top: 10px;
-    img {
-      height: 35px;
-    }
-  }
-
-  &__buttons {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-    gap: 30px;
-
-    &-btn1,
-    &-btn2,
-    &-btn3 {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 30px;
-      border: solid 2px #50bded;
-      gap: 10px;
-      width: 100px;
-      height: 35px;
-      background-color: #000;
-      font-size: 15px;
-      font-weight: 600;
-      color: #fff;
-    }
-    &-btn1 {
-      color: #ff0000;
-    }
-    &-btn2 {
-      color: #50bded;
-    }
-    &-btn3 {
-      color: #35e743;
-    }
   }
   &__alerts {
     margin: auto;
@@ -271,53 +149,71 @@ const functions = ref([
       font-weight: 700;
     }
   }
-  &__imgOne,
-  &__imgTwo {
-    &-stream {
-      height: 100%;
-      width: 100%;
-      border-radius: 10px;
+
+  &__functions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 10px;
+
+    &-item {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      border-radius: 20px;
+      background-color: aliceblue;
+      border: 1px solid white;
+      height: 150px;
+      width: 150px;
+      font-weight: bold;
+      box-shadow: 0 0 10px $primary-color;
+      transition: all 0.5s;
+      cursor: pointer;
+
+      i {
+        font-size: 50px;
+        color: $primary-color;
+      }
+
+      &:hover {
+        background-color: $primary-color;
+        color: white;
+
+        i {
+          color: white;
+        }
+      }
+    }
+  }
+
+  &__logo {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    &-img {
+      width: 100px;
+      height: 26px;
+      padding-top: 20px;
+      margin-left: 20px;
     }
   }
 
-  &__imgOne {
-    width: 300px;
-    height: 250px;
-  }
-  &__imgTwo {
-    width: 300px;
-    height: 200px;
-  }
+  &__header {
+    display: flex;
+    justify-content: center;
+    background-color: black;
+    padding-top: 10px;
+    width: 100%;
 
-  
-
-  @media screen and (min-width: 450px) {
-    &__imgOne {
-      overflow: hidden;
-      // width: 356px;
-      // height: 300px;
-      width: 300px;
-      height: 250px;
-      max-height: 400px;
-      max-width: 500px;
-
-      &-stream {
-        height: 100%;
-        width: 100%;
-      }
-    }
-    &__imgTwo {
-      overflow: hidden;
-      // width: 357px;
-      // height: 300px;
-      width: 300px;
-      height: 200px;
-      max-height: 400px;
-      max-width: 500px;
-      &-stream {
-        height: 100%;
-        width: 100%;
-      }
+    img {
+      height: 35px;
     }
   }
 }
