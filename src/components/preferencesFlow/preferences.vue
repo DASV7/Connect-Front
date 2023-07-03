@@ -97,6 +97,11 @@ function nextViewFirst() {
       </div>
     </div>
     <div class="preferens__container" v-if="indexReg != null">
+      <div v-if="!indexReg" class="GoBack">
+        <button v-if="indexReg < 10 && indexReg > 0" @click="nextView('back')" class="GoBack__btn">
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+      </div>
       <div class="preferens__img">
         <img class="preferens__img-link" :src="imgViews[indexReg]" />
         <p class="preferens__img-p">{{ titleViews[indexReg] }}</p>
@@ -165,10 +170,13 @@ function nextViewFirst() {
   </div>
 </template>
 
-
 <style lang="scss">
 * {
   font-family: sans-serif;
+}
+.preferens__allPage {
+  width: 100%;
+  height: 100%;
 }
 .btn__circle {
   width: 13px;
@@ -176,11 +184,20 @@ function nextViewFirst() {
   border: 1px solid #000;
   border-radius: 100%;
 }
+.btn__circle-full {
+  width: 13px;
+  height: 13px;
+  border: 1px solid #000;
+  border-radius: 100%;
+  background-color: #000;
+}
+
 .btn__circle:hover {
   background-color: #000;
 }
 
 .GoBack {
+  width: 35%;
   position: absolute;
   margin: 10px 0px 0px 10px;
 
@@ -244,6 +261,7 @@ function nextViewFirst() {
       border: none;
       border-radius: 30px;
       margin-top: 15px;
+      cursor: pointer;
     }
     &-late {
       border: none;
@@ -252,6 +270,7 @@ function nextViewFirst() {
       font-size: 12px;
       height: 25px;
       color: #999696;
+      cursor: pointer;
     }
   }
   &__height {
@@ -304,9 +323,11 @@ function nextViewFirst() {
     background-color: $primary-color;
     color: #fff;
     border-radius: 30px;
+    max-width: 150px;
+    cursor: pointer;
   }
 }
-@media screen and (min-width: 1000px) { 
+@media screen and (min-width: 1000px) {
   .preferens {
     display: flex;
     justify-content: center;
@@ -319,6 +340,14 @@ function nextViewFirst() {
     border: 1px solid #999696;
     box-shadow: 0px 5px 15px #999696;
   }
-
+  .GoBack {
+    top: 30px;
+  }
+  .preferens__img {
+    width: 90%;
+  }
+  .preferens__img-link {
+    width: 65%;
+  }
 }
 </style>
