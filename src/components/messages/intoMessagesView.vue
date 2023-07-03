@@ -10,6 +10,7 @@ import { useSocketStore } from "../../store/socketStore";
 import AvatarUser from "../shared/avatarUser.vue";
 import connect from "../../components/connect/connect.vue";
 import Modal from "../shared/modal.vue";
+import { calculateAge } from "../../utils/calculateAge";
 
 const message = ref("");
 let messagesUser = reactive([]);
@@ -20,6 +21,7 @@ const socket = useSocketStore();
 const isLoading = ref(true);
 const bindRef = ref(true);
 const userChat = ref({});
+
 onMounted(async () => {
   const user = await axios.get("/messages?id=" + route.params.id).catch((error) => {
     Swal.fire({ icon: "error", title: "Ocurrio un error", text: "Error al solicitar los mensajes", showConfirmButton: false, timer: 2000 });
@@ -74,12 +76,17 @@ const newMessage = async () => {
 onBeforeUnmount(() => {
   socket.socket.disconnect();
 });
+let hiddenProfile = ref(false)
+
+function changeModal() {
+  hiddenProfile.value = !hiddenProfile.value
+}
 </script>
 
 <template>
   <div class="intoMessages__allPage">
     <div class="intoMessages" v-if="!isLoading">
-      <Modal :showModal="true">
+      <Modal  :showModal="hiddenProfile" @changeModal="changeModal()">
         <template v-slot:content>
           <connect :user="userChat" :hiddeActions="false" />
         </template>
@@ -88,13 +95,16 @@ onBeforeUnmount(() => {
         <button @click="$router.push('/messages')" class="intoMessages__header-btnBack">
           <i class="fa-sharp fa-solid fa-arrow-left"> </i>
         </button>
-        <div class="intoMessages__header-info"></div>
+        <div class="intoMessages__header-info">
+          <AvatarUser @openProfile="changeModal()" :user="userChat" :size="40"></AvatarUser>
+          <p @openProfile="changeModal()" class="intoMessages__header-name">{{ userChat.name }}, {{ calculateAge(userChat.birthday) }}</p>
+        </div>
         <button class="intoMessages__header-btnBack"><i class="fa-sharp fa-solid fa-ellipsis-vertical"></i></button>
       </div>
 
       <div class="intoMessages__messages" scrollDefault>
         <div :id="index" class="intoMessages__messageItem" v-for="(message, index) in messagesUser" :key="message._id">
-          <messageCard :message="message" :user="filterMembers(message)" :idx="itsMe(message)"></messageCard>
+          <messageCard @openProfile="changeModal()" :message="message" :user="filterMembers(message)" :idx="itsMe(message)"></messageCard>
         </div>
         <div id="elemento-final"></div>
       </div>
@@ -149,11 +159,16 @@ body {
     }
     &-info {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
+      gap: 10px;
       width: 80%;
       height: 100%;
       // border: solid 1px red;
+    }
+    &-name {
+      font-size: 13px;
+      font-weight: 600;
     }
 
     &-settings {
@@ -204,7 +219,7 @@ body {
 
     &-send {
       align-items: center;
-      background-color: #2196f3;
+      background-color: $primary-color;
       color: #fff;
       border: none;
       border-radius: 20px;
@@ -244,7 +259,8 @@ body {
   }
 
   .intoMessages__header {
-    width: 50%;
+    width: 56%;
+
     &-container {
       display: flex;
       justify-content: center;
@@ -255,6 +271,10 @@ body {
 @media screen and (min-width: 1300px) {
   .intoMessages {
     width: 50%;
+
+    &__header {
+         width: 47%;
+    }
   }
 }
 </style>

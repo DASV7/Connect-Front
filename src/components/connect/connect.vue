@@ -250,7 +250,7 @@ v-for="(item, index) of userCard?.pictures"
     text-align: center;
     position: absolute;
     top: 0;
-    z-index: 1;
+    // z-index: 1;
     width: 100%;
 
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.724), rgba(0, 0, 0, 0));

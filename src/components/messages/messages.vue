@@ -63,16 +63,17 @@ onMounted(async () => {
 
 <style lang="scss">
 .messagesView {
-  padding: 10px;
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  gap: 10px;
+  padding: 10px;
 
   &__wrapper {
     display: flex;
     justify-content: center;
-    padding: 20px;
+    // padding: 20px;
   }
 
   &__container {

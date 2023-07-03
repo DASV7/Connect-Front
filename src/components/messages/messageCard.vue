@@ -45,7 +45,7 @@ const validTextPisition = () => {
 <template>
   <div class="messageDefault" :style="validPosition()" v-if="props?.message?.sender">
     <div class="messageDefault__container" :class="validtype()">
-      <AvatarUser v-show="!props.idx" :user="props.user" :size="30"></AvatarUser>
+      <AvatarUser @openProfile="$emit('openProfile')" v-show="!props.idx" :user="props.user" :size="30"></AvatarUser>
       <div class="messageDefault__content">
         <p class="messageDefault__content-text">
           {{ props.message.message }}

@@ -15,9 +15,10 @@ const returnPick = () => {
   return props.user.pictures.length > 0 ? props.user.pictures[0].url : "";
 };
 </script>
+
 <template>
   <div class="globalAvatar" v-if="props.user.pictures" :style="`width: ${props.size}px; height: ${props.size}px`">
-    <img @click="openCardProfile()" :src="returnPick(props.user)" :alt="user?.name" v-show="isShow" @load="isLoading = true" />
+    <img @click="$emit('openProfile')" :src="returnPick(props.user)" :alt="user?.name" v-show="isShow" @load="isLoading = true" />
     <span v-if="!isShow" fcenter>{{ props.user?.name?.substring(0, 1) }}</span>
   </div>
 </template>
@@ -36,6 +37,7 @@ const returnPick = () => {
     height: 100%;
     object-fit: cover;
     animation: fadeIn 0.5s ease-in-out;
+    cursor: pointer;
   }
   span {
     font-weight: bold;
