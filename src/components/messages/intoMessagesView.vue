@@ -76,17 +76,17 @@ const newMessage = async () => {
 onBeforeUnmount(() => {
   socket.socket.disconnect();
 });
-let hiddenProfile = ref(false)
+let hiddenProfile = ref(false);
 
 function changeModal() {
-  hiddenProfile.value = !hiddenProfile.value
+  hiddenProfile.value = !hiddenProfile.value;
 }
 </script>
 
 <template>
   <div class="intoMessages__allPage">
     <div class="intoMessages" v-if="!isLoading">
-      <Modal  :showModal="hiddenProfile" @changeModal="changeModal()">
+      <Modal :showModal="hiddenProfile" @changeModal="changeModal()">
         <template v-slot:content>
           <connect :user="userChat" :hiddeActions="false" />
         </template>
@@ -145,6 +145,8 @@ body {
     height: 50px;
     position: fixed;
     border-bottom: #000 solid 1px;
+    background-color: #fff;
+    z-index: 10;
 
     &-btnBack {
       width: 50px;
@@ -193,9 +195,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    // bottom: 30px;
+    position: fixed;
     width: 100%;
+    bottom: 56px;
     gap: 10px;
 
     &-input {
@@ -273,7 +275,7 @@ body {
     width: 50%;
 
     &__header {
-         width: 47%;
+      width: 47%;
     }
   }
 }
