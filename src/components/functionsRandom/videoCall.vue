@@ -1,7 +1,6 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useSocketStore } from "../../store/socketStore";
-import chatVideoCall from "../../components/chatVideoCall/chatVideoCall.vue";
 
 const textStatus = ref("");
 const video = ref(null);
@@ -74,7 +73,6 @@ const errorCamara = () => {
               </div>
             </div>
           </div>
-          <chatVideoCall></chatVideoCall>
         </div>
       </div>
       <!--Video Chat-->
