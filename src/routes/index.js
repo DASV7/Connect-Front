@@ -11,7 +11,7 @@ import editProfile from "../components/editProfile/editProfile.vue";
 import messages from "../components/messages/messages.vue";
 import intoMessages from "../components/messages/intoMessagesView.vue";
 import whoLikesMe from "../components/likes/whoLikesMe.vue";
-import videoCall from "../components/video/videoCall.vue";
+import functionsApp from "../components/functionsRandom/mainFuntions.vue";
 import settings from "../components/settings/setting.vue"
 
 const ifAuthenticated = (to, from, next) => {
@@ -57,7 +57,7 @@ const routes = [
   {
     path: "/video",
     name: "video",
-    component: videoCall,
+    component: functionsApp,
     beforeEnter: ifAuthenticated,
   },
   {
