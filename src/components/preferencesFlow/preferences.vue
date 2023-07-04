@@ -110,9 +110,9 @@ function nextViewFirst() {
       <div class="container__sexuality">
         <div class="container__sexuality" v-if="indexReg == 0">
           <div v-for="(item, index) in btnText" :key="index" class="container__sexuality-buttons">
-            <button @click="dataSexuality(item.text, 'sexuality')" class="container__sexuality-btn">
+            <button  @click="dataSexuality(item.text, 'sexuality')" class="container__sexuality-btn">
               {{ item.text }}
-              <div class="btn__circle"></div>
+              <div :class="userPreferences.sexuality == item.text?'btn__circle-full':'btn__circle'" class=""></div>
             </button>
           </div>
         </div>
@@ -127,7 +127,7 @@ function nextViewFirst() {
           <div v-for="(item, index) in btnTextsentimental" :key="index" class="container__sexuality-buttons">
             <button @click="dataSexuality(item.text, 'feelings')" class="container__sexuality-btn">
               {{ item.text }}
-              <div class="btn__circle"></div>
+              <div :class="userPreferences.feelings == item.text?'btn__circle-full':'btn__circle'" class=""></div>
             </button>
           </div>
         </div>
@@ -136,7 +136,7 @@ function nextViewFirst() {
           <div v-for="(item, index) in btnTextEducation" :key="index" class="container__sexuality-buttons">
             <button @click="dataSexuality(item.text, 'education')" class="container__sexuality-btn">
               {{ item.text }}
-              <i :class="[item.active ? 'fa-solid fa-circle' : 'fa-regular fa-circle']"></i>
+              <div :class="userPreferences.education == item.text?'btn__circle-full':'btn__circle'" class=""></div>
             </button>
           </div>
         </div>
@@ -144,7 +144,7 @@ function nextViewFirst() {
           <div v-for="(item, index) in btnTextSmoke" :key="index" class="container__sexuality-buttons">
             <button @click="dataSexuality(item.text, 'smoke')" class="container__sexuality-btn">
               {{ item.text }}
-              <div class="btn__circle"></div>
+              <div :class="userPreferences.smoke == item.text?'btn__circle-full':'btn__circle'" class=""></div>
             </button>
           </div>
         </div>
@@ -153,7 +153,7 @@ function nextViewFirst() {
           <div v-for="(item, index) in btnTextSmoke" :key="index" class="container__sexuality-buttons">
             <button @click="dataSexuality(item.text, 'drink')" class="container__sexuality-btn">
               {{ item.text }}
-              <div class="btn__circle"></div>
+              <div :class="userPreferences.drink == item.text?'btn__circle-full':'btn__circle'" class=""></div>
             </button>
           </div>
         </div>
@@ -192,9 +192,9 @@ function nextViewFirst() {
   background-color: #000;
 }
 
-.btn__circle:hover {
-  background-color: #000;
-}
+// .btn__circle:hover {
+//   background-color: #000;
+// }
 
 .GoBack {
   width: 35%;

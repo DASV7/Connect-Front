@@ -111,7 +111,7 @@ function changeModal() {
 
       <div class="intoMessages__all">
         <div class="intoMessages__container">
-          <input class="intoMessages__container-input" type="text" placeholder="Nuevo Mensaje " v-model="message" />
+          <input class="intoMessages__container-input" type="text" placeholder="Nuevo Mensaje " @keypress.enter="newMessage()" v-model="message" />
           <button class="intoMessages__container-send" @click="newMessage">
             <i class="fa fa-paper-plane" aria-hidden="true"></i>
           </button>
