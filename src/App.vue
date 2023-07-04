@@ -21,7 +21,7 @@ const EventUser = new EventEmittler();
 
 const userStore = useCounterStore();
 
-const isPreferencesView = computed(() => fullPath.value.includes('/preferences'));
+const isPreferencesView = computed(() => fullPath.value.includes("/preferences"));
 
 const routePermission = computed(() => {
   const diferents = ["/", "/Register", "/JoinLogin", "/preferences"];
@@ -30,6 +30,11 @@ const routePermission = computed(() => {
 
 const options = { error: { duration: 2000, close: false } };
 onMounted(async () => {
+  caches.keys().then(function (cacheNames) {
+    cacheNames.forEach(function (cacheName) {
+      caches.delete(cacheName);
+    });
+  });
   const decodeToken = jwt_decode(localStorage.getItem("vinc-jwt"));
   if (decodeToken) userStore.$patch({ user: decodeToken });
   socket.userConnected();
@@ -53,9 +58,11 @@ onUnmounted(() => {
 <template>
   <div class="mainApp"></div>
   <notificati></notificati>
-  <div class="mainApp__routerView" 
-  :class="`${!routePermission ? '' : 'mainApp__routerView-margin-left'} 
-  ${isPreferencesView ? 'mainApp__routerView-full-height' : ''}`" >
+  <div
+    class="mainApp__routerView"
+    :class="`${!routePermission ? '' : 'mainApp__routerView-margin-left'} 
+  ${isPreferencesView ? 'mainApp__routerView-full-height' : ''}`"
+  >
     <transition name="slide-fade" v-if="routePermission">
       <component :is="'router-view'"></component>
     </transition>
@@ -68,10 +75,10 @@ onUnmounted(() => {
 <style lang="scss">
 .mainApp__routerView {
   height: 93vh;
-  
+
   &.mainApp__routerView-full-height {
-      height: 100vh;
-    }
+    height: 100vh;
+  }
 }
 
 @media screen and (min-width: 1000px) {
