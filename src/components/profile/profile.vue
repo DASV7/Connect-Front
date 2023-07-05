@@ -296,6 +296,8 @@ const advantages = [
     gap: 15px;
     background-image: linear-gradient(to top, rgba(80, 189, 237, 0.8), #50bded);
     padding: 5px;
+    max-width: 430px;
+
 
     &-tittle {
       @include flexCenter;
@@ -397,6 +399,7 @@ const advantages = [
   .infoPremium__vinc {
     height: 100%;
     width: 40%;
+    max-width: 480px;
 
     &-tittle {
        margin-top: 10px;

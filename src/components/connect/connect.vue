@@ -13,8 +13,10 @@ const isLoading = ref(true);
 const props = defineProps(["user", "hiddeActions"]);
 const router = useRouter();
 
+
 onBeforeMount(() => {
   userCard.value = props.user;
+
   isLoading.value = false;
 });
 
@@ -43,7 +45,6 @@ const breakpoints = {
 let userCard = computed(() => {
   console.log(props.user);
   return props.user;
-
 });
 
 const buttonsActions = [
@@ -62,6 +63,7 @@ let startTouch = ref(null);
 let touchEndX = ref(null);
 const showModal = ref(false);
 const touchCurrentX = ref(null);
+
 const changeModal = () => {
   showModal.value = !showModal.value;
 };
@@ -100,11 +102,12 @@ const handleTouchEnd = (event) => {
           <div class="homeVinc__userInfo-profile">
             <i class="fa-solid fa-user"></i>
             <p class="homeVinc__userInfo-p">{{ userCard?.name }},{{ calculateAge(userCard?.birthday) }}</p>
+
             <div class="homeVinc__userInfo.status"></div>
           </div>
           <div class="homeVinc__userInfo-interesting">
             <i class="fa fa-commenting-o"></i>
-            <p class="">Abierto a una relación</p>
+            <p class="">{{ hereFor[userCard?.hereFor]?.text }}</p>
           </div>
         </div>
       </div>
@@ -113,7 +116,7 @@ const handleTouchEnd = (event) => {
       </div>
 
       <!-- Carousel -->
-      <Modal :showModal="true" @changeModal="changeModal()" v-if="showModal">
+      <!-- <Modal :showModal="true" @changeModal="changeModal()" v-if="showModal">
         <template v-slot:content>
             <Slide v-for="img of userCard.pictures" :key="img">
               <div class="carousel__item">
@@ -121,13 +124,13 @@ const handleTouchEnd = (event) => {
               </div>
             </Slide>
         </template>
-      </Modal>
+      </Modal> -->
 
       <!-- Carousel -->
 
       <!-- Reason for interest-->
       <div class="information__user-p">
-        <p class="information__user-txt">{{ userCard?.name.split(" ")[0] }} esta aqui para...</p>
+        <p class="information__user-txt">{{ userCard?.name.split(" ")[0] }} es lista para...</p>
         <div class="information__state">
           <div class="flowRegister__interest">
             <i :class="hereFor[userCard?.hereFor]?.icon"></i>
@@ -138,7 +141,7 @@ const handleTouchEnd = (event) => {
       <!-- Reason for interest-->
 
       <!-- Description-->
-      <div class="information__description">
+      <div v-if="userCard.description" class="information__description">
         <p class="information__description-txt">
           <i class="information__description-i">Sobre mi:</i> <br />
           {{ userCard?.description }}
@@ -146,7 +149,7 @@ const handleTouchEnd = (event) => {
       </div>
       <!-- Description-->
 
-      <interestingIn :hereFor="userCard" />
+      <!-- <interestingIn :hereFor="userCard" /> -->
 
       <p class="information__InfoUser-tittle">Información de "Nombre usuario":</p>
       <div class="information__InfoUser" v-if="preferencesUser">
@@ -228,7 +231,6 @@ v-for="(item, index) of userCard?.pictures"
     left: 0;
     cursor: pointer;
 
-
     &-button {
       background-color: #f9f9f9;
       border: 1px solid $primary-color;
@@ -244,15 +246,16 @@ v-for="(item, index) of userCard?.pictures"
   }
   &__userInfo {
     display: flex;
-    justify-content: space-around;
+    justify-content: start;
     align-items: center;
     text-align: center;
-    position: absolute;
-    top: 0;
+    position: fixed;
+    margin-left: 15px;
+    top: 35px;
     // z-index: 1;
-    width: 100%;
+    // width: 100%;
 
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.724), rgba(0, 0, 0, 0));
+    // background: linear-gradient(to bottom, rgba(0, 0, 0, 0.724), rgba(0, 0, 0, 0));
 
     &-p {
       font-weight: 500;
@@ -441,5 +444,17 @@ v-for="(item, index) of userCard?.pictures"
   background-color: #ff1100;
   color: #ffffff;
   z-index: 100;
+}
+
+@media  (min-width: 600px) {
+  .carousel__item {
+    height: 100vh;  
+  } 
+}
+@media  (max-width: 600px) {
+  .carousel__item-img {
+    object-fit: cover;
+    height: 100vh;
+  } 
 }
 </style>

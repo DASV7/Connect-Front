@@ -21,6 +21,7 @@ const getListUsers = async () => {
   const response = await axios.post("/connect");
   users.value = response.data.data;
   isLoading.value = false;
+  // console.log(users.value.map((e) => e.preferences));
 };
 const index = ref(0);
 const total = ref(users.value.length);
@@ -114,7 +115,7 @@ onMounted(() => {
     font-size: 20px;
     font-weight: bold;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 10, 0.2);
-    
+
     i {
       font-size: 120px;
     }
