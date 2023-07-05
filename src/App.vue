@@ -51,7 +51,7 @@ onMounted(async () => {
 });
 
 onUnmounted(() => {
-  socket.socket.disconnect();
+  socket.socket.disconnect();  
 });
 </script>
 
@@ -75,6 +75,7 @@ onUnmounted(() => {
 <style lang="scss">
 .mainApp__routerView {
   height: 93vh;
+  overflow: hidden;
 
   &.mainApp__routerView-full-height {
     height: 100vh;
