@@ -194,6 +194,7 @@ const prevtvalue = () => {
 </template>
 
 <style lang="scss">
+
 .flowRegister {
   display: flex;
   flex-direction: column;
@@ -266,7 +267,7 @@ const prevtvalue = () => {
     }
     span {
       font-size: 10px;
-      color: #777;
+      color: #000;
     }
     p {
       font-size: 14px;
