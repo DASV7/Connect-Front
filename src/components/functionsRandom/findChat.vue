@@ -91,7 +91,7 @@ const props = defineProps(["showFind"]);
     max-height: 400px;
     min-height: 125px;
     border-radius: 30px;
-    margin-bottom: 40px;
+    margin-bottom: 80px;
     &-zoom {
       border: 1px solid #fff;
       text-align: center;
