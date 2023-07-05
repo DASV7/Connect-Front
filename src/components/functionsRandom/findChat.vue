@@ -45,15 +45,18 @@ const props = defineProps(["showFind"]);
 .findView {
   width: 100%;
   height: 100%;
+  display: flex;
   overflow: hidden;
+  justify-content: center;
   font-weight: bold;
   color: white;
+  overflow: hidden;
   &__img {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 92%;
     width: 100%;
     background-size: cover;
     background-repeat: no-repeat;
@@ -69,10 +72,11 @@ const props = defineProps(["showFind"]);
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
     position: relative;
     z-index: 2;
     padding-bottom: 20px;
+    max-width: 537px;
+    height: 100%;
   }
   &__find {
     display: flex;
@@ -91,7 +95,7 @@ const props = defineProps(["showFind"]);
     height: 30%;
     max-height: 400px;
     min-height: 125px;
-    border-radius: 30px;    
+    border-radius: 30px;
     &-zoom {
       border: 1px solid #fff;
       text-align: center;
