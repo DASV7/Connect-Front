@@ -68,10 +68,11 @@ const props = defineProps(["showFind"]);
   &__wrapper {
     display: flex;
     justify-content: center;
-    align-items: end;
+    align-items: center;
     height: 100%;
     position: relative;
     z-index: 2;
+    padding-bottom: 20px;
   }
   &__find {
     display: flex;
@@ -90,8 +91,7 @@ const props = defineProps(["showFind"]);
     height: 30%;
     max-height: 400px;
     min-height: 125px;
-    border-radius: 30px;
-    margin-bottom: 80px;
+    border-radius: 30px;    
     &-zoom {
       border: 1px solid #fff;
       text-align: center;
