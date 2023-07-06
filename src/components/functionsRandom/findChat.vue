@@ -61,7 +61,8 @@ const props = defineProps(["showFind"]);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    filter: blur(10px);
+    object-fit: cover;
+    filter: blur(5px);
     z-index: -10;
   }
 
@@ -91,11 +92,13 @@ const props = defineProps(["showFind"]);
     justify-content: center;
     align-items: center;
     bottom: 0;
+    padding: 5px;
     background-color: $primary-color;
     height: 30%;
     max-height: 400px;
     min-height: 125px;
     border-radius: 30px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5);
     &-zoom {
       border: 1px solid #fff;
       text-align: center;
