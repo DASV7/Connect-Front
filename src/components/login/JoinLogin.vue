@@ -1,3 +1,59 @@
+<script setup>
+import axios from "../../api/axios";
+import { useRouter } from "vue-router";
+import { ref, onMounted } from "vue";
+import Swal from "sweetalert2";
+const router = useRouter();
+import totalLoading from "../shared/totalLoading.vue";
+import { usePush } from "notivue";
+import politicsModal from "../politics/politics.vue";
+
+let userData = ref({
+  email: "",
+  password: "",
+});
+
+onMounted(() => {
+  localStorage.clear();
+});
+
+const isLoading = ref(false);
+
+const push = usePush();
+
+const loginUser = async () => {
+  if (isLoading.value) return;
+  isLoading.value = true;
+  const user = await axios.post("/usersmodule/login", userData.value).catch((error) => {
+    push.error({
+      title: "Ocurrio un error",
+      message: "Correo o contraseña incorrectos",
+    });
+  });
+
+  isLoading.value = false;
+
+  if (user.data.data.data) {
+    push.success({
+      title: "Inicio de sesion Correcto.",
+      message: "Bienvenido nuevamente.",
+    });
+    
+    localStorage.setItem("vinc-jwt", user.data.data.data);
+    router.push("/home");
+  }
+};
+let showPoliticis = ref(false);
+
+function politics(item) {
+  showPoliticis.value = item;
+}
+const changeStatusView = () => {
+  showPoliticis.value = !showPoliticis.value;
+};
+
+</script>
+
 <template>
   <div class="loginConnect">
     <div class="loginConnect__containerTitle">
@@ -41,58 +97,6 @@
   </div>
 </template>
 
-<script setup>
-import axios from "../../api/axios";
-import { useRouter } from "vue-router";
-import { ref, onMounted } from "vue";
-import Swal from "sweetalert2";
-const router = useRouter();
-import totalLoading from "../shared/totalLoading.vue";
-import { usePush } from "notivue";
-import politicsModal from "../politics/politics.vue";
-
-let userData = ref({
-  email: "",
-  password: "",
-});
-
-onMounted(() => {
-  localStorage.clear();
-});
-
-const isLoading = ref(false);
-
-const push = usePush();
-
-const loginUser = async () => {
-  if (isLoading.value) return;
-  isLoading.value = true;
-  const user = await axios.post("/usersmodule/login", userData.value).catch((error) => {
-    push.error({
-      title: "Ocurrio un error",
-      message: "Correo o contraseña incorrectos",
-    });
-  });
-  isLoading.value = false;
-  if (user.data.data.data) {
-    push.success({
-      title: "Inicio de sesion Correcto.",
-      message: "Bienvenido nuevamente.",
-    });
-    localStorage.setItem("vinc-jwt", user.data.data.data);
-    router.push("/home");
-  }
-};
-let showPoliticis = ref(false);
-
-function politics(item) {
-  showPoliticis.value = item;
-}
-const changeStatusView = () => {
-  showPoliticis.value = !showPoliticis.value;
-};
-
-</script>
 
 <style lang="scss">
 * {

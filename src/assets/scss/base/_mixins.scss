@@ -62,3 +62,9 @@
     @content;
   }
 }
+
+@mixin dynamicScreenMax($size) {
+  @media screen and (max-width: $size) {
+    @content;
+  }
+}
