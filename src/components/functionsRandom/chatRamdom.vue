@@ -2,14 +2,23 @@
 import findChat from "./findChat.vue";
 import { onMounted, ref, onBeforeUnmount } from "vue";
 import { useSocketStore } from "../../../src/store/socketStore";
+import { useCounterStore } from "../../../src/store/users";
+
 
 const socket = useSocketStore();
+const userStore = useCounterStore();
 
 const isFind = ref(true);
 onMounted(() => {
-  socket.socket.on("chatRamdom", (user) => {
+  socket.socket.on("chatRandom/start", (user) => {
     console.log(user);
   });
+  socket.socket.emit("chatRandom/start", {
+    _id: userStore.user._id,
+  });
+});
+onBeforeUnmount(() => {  
+  socket.socket.off("chatRandom/start");
 });
 </script>
 <template>
