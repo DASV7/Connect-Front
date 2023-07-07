@@ -12,7 +12,7 @@ const router = useRouter();
 const isFind = ref(true);
 onMounted(() => {
   socket.socket.on("chatRandom/start", (idConversation) => {
-    route.push(`/messages/${idConversation._id}`);
+    router.push(`/messages/${idConversation._id}`);
   });
   socket.socket.emit("chatRandom/start", {
     _id: userStore.user._id,

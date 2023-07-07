@@ -2,7 +2,7 @@
 import { onMounted, onBeforeUnmount, ref, getCurrentInstance, computed, reactive } from "vue";
 import axios from "../../api/axios";
 import avatarUser from "../shared/avatarUser.vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import Swal from "sweetalert2";
 import { useCounterStore } from "../../store/users";
 import messageCard from "./messageCard.vue";
@@ -15,6 +15,7 @@ import { calculateAge } from "../../utils/calculateAge";
 const message = ref("");
 let messagesUser = reactive([]);
 const route = useRoute();
+const router = useRouter();
 const userSesion = useCounterStore();
 const members = ref([]);
 const socket = useSocketStore();
@@ -26,13 +27,10 @@ onMounted(async () => {
   const user = await axios.get("/messages?id=" + route.params.id).catch((error) => {
     Swal.fire({ icon: "error", title: "Ocurrio un error", text: "Error al solicitar los mensajes", showConfirmButton: false, timer: 2000 });
   });
-
   const response = user.data.data;
-
   if (!response) return;
   members.value = response.members;
   userChat.value = members.value.find((e) => e._id != userSesion.user._id);
-  console.log(userChat.value);
   messagesUser.splice(messagesUser.length, 0, ...response.messages);
   setTimeout(() => goToBottom(), 100);
   isLoading.value = false;
@@ -42,6 +40,19 @@ socket.socket.on("messages/newMessage/", async (message) => {
   messagesUser.push(message);
 });
 
+const deleteMatch = async (message) => {
+  const undoMatch = await axios.get("/messages/undomatch?id=" + route.params.id).catch((error) => {
+    Swal.fire({
+      icon: "error",
+      title: "Ocurrio un error",
+      text: "Error al solicitar los mensajes",
+      showConfirmButton: false,
+      timer: 2000,
+    });
+  });
+  console.log("undoMatch", undoMatch);
+  if (undoMatch.data.data) router.push(`/messages`);
+};
 const filterMembers = (message) => {
   const filter = members.value.find((member) => member._id == message.sender);
   return filter;
@@ -81,17 +92,18 @@ let hiddenProfile = ref(false);
 function changeModal() {
   hiddenProfile.value = !hiddenProfile.value;
 }
-let btnOptions = ref(false )
+let btnOptions = ref(false);
 function openOptios(params) {
   btnOptions.value = params;
 }
 function closeOptions() {
-  btnOptions.value = false
+  console.log("closeOptions");
+  btnOptions.value = false;
 }
 </script>
 
 <template>
-   <div @click="closeOptions" v-if="btnOptions" class="intoMessages__header-fullscreen"></div>
+  <div @click="closeOptions" v-if="btnOptions" class="intoMessages__header-fullscreen"></div>
   <div class="intoMessages__allPage">
     <div class="intoMessages" v-if="!isLoading && userChat?.name">
       <Modal :showModal="hiddenProfile" @changeModal="changeModal()">
@@ -110,9 +122,8 @@ function closeOptions() {
         </div>
         <button @click="openOptios(true)" class="intoMessages__header-btnBack">
           <i class="fa-sharp fa-solid fa-ellipsis-vertical"></i>
-          <div v-if="btnOptions"  class="intoMessages__header-options">
-             
-            <button class="header__options-undoMatch">
+          <div v-if="btnOptions" class="intoMessages__header-options">
+            <button class="header__options-undoMatch" @click="deleteMatch()">
               <i class="fa-solid fa-user-minus"></i>
               Eliminar Match
             </button>
@@ -221,8 +232,7 @@ function closeOptions() {
       position: absolute;
       width: 94vw;
       height: 100vh;
-      // background-color: #000;
-      z-index: 11;
+      z-index: 5;
     }
   }
   .header__options-undoMatch,
