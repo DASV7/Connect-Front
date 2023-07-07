@@ -269,7 +269,7 @@ v-for="(item, index) of userCard?.pictures"
     &-p {
       font-weight: 500;
       font-size: 13px;
-      color: #000;
+      color: #fff;
     }
     &-status {
       background-color: rgb(0, 255, 0);
@@ -285,7 +285,7 @@ v-for="(item, index) of userCard?.pictures"
     &-profile {
       display: flex;
       align-items: center;
-      color: #000;
+      color: #fff;
       gap: 10px;
     }
     &-interesting {

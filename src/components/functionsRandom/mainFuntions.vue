@@ -147,6 +147,7 @@ const clickGo = (path) => {
       color: #fff;
       border-radius: 30px;
       font-weight: 700;
+      margin: auto;
     }
   }
 
