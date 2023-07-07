@@ -28,8 +28,7 @@ onBeforeMount(() => {
     preferencesKey.value = Object.keys(userCard.value.preferences[0])
   }
 
-  isLoading.value = false;
-  console.log(userCard.value);
+  isLoading.value = false;  
 
 });
 

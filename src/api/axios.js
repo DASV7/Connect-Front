@@ -24,4 +24,17 @@ axiosInstance.interceptors.request.use(
     }
 );
 
+axiosInstance.interceptors.response.use(
+    function (response) {
+        if (response.data.notUser) {
+            localStorage.removeItem("vinc-jwt");
+            window.location.reload();
+        }
+        return response;
+    },
+    function (error) {
+        return Promise.reject(error);
+    }
+);
+
 export default axiosInstance;
