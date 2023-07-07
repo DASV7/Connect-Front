@@ -99,7 +99,7 @@ onMounted(() => {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    max-height: 91vh;
+    // max-height: 91vh;
   }
 
   &__notAvaliable {
@@ -147,6 +147,9 @@ onMounted(() => {
     position: relative;
     overflow: hidden;
     @include dynamicScreen(650px) {
+      box-shadow: #000 0px 5px 10px;
+      border-radius: 20px;
+      height: 94vh;
       width: 400px;
     }
   }
@@ -157,4 +160,9 @@ onMounted(() => {
     width: 94%;
   }
 }
+// @media screen and (min-width: 650px) {
+//   .homeConnect__content {
+//     height: 100vh;
+//   }
+// }
 </style>

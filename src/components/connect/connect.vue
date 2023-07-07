@@ -18,8 +18,7 @@ const preferencesValues = ref([]);
 const preferencesKey = ref([]);
 onBeforeMount(() => {
   userCard.value = props.user;
-  console.log(userCard.value.preferences);
-  if (userCard.value.preferences.length) {
+  if (userCard.value.preferences?.length) {
     delete userCard.value.preferences[0].createdAt;
     delete userCard.value.preferences[0].updatedAt;
     delete userCard.value.preferences[0]._id;
@@ -30,6 +29,8 @@ onBeforeMount(() => {
   }
 
   isLoading.value = false;
+  console.log(userCard.value);
+
 });
 
 const settings = {
@@ -164,7 +165,7 @@ const handleTouchEnd = (event) => {
       <!-- <interestingIn :hereFor="userCard" /> -->
 
       <p class="information__InfoUser-tittle">Información de "Nombre usuario":</p>
-      <div class="information__InfoUser" v-if="preferencesUser">
+      <div  class="information__InfoUser" v-if="preferencesValues">
         <p class="information__InfoUser-preferences" v-for="(item, index) in preferencesValues" :key="index">
           <!-- <i :class="item.icon"></i> -->
           {{ item }}
@@ -208,7 +209,9 @@ v-for="(item, index) of userCard?.pictures"
     overflow: hidden;
     text-align: center;
     border-radius: 20px 20px 0 0;
-    border: solid 1px #00000014;
+    min-width: 230px;
+    max-width: 500px;
+    margin-top: 10px;
 
     &::-webkit-scrollbar-thumb {
       height: 80px;
@@ -263,13 +266,14 @@ v-for="(item, index) of userCard?.pictures"
     text-align: center;
     position: fixed;
     margin-left: 15px;
-    top: 40px;
+    top: 50px;
     color: #000;
 
+
     &-p {
-      font-weight: 500;
+      font-weight: 700;
       font-size: 13px;
-      color: #fff;
+      color: #000;
     }
     &-status {
       background-color: rgb(0, 255, 0);
@@ -285,8 +289,12 @@ v-for="(item, index) of userCard?.pictures"
     &-profile {
       display: flex;
       align-items: center;
-      color: #fff;
+      color: #000;
       gap: 10px;
+      background-color: #eee8e8a3;
+      box-shadow: 0px 0px 10px 5px #eee8e8a3;
+      padding: 3px;
+      border-radius: 5px;
     }
     &-interesting {
       display: flex;

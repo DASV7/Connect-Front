@@ -4,17 +4,29 @@
     <button class="profileUser__header-btn" @click="closeSesion()">
       <i class="fa fa-sign-out" aria-hidden="true"></i>
     </button>
-    <button>Delete Account</button>
+    <button @click="deleteAccount()">Delete Account</button>
   </div>
 </template>
 
 <script setup>
 import { useRouter } from "vue-router";
+import axios from "../../api/axios";
 const router = useRouter();
 const closeSesion = () => {
   localStorage.clear();
   router.push("/");
   window.location.reload();
+};
+const deleteAccount = async () => {
+  const reponse = await axios.delete("/usersModule/deleteAccount")
+  console.log(reponse.data)
+  localStorage.clear() 
+  router.push("/") 
+  window.location.reload()
+
+    .catch((error) => {
+      push.error({});
+    });
 };
 </script>
 
