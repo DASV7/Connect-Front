@@ -147,12 +147,15 @@ function closeOptions() {
       </div>
 
       <div class="intoMessages__all">
-        <div class="intoMessages__container">
+        <!-- <div class="intoMessages__container"> -->
+          <button class="intoMessages__container-send">
+            <i class="fa-solid fa-gift"></i>
+          </button>
           <input class="intoMessages__container-input" type="text" placeholder="Nuevo Mensaje " @keypress.enter="newMessage()" v-model="message" />
           <button class="intoMessages__container-send" @click="newMessage">
             <i class="fa fa-paper-plane" aria-hidden="true"></i>
           </button>
-        </div>
+        <!-- </div>s -->
       </div>
     </div>
   </div>
@@ -162,6 +165,7 @@ function closeOptions() {
 // body {
 // background-color: #f0e9e99d;
 // }
+
 .intoMessages {
   width: 100%;
   height: 100%;
@@ -225,12 +229,16 @@ function closeOptions() {
       height: 100px;
       right: 42px;
       top: 32px;
-      background-color: #000;
+      background-color: #ffffff;
+      border: 1px solid #a09f9f6b;
+      padding: 5px;
+      border-radius: 10px;
+      gap: 5px;
       z-index: 12;
     }
     &-fullscreen {
       position: absolute;
-      width: 94vw;
+      width: 93vw;
       height: 100vh;
       z-index: 5;
     }
@@ -241,6 +249,10 @@ function closeOptions() {
     width: 100%;
     height: 33px;
     cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #dad8d85f;
+    // border-bottom: solid 1px #000;
   }
   .header__options-undoMatch {
     color: #e61414;
@@ -257,6 +269,17 @@ function closeOptions() {
   &__all {
     display: flex;
     justify-content: center;
+    position: absolute;
+    /* top: 0; */
+    bottom: 54px;
+    gap: 20px;
+    left: 0px;
+    right: 0;
+    margin-left: auto;
+    z-index: 1;
+    margin-right: auto;
+    padding-left: 10px;
+    padding-right: 10px;
   }
   &__container {
     display: flex;
@@ -272,13 +295,14 @@ function closeOptions() {
       color: #000000;
       border: none;
       border-radius: 15px;
-      width: 65%;
+      width: 55%;
       height: 35px;
       font-size: 10px;
       cursor: text;
       transition: all 0.3s ease;
       text-align: start;
       padding-left: 15px;
+      // max-width: 450px;
     }
 
     &-input:hover {
@@ -321,10 +345,13 @@ function closeOptions() {
       // bottom: 30px;
 
       &-input {
-        width: 70%;
+        width: 35%;
         min-width: 250px;
       }
     }
+  }
+  .intoMessages__all {
+    left: 45px;
   }
 
   .intoMessages__header {
@@ -345,5 +372,22 @@ function closeOptions() {
       width: 47%;
     }
   }
+  .intoMessages__all {
+    left: 80px;
+  }
+
 }
+
+@media screen and (max-width: 1000px) { 
+  .intoMessages__header-fullscreen {
+    width: 100vw;
+  }
+  
+}
+// @media screen and (min-width: 1160px) { 
+//   .intoMessages__header-fullscreen {
+//     width: 94vh;
+//   }
+//  }
 </style>
+left: 25px;

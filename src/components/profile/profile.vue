@@ -88,7 +88,7 @@ const userProfile = async () => {
       userStore.$patch({ user: user.value, preferences: preferences.value });
     })
     .catch((error) => console.error(error));
-  console.log(info);
+  // console.log(info);
 };
 
 const closeSesion = () => {

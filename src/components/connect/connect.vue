@@ -114,7 +114,7 @@ const handleTouchEnd = (event) => {
         <div class="homeVinc__userInfo-user">
           <div class="homeVinc__userInfo-profile">
             <i class="fa-solid fa-user"></i>
-            <p class="homeVinc__userInfo-p">{{ userCard?.name }},{{ calculateAge(userCard?.birthday) }}</p>
+            <p class="homeVinc__userInfo-p">{{ userCard?.name }}, {{ calculateAge(userCard?.birthday) }}</p>
 
             <div class="homeVinc__userInfo.status"></div>
           </div>

@@ -45,7 +45,7 @@ onMounted(() => {
   position: fixed;
   margin-top: 15px;
   bottom: 0;
-  border-top: 1px solid #5050503f;
+  border-top: 1px solid #0000003f;
 }
 
 .menu__items {
@@ -57,6 +57,7 @@ onMounted(() => {
   display: flex;
   width: 100%;
 
+
   &-btn {
     display: flex;
     justify-content: center;
@@ -64,10 +65,12 @@ onMounted(() => {
     width: 100%;
     height: 50px;
     background-color: #f9f9f9;
-    color: rgba(128, 128, 128, 0.384);
+    color: #000000b3;
     border: none;
     font-size: 20px;
     animation: fadeIn 1s ease-in-out;
+    cursor: pointer;
+
     &-active {
       color: $primary-color;
       animation: fadeIn 1s ease-in-out;
@@ -78,7 +81,7 @@ onMounted(() => {
   .menu {
     flex-direction: column ;
     height: 100%;
-    width: 50px;
+    width: 70px;
     top: -15px;
   }
   .menu__container {
@@ -93,6 +96,7 @@ onMounted(() => {
   .menu__container-btn {
     height: 100%;
     cursor: pointer;
+    border-right: 1px solid #000000b3;
 
   }
 }
