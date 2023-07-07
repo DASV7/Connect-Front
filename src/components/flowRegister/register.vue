@@ -338,9 +338,7 @@ const prevtvalue = () => {
     width: 100%;
     height: 45px;
   }
-  .flowRegister__wrapper {
-    width: 35%;
-  }
+
   .flowRegister__button-register {
     cursor: pointer;
     width: 50%;
@@ -355,4 +353,5 @@ const prevtvalue = () => {
     justify-content: center;
   }
 }
+
 </style>

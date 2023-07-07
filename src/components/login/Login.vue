@@ -209,6 +209,11 @@ $breakpoint: 768px;
       text-align: center;
       font-size: 12px;
       cursor: pointer;
+      position: absolute;
+      bottom: 6px;
+      left: 0;
+      right: 0;
+      margin: auto;
     }
   }
 }

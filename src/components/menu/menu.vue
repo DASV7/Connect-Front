@@ -96,7 +96,7 @@ onMounted(() => {
   .menu__container-btn {
     height: 100%;
     cursor: pointer;
-    border-right: 1px solid #000000b3;
+    border-right: 1px solid #c1bfbf6c;
 
   }
 }
