@@ -81,9 +81,17 @@ let hiddenProfile = ref(false);
 function changeModal() {
   hiddenProfile.value = !hiddenProfile.value;
 }
+let btnOptions = ref(false )
+function openOptios(params) {
+  btnOptions.value = params;
+}
+function closeOptions() {
+  btnOptions.value = false
+}
 </script>
 
 <template>
+   <div @click="closeOptions" v-if="btnOptions" class="intoMessages__header-fullscreen"></div>
   <div class="intoMessages__allPage">
     <div class="intoMessages" v-if="!isLoading && userChat?.name">
       <Modal :showModal="hiddenProfile" @changeModal="changeModal()">
@@ -91,6 +99,7 @@ function changeModal() {
           <connect :user="userChat" :hiddeActions="false" />
         </template>
       </Modal>
+
       <div class="intoMessages__header">
         <button @click="$router.push('/messages')" class="intoMessages__header-btnBack">
           <i class="fa-sharp fa-solid fa-arrow-left"> </i>
@@ -99,7 +108,24 @@ function changeModal() {
           <AvatarUser @openProfile="changeModal()" :user="userChat" :size="40"></AvatarUser>
           <p @openProfile="changeModal()" class="intoMessages__header-name">{{ userChat.name }}, {{ calculateAge(userChat.birthday) }}</p>
         </div>
-        <button class="intoMessages__header-btnBack"><i class="fa-sharp fa-solid fa-ellipsis-vertical"></i></button>
+        <button @click="openOptios(true)" class="intoMessages__header-btnBack">
+          <i class="fa-sharp fa-solid fa-ellipsis-vertical"></i>
+          <div v-if="btnOptions"  class="intoMessages__header-options">
+             
+            <button class="header__options-undoMatch">
+              <i class="fa-solid fa-user-minus"></i>
+              Eliminar Match
+            </button>
+            <button class="header__options-block">
+              <i class="fa-solid fa-ban"></i>
+              Bloquear Usuario
+            </button>
+            <button class="header__options-report">
+              <i class="fa-regular fa-flag"></i>
+              Reportar
+            </button>
+          </div>
+        </button>
       </div>
 
       <div class="intoMessages__messages" scrollDefault>
@@ -123,11 +149,12 @@ function changeModal() {
 
 <style lang="scss">
 // body {
-  // background-color: #f0e9e99d;
+// background-color: #f0e9e99d;
 // }
 .intoMessages {
   width: 100%;
   height: 100%;
+  box-shadow: 0px 5px 15px #9f9999;
 
   &__allPage {
     display: flex;
@@ -178,10 +205,39 @@ function changeModal() {
       width: 50px;
       height: 100%;
     }
+    &-options {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      position: absolute;
+      width: 127px;
+      height: 100px;
+      right: 42px;
+      top: 32px;
+      background-color: #000;
+      z-index: 12;
+    }
+    &-fullscreen {
+      position: absolute;
+      width: 94vw;
+      height: 100vh;
+      // background-color: #000;
+      z-index: 11;
+    }
   }
-  // &__messageItem {
-  // }
-
+  .header__options-undoMatch,
+  .header__options-block,
+  .header__options-report {
+    width: 100%;
+    height: 33px;
+    cursor: pointer;
+  }
+  .header__options-undoMatch {
+    color: #e61414;
+  }
+  .header__options-report {
+    color: #0725d4;
+  }
   &__messages {
     max-height: 83%;
     overflow-y: auto;
