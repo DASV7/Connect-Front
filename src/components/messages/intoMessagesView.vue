@@ -122,9 +122,9 @@ function changeModal() {
 </template>
 
 <style lang="scss">
-body {
-  background-color: #f8f2f2;
-}
+// body {
+  // background-color: #f0e9e99d;
+// }
 .intoMessages {
   width: 100%;
   height: 100%;

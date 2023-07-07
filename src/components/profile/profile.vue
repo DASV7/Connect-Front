@@ -1,5 +1,6 @@
 <template>
-  <div v-if="!isLoading" class="profileUser" scrollDefault>
+  <div v-if="!isLoading" class="profileUser"  scrollDefault>
+    <div class="profileUser__wrapper" scrollDefault>
     <div class="profileUser__container">
       <div class="profileUser__header">
         <p class="profileUser__header-p">Perfil</p>
@@ -50,6 +51,7 @@
       <button class="profileUser__header-btn" @click="closeSesion()">
         <i class="fa fa-sign-out" aria-hidden="true"></i>
       </button>
+    </div>
     </div>
   </div>
 </template>
@@ -176,17 +178,25 @@ const advantages = [
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 100%;
   height: 100%;
   overflow: auto;
 
+  &__wrapper {
+    // display: flex;
+    // justify-content: center;
+    // flex-direction: column;
+    width: 100%;
+    height: 100%;
+  }
   &__container {
 
     width: 100%;
     height: 34%;
     // border-bottom: 2px solid $primary-color;
     // box-shadow: 0 2px 15px $primary-color;
-    max-width: 500px;
+    // max-width: 500px;
   }
   &__header {
     display: flex;
@@ -297,7 +307,7 @@ const advantages = [
     background-image: linear-gradient(to top, rgba(80, 189, 237, 0.8), #50bded);
     padding: 5px;
     max-width: 430px;
-
+    
 
     &-tittle {
       @include flexCenter;
@@ -348,8 +358,9 @@ const advantages = [
     flex-direction: column;
     gap: 5px;
     gap: 10px;
-    width: 90%;
+    width: 80%;
     margin-top: 15px;
+    max-width: 480px;
 
     &-target {
       display: flex;
@@ -357,8 +368,10 @@ const advantages = [
       align-items: center;
       gap: 10px;
       width: 100%;
+      max-width: 600px;
       height: 30px;
       border-bottom: solid 1px #d0cece;
+      margin: auto;
       // color: #50bded;
     }
     &-cont {
@@ -389,7 +402,7 @@ const advantages = [
 
   }
   .infoPremium__advantages {
-    width: 40%;
+    // width: 40%;
 
     &-txt {
       font-size: 14px;
@@ -398,7 +411,7 @@ const advantages = [
   }
   .infoPremium__vinc {
     height: 100%;
-    width: 40%;
+    // width: 40%;
     max-width: 480px;
 
     &-tittle {
@@ -415,6 +428,17 @@ const advantages = [
 
   .infoPremium__txt-exp {
     font-size: 12px;
+  }
+  .profileUser__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 55%;
+    height: 95%;
+    border: #c3bebe7c solid 2px;
+    box-shadow: 0px 5px 15px #9e9c9c8d;
+    overflow-y: scroll;
+    border-radius: 20px;
   }
 
 }

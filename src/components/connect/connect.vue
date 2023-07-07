@@ -13,9 +13,21 @@ const isLoading = ref(true);
 const props = defineProps(["user", "hiddeActions"]);
 const router = useRouter();
 
+const preferencesValues = ref([]);
 
+const preferencesKey = ref([]);
 onBeforeMount(() => {
   userCard.value = props.user;
+  console.log(userCard.value.preferences);
+  if (userCard.value.preferences.length) {
+    delete userCard.value.preferences[0].createdAt;
+    delete userCard.value.preferences[0].updatedAt;
+    delete userCard.value.preferences[0]._id;
+    delete userCard.value.preferences[0].idUser;
+    delete userCard.value.preferences[0].__v;
+    preferencesValues.value = Object.values(userCard.value.preferences[0]);
+    preferencesKey.value = Object.keys(userCard.value.preferences[0])
+  }
 
   isLoading.value = false;
 });
@@ -43,7 +55,7 @@ const breakpoints = {
 };
 
 let userCard = computed(() => {
-  console.log(props.user);
+  // console.log(props.user);
   return props.user;
 });
 
@@ -153,9 +165,9 @@ const handleTouchEnd = (event) => {
 
       <p class="information__InfoUser-tittle">Información de "Nombre usuario":</p>
       <div class="information__InfoUser" v-if="preferencesUser">
-        <p class="information__InfoUser-preferences" v-for="(item, index) in preferencesUser" :key="index">
-          <i :class="item.icon"></i>
-          {{ item.name }}
+        <p class="information__InfoUser-preferences" v-for="(item, index) in preferencesValues" :key="index">
+          <!-- <i :class="item.icon"></i> -->
+          {{ item }}
         </p>
       </div>
       <div class="information__album">
@@ -251,15 +263,13 @@ v-for="(item, index) of userCard?.pictures"
     text-align: center;
     position: fixed;
     margin-left: 15px;
-    top: 35px;
-    // z-index: 1;
-    // width: 100%;
-
-    // background: linear-gradient(to bottom, rgba(0, 0, 0, 0.724), rgba(0, 0, 0, 0));
+    top: 40px;
+    color: #000;
 
     &-p {
       font-weight: 500;
       font-size: 13px;
+      color: #000;
     }
     &-status {
       background-color: rgb(0, 255, 0);
@@ -275,7 +285,7 @@ v-for="(item, index) of userCard?.pictures"
     &-profile {
       display: flex;
       align-items: center;
-      color: white;
+      color: #000;
       gap: 10px;
     }
     &-interesting {
@@ -285,7 +295,7 @@ v-for="(item, index) of userCard?.pictures"
       gap: 5px;
       border-radius: 30px;
       padding: 3px;
-      background-color: white;
+      background-color: #eee8e8;
       font-size: 12px;
       height: 15px;
     }
@@ -366,7 +376,7 @@ v-for="(item, index) of userCard?.pictures"
 
     &-preferences {
       display: flex;
-      background-color: rgba(231, 223, 223, 0.2196078431);
+      background-color: rgb(231, 223, 223);
       font-size: 13px;
       border-radius: 30px;
       padding: 4px;
@@ -446,15 +456,15 @@ v-for="(item, index) of userCard?.pictures"
   z-index: 100;
 }
 
-@media  (min-width: 600px) {
+@media (min-width: 600px) {
   .carousel__item {
-    height: 100vh;  
-  } 
+    height: 100vh;
+  }
 }
-@media  (max-width: 600px) {
+@media (max-width: 600px) {
   .carousel__item-img {
     object-fit: cover;
     height: 100vh;
-  } 
+  }
 }
 </style>
