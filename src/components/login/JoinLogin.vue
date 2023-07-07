@@ -197,6 +197,7 @@ const changeStatusView = () => {
   .loginConnect__form-group {
     display: flex;
     justify-content: center;
+    width: initial;
     &__btn {
       width: 200px;
     }
