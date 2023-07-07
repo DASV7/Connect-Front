@@ -1,57 +1,57 @@
 <template>
-  <div v-if="!isLoading" class="profileUser"  scrollDefault>
+  <div v-if="!isLoading" class="profileUser" scrollDefault>
     <div class="profileUser__wrapper" scrollDefault>
-    <div class="profileUser__container">
-      <div class="profileUser__header">
-        <p class="profileUser__header-p">Perfil</p>
-        <div class="profileUser__header-settings"></div>
-      </div>
-      <div class="profileUser__info" v-if="user?.name">
-        <button @click="$router.push('/settings')" class="profileUser__header-btn"><i class="fa fa-cog" aria-hidden="true"></i></button>
-        <div class="profileUser__info-container">
-          <div class="profileUser__photoProfile">
-            <div class="profileUser__photoProfile-cont">
-              <img @click="$router.push('/editProfile')" class="profileUser__photoProfile-img" :src="user?.pictures[0].url" />
+      <div class="profileUser__container">
+        <div class="profileUser__header">
+          <p class="profileUser__header-p">Perfil</p>
+          <div class="profileUser__header-settings"></div>
+        </div>
+        <div class="profileUser__info" v-if="user?.name">
+          <button @click="$router.push('/settings')" class="profileUser__header-btn"><i class="fa fa-cog" aria-hidden="true"></i></button>
+          <div class="profileUser__info-container">
+            <div class="profileUser__photoProfile">
+              <div class="profileUser__photoProfile-cont">
+                <img @click="$router.push('/editProfile')" class="profileUser__photoProfile-img" :src="user?.pictures[0].url" />
+              </div>
+            </div>
+            <div class="profileUser__info-name">
+              <p class="profileUser__info-p">{{ user.name }}, {{ calculateAge(user?.birthday) }}</p>
+              <p class="profileUser__info-txt">
+                <i class="fa-solid fa-message"></i>
+                Estas aqui {{ hereFor[user.hereFor]?.text }}
+              </p>
             </div>
           </div>
-          <div class="profileUser__info-name">
-            <p class="profileUser__info-p">{{ user.name }}, {{ calculateAge(user?.birthday) }}</p>
-            <p class="profileUser__info-txt">
-              <i class="fa-solid fa-message"></i>
-              Estas aqui {{ hereFor[user.hereFor]?.text }}
-            </p>
-          </div>
-        </div>
-        <button @click="$router.push('/editProfile')" class="profileUser__header-btn"><i class="fa-solid fa-user-pen"></i></button>
-      </div>
-    </div>
-    <div class="infoPremium">
-      <div class="infoPremium__vinc">
-        <div class="infoPremium__vinc-tittle">
-          <img class="infoPremium__vinc-logo" src="../../../public/svgLogoComplete.svg" alt="" />
-          <p class="infoPremium__vinc-txt">PREMIUM</p>
-        </div>
-        <div class="infoPremium__txt">
-          <p class="infoPremium__txt-exp">Controla toda tu experiencia con Premium y obten hasta 12 + 1 mas matches* que la gente sin Premium</p>
-        </div>
-        <button class="infoPremium__txt-btn">Suscribete</button>
-      </div>
-      <div class="infoPremium__advantages">
-        <div class="infoPremium__advantages-target" v-for="(item, index) in advantages" :key="index">
-          <div class="infoPremium__advantages-cont">
-            <i :class="item.icon" aria-hidden="true"></i>
-            <p class="infoPremium__advantages-txt">{{ item.txt }}</p>
-          </div>
-          <div class="infoPremium__advantages-cont2">
-            <i :class="item.checkOn" aria-hidden="true"></i>
-            <i :class="item.checkOff" aria-hidden="true"></i>
-          </div>
+          <button @click="$router.push('/editProfile')" class="profileUser__header-btn"><i class="fa-solid fa-user-pen"></i></button>
         </div>
       </div>
-      <button class="profileUser__header-btn" @click="closeSesion()">
-        <i class="fa fa-sign-out" aria-hidden="true"></i>
-      </button>
-    </div>
+      <div class="infoPremium">
+        <div class="infoPremium__vinc">
+          <div class="infoPremium__vinc-tittle">
+            <img class="infoPremium__vinc-logo" src="../../../public/svgLogoComplete.svg" alt="" />
+            <p class="infoPremium__vinc-txt">PREMIUM</p>
+          </div>
+          <div class="infoPremium__txt">
+            <p class="infoPremium__txt-exp">Controla toda tu experiencia con Premium y obten hasta 12 + 1 mas matches* que la gente sin Premium</p>
+          </div>
+          <button class="infoPremium__txt-btn">Suscribete</button>
+        </div>
+        <div class="infoPremium__advantages">
+          <div class="infoPremium__advantages-target" v-for="(item, index) in advantages" :key="index">
+            <div class="infoPremium__advantages-cont">
+              <i :class="item.icon" aria-hidden="true"></i>
+              <p class="infoPremium__advantages-txt">{{ item.txt }}</p>
+            </div>
+            <div class="infoPremium__advantages-cont2">
+              <i :class="item.checkOn" aria-hidden="true"></i>
+              <i :class="item.checkOff" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+        <button class="profileUser__header-btn" @click="closeSesion()">
+          <i class="fa fa-sign-out" aria-hidden="true"></i>
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -76,7 +76,7 @@ let dataUser = ref({});
 let user = ref({});
 let preferences = ref({});
 
-const userProfile = async () => {
+const userProfile = () => {
   isLoading.value = true;
   const info = axios
     .get("/profile")
@@ -88,7 +88,6 @@ const userProfile = async () => {
       userStore.$patch({ user: user.value, preferences: preferences.value });
     })
     .catch((error) => console.error(error));
-  // console.log(info);
 };
 
 const closeSesion = () => {
@@ -191,7 +190,6 @@ const advantages = [
     height: 100%;
   }
   &__container {
-
     width: 100%;
     height: 34%;
     // border-bottom: 2px solid $primary-color;
@@ -307,7 +305,6 @@ const advantages = [
     background-image: linear-gradient(to top, rgba(80, 189, 237, 0.8), #50bded);
     padding: 5px;
     max-width: 430px;
-    
 
     &-tittle {
       @include flexCenter;
@@ -349,8 +346,7 @@ const advantages = [
       border-radius: 20px;
       font-weight: 800;
       max-width: 290px;
-    cursor: pointer;
-
+      cursor: pointer;
     }
   }
   &__advantages {
@@ -397,9 +393,8 @@ const advantages = [
     // align-items: center;
     &__container {
       display: flex;
-    flex-direction: column;
+      flex-direction: column;
     }
-
   }
   .infoPremium__advantages {
     // width: 40%;
@@ -415,15 +410,14 @@ const advantages = [
     max-width: 480px;
 
     &-tittle {
-       margin-top: 10px;
-       font-size: 50%;
+      margin-top: 10px;
+      font-size: 50%;
       width: 50%;
     }
   }
-  .infoPremium__txt-btn{
+  .infoPremium__txt-btn {
     margin-bottom: 10px;
     width: 60%;
-    
   }
 
   .infoPremium__txt-exp {
@@ -440,6 +434,5 @@ const advantages = [
     overflow-y: scroll;
     border-radius: 20px;
   }
-
 }
 </style>
