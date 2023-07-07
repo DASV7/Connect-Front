@@ -30,15 +30,13 @@ const loginUser = async () => {
       message: "Correo o contraseña incorrectos",
     });
   });
-
   isLoading.value = false;
-
-  if (user.data.data.data) {
+  if (user?.data?.data?.data) {
     push.success({
       title: "Inicio de sesion Correcto.",
       message: "Bienvenido nuevamente.",
     });
-    
+
     localStorage.setItem("vinc-jwt", user.data.data.data);
     router.push("/home");
   }
@@ -51,7 +49,6 @@ function politics(item) {
 const changeStatusView = () => {
   showPoliticis.value = !showPoliticis.value;
 };
-
 </script>
 
 <template>
@@ -67,16 +64,16 @@ const changeStatusView = () => {
       <p class="joinConnect__greeting-p">Ingresa tu correo o número de teléfono</p>
     </div>
 
-    <div class="joinConnect__formJoin">
+    <form class="joinConnect__formJoin">
       <div class="joinConnect__formJoin-container">
-        <input class="joinConnect__formJoin-input" type="email" placeholder="Correo o número de celular" v-model="userData.email" />
+        <input  autocomplete class="joinConnect__formJoin-input" type="email" placeholder="Correo o número de celular" v-model="userData.email" />
       </div>
       <div class="joinConnect__formJoin-container">
-        <input class="joinConnect__formJoin-input" type="password" placeholder="Contraseña" v-model="userData.password" @keypress.enter="loginUser()" />
+        <input autocomplete class="joinConnect__formJoin-input" type="password" placeholder="Contraseña" v-model="userData.password" @keypress.enter="loginUser()" />
       </div>
-      <div class="joinConnect__formJoin-btn" @click="loginUser()">
-        <button class="joinConnect__formJoin-btnSend">Entrar</button>
-      </div>
+    </form>
+    <div class="joinConnect__formJoin-btn" @click="loginUser()">
+      <button class="joinConnect__formJoin-btnSend">Entrar</button>
     </div>
 
     <div class="joinConnect__types">
@@ -96,7 +93,6 @@ const changeStatusView = () => {
     </div>
   </div>
 </template>
-
 
 <style lang="scss">
 * {
@@ -208,5 +204,4 @@ const changeStatusView = () => {
     max-width: 550px;
   }
 }
-
 </style>

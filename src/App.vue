@@ -36,6 +36,7 @@ onMounted(async () => {
     });
   });
   const decodeToken = jwt_decode(localStorage.getItem("vinc-jwt"));
+  if (!decodeToken) return;
   if (decodeToken) userStore.$patch({ user: decodeToken });
   socket.userConnected();
   await socket.socket.on("connect/newLike", (user) => {
@@ -51,7 +52,7 @@ onMounted(async () => {
 });
 
 onUnmounted(() => {
-  socket.socket.disconnect();  
+  socket.socket.disconnect();
 });
 </script>
 
