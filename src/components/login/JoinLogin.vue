@@ -72,8 +72,8 @@ const changeStatusView = () => {
         <input autocomplete class="joinConnect__formJoin-input" type="password" placeholder="Contraseña" v-model="userData.password" @keypress.enter="loginUser()" />
       </div>
     </form>
-    <div class="joinConnect__formJoin-btn" @click="loginUser()">
-      <button class="joinConnect__formJoin-btnSend">Entrar</button>
+    <div class="joinConnect__formJoin-btn" >
+      <button class="joinConnect__formJoin-btnSend" @click="loginUser()">Entrar</button>
     </div>
 
     <div class="joinConnect__types">
