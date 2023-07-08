@@ -72,7 +72,7 @@ const clickGo = (path) => {
     </div>
     <!--alerts -->
 
-    <div class="videoCall__history"></div>
+    <div class="videoCall__history" v-if="!routeTogo"></div>
   </div>
   <router-view></router-view>
 </template>
