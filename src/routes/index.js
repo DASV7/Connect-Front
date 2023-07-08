@@ -13,6 +13,7 @@ import intoMessages from "../components/messages/intoMessagesView.vue";
 import whoLikesMe from "../components/likes/whoLikesMe.vue";
 import functionsApp from "../components/functionsRandom/mainFuntions.vue";
 import settings from "../components/settings/setting.vue"
+import premium from "../components/premium/premium.vue"
 
 const ifAuthenticated = (to, from, next) => {
   if (!localStorage.getItem("vinc-jwt")) {
@@ -127,6 +128,12 @@ const routes = [
     path: "/settings",
     name: "settings",
     component: settings,
+    beforeEnter: ifAuthenticated,
+  },
+  {
+    path: "/premium",
+    name: "premium",
+    component: premium,
     beforeEnter: ifAuthenticated,
   },
   // {

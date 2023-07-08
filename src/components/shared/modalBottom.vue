@@ -20,7 +20,7 @@ onUnmounted(() => {
   <section class="modalBotton" v-if="props.showModal" @keypress.esc="closeModal()">
     <div class="modalBotton__wrapper fadeInUp">
       <div class="modalBotton__container">
-        <i @click="closeModal()" class="fa fa-window-close" aria-hidden="true"></i>
+        <vue-feather @click="closeModal()" type="x-circle"></vue-feather>
         <div class="modalTotal__content">
           <slot name="content"></slot>
         </div>
@@ -70,7 +70,7 @@ onUnmounted(() => {
   }
 }
 
-.fa-window-close {
+[data-name="x-circle"] {
   z-index: 2;
   position: absolute;
   top: 20px;

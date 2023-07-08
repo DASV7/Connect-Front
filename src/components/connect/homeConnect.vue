@@ -160,9 +160,14 @@ onMounted(() => {
     width: 94%;
   }
 }
-// @media screen and (min-width: 650px) {
-//   .homeConnect__content {
-//     height: 100vh;
-//   }
-// }
+@media screen and (min-width: 650px) {
+  .homeConnect__content {
+    height: 92vh;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .homeConnect__content {
+    height: 87vh;
+  }
+}
 </style>

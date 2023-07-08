@@ -1,7 +1,7 @@
 <script setup>
 import MenuHome from "./components/menu/menu.vue";
 import { useRoute } from "vue-router";
-import { ref, watchEffect, computed, onMounted, onUnmounted } from "vue";
+import { ref, watchEffect, computed, onMounted, onUnmounted, onBeforeUpdate } from "vue";
 import { useCounterStore } from "../src/store/users";
 import jwt_decode from "jwt-decode";
 import notificati from "./components/notifications/alertNotification.vue";
@@ -64,6 +64,12 @@ onMounted(async () => {
 
 onUnmounted(() => {
   socket.socket.disconnect();
+});
+onBeforeUpdate(() => {
+  console.log(socket.socket.connected);
+  if (!socket.socket.connected) {
+    socket.userConnected();
+  }
 });
 </script>
 

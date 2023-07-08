@@ -7,12 +7,12 @@ const activeRote = ref();
 onMounted(() => {});
 
 const routers = [
-  { path: "/messages", icon: "fa-solid fa-comment" },
-  { path: "/functionsapp", icon: "fa fa-video-camera" },
-  { path: "/home", icon: "fa fa-handshake-o" },
-  { path: "/likes", icon: "fa fa-eye" },
-  { path: "/histories", icon: "fa fa-eercast" },
-  { path: "/profile", icon: "fa-solid fa-user" },
+  { path: "/messages", icon: "message-square" },
+  { path: "/functionsapp", icon: "radio" },
+  { path: "/home", icon: "target" },
+  { path: "/likes", icon: "thumbs-up" },
+  { path: "/histories", icon: "zap" },
+  { path: "/profile", icon: "user" },
 ];
 
 const goRouter = (index) => {
@@ -30,7 +30,7 @@ onMounted(() => {
     <div class="menu__container">
       <div class="menu__items" v-for="(router, index) in routers" :key="index">
         <button @click="$router.push(router.path), goRouter(router.path)" class="menu__container-btn" :class="router.path.includes(activeRote) ? 'menu__container-btn-active' : ''">
-          <i :class="router.icon"></i>
+          <vue-feather :type="router.icon"></vue-feather>
         </button>
       </div>
     </div>
@@ -58,7 +58,6 @@ onMounted(() => {
   display: flex;
   width: 100%;
 
-
   &-btn {
     display: flex;
     justify-content: center;
@@ -80,7 +79,7 @@ onMounted(() => {
 }
 @media (min-width: 1024px) {
   .menu {
-    flex-direction: column ;
+    flex-direction: column;
     height: 100%;
     width: 70px;
     top: -15px;
@@ -98,7 +97,6 @@ onMounted(() => {
     height: 100%;
     cursor: pointer;
     border-right: 1px solid #c1bfbf6c;
-
   }
 }
 </style>

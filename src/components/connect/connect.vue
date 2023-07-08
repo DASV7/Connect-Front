@@ -112,13 +112,13 @@ const handleTouchEnd = (event) => {
       <div class="homeVinc__userInfo">
         <div class="homeVinc__userInfo-user">
           <div class="homeVinc__userInfo-profile">
-            <i class="fa-solid fa-user"></i>
+            <vue-feather  type="user"></vue-feather>        
             <p class="homeVinc__userInfo-p">{{ userCard?.name }}, {{ calculateAge(userCard?.birthday) }}</p>
 
             <div class="homeVinc__userInfo.status"></div>
           </div>
           <div class="homeVinc__userInfo-interesting">
-            <i class="fa fa-commenting-o"></i>
+            <vue-feather  type="message-square"></vue-feather>        
             <p class="">{{ hereFor[userCard?.hereFor]?.text }}</p>
           </div>
         </div>

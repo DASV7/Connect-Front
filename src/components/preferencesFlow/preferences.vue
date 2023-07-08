@@ -49,6 +49,7 @@ function sendDataBack() {
   console.log(userPreferences.value);
 }
 function nextView(i, value) {
+  // isLoading.value = true;
   if (i == "back") return indexReg.value--;
   if (userPreferences.value[value]) indexReg.value++;
   else {
@@ -57,20 +58,14 @@ function nextView(i, value) {
     if (userPreferences.value[position]) indexReg.value++;
   }
 
-  // if (i === undefined) {
-  //   if (indexReg.value == null) {
-  //     indexReg.value = 0;
-  //   userPreferences.value[value]
-
-  //   } else indexReg.value++;
-  //   return;
-  // }
-  // return;
-  // indexReg.value--;
+  setTimeout(() => {
+    isLoading.value = false;
+  },10);
 }
 function nextViewFirst() {
   indexReg.value = 0;
 }
+// let isLoading = ref(false);
 </script>
 
 <template>
@@ -102,9 +97,9 @@ function nextViewFirst() {
           <i class="fa-solid fa-arrow-left"></i>
         </button>
       </div>
-      <div class="preferens__img">
-        <img class="preferens__img-link" :src="imgViews[indexReg]" />
+      <div class="preferens__img" >
         <p class="preferens__img-p">{{ titleViews[indexReg] }}</p>
+        <img  v-show="!isLoading" class="preferens__img-link" :src="imgViews[indexReg]" />
       </div>
       <!-- sexuality-->
       <div class="container__sexuality">
@@ -159,9 +154,7 @@ function nextViewFirst() {
         </div>
 
         <div class="container__sexuality-continue" v-if="indexReg == 6">
-          <button @click="$router.push('/home'), sendDataBack()" class="container__sexuality-next" >
-            Finalizar
-          </button>
+          <button @click="$router.push('/home'), sendDataBack()" class="container__sexuality-next">Finalizar</button>
         </div>
 
         <div class="container__sexuality-continue" v-if="indexReg != 6">
@@ -231,9 +224,13 @@ function nextViewFirst() {
     flex-direction: column;
     align-items: center;
     width: 100%;
+    overflow: hidden;
+
 
     &-link {
-      width: 90%;
+      // width: 90%;
+      max-width: 330px;
+      min-width: 150px;
     }
     &-p {
       font-size: 20px;
@@ -332,7 +329,7 @@ function nextViewFirst() {
     cursor: pointer;
   }
 }
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 834px) {
   .preferens {
     display: flex;
     justify-content: center;
@@ -344,6 +341,7 @@ function nextViewFirst() {
     border-radius: 20px;
     border: 1px solid #999696;
     box-shadow: 0px 5px 15px #999696;
+    min-height: 400px;
   }
   .GoBack {
     top: 30px;
@@ -352,7 +350,23 @@ function nextViewFirst() {
     width: 90%;
   }
   .preferens__img-link {
-    width: 65%;
+    // width: 65%;
+    // width: 70%;
+    max-width: 350px;
+    object-fit: cover;
   }
 }
+
+// @media screen and (max-width: 900px) {
+//   .preferens {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+
+//     &__container {
+//       height: 60%;
+//     }
+//   }
+
+// }
 </style>

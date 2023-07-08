@@ -125,7 +125,7 @@ const changeStatusView = () => {
     @include dynamicScreen(650px) {
       width: 40%;
     }
-    height: 25%;
+    // height: 25%;
 
     &-container {
       width: 100%;
@@ -194,15 +194,16 @@ const changeStatusView = () => {
     display: flex;
     justify-content: center;
     width: initial;
+
     &__btn {
       width: 200px;
     }
   }
   .joinConnect__formJoin-btnSend {
-    width: 50%;
+    max-width: 240px;
   }
   .joinConnect__formJoin-container {
-    max-width: 550px;
+    max-width: 350px;
   }
 }
 </style>
