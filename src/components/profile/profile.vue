@@ -47,10 +47,7 @@
               <i :class="item.checkOff" aria-hidden="true"></i>
             </div>
           </div>
-        </div>
-        <button class="profileUser__header-btn" @click="closeSesion()">
-          <i class="fa fa-sign-out" aria-hidden="true"></i>
-        </button>
+        </div>        
       </div>
     </div>
   </div>

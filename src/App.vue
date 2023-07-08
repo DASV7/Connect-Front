@@ -12,6 +12,7 @@ import { Notivue, notifications } from "notivue";
 const socket = useSocketStore();
 const route = useRoute();
 const fullPath = ref(route.fullPath);
+const isLoading = ref(true);
 
 watchEffect(() => {
   fullPath.value = route.fullPath;
@@ -35,7 +36,17 @@ onMounted(async () => {
       caches.delete(cacheName);
     });
   });
+  if (!localStorage.getItem("vinc-jwt")) {
+    {
+      isLoading.value = false;
+      return;
+    }
+  }
   const decodeToken = jwt_decode(localStorage.getItem("vinc-jwt"));
+  if (!decodeToken) {
+    isLoading.value = false;
+    return;
+  }
   if (decodeToken) userStore.$patch({ user: decodeToken });
   socket.userConnected();
   await socket.socket.on("connect/newLike", (user) => {
@@ -48,10 +59,11 @@ onMounted(async () => {
       user: user,
     });
   });
+  isLoading.value = false;
 });
 
 onUnmounted(() => {
-  socket.socket.disconnect();  
+  socket.socket.disconnect();
 });
 </script>
 
@@ -59,6 +71,7 @@ onUnmounted(() => {
   <div class="mainApp"></div>
   <notificati></notificati>
   <div
+    v-if="!isLoading"
     class="mainApp__routerView"
     :class="`${!routePermission ? '' : 'mainApp__routerView-margin-left'} 
   ${isPreferencesView ? 'mainApp__routerView-full-height' : ''}`"

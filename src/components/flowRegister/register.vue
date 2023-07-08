@@ -7,7 +7,7 @@ import axios from "../../api/axios";
 import Swal from "sweetalert2";
 import totalLoading from "../shared/totalLoading.vue";
 import { usePush } from "notivue";
-
+import { patternEmail } from "../../utils/validations";
 const router = useRouter();
 
 let userNew = ref({
@@ -76,7 +76,6 @@ const createNewUser = async () => {
     localStorage.setItem("vinc-jwt", userWithPictures.data.token);
     isCreatingUser.value = false;
     router.push({ path: "/preferences", query: { reg: 1 } });
-
   }
 };
 
@@ -105,11 +104,23 @@ const updaloadPictures = async (user) => {
           showConfirmButton: false,
           timer: 2000,
         });
-      });    
+      });
     token = data;
   }
   return token;
 };
+const isEnableToNext = ref(true);
+const validTypeEmail = () => {
+  const value = userNew.value.email;
+  let isValid = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  isValid = isValid.test(value);
+  isEnableToNext.value = isValid;
+};
+const passwordComplete = () => {
+  if (userNew.value.password.length >= 8) isEnableToNext.value = true;
+  else isEnableToNext.value = false;
+};
+
 const nextvalue = async () => {
   if (indexReg.value < goToGo.length - 1) {
     if (userNew.value[goToGo[indexReg.value].info] || selectedFile.value.length == 2) indexReg.value++;
@@ -117,7 +128,7 @@ const nextvalue = async () => {
 };
 
 const readyTocontinue = computed(() => {
-  return userNew.value[goToGo[indexReg.value].info] || selectedFile.value.length == 2;
+  return (userNew.value[goToGo[indexReg.value].info] || selectedFile.value.length == 2) && isEnableToNext.value;
 });
 const prevtvalue = () => {
   if (indexReg.value > 0) {
@@ -164,13 +175,18 @@ const prevtvalue = () => {
           <input type="date" class="flowRegister__form-input" max="2005-12-31" placeholder="Fecha de nacimiento" v-model="userNew.birthday" />
         </div>
         <div class="flowRegister__form-group" v-if="indexReg == 3">
-          <input type="email" class="flowRegister__form-input" placeholder="Correo Electronico" v-model="userNew.email" />
+          <input type="email" class="flowRegister__form-input" placeholder="Correo Electronico" v-model="userNew.email" @input="validTypeEmail()" />
         </div>
         <div class="flowRegister__form-group" v-if="indexReg == 4">
-          <input type="text" class="flowRegister__form-input" placeholder="Descripcion: Ejm..'Soy un estudiante Apasionado...'" v-model="userNew.description" />
+          <input
+            type="text"
+            class="flowRegister__form-input"
+            placeholder="Descripcion: Ejm..'Soy un estudiante Apasionado...'"            
+            v-model="userNew.description"
+          />
         </div>
         <div class="flowRegister__form-group" v-if="indexReg == 5">
-          <input type="password" class="flowRegister__form-input" placeholder="Contraseña" v-model="userNew.password" />
+          <input type="password" class="flowRegister__form-input" placeholder="Contraseña" v-model="userNew.password" @input="passwordComplete()" />
         </div>
         <div class="flowRegister__pictureIcons" v-show="indexReg == 6">
           <label class="flowRegister__picture" for="img">
@@ -194,7 +210,6 @@ const prevtvalue = () => {
 </template>
 
 <style lang="scss">
-
 .flowRegister {
   display: flex;
   flex-direction: column;

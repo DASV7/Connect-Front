@@ -10,17 +10,12 @@ const center = "--dato:#d9fdd3; --raius:10px; --center:center;";
 
 onMounted(() => {
   const date = new Date(props.message.date);
-
-  // Obtener los componentes de la fecha
   const year = date.getFullYear();
   const month = date.getMonth() + 1; // Los meses en JavaScript comienzan en 0, por eso se suma 1
   const day = date.getDate();
   const hours = date.getHours();
   const minutes = date.getMinutes();
-
-  // Formatear los componentes en un string
   const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}`;
-  // console.log(formattedDate);
   props.message.date = formattedDate;
 });
 
@@ -56,7 +51,7 @@ const validTextPisition = () => {
 
     <div></div>
     <p :class="['messageDefault__content-date', validTextPisition()]">
-      <strong class="messageDefault__userName p">{{ props.user.name }}</strong>
+      <strong class="messageDefault__userName p" v-if="false">{{ props.user.name }}</strong>
       <strong class="p2">{{ props.message.date }}</strong>
     </p>
   </div>

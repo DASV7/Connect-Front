@@ -11,6 +11,7 @@ const routers = [
   { path: "/functionsapp", icon: "fa fa-video-camera" },
   { path: "/home", icon: "fa fa-handshake-o" },
   { path: "/likes", icon: "fa fa-eye" },
+  { path: "/histories", icon: "fa fa-eercast" },
   { path: "/profile", icon: "fa-solid fa-user" },
 ];
 
