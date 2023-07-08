@@ -441,5 +441,6 @@ const advantages = [
     overflow-y: scroll;
     border-radius: 20px;
   }
-}
+} 
+
 </style>

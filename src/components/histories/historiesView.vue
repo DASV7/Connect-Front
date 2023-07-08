@@ -46,11 +46,11 @@ onBeforeMount(() => {
       <div><p>Cuentas que Sigues</p></div>
       <div class="historiesView__header">
         <div class="historiesView__header-fix" @click="changeStatusModal()">
-          <i class="fa fa-plus-circle" aria-hidden="true"></i>
+          <vue-feather type="plus-circle"></vue-feather>
         </div>
         <div class="historiesView__header-column" scrollDefault>
-          <div class="historiesView__header-item slideInDown" scrollDefault>
-            <CardUser v-if="usersCard.length" v-for="(user, index) in usersCard" :key="index" :user="user"></CardUser>
+          <div class="historiesView__header-item slideInDown" scrollDefault v-if="usersCard.length">
+            <CardUser  v-for="(user, index) in usersCard" :key="index" :user="user"></CardUser>
           </div>
         </div>
       </div>
@@ -62,7 +62,9 @@ onBeforeMount(() => {
           <div class="creationHistories">
             <div class="creationHistories__multimedia">
               <p>¡Sube una imagen y comparte cómo te sientes con el mundo!</p>
-              <label class="creationHistories__multimedia-label" for="multimedia"><i class="fa fa-plus" aria-hidden="true"></i> </label>
+              <label class="creationHistories__multimedia-label" for="multimedia">
+                <vue-feather type="file-plus"></vue-feather>
+              </label>
               <input v-show="false" type="file" id="multimedia" multiple="false" />
 
               <label for="description"> Agrega una breve descripcion :</label>
