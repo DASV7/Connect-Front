@@ -34,11 +34,13 @@ onMounted(async () => {
   messagesUser.splice(messagesUser.length, 0, ...response.messages);
   setTimeout(() => goToBottom(), 100);
   isLoading.value = false;
+
+  socket.socket.on("messages/newMessage/", async (message) => {
+    messagesUser.push(message);
+  });
+  
 });
 
-socket.socket.on("messages/newMessage/", async (message) => {
-  messagesUser.push(message);
-});
 
 const deleteMatch = async (message) => {
   const undoMatch = await axios.get("/messages/undomatch?id=" + route.params.id).catch((error) => {

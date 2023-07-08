@@ -12,6 +12,7 @@ import { Notivue, notifications } from "notivue";
 const socket = useSocketStore();
 const route = useRoute();
 const fullPath = ref(route.fullPath);
+const isLoading = ref(true);
 
 watchEffect(() => {
   fullPath.value = route.fullPath;
@@ -49,6 +50,7 @@ onMounted(async () => {
       user: user,
     });
   });
+  isLoading.value = false;
 });
 
 onUnmounted(() => {
@@ -60,6 +62,7 @@ onUnmounted(() => {
   <div class="mainApp"></div>
   <notificati></notificati>
   <div
+    v-if="!isLoading"
     class="mainApp__routerView"
     :class="`${!routePermission ? '' : 'mainApp__routerView-margin-left'} 
   ${isPreferencesView ? 'mainApp__routerView-full-height' : ''}`"
