@@ -2,10 +2,7 @@
 import { ref, defineProps } from "vue";
 import avatarUser from "../shared/avatarUser.vue";
 const props = defineProps(["user"]);
-
-const ejecutaBien = () => {
-  
-};
+const ejecutaBien = () => {};
 </script>
 <template>
   <section class="cardHistories" v-if="props.user">
