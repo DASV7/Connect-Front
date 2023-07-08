@@ -68,9 +68,8 @@ onMounted(async () => {
 onUnmounted(() => {
   socket.socket.disconnect();
 });
-onBeforeUpdate(() => {
-  console.log(socket.socket.connected);
-  if (!socket.socket.connected) {
+onBeforeUpdate(() => {  
+  if (!socket.socket?.connected) {
     socket.userConnected();
   }
 });
