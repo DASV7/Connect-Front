@@ -70,7 +70,7 @@ onUnmounted(() => {
 });
 onBeforeUpdate(() => {  
   if (!socket.socket?.connected) {
-    socket.userConnected();
+    socket.connect();
   }
 });
 </script>
