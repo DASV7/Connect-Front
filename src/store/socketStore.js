@@ -12,12 +12,10 @@ export const useSocketStore = defineStore('socket', {
         connect() {
             this.socket = io(import.meta.env.VITE_SOCKET);
         },
-        userConnected() {
-            const userStore = useCounterStore();
+        async userConnected() {
+            const userStore = await useCounterStore();
             const userLocal = userStore.$state.user
-            // console.log(userLocal);
             if (userLocal?._id) this.socket.emit('connected', userLocal)
-
         },
         disconnect() {
             this.socket.close();

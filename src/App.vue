@@ -1,7 +1,7 @@
 <script setup>
 import MenuHome from "./components/menu/menu.vue";
 import { useRoute } from "vue-router";
-import { ref, watchEffect, computed, onMounted, onUnmounted } from "vue";
+import { ref, watchEffect, computed, onMounted, onUnmounted, onBeforeUnmount } from "vue";
 import { useCounterStore } from "../src/store/users";
 import jwt_decode from "jwt-decode";
 import notificati from "./components/notifications/alertNotification.vue";
@@ -48,8 +48,11 @@ onMounted(async () => {
     return;
   }
   if (decodeToken) userStore.$patch({ user: decodeToken });
+
+  await socket.connect();
   socket.userConnected();
-  await socket.socket.on("connect/newLike", (user) => {
+
+  socket.socket.on("connect/newLike", (user) => {
     EventUser.emit("newNotification", {
       notification: {
         title: "Le gustas a alguien",
