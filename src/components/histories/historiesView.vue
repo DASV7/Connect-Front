@@ -67,7 +67,7 @@ onMounted(() => {
 
               <label for="description"> Agrega una breve descripcion :</label>
               <u>No se pemiten mensajes ofensivos o inapropiados</u>
-              <input name="description" type="text" id="description" />
+              <input maxlength="100" placeholder="Me siento..." class="creationHistories__multimedia-input" name="description" type="text" id="description" />
             </div>
             <div class="creationHistories__status">
               <label for="description"> Estado de animo :</label>
@@ -161,6 +161,15 @@ onMounted(() => {
       justify-content: center;
       font-weight: 800;
       cursor: pointer;
+    }
+    &-input {
+      outline: none;
+      height: 20px;
+      border: none;
+      border-bottom: 1px solid #000;
+      box-shadow: 0 3px 3px rgba(0, 0, 0, 0.5);
+      margin-bottom: 10px;
+      max-width: 300px;
     }
   }
   &__status {

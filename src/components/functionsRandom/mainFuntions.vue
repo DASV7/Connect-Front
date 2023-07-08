@@ -71,6 +71,8 @@ const clickGo = (path) => {
       </div>
     </div>
     <!--alerts -->
+
+    <div class="videoCall__history"></div>
   </div>
   <router-view></router-view>
 </template>
@@ -82,7 +84,8 @@ const clickGo = (path) => {
   overflow: auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
+  gap: 10px;
   background-color: #000;
 
   &__video {
@@ -151,10 +154,16 @@ const clickGo = (path) => {
     }
   }
 
+  &__history {
+    width: 65%;
+    background-color: #fff;
+    border-radius: 10px;
+    height: 50%;
+  }
+
   &__functions {
     display: flex;
     justify-content: center;
-    align-items: center;
     flex-wrap: wrap;
     width: 100%;
     gap: 10px;
@@ -162,13 +171,12 @@ const clickGo = (path) => {
     &-item {
       display: flex;
       flex-direction: column;
-      justify-content: center;
+
       align-items: center;
       text-align: center;
-      border-radius: 20px;
+      border-radius: 10px;
       background-color: aliceblue;
       border: 1px solid white;
-      height: 150px;
       width: 150px;
       font-weight: bold;
       box-shadow: 0 0 10px $primary-color;
@@ -176,7 +184,7 @@ const clickGo = (path) => {
       cursor: pointer;
 
       i {
-        font-size: 50px;
+        font-size: 30px;
         color: $primary-color;
       }
 

@@ -7,11 +7,11 @@ const activeRote = ref();
 onMounted(() => {});
 
 const routers = [
-  { path: "/messages", icon: "fa-solid fa-comment" },
   { path: "/functionsapp", icon: "fa fa-video-camera" },
-  { path: "/home", icon: "fa fa-handshake-o" },
   { path: "/likes", icon: "fa fa-eye" },
   { path: "/histories", icon: "fa fa-eercast" },
+  { path: "/home", icon: "fa fa-handshake-o" },
+  { path: "/messages", icon: "fa-solid fa-comment" },
   { path: "/profile", icon: "fa-solid fa-user" },
 ];
 
