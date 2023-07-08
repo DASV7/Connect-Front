@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onBeforeMount } from "vue";
 import CardUser from "./cardUserHistories.vue";
 import modalBottom from "../shared/modalBottom.vue";
 import { useCounterStore } from "../../store/users";
@@ -10,7 +10,7 @@ const usersCard = ref([]);
 const changeStatusModal = () => {
   showModal.value = !showModal.value;
 };
-onMounted(() => {
+onBeforeMount(() => {
   usersCard.value = [
     userStore.user,
     userStore.user,
@@ -40,7 +40,7 @@ onMounted(() => {
 });
 </script>
 <template>
-  <section class="historiesView">
+  <section class="historiesView" v-if="userStore.user">
     <div class="historiesView__wrapper">
       <img class="historiesView__img" src="../../../public/svgLogoComplete.svg" alt="" srcset="" />
       <div><p>Cuentas que Sigues</p></div>
