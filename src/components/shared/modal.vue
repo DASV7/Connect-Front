@@ -21,7 +21,7 @@ onUnmounted(() => {
   <div class="modalTotal fadeInUp" v-if="props.showModal" @keypress.esc="closeModal()">
     <div class="modalTotal__wrapper">
       <div class="modalTotal__container">
-        <vue-feather @click="closeModal()" type="x-circle"></vue-feather>        
+        <i @click="closeModal()" class="fa fa-window-close" aria-hidden="true"></i>
         <div class="modalTotal__content">
           <slot name="content"></slot>
         </div>

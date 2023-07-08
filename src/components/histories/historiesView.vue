@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onBeforeMount } from "vue";
+import { ref, onMounted } from "vue";
 import CardUser from "./cardUserHistories.vue";
 import modalBottom from "../shared/modalBottom.vue";
 import { useCounterStore } from "../../store/users";
@@ -10,7 +10,7 @@ const usersCard = ref([]);
 const changeStatusModal = () => {
   showModal.value = !showModal.value;
 };
-onBeforeMount(() => {
+onMounted(() => {
   usersCard.value = [
     userStore.user,
     userStore.user,
@@ -40,13 +40,13 @@ onBeforeMount(() => {
 });
 </script>
 <template>
-  <section class="historiesView" v-if="userStore.user">
+  <section class="historiesView">
     <div class="historiesView__wrapper">
       <img class="historiesView__img" src="../../../public/svgLogoComplete.svg" alt="" srcset="" />
       <div><p>Cuentas que Sigues</p></div>
       <div class="historiesView__header">
         <div class="historiesView__header-fix" @click="changeStatusModal()">
-          <vue-feather type="plus-circle"></vue-feather>
+          <i class="fa fa-plus-circle" aria-hidden="true"></i>
         </div>
         <div class="historiesView__header-column" scrollDefault>
           <div class="historiesView__header-item slideInDown" scrollDefault v-if="usersCard.length">
@@ -62,14 +62,12 @@ onBeforeMount(() => {
           <div class="creationHistories">
             <div class="creationHistories__multimedia">
               <p>¡Sube una imagen y comparte cómo te sientes con el mundo!</p>
-              <label class="creationHistories__multimedia-label" for="multimedia">
-                <vue-feather type="file-plus"></vue-feather>
-              </label>
+              <label class="creationHistories__multimedia-label" for="multimedia"><i class="fa fa-plus" aria-hidden="true"></i> </label>
               <input v-show="false" type="file" id="multimedia" multiple="false" />
 
               <label for="description"> Agrega una breve descripcion :</label>
               <u>No se pemiten mensajes ofensivos o inapropiados</u>
-              <input maxlength="100" placeholder="Me siento..." class="creationHistories__multimedia-input" name="description" type="text" id="description" />
+              <input name="description" type="text" id="description" />
             </div>
             <div class="creationHistories__status">
               <label for="description"> Estado de animo :</label>
@@ -163,15 +161,6 @@ onBeforeMount(() => {
       justify-content: center;
       font-weight: 800;
       cursor: pointer;
-    }
-    &-input {
-      outline: none;
-      height: 20px;
-      border: none;
-      border-bottom: 1px solid #000;
-      box-shadow: 0 3px 3px rgba(0, 0, 0, 0.5);
-      margin-bottom: 10px;
-      max-width: 300px;
     }
   }
   &__status {

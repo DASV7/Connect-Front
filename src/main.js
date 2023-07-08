@@ -5,14 +5,13 @@ import axios from "./api/axios";
 import { createPinia } from "pinia";
 import { useSocketStore } from "./store/socketStore";
 import { notivue } from "notivue";
-import VueFeather from "vue-feather";
 
 import "notivue/notifications.css";
 import "notivue/animations.css";
 
 const app = createApp(App);
 const pinia = createPinia();
-app.component(VueFeather.name, VueFeather);
+
 
 app.use(router);
 app.use(pinia);

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, onMounted,onUnmounted  } from "vue";
 
 const props = defineProps(["showModal"]);
 const emit = defineEmits(["changeModal"]);
@@ -21,7 +21,7 @@ onUnmounted(() => {
   <div class="modalTotal fadeInUp" v-if="props.showModal" @keypress.esc="closeModal()">
     <div class="modalTotal__wrapper">
       <div class="modalTotal__container">
-        <vue-feather @click="closeModal()" type="x-circle"></vue-feather>
+        <i @click="closeModal()" class="fa fa-window-close" aria-hidden="true"></i>
         <div class="modalTotal__content">
           <slot name="content"></slot>
         </div>
@@ -66,7 +66,7 @@ onUnmounted(() => {
   }
 }
 
-[data-name="x-circle"] {
+.fa-window-close {
   z-index: 2;
   position: absolute;
   top: 20px;
