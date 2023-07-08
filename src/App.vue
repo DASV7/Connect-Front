@@ -48,8 +48,11 @@ onMounted(async () => {
     return;
   }
   if (decodeToken) userStore.$patch({ user: decodeToken });
+
+  await socket.connect();
   socket.userConnected();
-  await socket.socket.on("connect/newLike", (user) => {
+
+  socket.socket.on("connect/newLike", (user) => {
     EventUser.emit("newNotification", {
       notification: {
         title: "Le gustas a alguien",

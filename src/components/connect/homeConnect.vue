@@ -77,7 +77,7 @@ onMounted(() => {
         </div>
         <div class="homeConnect__notAvaliable" v-if="!users[index] && !isLoading">
           <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-          Wow vas muy rapido campeon, Vuelve en un momento Se han acabado los usuarios registrados para ti Brothasdjiahsdhjaskd
+          Vas muy rapido, Vuelve en un momento.
         </div>
         <miniLoading v-if="isLoading"></miniLoading>
       </div>

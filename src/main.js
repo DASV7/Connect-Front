@@ -18,8 +18,6 @@ app.use(router);
 app.use(pinia);
 app.use(notivue);
 
-// Conecta el store de Socket
-const socketStore = useSocketStore();
-socketStore.connect();
+
 
 app.mount("#app");
