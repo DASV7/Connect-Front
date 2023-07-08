@@ -236,8 +236,8 @@ const advantages = [
 
     &-cont {
       @include flexCenter;
-      width: 100%;
-      height: 100%;
+      width: 100px;
+      height: 120px;
       max-width: 150px;
       max-height: 150px;
       border-radius: 100%;
@@ -381,12 +381,22 @@ const advantages = [
     }
     &-txt {
       color: #000;
-      font-size: 8px;
+      font-size: 10px;
       font-weight: 600;
     }
   }
 }
+
+@media (max-width: 1000px) {
+  .infoPremium {
+    margin-top: 0px;
+  }
+}
+
 @media (min-width: 1000px) {
+  .infoPremium {
+    margin-top: 0px;
+  }
   .profileUser {
     // display: flex;
     // flex-direction: column;
