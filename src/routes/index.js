@@ -88,6 +88,12 @@ const routes = [
     beforeEnter: ifAuthenticated,
   },
   {
+    path: "/histories",
+    name: "histories",
+    component: () => import("../components/histories/historiesView.vue"),
+    beforeEnter: ifAuthenticated,
+  },
+  {
     path: "/messages",
     name: "messages",
     component: messages,

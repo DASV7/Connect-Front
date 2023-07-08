@@ -1,36 +1,35 @@
 <script setup>
-import { ref, onMounted,onUnmounted  } from "vue";
-
+import { ref, defineProps, onMounted, onUnmounted } from "vue";
 const props = defineProps(["showModal"]);
 const emit = defineEmits(["changeModal"]);
-
+const closeModal = () => {
+  emit("changeModal");
+};
 onMounted(() => {
   document.addEventListener("keydown", actions);
 });
-const closeModal = () => {
-  emit("changeModal", true);
-};
 const actions = ({ key }) => {
   if (key == "Escape") closeModal();
 };
+
 onUnmounted(() => {
   document.removeEventListener("keydown", actions);
 });
 </script>
 <template>
-  <div class="modalTotal fadeInUp" v-if="props.showModal" @keypress.esc="closeModal()">
-    <div class="modalTotal__wrapper">
-      <div class="modalTotal__container">
+  <section class="modalBotton" v-if="props.showModal" @keypress.esc="closeModal()">
+    <div class="modalBotton__wrapper fadeInUp">
+      <div class="modalBotton__container">
         <i @click="closeModal()" class="fa fa-window-close" aria-hidden="true"></i>
         <div class="modalTotal__content">
           <slot name="content"></slot>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 <style lang="scss">
-.modalTotal {
+.modalBotton {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -39,20 +38,25 @@ onUnmounted(() => {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 400;
-  background-color: #ffffff8e;
+  z-index: 10;
+  background-color: #a0a0a03b;
 
   &__wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 100%;
-    position: relative;
+    width: 98%;
+    height: 70%;
+    max-width: 800px;
+    max-width: 700px;
+    position: absolute;
+    bottom: 0;
+    background-color: white;
+    border-radius: 20px 20px 0 0;
+    z-index: 300;
   }
 
   &__container {
-    // height: 95%;
     width: auto;
     overflow: hidden;
     height: auto;

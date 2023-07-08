@@ -36,8 +36,17 @@ onMounted(async () => {
       caches.delete(cacheName);
     });
   });
+  if (!localStorage.getItem("vinc-jwt")) {
+    {
+      isLoading.value = false;
+      return;
+    }
+  }
   const decodeToken = jwt_decode(localStorage.getItem("vinc-jwt"));
-  if (!decodeToken) return;
+  if (!decodeToken) {
+    isLoading.value = false;
+    return;
+  }
   if (decodeToken) userStore.$patch({ user: decodeToken });
   socket.userConnected();
   await socket.socket.on("connect/newLike", (user) => {
