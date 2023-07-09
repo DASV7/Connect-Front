@@ -25,11 +25,13 @@ onBeforeMount(() => {
     delete userCard.value.preferences[0].idUser;
     delete userCard.value.preferences[0].__v;
     preferencesValues.value = Object.values(userCard.value.preferences[0]);
-    preferencesKey.value = Object.keys(userCard.value.preferences[0])
+    preferencesKey.value = Object.keys(userCard.value.preferences[0]);
+
+    if (preferencesUser) {
+    }
   }
 
-  isLoading.value = false;  
-
+  isLoading.value = false;
 });
 
 const settings = {
@@ -65,12 +67,11 @@ const buttonsActions = [
   { text: "Like", icon: "fa fa-heart-o", action: "like" },
 ];
 const preferencesUser = [
-  { name: "Soltero", icon: "fa-solid fa-heart" },
-  { name: "Bebé", icon: "fa-solid fa-baby" },
-  { name: "1.67m", icon: "fa-solid fa-ruler" },
-  { name: "Gato(s)", icon: "fa-solid fa-paw" },
-  { name: "Idioma", icon: "fa-solid fa-language" },
-];
+  { icon: "fa-solid fa-heart" }, 
+  { icon: "fa-solid fa-baby" }, 
+  { icon: "fa-solid fa-ruler" }, 
+  { icon: "fa-solid fa-paw" }, 
+  { icon: "fa-solid fa-language" }];
 let startTouch = ref(null);
 let touchEndX = ref(null);
 const showModal = ref(false);
@@ -81,6 +82,7 @@ const changeModal = () => {
 };
 
 /*const touchStart = (event) => {
+
   startTouch.value = event.touches[0].clientX;
 };
 
@@ -105,6 +107,9 @@ const handleTouchEnd = (event) => {
   card.style.transform = "";
 @touchstart="touchStart($event)" @touchmove="touchMove($event)" @touchend="handleTouchEnd($event)"
 };*/
+function getIcon(index) {
+  return preferencesUser[index].icon;
+}
 </script>
 <template>
   <div class="homeVinc" v-if="!isLoading">
@@ -136,7 +141,7 @@ const handleTouchEnd = (event) => {
               </div>
             </Slide>
         </template>
-      </Modal> -->
+      </Modal>  -->
 
       <!-- Carousel -->
 
@@ -164,12 +169,13 @@ const handleTouchEnd = (event) => {
       <!-- <interestingIn :hereFor="userCard" /> -->
 
       <p class="information__InfoUser-tittle">Información de "Nombre usuario":</p>
-      <div  class="information__InfoUser" v-if="preferencesValues">
+      <div class="information__InfoUser" v-if="preferencesValues">
         <p class="information__InfoUser-preferences" v-for="(item, index) in preferencesValues" :key="index">
-          <!-- <i :class="item.icon"></i> -->
+          <i :class="getIcon[index]"></i>
           {{ item }}
         </p>
       </div>
+
       <div class="information__album">
         <div class="information__album-container">
           <img class="information__album-img" :src="userCard.pictures[1]?.url" alt="" />
@@ -178,8 +184,7 @@ const handleTouchEnd = (event) => {
 
       <!-- Buttons actions-->
       <div v-if="props.hiddeActions != false" class="homeVinc__buttonsAction">
-        <button class="homeVinc__buttonsAction-button" v-for="(item, index) of buttonsActions" :key="index" 
-        @click="$emit(item.action, userCard)">
+        <button class="homeVinc__buttonsAction-button" v-for="(item, index) of buttonsActions" :key="index" @click="$emit(item.action, userCard)">
           <i class="homeVinc__buttonsAction-icon" :class="item.icon"></i>
         </button>
       </div>
@@ -268,7 +273,6 @@ v-for="(item, index) of userCard?.pictures"
     margin-left: 15px;
     top: 50px;
     color: #000;
-
 
     &-p {
       font-weight: 700;
@@ -442,12 +446,13 @@ v-for="(item, index) of userCard?.pictures"
     align-items: center;
     height: 100%;
     width: 100%;
-    margin-top: -16px;
+    // margin-top: -16px;
 
     &-img {
       display: flex;
       max-width: 97vw;
       height: 100%;
+      border-radius: 20px;
     }
   }
 }
