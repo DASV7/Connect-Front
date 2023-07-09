@@ -55,7 +55,7 @@ const changeStatusView = () => {
         </div>
         <div class="loginConnect__join">
           <div class="loginConnect__join-info">
-            <a class="loginConnect__join-link" @click="$router.push('/JoinLogin')">Continuar de otra forma</a>
+            <a class="loginConnect__join-link" @click="$router.push('/JoinLogin')">Ya tengo cuenta</a>
           </div>
           <div class="loginConnect__join-private">
             <p class="loginConnect__join-text">
