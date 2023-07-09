@@ -7,7 +7,6 @@ export const state = reactive({
     barEvents: []
 });
 
-// "undefined" means the URL will be computed from the `window.location` object
 const URL = import.meta.env.VITE_SOCKET || "http://localhost:5500";
 
 export const socket = io(URL, {
