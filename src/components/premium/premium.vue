@@ -16,7 +16,7 @@ let planPremium = ref([
     money: "30.000",
   },
   {
-    month: "6 mes",
+    month: "12 mes",
     money: "55.000",
   },
 ]);
@@ -86,6 +86,7 @@ function closePay() {
   width: 100%;
   height: 100%;
   // padding: 10px;
+  overflow-y: scroll;
 
   &__fullScreen {
     width: 100vw;
@@ -100,10 +101,13 @@ function closePay() {
     color: #625f5f;
   }
   &__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     margin: auto;
     gap: 10px;
     width: 100%;
-    height: 100%;
+    // height: 100%;
     overflow-y: scroll;
   }
 
