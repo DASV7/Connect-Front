@@ -97,8 +97,11 @@ function closePay() {
     font-size: 13px;
     font-weight: 700;
     padding-left: 10px;
+    color: #625f5f;
   }
   &__container {
+    margin: auto;
+    gap: 10px;
     width: 100%;
     height: 100%;
     overflow-y: scroll;
@@ -107,7 +110,7 @@ function closePay() {
   &__header {
     display: flex;
     height: 60px;
-    background: linear-gradient(to bottom, rgba(113, 113, 113, 0.39), rgba(255, 255, 255, 0.2));
+    background: linear-gradient(to bottom, rgba(113, 113, 113, 0.214), rgba(255, 255, 255, 0.2));
 
     &-btnBack {
       background-color: transparent;
@@ -121,7 +124,8 @@ function closePay() {
       align-items: center;
       margin: auto;
       color: rgb(197, 37, 37);
-      font-size: 20px;
+      // color: $primary-color;
+      font-size: 17px;
       gap: 30px;
     }
   }
@@ -135,7 +139,8 @@ function closePay() {
       font-size: 18px;
       font-family: Arial, Helvetica, sans-serif;
       font-weight: 600;
-      color: rgb(37, 224, 224);
+      // color: rgb(37, 224, 224);
+      color: #000;
       padding-left: 10px;
       margin-bottom: 10px;
     }

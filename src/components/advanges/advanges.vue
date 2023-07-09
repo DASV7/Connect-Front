@@ -85,6 +85,7 @@ const advantages = [
 
 <style lang="scss">
 .infoPremium {
+
 &__advantages {
     display: flex;
     flex-direction: column;
@@ -93,7 +94,14 @@ const advantages = [
     width: 80%;
     margin-top: 15px;
     max-width: 480px;
-
+    
+  
+    &-cont {
+      color:  #999724;
+  }
+    &-cont2 {
+      color:  #999724;
+  }
     &-target {
       display: flex;
       justify-content: space-between;
@@ -117,7 +125,7 @@ const advantages = [
     }
     &-txt {
       color: #000;
-      font-size: 10px;
+      font-size: 12px;
       font-weight: 400;
     }
   }
