@@ -1,15 +1,15 @@
 <script setup>
 import MenuHome from "./components/menu/menu.vue";
 import { useRoute } from "vue-router";
-import { ref, watchEffect, computed, onMounted, onUnmounted, onBeforeUpdate } from "vue";
+import { ref, watchEffect, computed, onMounted, onUnmounted, watch } from "vue";
 import { useCounterStore } from "../src/store/users";
 import jwt_decode from "jwt-decode";
 import notificati from "./components/notifications/alertNotification.vue";
 import EventEmittler from "../src/utils/events/customEvents";
 import { useSocketStore } from "../src/store/socketStore";
 import { Notivue, notifications } from "notivue";
+import { state, socket } from "./socket/socket";
 
-const socket = useSocketStore();
 const route = useRoute();
 const fullPath = ref(route.fullPath);
 const isLoading = ref(true);
@@ -48,30 +48,39 @@ onMounted(async () => {
     return;
   }
   if (decodeToken) userStore.$patch({ user: decodeToken });
-
-  await socket.connect();
-  socket.userConnected();
-
-  socket.socket.on("connect/newLike", (user) => {
-    EventUser.emit("newNotification", {
-      notification: {
-        title: "Le gustas a alguien",
-        message: user.name + "",
-        go: "/likes",
-      },
-      user: user,
+  if (state.connected) {
+    socket.on("connect/newLike", (user) => {
+      EventUser.emit("newNotification", {
+        notification: {
+          title: "Le gustas a alguien",
+          message: user.name + "",
+          go: "/likes",
+        },
+        user: user,
+      });
     });
-  });
+  }
+
   isLoading.value = false;
 });
 
-onUnmounted(() => {
-  socket.socket.disconnect();
-});
-onBeforeUpdate(() => {  
-  if (!socket.socket?.connected) {
-    socket.connect();
+watchEffect(() => {
+  if (state.connected) {
+    socket.on("connect/newLike", (user) => {
+      EventUser.emit("newNotification", {
+        notification: {
+          title: "Le gustas a alguien",
+          message: user.name + "",
+          go: "/likes",
+        },
+        user: user,
+      });
+    });
   }
+});
+
+onUnmounted(() => {
+  socket.close();
 });
 </script>
 
