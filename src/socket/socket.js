@@ -12,7 +12,7 @@ const URL = import.meta.env.VITE_SOCKET || "http://localhost:5500";
 
 export const socket = io(URL, {
     auth: {
-        "user": jwtDecode(localStorage.getItem("vinc-jwt")) || null
+        "user": localStorage.getItem("vinc-jwt") ? jwtDecode(localStorage.getItem("vinc-jwt")) : null
     }
 
 });
