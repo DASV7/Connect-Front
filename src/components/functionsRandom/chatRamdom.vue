@@ -1,25 +1,26 @@
 <script setup>
 import findChat from "./findChat.vue";
-import { onMounted, ref, onBeforeUnmount } from "vue";
-import { useSocketStore } from "../../../src/store/socketStore";
+import { onMounted, ref, onBeforeUnmount, watch } from "vue";
 import { useCounterStore } from "../../../src/store/users";
 import { useRouter } from "vue-router";
+import { state, socket } from "../../socket/socket";
 
-const socket = useSocketStore();
 const userStore = useCounterStore();
 const router = useRouter();
 
 const isFind = ref(true);
 onMounted(() => {
-  socket.socket.on("chatRandom/start", (idConversation) => {
-    router.push(`/messages/${idConversation._id}`);
-  });
-  socket.socket.emit("chatRandom/start", {
-    _id: userStore.user._id,
-  });
+  if (state.connected) {
+    socket.on("chatRandom/start", (idConversation) => {
+      router.push(`/messages/${idConversation._id}`);
+    });
+    socket.emit("chatRandom/start", {
+      _id: userStore.user._id,
+    });
+  }
 });
 onBeforeUnmount(() => {
-  socket.socket.off("chatRandom/start");
+  socket.off("chatRandom/start");
 });
 </script>
 <template>

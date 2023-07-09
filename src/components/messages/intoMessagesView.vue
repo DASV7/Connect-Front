@@ -11,14 +11,14 @@ import AvatarUser from "../shared/avatarUser.vue";
 import connect from "../../components/connect/connect.vue";
 import Modal from "../shared/modal.vue";
 import { calculateAge } from "../../utils/calculateAge";
-
+import { state, socket } from "../../socket/socket";
 const message = ref("");
 let messagesUser = reactive([]);
 const route = useRoute();
 const router = useRouter();
 const userSesion = useCounterStore();
 const members = ref([]);
-const socket = useSocketStore();
+
 const isLoading = ref(true);
 const bindRef = ref(true);
 const userChat = ref({});
@@ -34,13 +34,12 @@ onMounted(async () => {
   messagesUser.splice(messagesUser.length, 0, ...response.messages);
   setTimeout(() => goToBottom(), 100);
   isLoading.value = false;
-
-  socket.socket.on("messages/newMessage/", async (message) => {
-    messagesUser.push(message);
-  });
-  
+  if (state.connected) {
+    socket.on("messages/newMessage/", async (message) => {
+      messagesUser.push(message);
+    });
+  }
 });
-
 
 const deleteMatch = async (message) => {
   const undoMatch = await axios.get("/messages/undomatch?id=" + route.params.id).catch((error) => {
@@ -52,7 +51,6 @@ const deleteMatch = async (message) => {
       timer: 2000,
     });
   });
-  console.log("undoMatch", undoMatch);
   if (undoMatch.data.data) router.push(`/messages`);
 };
 const filterMembers = (message) => {
@@ -87,7 +85,7 @@ const newMessage = async () => {
 };
 
 onBeforeUnmount(() => {
-  socket.socket.disconnect();
+  socket.off("messages/newMessage");
 });
 let hiddenProfile = ref(false);
 
@@ -99,7 +97,6 @@ function openOptios(params) {
   btnOptions.value = params;
 }
 function closeOptions() {
-  console.log("closeOptions");
   btnOptions.value = false;
 }
 </script>
@@ -150,13 +147,13 @@ function closeOptions() {
 
       <div class="intoMessages__all">
         <!-- <div class="intoMessages__container"> -->
-          <button class="intoMessages__container-send">
-            <i class="fa-solid fa-gift"></i>
-          </button>
-          <input class="intoMessages__container-input" type="text" placeholder="Nuevo Mensaje " @keypress.enter="newMessage()" v-model="message" />
-          <button class="intoMessages__container-send" @click="newMessage">
-            <i class="fa fa-paper-plane" aria-hidden="true"></i>
-          </button>
+        <button class="intoMessages__container-send">
+          <i class="fa-solid fa-gift"></i>
+        </button>
+        <input class="intoMessages__container-input" type="text" placeholder="Nuevo Mensaje " @keypress.enter="newMessage()" v-model="message" />
+        <button class="intoMessages__container-send" @click="newMessage">
+          <i class="fa fa-paper-plane" aria-hidden="true"></i>
+        </button>
         <!-- </div>s -->
       </div>
     </div>
@@ -377,16 +374,14 @@ function closeOptions() {
   .intoMessages__all {
     left: 80px;
   }
-
 }
 
-@media screen and (max-width: 1000px) { 
+@media screen and (max-width: 1000px) {
   .intoMessages__header-fullscreen {
     width: 100vw;
   }
-  
 }
-// @media screen and (min-width: 1160px) { 
+// @media screen and (min-width: 1160px) {
 //   .intoMessages__header-fullscreen {
 //     width: 94vh;
 //   }

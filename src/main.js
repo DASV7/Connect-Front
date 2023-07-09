@@ -9,6 +9,7 @@ import { notivue } from "notivue";
 import "notivue/notifications.css";
 import "notivue/animations.css";
 
+
 const app = createApp(App);
 const pinia = createPinia();
 
@@ -17,6 +18,7 @@ app.use(router);
 app.use(pinia);
 app.use(notivue);
 
+app.config.globalProperties.$socket = "esta";
 
 
 app.mount("#app");
