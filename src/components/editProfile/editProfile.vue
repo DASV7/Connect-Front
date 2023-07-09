@@ -1,9 +1,12 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useCounterStore } from "../../store/users";
+// import notifications from "../../components/notifications/alertNotification.vue";
 import axios from "../../api/axios";
 const userStore = useCounterStore();
+import { usePush } from "notivue";
 
+const push = usePush();
 let dateString = null;
 let date = null;
 let formattedDate = ref("");
@@ -19,9 +22,22 @@ onMounted(() => {
 });
 
 const updateProfile = async () => {
-  const response = await axios.patch("/usersmodule/updateProfile", { description: description.value });
+  const response = await axios.patch("/usersmodule/updateProfile", { description: description.value })
+  .catch((error) => {
+    push.error({
+      title: "Error",
+      message: "Fallo al actulizar",
+    });
+  })
+  if(response.data){
+    push.success({
+        title: "Actulizacion",
+        message: "Perfil Actulizado correctamente",
+      });
+  }
   localStorage.setItem("vinc-jwt", response.data);
-  console.log(response.data);
+  // console.log(response.data);
+  
   // console.log(response);
 };
 </script>
@@ -41,9 +57,9 @@ const updateProfile = async () => {
           <img class="editProfile__album-img" :src="userStore.user.pictures[1]?.url" alt="" />
         </div>
       </div>
-      <div class="editProfile__btn">
+      <!-- <div class="editProfile__btn">
         <button class="editProfile__btn-add">Cambiar Fotos</button>
-      </div>
+      </div> -->
       <div></div>
       <div class="editProfile__info">
         <p class="editProfile__txt">Informacion Basica</p>
@@ -102,6 +118,7 @@ const updateProfile = async () => {
       outline: solid 5px $primary-color;
       border: solid 2px #fff;
       max-width: 200px;
+      max-height: 200px;
     }
     &-img {
       width: 100%;
@@ -227,8 +244,8 @@ const updateProfile = async () => {
   .editProfile__wrapper {
     width: 55%;
     height: 95%;
-    border: #c3bebe7c solid 2px;
-    box-shadow: 0px 5px 15px #9e9c9c8d;
+    // box-shadow: 0px 5px 15px #9e9c9c8d;
+    box-shadow: #000 0px 5px 10px;
     margin: auto;
     border-radius: 20px;
   }

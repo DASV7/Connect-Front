@@ -178,7 +178,8 @@ const handleTouchEnd = (event) => {
 
       <!-- Buttons actions-->
       <div v-if="props.hiddeActions != false" class="homeVinc__buttonsAction">
-        <button class="homeVinc__buttonsAction-button" v-for="(item, index) of buttonsActions" :key="index" @click="$emit(item.action, userCard)">
+        <button class="homeVinc__buttonsAction-button" v-for="(item, index) of buttonsActions" :key="index" 
+        @click="$emit(item.action, userCard)">
           <i class="homeVinc__buttonsAction-icon" :class="item.icon"></i>
         </button>
       </div>

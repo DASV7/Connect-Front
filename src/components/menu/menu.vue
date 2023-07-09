@@ -7,7 +7,7 @@ const activeRote = ref();
 onMounted(() => {});
 
 const routers = [
-  { path: "/functionsapp", icon: "fa fa-video-camera" },
+  { path: "/functionsapp", icon: "fa-solid fa-video" },
   { path: "/likes", icon: "fa fa-eye" },
   { path: "/histories", icon: "fa fa-eercast" },
   { path: "/home", icon: "fa fa-handshake-o" },

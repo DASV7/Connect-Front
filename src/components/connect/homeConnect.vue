@@ -48,7 +48,9 @@ const sendDislike = async (user) => {
   isLoading.value = false;
 };
 
-const sendMessage = async (user) => {};
+const sendMessage = async (user) => {
+  router.push('/premium')
+};
 
 onMounted(() => {
   const isNew = router.currentRoute.value.query.reg;

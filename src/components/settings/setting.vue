@@ -4,8 +4,15 @@
     <button class="profileUser__header-btn" @click="closeSesion()">
       <i class="fa fa-sign-out" aria-hidden="true"></i>
     </button>
-    <button @click="deleteAccount()">Delete Account</button>
   </div>
+  <p>x</p>
+  <p>x</p>
+  <p>x</p>
+  <p>x</p>
+  <p>x</p>
+  <p>x</p>
+  <p>x</p>
+  <button @click="deleteAccount()">Delete Account</button>
 </template>
 
 <script setup>
