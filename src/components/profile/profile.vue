@@ -206,8 +206,8 @@ const hereFor = {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  height: 112%;
+  // width: 100%;
+  // height: 112%;
   margin-top: 20px;
 
   &__vinc {
@@ -225,11 +225,12 @@ const hereFor = {
 
     &-tittle {
       @include flexCenter;
-      width: 90%;
+      width: 80%;
       height: 35px;
       border-radius: 20px;
       background-color: #ffffff;
       max-width: 270px;
+      margin-top: 10px;
     }
     &-logo {
       width: 90px;
@@ -255,7 +256,7 @@ const hereFor = {
       margin-bottom: 10px;
     }
     &-btn {
-      width: 100%;
+      width: 80%;
       height: 35px;
       border: solid 3px #fff;
       background-color: #50bded;
