@@ -22,14 +22,17 @@ const isLoading = ref(false);
 const push = usePush();
 
 const loginUser = async () => {
+
   if (isLoading.value) return;
   isLoading.value = true;
+ 
   const user = await axios.post("/usersmodule/login", userData.value).catch((error) => {
     push.error({
       title: "Ocurrio un error",
       message: "Correo o contraseña incorrectos",
     });
   });
+  
   isLoading.value = false;
   if (user?.data?.data?.data) {
     push.success({

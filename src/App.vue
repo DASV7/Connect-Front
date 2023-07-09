@@ -22,10 +22,10 @@ const EventUser = new EventEmittler();
 
 const userStore = useCounterStore();
 
-const isPreferencesView = computed(() => fullPath.value.includes("/preferences"));
+const isPreferencesView = computed(() => fullPath.value.includes("/preferences") || fullPath.value.includes("/premium"));
 
 const routePermission = computed(() => {
-  const diferents = ["/", "/Register", "/JoinLogin", "/preferences"];
+  const diferents = ["/", "/Register", "/JoinLogin", "/preferences", "/premium"];
   return !diferents.includes(fullPath.value.split("?")[0]);
 });
 
@@ -91,7 +91,7 @@ onUnmounted(() => {
     v-if="!isLoading"
     class="mainApp__routerView"
     :class="`${!routePermission ? '' : 'mainApp__routerView-margin-left'} 
-  ${isPreferencesView ? 'mainApp__routerView-full-height' : ''}`"
+    ${isPreferencesView ? 'mainApp__routerView-full-height' : ''}`"
   >
     <transition name="slide-fade" v-if="routePermission">
       <component :is="'router-view'"></component>
