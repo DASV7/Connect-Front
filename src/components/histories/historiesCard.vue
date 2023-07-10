@@ -7,7 +7,7 @@ const props = defineProps(["user"]);
 <template>
   <div class="historiesCard__multimedia">
     <div v-for="(item, index) in 40" :key="index" class="historiesCard__multimedia-card">
-      <img class="historiesCard__multimedia-img" src="https://www.clarin.com/img/2022/01/18/hbk6uZTaw_720x0__1.jpg" alt="" />
+      <img class="historiesCard__multimedia-img" src="https://upload.wikimedia.org/wikipedia/commons/c/c2/Anime_Girl.svg" alt="" />
       <div class="historiesCard__multimedia-play">
         <i class="fa-solid fa-play"></i>
       </div>
