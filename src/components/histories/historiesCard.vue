@@ -1,12 +1,13 @@
 <script setup>
 import { ref, defineProps } from "vue";
 const props = defineProps(["user"]);
+
 </script>
 
 <template>
   <div class="historiesCard__multimedia">
-    <div v-for="(item, index) in 20" :key="index" class="historiesCard__multimedia-card">
-      <img class="historiesCard__multimedia-img" src="https://upload.wikimedia.org/wikipedia/commons/c/c2/Anime_Girl.svg" alt="" />
+    <div v-for="(item, index) in 15" :key="index" class="historiesCard__multimedia-card">
+      <img class="historiesCard__multimedia-img" src="https://www.clarin.com/img/2022/01/18/hbk6uZTaw_720x0__1.jpg" alt="" />
       <div class="historiesCard__multimedia-play">
         <i class="fa-solid fa-play"></i>
       </div>
@@ -53,6 +54,7 @@ const props = defineProps(["user"]);
       width: 150px;
       height: 180px;
       position: absolute;
+
     }
   }
   &__info {
@@ -81,13 +83,13 @@ const props = defineProps(["user"]);
     min-width: 295px;
   }
 }
-@media screen and (max-width: 668px) {
+@media screen and (max-width: 668px) { 
   .historiesCard__multimedia-play,
   .historiesCard__multimedia-card {
     width: 250px;
   }
 }
-@media screen and (min-width: 668px) {
+@media screen and (min-width: 668px) { 
   .historiesCard__multimedia-play,
   .historiesCard__multimedia-card {
     width: 250px;
