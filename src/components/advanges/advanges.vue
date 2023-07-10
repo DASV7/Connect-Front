@@ -97,10 +97,10 @@ const advantages = [
     
   
     &-cont {
-      color:  #999724;
+      color:  #d4d11f7a;
   }
     &-cont2 {
-      color:  #999724;
+      color:  #d4d11f7a;
   }
     &-target {
       display: flex;
