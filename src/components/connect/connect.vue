@@ -81,32 +81,33 @@ const changeModal = () => {
   showModal.value = !showModal.value;
 };
 
-/*const touchStart = (event) => {
+// const touchStart = (event) => {
 
-  startTouch.value = event.touches[0].clientX;
-};
+//   startTouch.value = event.touches[0].clientX;
+// };
 
-const touchMove = (event) => {
-  touchCurrentX.value = event.touches[0].clientX;
-  let touchDiff = touchCurrentX.value - startTouch.value;
-  const card = document.querySelector(".homeVinc");
-  card.style.transform = `translateX(${touchDiff + 20}px)`;
-};
+// const touchMove = (event) => {
+//   touchCurrentX.value = event.touches[0].clientX;
+//   let touchDiff = touchCurrentX.value - startTouch.value;
+//   const card = document.querySelector(".homeVinc");
+//   card.style.transform = `translateX(${touchDiff + 20}px)`;
+// };
 
-const handleTouchEnd = (event) => {
-  touchEndX.value = event.changedTouches[0].clientX;
-  let touchDiff = touchEndX.value - startTouch.value;
-  const card = document.querySelector(".homeVinc");
+// const handleTouchEnd = (event) => {
+//   touchEndX.value = event.changedTouches[0].clientX;
+//   let touchDiff = touchEndX.value - startTouch.value;
+//   const card = document.querySelector(".homeVinc");
 
-  if (touchDiff > 100) {
-    card.classList.add("like");
-  } else if (touchDiff < -100) {
-    card.classList.add("dislike");
-  }
+//   if (touchDiff > 100) {
+//     card.classList.add("like");
+//   } else if (touchDiff < -100) {
+//     card.classList.add("dislike");
+//   }
 
-  card.style.transform = "";
-@touchstart="touchStart($event)" @touchmove="touchMove($event)" @touchend="handleTouchEnd($event)"
-};*/
+//   card.style.transform = "";
+// // @touchstart="touchStart($event)" @touchmove="touchMove($event)" @touchend="handleTouchEnd($event)"
+// };
+
 function getIcon(index) {
   return preferencesUser[index].icon;
 }

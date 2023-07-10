@@ -23,18 +23,44 @@ let planPremium = ref([
 let showPay = ref(false);
 let monthPay = ref(null);
 let moneyPay = ref(null);
+const scrollContainer = ref(null);
 function payPremium(month, money) {
   showPay.value = !showPay.value;
   monthPay.value = month;
   moneyPay.value = money;
 }
 function closePay() {
-  showPay.value = !showPay.value
+  showPay.value = !showPay.value;
+}
+
+let position = ref({
+  isScrolling: false,
+  startX: 0,
+  scrollLeft: 0,
+});
+
+function startScroll(event) {
+  console.log("esta");
+  position.value.isScrolling = true;
+  position.value.startX = event.pageX - event.target.offsetLeft;
+  position.value.scrollLeft = event.target.scrollLeft;
+  console.log(position.value.startX);
+}
+
+function handleScroll(event) {
+  if (!position.value.isScrolling) return;
+  event.preventDefault();
+  const x = event.pageX - scrollContainer.value.offsetLeft;
+  const walk = (x - position.value.startX) * 3; // Ajusta la velocidad del desplazamiento
+  scrollContainer.value.scrollLeft = position.value.scrollLeft + walk;
+}
+function endScroll() {
+  position.value.isScrolling = false;
 }
 </script>
 
 <template>
-  <div class="premium" >
+  <div class="premium" scrollDefault>
     <div v-if="showPay" @click="closePay()" class="premium__fullScreen"></div>
     <div class="premium__container" scrollDefault>
       <!-- Header -->
@@ -52,11 +78,19 @@ function closePay() {
       <!-- texto -->
       <div class="premium__text">
         <p>Es tres veces mas probable que consigas un Match, destacate con Super LIke.</p>
+        <span>Selceciona un plan:</span>
       </div>
-      <span>Selceciona un plan:</span>
 
       <!-- Card Premium -->
-      <div class="premium__card" scrollDefault>
+      <div
+        scrollDefault
+        class="premium__card"
+        ref="scrollContainer"
+        @mousedown="startScroll($event)"
+        @mousemove="handleScroll($event)"
+        @mouseup="endScroll($event)"
+        @mouseleave="endScroll($event)"
+      >
         <div v-for="(item, index) in planPremium" :key="index" @click="payPremium(item.month, item.money)" class="premium__card-item">
           <p>{{ item.month }} <i class="fa fa-check" aria-hidden="true"></i></p>
           <span>$ {{ item.money }} al mes</span>
@@ -93,13 +127,7 @@ function closePay() {
     height: 100vh;
     position: absolute;
   }
-  span {
-    margin-top: 30px;
-    font-size: 13px;
-    font-weight: 700;
-    padding-left: 10px;
-    color: #625f5f;
-  }
+
   &__container {
     display: flex;
     flex-direction: column;
@@ -114,7 +142,6 @@ function closePay() {
   &__header {
     display: flex;
     height: 60px;
-    background: linear-gradient(to bottom, rgba(113, 113, 113, 0.214), rgba(255, 255, 255, 0.2));
 
     &-btnBack {
       background-color: transparent;
@@ -137,7 +164,14 @@ function closePay() {
   &__text {
     margin-top: 20px;
     width: 80%;
+    padding-left: 10px;
 
+    span {
+      margin-top: 30px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #625f5f;
+    }
     p {
       text-align: left;
       font-size: 18px;
@@ -145,7 +179,6 @@ function closePay() {
       font-weight: 600;
       // color: rgb(37, 224, 224);
       color: #000;
-      padding-left: 10px;
       margin-bottom: 10px;
     }
   }
@@ -192,7 +225,7 @@ function closePay() {
   &__advanges {
     display: flex;
     justify-content: center;
-    margin: auto;
+    // margin: auto;
     border-top: 2px solid #b8b5b588;
   }
 
@@ -227,4 +260,67 @@ function closePay() {
     }
   }
 }
+@media screen and (min-width: 500px) {
+  * {
+    margin: 0%;
+  }
+  .premium {
+    display: flex;
+    width: 50%;
+    height: 95%;
+    margin: auto;
+    border-radius: 20px;
+    box-shadow: #919090 0px 0px 20px 5px;
+    margin-top: 20px;
+    // overflow: hidden;
+
+    &__pay {
+      width: 50%;
+    }
+    // span {
+    //   margin: 0%;
+    // }
+    &__container {
+      margin: auto;
+      overflow-y: scroll;
+    }
+    &__card {
+      // justify-content: center;
+      // flex-wrap: wrap;
+      // height: 337px;
+      // overflow-y: auto;
+      // margin: 0%;
+      // padding: 0%;
+    }
+    &__text {
+      // margin: auto;
+    }
+  }
+}
+// @media screen and (min-width: 810px) {
+//   .premium {
+
+//     &__card {
+//       width: 800px;
+//       margin: auto;
+//     }
+//   }
+
+// }
+// @media screen and (min-width: 1100px) {
+//   .premium {
+//     &__advanges {
+//       border: none;
+//     }
+//     &__text {
+//       width: auto;
+//     }
+//     &__card {
+//       width: 100%;
+//       margin: auto;
+//       height: auto;
+//       margin-top: 30px;
+//     }
+//   }
+// }
 </style>
