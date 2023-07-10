@@ -3,6 +3,7 @@ import { ref, onMounted } from "vue";
 import CardUser from "./cardUserHistories.vue";
 import modalBottom from "../shared/modalBottom.vue";
 import { useCounterStore } from "../../store/users";
+import historiesCard from "./historiesCard.vue";
 import axios from "../../api/axios";
 const showModal = ref(false);
 const userStore = useCounterStore();
@@ -63,9 +64,12 @@ onMounted(() => {
 </script>
 <template>
   <section class="historiesView">
-    <div class="historiesView__wrapper">
+    <div class="historiesView__tittle">
+      
       <img class="historiesView__img" src="../../../public/svgLogoComplete.svg" alt="" srcset="" />
       <div><p>Cuentas que Sigues</p></div>
+    </div>
+    <div class="historiesView__wrapper">
       <div class="historiesView__header">
         <div class="historiesView__header-fix" @click="changeStatusModal()">
           <i class="fa fa-plus-circle" aria-hidden="true"></i>
@@ -107,19 +111,27 @@ onMounted(() => {
         </form>
       </template>
     </modalBottom>
+
+    <!-- Card Video -->
+    <historiesCard></historiesCard>
+
   </section>
 </template>
 <style lang="scss">
 .historiesView {
   width: 100%;
   height: 100%;
-
+  &__tittle {
+    @include Column;
+    margin-bottom: 10px;
+  }
   &__wrapper {
-    width: 100%;
-    height: 100%;
     display: flex;
-    align-items: center;
+    // padding-left: 10px;
     flex-direction: column;
+    align-items: center;
+    width: 100%;
+    // height: 100%;
   }
 
   &__img {
@@ -146,7 +158,7 @@ onMounted(() => {
       display: flex;
       align-items: center;
       justify-content: center;
-      position: fixed;
+      // position: fixed;
       border-radius: 50%;
       border: 10px;
       width: 50px;
@@ -163,6 +175,8 @@ onMounted(() => {
       padding: 2px;
     }
   }
+
+ 
 }
 
 .creationHistories {

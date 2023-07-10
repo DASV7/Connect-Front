@@ -44,7 +44,7 @@ function startScroll(event) {
   position.value.isScrolling = true;
   position.value.startX = event.pageX - event.target.offsetLeft;
   position.value.scrollLeft = event.target.scrollLeft;
-  console.log(position.value.startX);
+  // console.log(position.value.startX);
 }
 
 function handleScroll(event) {
@@ -60,6 +60,7 @@ function endScroll() {
 </script>
 
 <template>
+  
   <div class="premium" scrollDefault>
     <div v-if="showPay" @click="closePay()" class="premium__fullScreen"></div>
     <div class="premium__container" scrollDefault>

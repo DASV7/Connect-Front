@@ -65,7 +65,6 @@ onMounted(() => {
 <template>
   <div class="homeConnect">
     <div class="homeConnect__header">
-      <p>Encuentros</p>
       <img class="homeConnect__img" src="../../../public/svgLogoComplete.svg" alt="" srcset="" />
       <div class="homeConnect__header-icons">
         <i class="fa fa-undo" aria-hidden="true"></i>
@@ -125,8 +124,6 @@ onMounted(() => {
 
   &__img {
     width: 98px;
-    position: relative;
-    left: -25px;
     margin: 5px 0;
   }
   &__header {
@@ -162,10 +159,23 @@ onMounted(() => {
     width: 94%;
   }
 }
+@media screen and (min-width: 450px) {
+  .homeVinc__userInfo-user {
+    margin-left: 30px;
+  }
+}
 @media screen and (min-width: 650px) {
   .homeConnect__content {
     height: 92vh;
   }
+  .homeConnect__header {
+    width: 400px;
+    margin: auto;
+  }
+  .homeVinc__userInfo-user {
+    margin-left: 1px;
+  }
+
 }
 @media screen and (max-width: 1024px) {
   .homeConnect__content {

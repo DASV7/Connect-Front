@@ -66,12 +66,7 @@ const buttonsActions = [
   { text: "Mensaje", icon: "fa fa-paper-plane", action: "message" },
   { text: "Like", icon: "fa fa-heart-o", action: "like" },
 ];
-const preferencesUser = [
-  { icon: "fa-solid fa-heart" }, 
-  { icon: "fa-solid fa-baby" }, 
-  { icon: "fa-solid fa-ruler" }, 
-  { icon: "fa-solid fa-paw" }, 
-  { icon: "fa-solid fa-language" }];
+const preferencesUser = [{ icon: "fa-solid fa-heart" }, { icon: "fa-solid fa-baby" }, { icon: "fa-solid fa-ruler" }, { icon: "fa-solid fa-paw" }, { icon: "fa-solid fa-language" }];
 let startTouch = ref(null);
 let touchEndX = ref(null);
 const showModal = ref(false);
@@ -185,9 +180,11 @@ function getIcon(index) {
 
       <!-- Buttons actions-->
       <div v-if="props.hiddeActions != false" class="homeVinc__buttonsAction">
-        <button class="homeVinc__buttonsAction-button" v-for="(item, index) of buttonsActions" :key="index" @click="$emit(item.action, userCard)">
-          <i class="homeVinc__buttonsAction-icon" :class="item.icon"></i>
-        </button>
+        <div class="homeVinc__buttonsAction-wrapper">
+          <button class="homeVinc__buttonsAction-button" v-for="(item, index) of buttonsActions" :key="index" @click="$emit(item.action, userCard)">
+            <i class="homeVinc__buttonsAction-icon" :class="item.icon"></i>
+          </button>
+        </div>
       </div>
       <!-- Buttons actions-->
 
@@ -251,7 +248,9 @@ v-for="(item, index) of userCard?.pictures"
     right: 0;
     left: 0;
     cursor: pointer;
-
+    background-color: transparent;
+    // &-wrapper {
+    // }
     &-button {
       background-color: #f9f9f9;
       border: 1px solid $primary-color;
