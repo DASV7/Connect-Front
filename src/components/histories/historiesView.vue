@@ -3,40 +3,62 @@ import { ref, onMounted } from "vue";
 import CardUser from "./cardUserHistories.vue";
 import modalBottom from "../shared/modalBottom.vue";
 import { useCounterStore } from "../../store/users";
-
+import axios from "../../api/axios";
 const showModal = ref(false);
 const userStore = useCounterStore();
 const usersCard = ref([]);
+const selectedFile = ref();
+const emojiSelect = ref();
+const emojis = ["😊 Alegre", "😭 triste", "🥶 Con frio", "🌞 Con Calor", "🥺 Preguntame ", "🤭  No lo dire", "😴 Tengo sueño", "🥴 Con hambre", "💪 Modo Gim"];
+const description = ref("");
+const selectEmoji = (index) => {
+  emojiSelect.value = emojis[index];
+};
 const changeStatusModal = () => {
   showModal.value = !showModal.value;
 };
+
+const handleFileUpload = (event, index) => {
+  const file = event.target.files[0];
+  if (file) {
+    selectedFile.value = file;
+    const previewImage = document.getElementById("imageHistories");
+
+    const reader = new FileReader();
+    reader.addEventListener("load", (event) => {
+      previewImage.src = event.target.result;
+    });
+
+    reader.readAsDataURL(file);
+  }
+};
+
+const sendHistory = async () => {
+  let formData = new FormData();
+  formData.append("description", description.value);
+  formData.append("histories", selectedFile.value);
+  formData.append("status", emojiSelect.value);
+  const data = await axios
+    .post("/histories/create", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+    .catch((error) => {
+      isCreatingUser.value = false;
+      Swal.fire({
+        icon: "error",
+        title: "Ocurrio un error",
+        text: "No se ha subido Tu historia",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    });
+  token = data;
+};
+
 onMounted(() => {
-  usersCard.value = [
-    userStore.user,
-    userStore.user,
-    userStore.user,
-    userStore.user,
-    userStore.user,
-    userStore.user,
-    userStore.user,
-    userStore.user,
-    userStore.user,
-    userStore.user,
-    userStore.user,
-    userStore.user,
-    userStore.user,
-    userStore.user,
-    userStore.user,
-    userStore.user,
-    userStore.user,
-    userStore.user,
-    userStore.user,
-    userStore.user,
-    userStore.user,
-    userStore.user,
-    userStore.user,
-    userStore.user,
-  ];
+  usersCard.value = [userStore.user, userStore.user, userStore.user, userStore.user, userStore.user, userStore.user];
 });
 </script>
 <template>
@@ -50,7 +72,7 @@ onMounted(() => {
         </div>
         <div class="historiesView__header-column" scrollDefault>
           <div class="historiesView__header-item slideInDown" scrollDefault v-if="usersCard.length">
-            <CardUser  v-for="(user, index) in usersCard" :key="index" :user="user"></CardUser>
+            <CardUser v-for="(user, index) in usersCard" :key="index" :user="user"></CardUser>
           </div>
         </div>
       </div>
@@ -62,23 +84,25 @@ onMounted(() => {
           <div class="creationHistories">
             <div class="creationHistories__multimedia">
               <p>¡Sube una imagen y comparte cómo te sientes con el mundo!</p>
-              <label class="creationHistories__multimedia-label" for="multimedia"><i class="fa fa-plus" aria-hidden="true"></i> </label>
-              <input v-show="false" type="file" id="multimedia" multiple="false" />
+              <label class="creationHistories__multimedia-label" for="multimedia"
+                ><i class="fa fa-plus" aria-hidden="true" v-if="!selectedFile"></i>
+                <img id="imageHistories" src="#" alt="Previsualizacion Imagen" v-show="selectedFile" />
+              </label>
+              <input @change="handleFileUpload($event)" v-show="false" type="file" id="multimedia" multiple="false" accept="image/*" />
 
               <label for="description"> Agrega una breve descripcion :</label>
-              <u>No se pemiten mensajes ofensivos o inapropiados</u>
-              <input name="description" type="text" id="description" />
+              <u class="creationHistories__litte">No se pemiten mensajes ofensivos o inapropiados</u>
+              <input class="creationHistories__input" name="description" placeholder="Descripción" v-model="description" type="text" id="description" />
             </div>
             <div class="creationHistories__status">
               <label for="description"> Estado de animo :</label>
               <div class="creationHistories__status-item" scrollDefault>
-                <span>😊 Alegre</span>
-                <span>😭 triste</span>
-                <span>🥶 Con frio</span>
-                <span>🌞 Con Calor</span>
-                <span>🥺 Preguntame </span>
+                <span @click="selectEmoji(index)" v-for="(item, index) in emojis" :key="index" :class="emojiSelect == item ? 'creationHistories__status-active' : ''">{{
+                  item
+                }}</span>
               </div>
             </div>
+            <button class="creationHistories__button" :disabled="!selectedFile || !emojiSelect || !description">Guardar</button>
           </div>
         </form>
       </template>
@@ -144,6 +168,7 @@ onMounted(() => {
 .creationHistories {
   width: 100%;
   display: flex;
+  justify-content: center;
   flex-direction: column;
 
   &__multimedia {
@@ -152,8 +177,8 @@ onMounted(() => {
     gap: 10px;
 
     &-label {
-      width: 40px;
-      height: 40px;
+      width: 50px;
+      height: 50px;
       border-radius: 10px;
       border: 1px solid #000;
       display: flex;
@@ -163,30 +188,61 @@ onMounted(() => {
       cursor: pointer;
     }
   }
+  &__button {
+    display: flex;
+    justify-content: center;
+    background-color: $primary-color;
+    text-align: center;
+    border-radius: 10px;
+    font-weight: bold;
+    border: none;
+    color: white;
+    height: 20px;
+    margin-top: 10px;
+  }
+  &__litte {
+    font-size: 10px;
+    margin-top: -10px;
+  }
+  &__input {
+    border: 1px solid $primary-color;
+    border-radius: 10px;
+    height: 20px;
+    padding: 5px;
+    outline: none;
+  }
   &__status {
     display: flex;
     flex-direction: column;
     width: 100%;
-
     gap: 10px;
     &-item {
+      display: flex;
+      flex-wrap: wrap;
       overflow-x: auto;
       overflow-y: hidden;
-      display: flex;
       gap: 10px;
       span {
         border: 1px solid $primary-color;
         padding: 5px;
-        min-width: 120px;
+        margin-top: 5px;
+        width: 120px;
         height: 20px;
         border-radius: 10px;
         cursor: pointer;
-        width: auto;
         gap: 10px;
         display: flex;
         flex-wrap: nowrap;
       }
     }
+    &-active {
+      background-color: $primary-color;
+    }
   }
+}
+#imageHistories {
+  width: 49px;
+  height: 49px;
+  border-radius: 10px;
 }
 </style>

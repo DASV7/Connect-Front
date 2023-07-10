@@ -178,12 +178,7 @@ const prevtvalue = () => {
           <input type="email" class="flowRegister__form-input" placeholder="Correo Electronico" v-model="userNew.email" @input="validTypeEmail()" />
         </div>
         <div class="flowRegister__form-group" v-if="indexReg == 4">
-          <input
-            type="text"
-            class="flowRegister__form-input"
-            placeholder="Descripcion: Ejm..'Soy un estudiante Apasionado...'"            
-            v-model="userNew.description"
-          />
+          <input type="text" class="flowRegister__form-input" placeholder="Descripcion: Ejm..'Soy un estudiante Apasionado...'" v-model="userNew.description" />
         </div>
         <div class="flowRegister__form-group" v-if="indexReg == 5">
           <input type="password" class="flowRegister__form-input" placeholder="Contraseña" v-model="userNew.password" @input="passwordComplete()" />
@@ -193,13 +188,13 @@ const prevtvalue = () => {
             <img id="image" src="#" alt="Previsualizacion Imagen" v-show="selectedFile[0]" />
             <i class="fa-solid fa-camera-retro"></i
           ></label>
-          <input v-show="false" @change="handleFileUpload($event, 0)" type="file" id="img" class="flowRegister__form-input" placeholder="Img1" accept="image/*" />
+          <input v-show="false" @change="handleFileUpload($event, 0)" type="file" id="img" multiple="false" class="flowRegister__form-input" placeholder="Img1" accept="image/*" />
           <label class="flowRegister__picture" for="img2">
             <img id="image1" src="#" alt="Previsualizacion Imagen" class="flowRegister__picture" v-show="selectedFile[1]" />
 
             <i class="fa-solid fa-camera-retro"></i
           ></label>
-          <input v-show="false" @change="handleFileUpload($event, 1)" id="img2" type="file" class="flowRegister__form-input" placeholder="img2" accept="image/*" />
+          <input v-show="false" @change="handleFileUpload($event, 1)" multiple="false"  id="img2" type="file" class="flowRegister__form-input" placeholder="img2" accept="image/*" />
         </div>
       </div>
       <div class="flowRegister__button">
@@ -353,5 +348,4 @@ const prevtvalue = () => {
     justify-content: center;
   }
 }
-
 </style>
