@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, onUnmounted } from "vue";
 import { useSocketStore } from "../../store/socketStore";
 
 const textStatus = ref("");
@@ -36,18 +36,33 @@ const loadCamera = function (stream) {
   setInterval(verVideo, 10);
 };
 
+const videoTracks = ref(null);
 const loadCamerainfo = () => {
   navigator.getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.getUserMedia;
   if (navigator.getUserMedia) {
     navigator.getUserMedia(
       { video: true },
       (stream) => {
+        videoTracks.value = stream;
         loadCamera(stream);
       },
       errorCamara
     );
   }
 };
+
+function desactivarCamara() {
+  if (videoTracks.value) {
+    const video = videoTracks.value.getVideoTracks();
+    video.forEach(function (track) {
+      track.stop();
+    });
+  }
+}
+
+onUnmounted(() => {
+  desactivarCamara();
+});
 
 const errorCamara = () => {
   textStatus.value = "Error EN la camara";
