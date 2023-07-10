@@ -5,6 +5,8 @@ import modalBottom from "../shared/modalBottom.vue";
 import { useCounterStore } from "../../store/users";
 import historiesCard from "./historiesCard.vue";
 import axios from "../../api/axios";
+import viewHistoriesModal from "./viewHistoriesModal.vue";
+
 const showModal = ref(false);
 const userStore = useCounterStore();
 const usersCard = ref([]);
@@ -61,11 +63,22 @@ const sendHistory = async () => {
 onMounted(() => {
   usersCard.value = [userStore.user, userStore.user, userStore.user, userStore.user, userStore.user, userStore.user];
 });
+
+let showViewHistories = ref(false);
+const changesStatus = () => {
+  showViewHistories.value = !showViewHistories.value;
+};
+// function closeOnClick() {
+//   showViewHistories.value = false;
+// }
+const openModal = (user) => {
+  showViewHistories.value= true
+};
 </script>
 <template>
   <section class="historiesView">
+    <viewHistoriesModal   :showModal="showViewHistories" @closeModal="changesStatus()"></viewHistoriesModal>
     <div class="historiesView__tittle">
-      
       <img class="historiesView__img" src="../../../public/svgLogoComplete.svg" alt="" srcset="" />
       <div><p>Cuentas que Sigues</p></div>
     </div>
@@ -113,8 +126,9 @@ onMounted(() => {
     </modalBottom>
 
     <!-- Card Video -->
-    <historiesCard></historiesCard>
-
+    <div class="historiesView__component">
+      <historiesCard @changeModal="openModal($event)"></historiesCard>
+    </div>
   </section>
 </template>
 <style lang="scss">
@@ -142,7 +156,7 @@ onMounted(() => {
   &__header {
     display: flex;
     gap: 5px;
-    width: 90%;
+    width: 65%;
     background-color: #009eff47;
     border-radius: 10px;
     padding: 5px;
@@ -175,8 +189,11 @@ onMounted(() => {
       padding: 2px;
     }
   }
-
- 
+  &__component {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
 }
 
 .creationHistories {

@@ -1,3 +1,7 @@
+<script setup>
+const props = defineProps(["showModal"]);
+</script>
+
 <template>
   <div class="politicsModal" v-if="props.showModal">
     <div class="politicsModal__container">
@@ -104,9 +108,6 @@
   </div>
 </template>
 
-<script setup>
-const props = defineProps(["showModal"]);
-</script>
 
 <style lang="scss">
 .politicsModal {
