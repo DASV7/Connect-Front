@@ -46,7 +46,7 @@ onUnmounted(() => {
     justify-content: center;
     align-items: center;
     width: 98%;
-    height: 70%;
+    height: 80%;
     max-width: 800px;
     max-width: 700px;
     position: absolute;
@@ -63,6 +63,7 @@ onUnmounted(() => {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
     object-fit: cover;
+    margin-top: 20px;
   }
 
   &__content {
@@ -73,7 +74,7 @@ onUnmounted(() => {
 .fa-window-close {
   z-index: 2;
   position: absolute;
-  top: 20px;
+  top: 10px;
   right: 20px;
   cursor: pointer;
   font-size: 30px;

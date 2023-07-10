@@ -7,15 +7,23 @@ export const state = reactive({
     barEvents: []
 });
 
-// "undefined" means the URL will be computed from the `window.location` object
 const URL = import.meta.env.VITE_SOCKET || "http://localhost:5500";
 
-export const socket = io(URL, {
+export let socket = io(URL, {
     auth: {
-        "user": jwtDecode(localStorage.getItem("vinc-jwt")) || null
-    }
-
+        "user": localStorage.getItem("vinc-jwt") ? jwtDecode(localStorage.getItem("vinc-jwt")) : null
+    },
+    autoConnect: true,
 });
+
+export const socketInitManual = () => {
+    socket = io(URL, {
+        auth: {
+            "user": localStorage.getItem("vinc-jwt") ? jwtDecode(localStorage.getItem("vinc-jwt")) : null
+        },
+        autoConnect: true
+    })
+}
 
 socket.on("connect", () => {
     state.connected = true;

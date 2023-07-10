@@ -35,7 +35,7 @@ onMounted(() => {
     restarPorcentaje(5000, 50);
     setTimeout(() => {
       notification.value = null;
-    }, 3000);
+    }, 5000);
   });
 });
 </script>
