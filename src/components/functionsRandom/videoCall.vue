@@ -8,14 +8,13 @@ const video = ref(null);
 const canvas = ref(null);
 const context = ref(null);
 
+const localVideoContainer = ref(null);
+const remoteVideoContainer = ref(null);
 onMounted(() => {
   startVideoChat();
 });
 let localStream;
 function startVideoChat() {
-  const localVideoContainer = document.getElementById("localVideoContainer");
-  const remoteVideoContainer = document.getElementById("remoteVideoContainer");
-
   const room = "room1"; // Nombre de la sala
 
   socket.emit("join", room);
@@ -31,7 +30,7 @@ function startVideoChat() {
       localVideoElement.srcObject = localStream;
       localVideoElement.play();
 
-      localVideoContainer.appendChild(localVideoElement);
+      localVideoContainer.value.appendChild(localVideoElement);
 
       const pc = new RTCPeerConnection();
 
@@ -76,7 +75,7 @@ function startVideoChat() {
         remoteVideoElement.srcObject = event.stream;
         remoteVideoElement.play();
 
-        remoteVideoContainer.appendChild(remoteVideoElement);
+        remoteVideoContainer.value.appendChild(remoteVideoElement);
       };
     })
     .catch((error) => {
@@ -110,10 +109,10 @@ onUnmounted(() => {
           <div class="videoCall__videoContainer">
             <div class="videoCall__containerVideo">
               <div class="videoCall__imgOne">
-                <div id="localVideoContainer"></div>
+                <div id="localVideoContainer" ref="localVideoContainer"></div>
               </div>
               <div class="videoCall__imgTwo">
-                <div id="localVideoContainer"></div>
+                <div id="remoteVideoContainer" ref="remoteVideoContainer"></div>
               </div>
             </div>
           </div>
