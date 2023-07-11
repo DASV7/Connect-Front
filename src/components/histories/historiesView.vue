@@ -72,12 +72,12 @@ const changesStatus = () => {
 //   showViewHistories.value = false;
 // }
 const openModal = (user) => {
-  showViewHistories.value= true
+  showViewHistories.value = true;
 };
 </script>
 <template>
   <section class="historiesView">
-    <viewHistoriesModal   :showModal="showViewHistories" @closeModal="changesStatus()"></viewHistoriesModal>
+    <viewHistoriesModal :showModal="showViewHistories" @closeModal="changesStatus()"></viewHistoriesModal>
     <div class="historiesView__tittle">
       <img class="historiesView__img" src="../../../public/svgLogoComplete.svg" alt="" srcset="" />
       <div><p>Cuentas que Sigues</p></div>
@@ -97,7 +97,7 @@ const openModal = (user) => {
     </div>
     <modalBottom :showModal="showModal" @changeModal="changeStatusModal()">
       <template v-slot:content>
-        <form>
+        <div>
           <div class="creationHistories">
             <div class="creationHistories__multimedia">
               <p>¡Sube una imagen y comparte cómo te sientes con el mundo!</p>
@@ -105,7 +105,7 @@ const openModal = (user) => {
                 ><i class="fa fa-plus" aria-hidden="true" v-if="!selectedFile"></i>
                 <img id="imageHistories" src="#" alt="Previsualizacion Imagen" v-show="selectedFile" />
               </label>
-              <input @change="handleFileUpload($event)" v-show="false" type="file" id="multimedia" multiple="false" accept="image/*" />
+              <input @change="handleFileUpload($event)" v-show="false" type="file" id="multimedia" multiple="false" />
 
               <label for="description"> Agrega una breve descripcion :</label>
               <u class="creationHistories__litte">No se pemiten mensajes ofensivos o inapropiados</u>
@@ -119,9 +119,9 @@ const openModal = (user) => {
                 }}</span>
               </div>
             </div>
-            <button class="creationHistories__button" :disabled="!selectedFile || !emojiSelect || !description">Guardar</button>
+            <button class="creationHistories__button" @click="sendHistory($event)" :disabled="!selectedFile || !emojiSelect || !description">Guardar</button>
           </div>
-        </form>
+        </div>
       </template>
     </modalBottom>
 
