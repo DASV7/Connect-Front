@@ -1,59 +1,124 @@
 <script setup>
-import { onMounted, ref, onUnmounted } from "vue";
+import { onMounted, ref, onUnmounted, watchEffect } from "vue";
 import { useSocketStore } from "../../store/socketStore";
-
+import { socket, state } from "../../socket/socket";
+import jwtDecode from "jwt-decode";
 const textStatus = ref("");
 const video = ref(null);
 const canvas = ref(null);
 const context = ref(null);
 
-const socketStore = useSocketStore();
+const localVideo = ref();
+const remoteVideo = ref();
+let localStream = ref(null);
+let remoteStream = ref(null);
+let peerConnection = ref();
+const stream = ref();
 onMounted(() => {
-  startCalls();
+  getMediaStream();
+  startSignaling();
+  startPeerConnection();
 });
 
-const startCalls = () => {
-  canvas.value = document.querySelector("#preview");
-  context.value = canvas.value.getContext("2d");
-  // canvas.value.width = 250;
-  // canvas.value.height = 250;
-  context.value.width = canvas.value.width;
-  context.value.height = canvas.value.height;
-  video.value = document.querySelector("#video");
-  loadCamerainfo();
-};
-const verVideo = () => {
-  // Dibuja el video en el canvas
-  context.value.drawImage(video.value, 0, 0, context.value.width, context.value.height);
-  // Emite el stream a través del socket
-  // socketStore.socket.emit("videoCall/streamVideoCall", canvas.value.toDataURL("image/webp"));
-};
-
-const loadCamera = function (stream) {
-  video.value.srcObject = stream;
-  textStatus.value = "Conecta";
-  // Inicia la transmisión de video
-  setInterval(verVideo, 10);
-};
-
-const videoTracks = ref(null);
-const loadCamerainfo = () => {
-  navigator.getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.getUserMedia;
-  if (navigator.getUserMedia) {
-    navigator.getUserMedia(
-      { video: true },
-      (stream) => {
-        videoTracks.value = stream;
-        loadCamera(stream);
-      },
-      errorCamara
-    );
+async function getMediaStream() {
+  try {
+    stream.value = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+    localStream.value = stream;
+    localVideo.value.srcObject = stream;
+  } catch (error) {
+    console.error("Error accessing media devices:", error);
   }
-};
+}
+function startSignaling() {
+  // Manejar el evento 'offer' cuando se recibe una oferta de conexión del servidor
+  socket.on("offer", (offer) => {
+    handleOffer(offer);
+  });
+
+  // Manejar el evento 'answer' cuando se recibe una respuesta de conexión del servidor
+  socket.on("answer", (answer) => {
+    handleAnswer(answer);
+  });
+
+  // Manejar el evento 'iceCandidate' cuando se recibe un candidato ICE del servidor
+  socket.on("iceCandidate", (candidate) => {
+    handleIceCandidate(candidate);
+  });
+}
+async function sendOffer(offer) {
+  socket.emit("offer", offer);
+}
+
+// Función para enviar una respuesta de conexión al servidor de señalización
+async function sendAnswer(answer) {
+  socket.emit("answer", answer);
+}
+
+// Función para enviar un candidato ICE al servidor de señalización
+async function sendIceCandidate(candidate) {
+  socket.emit("iceCandidate", candidate);
+}
+
+async function handleOffer(offer) {
+  await peerConnection.setRemoteDescription(offer);
+
+  const answer = await peerConnection.createAnswer();
+  await peerConnection.setLocalDescription(answer);
+
+  sendAnswer(answer);
+}
+
+// Función para manejar una respuesta de conexión recibida
+async function handleAnswer(answer) {
+  await peerConnection.setRemoteDescription(answer);
+}
+
+// Función para manejar un candidato ICE recibido
+async function handleIceCandidate(candidate) {
+  await peerConnection.addIceCandidate(candidate);
+}
+
+// Función para iniciar una conexión peer-to-peer
+async function startPeerConnection() {
+  try {
+    peerConnection = new RTCPeerConnection();
+
+    // Agregar las pistas de la cámara y el micrófono al objeto RTCPeerConnection
+    localStream.value?.getTracks().forEach((track) => {
+      peerConnection.addTrack(track, localStream.value);
+    });
+
+    // Establecer una función para manejar la llegada de la corriente remota
+    peerConnection.ontrack = (event) => {
+      remoteStream.value = event.streams[0];
+      remoteVideo.value.srcObject = remoteStream.value;
+    };
+
+    // Establecer una función para manejar los candidatos ICE salientes
+    peerConnection.onicecandidate = (event) => {
+      if (event.candidate) {
+        sendIceCandidate(event.candidate);
+      }
+    };
+
+    // Crear y enviar una oferta de conexión
+    const offer = await peerConnection.createOffer();
+    await peerConnection.setLocalDescription(offer);
+    sendOffer(offer);
+  } catch (error) {
+    console.error("Error starting peer connection:", error);
+  }
+}
+
+// Llamar a las funciones de inicio
+
+// onUnmounted(() => {
+//   socket.off("videoCall/random");
+// });
 
 function desactivarCamara() {
   if (videoTracks.value) {
-    const video = videoTracks.value.getVideoTracks();
+    const video = stream.value.getVideoTracks();
     video.forEach(function (track) {
       track.stop();
     });
@@ -63,10 +128,6 @@ function desactivarCamara() {
 onUnmounted(() => {
   desactivarCamara();
 });
-
-const errorCamara = () => {
-  textStatus.value = "Error EN la camara";
-};
 </script>
 
 <template>
@@ -81,10 +142,8 @@ const errorCamara = () => {
           <div class="videoCall__videoContainer">
             <div class="videoCall__containerVideo">
               <div class="videoCall__imgOne">
-                <video class="videoCall__imgOne-stream" src="" id="video" autoplay="true"></video>
-              </div>
-              <div class="videoCall__imgTwo">
-                <canvas class="videoCall__imgTwo-stream" id="preview"></canvas>
+                <video ref="localVideo"  id="localVideo" autoplay muted></video>
+                <video ref="remoteVideo" id="remoteVideo" autoplay></video>
               </div>
             </div>
           </div>
