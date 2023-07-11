@@ -28,6 +28,7 @@ function startVideoChat() {
 
       const localVideoElement = document.createElement("video");
       localVideoElement.srcObject = localStream;
+      localVideoElement.muted = true;
       localVideoElement.play();
 
       localVideoContainer.value.appendChild(localVideoElement);
