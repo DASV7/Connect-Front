@@ -102,19 +102,15 @@ onUnmounted(() => {
   <div class="videoCall">
     <!--Video Chat-->
     <div class="videoCall__containerCalls" scrollDefault>
-      <div class="videoCall__video">
+      <div class="videoCall__videos">
         <div class="videoCall__logo">
           <img class="videoCall__logo-img" src="../../../public/svgLogoComplete.svg" alt="" />
         </div>
         <div class="videoCall__container">
           <div class="videoCall__videoContainer">
             <div class="videoCall__containerVideo">
-              <div class="videoCall__imgOne">
-                <div id="localVideoContainer" ref="localVideoContainer"></div>
-              </div>
-              <div class="videoCall__imgTwo">
-                <div id="remoteVideoContainer" ref="remoteVideoContainer"></div>
-              </div>
+              <div class="videoCall__video" ref="remoteVideoContainer"></div>
+              <div class="videoCall__video" ref="localVideoContainer"></div>
             </div>
           </div>
         </div>
@@ -138,18 +134,19 @@ onUnmounted(() => {
   display: flex;
   background-color: #000;
 
-  &__video {
+  &__videos {
     display: flex;
     align-items: center;
     flex-direction: column;
   }
 
   &__containerVideo {
-    display: grid;
+    display: flex;    
     gap: 10px;
   }
   &__containerCalls {
     width: 100%;
+    height: 100%;
     overflow: auto;
   }
 
@@ -209,40 +206,16 @@ onUnmounted(() => {
     }
   }
 
-  &__imgOne,
-  &__imgTwo {
-    &-stream {
-      height: 100%;
-      width: 100%;
-      border-radius: 10px;
-    }
-  }
-
-  &__imgOne {
+  &__video {
     width: 300px;
     height: 250px;
   }
-  &__imgTwo {
-    width: 300px;
-    height: 200px;
-  }
 
   @media screen and (min-width: 450px) {
-    &__imgOne {
-      overflow: hidden;
-      // width: 356px;
-      // height: 300px;
-      width: 300px;
-      height: 250px;
-      max-height: 400px;
-      max-width: 500px;
-
-      &-stream {
-        height: 100%;
-        width: 100%;
-      }
+    &__containerVideo{
+      
     }
-    &__imgTwo {
+    &__video {
       overflow: hidden;
       // width: 357px;
       // height: 300px;
@@ -250,7 +223,7 @@ onUnmounted(() => {
       height: 200px;
       max-height: 400px;
       max-width: 500px;
-      &-stream {
+      video {
         height: 100%;
         width: 100%;
       }
