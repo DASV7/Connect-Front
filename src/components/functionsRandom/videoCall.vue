@@ -8,113 +8,81 @@ const video = ref(null);
 const canvas = ref(null);
 const context = ref(null);
 
-const localVideo = ref();
-const remoteVideo = ref();
-let localStream = ref(null);
-let remoteStream = ref(null);
-let peerConnection = ref();
-const stream = ref();
 onMounted(() => {
-  getMediaStream();
-  startSignaling();
-  startPeerConnection();
+  startVideoChat();
 });
+let localStream;
+function startVideoChat() {
+  const localVideoContainer = document.getElementById("localVideoContainer");
+  const remoteVideoContainer = document.getElementById("remoteVideoContainer");
 
-async function getMediaStream() {
-  try {
-    stream.value = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-    localStream.value = stream.value;
-    localVideo.value.srcObject = stream.value;
-  } catch (error) {
-    console.error("Error accessing media devices:", error);
-  }
-}
-function startSignaling() {
-  // Manejar el evento 'offer' cuando se recibe una oferta de conexión del servidor
-  socket.on("offer", (offer) => {
-    handleOffer(offer);
-  });
+  const room = "room1"; // Nombre de la sala
 
-  // Manejar el evento 'answer' cuando se recibe una respuesta de conexión del servidor
-  socket.on("answer", (answer) => {
-    handleAnswer(answer);
-  });
+  socket.emit("join", room);
 
-  // Manejar el evento 'iceCandidate' cuando se recibe un candidato ICE del servidor
-  socket.on("iceCandidate", (candidate) => {
-    handleIceCandidate(candidate);
-  });
-}
-async function sendOffer(offer) {
-  socket.emit("offer", offer);
-}
+  const constraints = { video: true, audio: true };
 
-// Función para enviar una respuesta de conexión al servidor de señalización
-async function sendAnswer(answer) {
-  socket.emit("answer", answer);
-}
+  navigator.mediaDevices
+    .getUserMedia(constraints)
+    .then((stream) => {
+      localStream = stream;
 
-// Función para enviar un candidato ICE al servidor de señalización
-async function sendIceCandidate(candidate) {
-  socket.emit("iceCandidate", candidate);
-}
+      const localVideoElement = document.createElement("video");
+      localVideoElement.srcObject = localStream;
+      localVideoElement.play();
 
-async function handleOffer(offer) {
-  await peerConnection.setRemoteDescription(offer);
+      localVideoContainer.appendChild(localVideoElement);
 
-  const answer = await peerConnection.createAnswer();
-  await peerConnection.setLocalDescription(answer);
+      const pc = new RTCPeerConnection();
 
-  sendAnswer(answer);
-}
+      pc.addStream(localStream);
 
-// Función para manejar una respuesta de conexión recibida
-async function handleAnswer(answer) {
-  await peerConnection.setRemoteDescription(answer);
-}
+      pc.onicecandidate = (event) => {
+        if (event.candidate) {
+          socket.emit("iceCandidate", { room: room, candidate: event.candidate });
+        }
+      };
 
-// Función para manejar un candidato ICE recibido
-async function handleIceCandidate(candidate) {
-  await peerConnection.addIceCandidate(candidate);
-}
+      socket.on("iceCandidate", (candidate) => {
+        pc.addIceCandidate(new RTCIceCandidate(candidate));
+      });
 
-// Función para iniciar una conexión peer-to-peer
-async function startPeerConnection() {
-  try {
-    peerConnection = new RTCPeerConnection();
+      pc.createOffer()
+        .then((offer) => {
+          return pc.setLocalDescription(offer);
+        })
+        .then(() => {
+          socket.emit("offer", { room: room, offer: pc.localDescription });
+        });
 
-    // Agregar las pistas de la cámara y el micrófono al objeto RTCPeerConnection
-    localStream.value?.getTracks().forEach((track) => {
-      peerConnection.addTrack(track, localStream.value);
+      socket.on("offer", (offer) => {
+        pc.setRemoteDescription(new RTCSessionDescription(offer));
+
+        pc.createAnswer()
+          .then((answer) => {
+            return pc.setLocalDescription(answer);
+          })
+          .then(() => {
+            socket.emit("answer", { room: room, answer: pc.localDescription });
+          });
+      });
+
+      socket.on("answer", (answer) => {
+        pc.setRemoteDescription(new RTCSessionDescription(answer));
+      });
+
+      pc.onaddstream = (event) => {
+        const remoteVideoElement = document.createElement("video");
+        remoteVideoElement.srcObject = event.stream;
+        remoteVideoElement.play();
+
+        remoteVideoContainer.appendChild(remoteVideoElement);
+      };
+    })
+    .catch((error) => {
+      console.error("Error al obtener el acceso a la cámara y al micrófono:", error);
     });
-
-    // Establecer una función para manejar la llegada de la corriente remota
-    peerConnection.ontrack = (event) => {
-      remoteStream.value = event.streams[0];
-      remoteVideo.value.srcObject = remoteStream.value;
-    };
-
-    // Establecer una función para manejar los candidatos ICE salientes
-    peerConnection.onicecandidate = (event) => {
-      if (event.candidate) {
-        sendIceCandidate(event.candidate);
-      }
-    };
-
-    // Crear y enviar una oferta de conexión
-    const offer = await peerConnection.createOffer();
-    await peerConnection.setLocalDescription(offer);
-    sendOffer(offer);
-  } catch (error) {
-    console.error("Error starting peer connection:", error);
-  }
 }
-
-// Llamar a las funciones de inicio
-
-// onUnmounted(() => {
-//   socket.off("videoCall/random");
-// });
 
 function desactivarCamara() {
   if (videoTracks.value) {
@@ -142,8 +110,8 @@ onUnmounted(() => {
           <div class="videoCall__videoContainer">
             <div class="videoCall__containerVideo">
               <div class="videoCall__imgOne">
-                <video ref="localVideo"  id="localVideo" autoplay muted></video>
-                <video ref="remoteVideo" id="remoteVideo" autoplay></video>
+                <div id="localVideoContainer"></div>
+                <div id="remoteVideoContainer"></div>
               </div>
             </div>
           </div>
