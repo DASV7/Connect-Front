@@ -23,8 +23,8 @@ onMounted(() => {
 async function getMediaStream() {
   try {
     stream.value = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-    localStream.value = stream;
-    localVideo.value.srcObject = stream;
+    localStream.value = stream.value;
+    localVideo.value.srcObject = stream.value;
   } catch (error) {
     console.error("Error accessing media devices:", error);
   }
