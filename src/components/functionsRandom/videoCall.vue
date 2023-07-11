@@ -111,7 +111,9 @@ onUnmounted(() => {
             <div class="videoCall__containerVideo">
               <div class="videoCall__imgOne">
                 <div id="localVideoContainer"></div>
-                <div id="remoteVideoContainer"></div>
+              </div>
+              <div class="videoCall__imgTwo">
+                <div id="localVideoContainer"></div>
               </div>
             </div>
           </div>
