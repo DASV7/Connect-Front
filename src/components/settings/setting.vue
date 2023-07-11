@@ -125,6 +125,7 @@ function openSetting() {
     display: flex;
     justify-content: space-between;
     width: 100%;
+    margin-top: 10px;
   }
   &__containerBtn {
     width: 100%;
