@@ -218,12 +218,7 @@ const updateProfile = async () => {
   }
 }
 @media (min-width: 1024px) {
-  //   body {
-  //   background-image: url('/src/assets/img/5593045.jpg');
-  //   background-repeat: no-repeat;
-  //   background-size: cover;
-  //   background-color: rgba(255, 255, 255, 0.5);
-  // } {} {}
+  
   .editProfile__album {
     justify-content: center;
     gap: 30px;
