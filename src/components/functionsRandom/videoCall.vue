@@ -102,23 +102,24 @@ onUnmounted(() => {
   <div class="videoCall">
     <!-- header -->
     <div class="videoCall__containerCalls" scrollDefault>
+      <div class="videoCall__videos">
         <div class="videoCall__logo">
           <img class="videoCall__logo-img" src="../../../public/svgLogoComplete.svg" alt="" />
         </div>
+      </div>
 
         <!-- Live  -->
         <div class="videoCall__containerVideo">
           <div class="videoCall__video" ref="remoteVideoContainer"></div>
           <div class="videoCall__video" ref="localVideoContainer"></div>
-        
         </div>
+
+        <!-- btn  -->
         <div class="videoCall__buttons">
           <button class="videoCall__buttons-btn1">Stop<i class="fa-sharp fa-solid fa-ban"></i></button>
           <button class="videoCall__buttons-btn2">Like<i class="fa-solid fa-heart"></i></button>
           <button class="videoCall__buttons-btn3">Next<i class="fa-solid fa-right-long"></i></button>
         </div>
-
-        <!-- btn  -->
       <!--Video Chat-->
     </div>
   </div>
