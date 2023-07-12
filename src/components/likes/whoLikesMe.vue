@@ -7,6 +7,7 @@ import Modal from "../shared/modal.vue";
 import { calculateAge } from "../../utils/calculateAge";
 
 const usersLike = ref([]);
+
 const isLoading = ref(false);
 onMounted(async () => {
   isLoading.value = true;
@@ -49,33 +50,39 @@ let userModal = ref(null);
 <template>
   <div class="whoLikesMe">
     <div class="whoLikesMe__logo">
+      <button class="whoLikesMe__logo-back" @click="$router.push('/messages')"><i class="fa-solid fa-arrow-left"></i></button>
       <img class="whoLikesMe__logo-img" src="/public/svgLogoComplete.svg" alt="" />
+      <p class="whoLikesMe__tittle">LIKES</p>
+      <p class="whoLikesMe__tittle-sub">Cobrar por los "me gusta" limita el amor. Dejemos que fluya sin barreras.</p>
     </div>
-    <p class="whoLikesMe__tittle">LIKES</p>
-    <p class="whoLikesMe__tittle-sub">Cobrar por los "me gusta" limita el amor. Dejemos que fluya sin barreras.</p>
     <div class="whoLikesMe__container">
+      <!-- Modal -->
+
       <miniLoading v-if="isLoading"></miniLoading>
       <Modal v-if="userModal" :showModal="!!userModal" @changeModal="changeModal()">
         <template v-slot:content>
           <connect class="whoLikesMe__modal" :user="userModal" :hiddeActions="false" />
         </template>
       </Modal>
-      <div class="whoLikesMe__user" v-for="(user, index) in usersLike" :key="index">
-        <div class="whoLikesMe__user-img">
-          <img @click="changeModal(user)" class="whoLikesMe__user-img" :src="user?.pictures[0].url" alt="" />
-        </div>
-        <div class="whoLikesMe__user-cont">
-          <p class="whoLikesMe__user-name">
-            {{ user.name }}
-          </p>
 
-          <div class="whoLikesMe__user-actions">
-            <button class="whoLikesMe__user-btn" @click="sendRejected(user)">
-              <i class="fa fa-times" aria-hidden="true"></i>
-            </button>
-            <button @click="sendLike(user)" class="whoLikesMe__user-btn">
-              <i class="fa fa-heart"></i>
-            </button>
+      <!-- Card User Like  -->
+      <div class="whoLikesMe__containerUser">
+        <div class="whoLikesMe__user" v-for="(user, index) in usersLike" :key="index">
+          <div class="whoLikesMe__user-img">
+            <img @click="changeModal(user)" class="whoLikesMe__user-img" :src="user?.pictures[0].url" alt="" />
+          </div>
+          <div class="whoLikesMe__user-cont">
+            <p class="whoLikesMe__user-name">
+              {{ user.name }}
+            </p>
+            <div class="whoLikesMe__user-actions">
+              <button class="whoLikesMe__user-btn" @click="sendRejected(user)">
+                <i class="fa fa-times" aria-hidden="true"></i>
+              </button>
+              <button @click="sendLike(user)" class="whoLikesMe__user-btn">
+                <i class="fa fa-heart"></i>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -85,6 +92,8 @@ let userModal = ref(null);
 
 <style lang="scss">
 .whoLikesMe {
+  width: 100%;
+  height: 100%;
   padding: 0px 10px 10px 10px;
 
   &__modal {
@@ -92,39 +101,71 @@ let userModal = ref(null);
     width: 400px;
     max-width: 100%;
   }
-
+  &__containerUser {
+    border-radius: 10px;
+    width: 130px;
+    height: 160px;
+    box-shadow: 0px 2px 6px;
+  }
   &__logo {
-    margin-top: 10px;
     display: flex;
+    align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    gap: 10px;
     width: 100%;
 
     &-img {
       width: 100px;
     }
+    &-back {
+      border: none;
+      background-color: #50bded;
+      width: 45px;
+      height: 30px;
+      text-align: center;
+      color: #fff;
+      border-radius: 30px;
+      cursor: pointer;
+    }
   }
   &__tittle {
     font-size: 12px;
     font-weight: 600;
-    margin-bottom: 10px;
 
     &-sub {
       font-size: 9px;
       font-weight: 600;
-      margin-bottom: 10px;
       background-color: #bababa8b;
       padding: 3px;
       border-radius: 5px;
       text-align: center;
+      @media screen and (max-width: 1024px) {
+        margin-bottom: 10px;
+      }
     }
   }
 
   &__container {
     display: flex;
     align-items: center;
-
     flex-wrap: wrap;
     gap: 40px;
+
+    @media screen and (min-width: 1024px) {
+      display: flex;
+      align-items: start;
+      flex-wrap: wrap;
+      width: 55%;
+      height: 90%;
+      margin: auto;
+      margin-top: 10px;
+      background-color: #ffffff;
+      box-shadow: #000 0px 5px 10px;
+      border-radius: 20px;
+      padding: 10px;
+    }
   }
 
   &__user {

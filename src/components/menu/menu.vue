@@ -8,7 +8,6 @@ onMounted(() => {});
 
 const routers = [
   { path: "/functionsapp", icon: "fa-solid fa-video" },
-  { path: "/likes", icon: "fa fa-eye" },
   { path: "/histories", icon: "fa fa-camera" },
   { path: "/home", icon: "fa fa-handshake-o" },
   { path: "/messages", icon: "fa-solid fa-comment" },
