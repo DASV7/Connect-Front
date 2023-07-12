@@ -102,11 +102,9 @@ onUnmounted(() => {
   <div class="videoCall">
     <!-- header -->
     <div class="videoCall__containerCalls" scrollDefault>
-      <!-- <div class="videoCall__videos">
         <div class="videoCall__logo">
           <img class="videoCall__logo-img" src="../../../public/svgLogoComplete.svg" alt="" />
         </div>
-      </div> -->
 
         <!-- Live  -->
         <div class="videoCall__containerVideo">
@@ -146,6 +144,7 @@ onUnmounted(() => {
     gap: 10px;
     width: 98%;
     // height: 61%;
+    margin: auto;
   }
   &__containerCalls {
     width: 100%;
@@ -163,8 +162,10 @@ onUnmounted(() => {
     &-img {
       width: 100px;
       height: 26px;
-      padding-top: 20px;
-      margin-left: 20px;
+      // padding-top: 20px;
+      // margin-left: 20px;
+      padding: 0%;
+      margin: 0%;
     }
   }
 
@@ -179,7 +180,7 @@ onUnmounted(() => {
   &__buttons {
     display: flex;
     justify-content: center;
-    margin-top: 50px;
+    margin-top: 10px;
     gap: 30px;
 
     &-btn1,
@@ -229,30 +230,37 @@ onUnmounted(() => {
     }
 
   }
+
   @media screen and (max-width: 1024px) {
-    &__containerVideo {
-      flex-direction: column;
-      height: 98%;
-      margin: auto;
-    }
+    .videoCall {
+
+      &__containerVideo {
+        flex-direction: column;
+        height: 83%;
+        margin: auto;
+      }
     .videoCall__video {
       width: 35%;
       border: solid 1px #fff;
     }
     .videoCall__buttons {
-      margin-top: 10px;
+      margin-top: 0px;
     }
     &__video {
       // overflow: hidden;
-      width: 100%;
+      width: 35%;
       height: 100%;
       min-width: 300px;
       margin: auto;
+      // border: solid 1px #fff;
       video {
         width: 100%;
         height: 100%;
+        min-width: 340px;
+        min-height: 270px;
       }
     }
   }
+}
 }
 </style>
