@@ -57,7 +57,7 @@ onMounted(async () => {
         <div class="messagesView__likes" scrollDefalult>
           <p @click="$router.push('likes')">Likes</p>
           <div class="messagesView__likes-card" v-for="(user, index) in usersLike" :key="index">
-            <img class="messagesView__likes-img" :src="user?.pictures[0].url" alt="" />
+            <img @click="$router.push('likes')" class="messagesView__likes-img" :src="user?.pictures[0].url" alt="" />
           </div>
         </div>
         <div class="messagesView__cardChat" v-for="(user, index) in users" :key="index" @click="$router.push(`/messages/${user._id}`)">
@@ -126,6 +126,7 @@ onMounted(async () => {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      cursor: pointer;
     }
   }
 

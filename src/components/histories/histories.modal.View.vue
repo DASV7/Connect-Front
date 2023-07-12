@@ -32,7 +32,7 @@ const props = defineProps(["showModal"]);
 
   &__container {
     width: 380px;
-    height: 725px;
+    height: 95%;
     background-color: #000;
     border-radius: 20px;
     margin-left: 70px;
