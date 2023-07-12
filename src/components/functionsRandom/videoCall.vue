@@ -100,28 +100,27 @@ onUnmounted(() => {
 
 <template>
   <div class="videoCall">
-    <!--Video Chat-->
+    <!-- header -->
     <div class="videoCall__containerCalls" scrollDefault>
       <div class="videoCall__videos">
         <div class="videoCall__logo">
           <img class="videoCall__logo-img" src="../../../public/svgLogoComplete.svg" alt="" />
         </div>
-        <div class="videoCall__container">
-          <div class="videoCall__videoContainer">
-            <div class="videoCall__containerVideo">
-              <div class="videoCall__video" ref="remoteVideoContainer"></div>
-              <div class="videoCall__video" ref="localVideoContainer"></div>
-            </div>
-          </div>
-        </div>
       </div>
-      <!--Video Chat-->
 
-      <div class="videoCall__buttons">
-        <button class="videoCall__buttons-btn1">Stop<i class="fa-sharp fa-solid fa-ban"></i></button>
-        <button class="videoCall__buttons-btn2">Like<i class="fa-solid fa-heart"></i></button>
-        <button class="videoCall__buttons-btn3">Next<i class="fa-solid fa-right-long"></i></button>
-      </div>
+        <!-- Live  -->
+        <div class="videoCall__containerVideo">
+          <div class="videoCall__video" ref="remoteVideoContainer"></div>
+          <div class="videoCall__video" ref="localVideoContainer"></div>
+        </div>
+
+        <!-- btn  -->
+        <div class="videoCall__buttons">
+          <button class="videoCall__buttons-btn1">Stop<i class="fa-sharp fa-solid fa-ban"></i></button>
+          <button class="videoCall__buttons-btn2">Like<i class="fa-solid fa-heart"></i></button>
+          <button class="videoCall__buttons-btn3">Next<i class="fa-solid fa-right-long"></i></button>
+        </div>
+      <!--Video Chat-->
     </div>
   </div>
 </template>
@@ -141,8 +140,11 @@ onUnmounted(() => {
   }
 
   &__containerVideo {
-    display: flex;    
+    display: flex;
+    justify-content: center;
     gap: 10px;
+    width: 100%;
+    // height: 61%;
   }
   &__containerCalls {
     width: 100%;
@@ -176,7 +178,7 @@ onUnmounted(() => {
   &__buttons {
     display: flex;
     justify-content: center;
-    margin-top: 10px;
+    margin-top: 50px;
     gap: 30px;
 
     &-btn1,
@@ -211,21 +213,29 @@ onUnmounted(() => {
     height: 250px;
   }
 
-  @media screen and (min-width: 450px) {
-    &__containerVideo{
-      
+  @media screen and (max-width: 1024px) {
+    &__containerVideo {
+      flex-direction: column;
     }
     &__video {
-      overflow: hidden;
-      // width: 357px;
-      // height: 300px;
-      width: 300px;
-      height: 200px;
-      max-height: 400px;
-      max-width: 500px;
+      width: 50%;
+      height: 100%;
+
+    }
+
+  }
+  @media screen and (min-width: 1024px) {
+    &__containerVideo {
+      height: 70%;
+    }
+    &__video {
+      // overflow: hidden;
+      width: 100%;
+      height: 100%;
+      min-width: 300px;
       video {
-        height: 100%;
-        width: 100%;
+        width: 650px;
+        height: 500px;
       }
     }
   }
