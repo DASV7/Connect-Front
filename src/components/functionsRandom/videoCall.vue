@@ -18,7 +18,7 @@ let mediaUser = ref(null);
 function startVideoChat() {
   const room = "room1"; // Nombre de la sala
 
-  socket.emit("join", room);
+  socket.emit("videoCall/join", room);
 
   const constraints = { video: true, audio: true };
 
