@@ -14,6 +14,7 @@ onMounted(() => {
   startVideoChat();
 });
 let localStream;
+let mediaUser = ref(null);
 function startVideoChat() {
   const room = "room1"; // Nombre de la sala
 
@@ -21,7 +22,7 @@ function startVideoChat() {
 
   const constraints = { video: true, audio: true };
 
-  navigator.mediaDevices
+  mediaUser.value = navigator.mediaDevices
     .getUserMedia(constraints)
     .then((stream) => {
       localStream = stream;
@@ -39,11 +40,11 @@ function startVideoChat() {
 
       pc.onicecandidate = (event) => {
         if (event.candidate) {
-          socket.emit("iceCandidate", { room: room, candidate: event.candidate });
+          socket.emit("videoCall/iceCandidate", { room: room, candidate: event.candidate });
         }
       };
 
-      socket.on("iceCandidate", (candidate) => {
+      socket.on("videoCall/iceCandidate", (candidate) => {
         pc.addIceCandidate(new RTCIceCandidate(candidate));
       });
 
@@ -52,10 +53,10 @@ function startVideoChat() {
           return pc.setLocalDescription(offer);
         })
         .then(() => {
-          socket.emit("offer", { room: room, offer: pc.localDescription });
+          socket.emit("videoCall/offer", { room: room, offer: pc.localDescription });
         });
 
-      socket.on("offer", (offer) => {
+      socket.on("videoCall/offer", (offer) => {
         pc.setRemoteDescription(new RTCSessionDescription(offer));
 
         pc.createAnswer()
@@ -63,11 +64,11 @@ function startVideoChat() {
             return pc.setLocalDescription(answer);
           })
           .then(() => {
-            socket.emit("answer", { room: room, answer: pc.localDescription });
+            socket.emit("videoCall/answer", { room: room, answer: pc.localDescription });
           });
       });
 
-      socket.on("answer", (answer) => {
+      socket.on("videoCall/answer", (answer) => {
         pc.setRemoteDescription(new RTCSessionDescription(answer));
       });
 
@@ -85,8 +86,8 @@ function startVideoChat() {
 }
 
 function desactivarCamara() {
-  if (videoTracks.value) {
-    const video = stream.value.getVideoTracks();
+  if (mediaUser.value) {
+    const video = mediaUser.value.getVideoTracks();
     video.forEach(function (track) {
       track.stop();
     });
@@ -141,7 +142,7 @@ onUnmounted(() => {
   }
 
   &__containerVideo {
-    display: flex;    
+    display: flex;
     gap: 10px;
   }
   &__containerCalls {
@@ -212,8 +213,7 @@ onUnmounted(() => {
   }
 
   @media screen and (min-width: 450px) {
-    &__containerVideo{
-      
+    &__containerVideo {
     }
     &__video {
       overflow: hidden;
