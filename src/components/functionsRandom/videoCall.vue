@@ -102,24 +102,25 @@ onUnmounted(() => {
   <div class="videoCall">
     <!-- header -->
     <div class="videoCall__containerCalls" scrollDefault>
-      <div class="videoCall__videos">
+      <!-- <div class="videoCall__videos">
         <div class="videoCall__logo">
           <img class="videoCall__logo-img" src="../../../public/svgLogoComplete.svg" alt="" />
         </div>
-      </div>
+      </div> -->
 
         <!-- Live  -->
         <div class="videoCall__containerVideo">
           <div class="videoCall__video" ref="remoteVideoContainer"></div>
           <div class="videoCall__video" ref="localVideoContainer"></div>
+        
+          <div class="videoCall__buttons">
+            <button class="videoCall__buttons-btn1">Stop<i class="fa-sharp fa-solid fa-ban"></i></button>
+            <button class="videoCall__buttons-btn2">Like<i class="fa-solid fa-heart"></i></button>
+            <button class="videoCall__buttons-btn3">Next<i class="fa-solid fa-right-long"></i></button>
+          </div>
         </div>
 
         <!-- btn  -->
-        <div class="videoCall__buttons">
-          <button class="videoCall__buttons-btn1">Stop<i class="fa-sharp fa-solid fa-ban"></i></button>
-          <button class="videoCall__buttons-btn2">Like<i class="fa-solid fa-heart"></i></button>
-          <button class="videoCall__buttons-btn3">Next<i class="fa-solid fa-right-long"></i></button>
-        </div>
       <!--Video Chat-->
     </div>
   </div>
@@ -143,7 +144,7 @@ onUnmounted(() => {
     display: flex;
     justify-content: center;
     gap: 10px;
-    width: 100%;
+    width: 98%;
     // height: 61%;
   }
   &__containerCalls {
@@ -213,29 +214,43 @@ onUnmounted(() => {
     height: 250px;
   }
 
-  @media screen and (max-width: 1024px) {
+  @media screen and (min-width: 1024px) {
     &__containerVideo {
-      flex-direction: column;
+      // flex-direction: column;
     }
     &__video {
-      width: 50%;
+      width: 100%;
       height: 100%;
-
+     
+         video {
+        width: 100%;
+        height: 100%;
+      }
     }
 
   }
-  @media screen and (min-width: 1024px) {
+  @media screen and (max-width: 1024px) {
     &__containerVideo {
-      height: 70%;
+      flex-direction: column;
+      height: 98%;
+      margin: auto;
+    }
+    .videoCall__video {
+      width: 35%;
+      border: solid 1px #fff;
+    }
+    .videoCall__buttons {
+      margin-top: 10px;
     }
     &__video {
       // overflow: hidden;
       width: 100%;
       height: 100%;
       min-width: 300px;
+      margin: auto;
       video {
-        width: 650px;
-        height: 500px;
+        width: 100%;
+        height: 100%;
       }
     }
   }
