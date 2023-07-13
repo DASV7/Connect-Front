@@ -46,7 +46,7 @@ onUnmounted(() => {
     justify-content: center;
     align-items: center;
     width: 98%;
-    height: 80%;
+    height: 85%;
     max-width: 800px;
     max-width: 700px;
     position: absolute;
@@ -54,6 +54,11 @@ onUnmounted(() => {
     background-color: white;
     border-radius: 20px 20px 0 0;
     z-index: 300;
+    @media screen and (min-width: 1024px) {
+      height: 66%;
+      width: 55%;
+      margin-left: 70px;
+    }
   }
 
   &__container {

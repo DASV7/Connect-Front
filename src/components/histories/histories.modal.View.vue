@@ -1,5 +1,5 @@
 <script setup>
-const props = defineProps(["showModal"]);
+const props = defineProps(["showModal", "user"]);
 </script>
 
 <template>

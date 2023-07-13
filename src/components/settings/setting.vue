@@ -74,7 +74,8 @@ function openSetting() {
         </div>
         <div @click="closeSesion()" class="settings__containerBtn-btn">
           <i class="fa fa-sign-out" aria-hidden="true"></i>
-          Cerrar Seccion
+          <p>Cerrar sesión</p>
+          
         </div>
       </div>
 
@@ -124,6 +125,7 @@ function openSetting() {
   &__header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 100%;
     margin-top: 10px;
   }

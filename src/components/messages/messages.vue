@@ -11,7 +11,7 @@ const avatarUsers = ref({});
 
 const otherAvatar = (users) => {
   const valor = users.find((user) => {
-    return user._id != usersStore.user._id;
+    return user._id != usersStore.user?._id;
   });
   // console.log(valor);
   return valor || {};
@@ -49,21 +49,31 @@ onMounted(async () => {
 });
 </script>
 <i class="fa-solid fa-heart"></i>
+
 <template>
-  <div class="messagesView" v-if="!loading">
+
+<div class="messagesView" v-if="!loading">
     <p>Hoy sera un excelente día...</p>
     <div class="messagesView__wrapper" v-if="users.length">
       <div class="messagesView__container">
+
+        <!-- View like -->
+
         <div class="messagesView__likes" scrollDefalult>
           <p @click="$router.push('likes')">Likes</p>
           <div class="messagesView__likes-card" v-for="(user, index) in usersLike" :key="index">
             <img @click="$router.push('likes')" class="messagesView__likes-img" :src="user?.pictures[0].url" alt="" />
           </div>
         </div>
+        
+        <!-- messages -->
+        
         <div class="messagesView__cardChat" v-for="(user, index) in users" :key="index" @click="$router.push(`/messages/${user._id}`)">
           <div class="messagesView__cardChat-img">
             <avatarUser :user="otherAvatar(user.members)" :size="40" />
           </div>
+            
+          <!-- avatar USer  -->
 
           <div class="messagesView__cardChat-info">
             <div class="messagesView__cardChat-userName">
@@ -73,9 +83,13 @@ onMounted(async () => {
               {{ user.ultimateMessage || "Da el primer paso" }}
             </div>
           </div>
+
+          <!-- Count Mesages -->
+
           <div class="messagesView__cardChat-countMessages">
             {{ user.countMessages || 0 }}
           </div>
+
         </div>
       </div>
     </div>
@@ -88,7 +102,7 @@ onMounted(async () => {
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  padding: 10px;
+  // padding: 10px;
   width: 100%;
   height: 100%;
 
@@ -100,6 +114,16 @@ onMounted(async () => {
     height: 70px;
     // border: solid 1px #000;
     overflow-x: auto;
+    background-color: #5699d46e;
+    border-radius: 20px;
+
+    @media (max-width: 1024px) {
+      width: 50%;
+      margin: auto;
+      margin-bottom: 0px;
+      margin-top: 10px;
+      min-width: 320px;
+    } 
 
     p {
       display: flex;
@@ -111,14 +135,15 @@ onMounted(async () => {
       border-radius: 10px;
       cursor: pointer;
       background-color: $primary-color;
-      color: #fff;
+      color: #454242;
       font-weight: 500;
+      margin-left: 10px;
     }
 
     &-card {
       width: 60px;
       height: 60px;
-      border: solid 1px #000;
+      border: solid 2px #fff;
       border-radius: 100px;
       overflow: hidden;
     }
