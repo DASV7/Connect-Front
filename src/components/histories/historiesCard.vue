@@ -1,6 +1,6 @@
 <script setup>
 import { ref, defineProps } from "vue";
-import viewHistoriesModal from "./viewHistoriesModal.vue";
+import viewHistoriesModal from "./histories.modal.View.vue";
 const props = defineProps(["user"]);
 const emit = defineEmits(["changeModal"]);
 
@@ -61,6 +61,7 @@ const openModal = () => {
       width: 150px;
       height: 180px;
       position: absolute;
+      cursor: pointer;
     }
     @media screen and (max-width: 510px) {
       &-play,
@@ -101,6 +102,7 @@ const openModal = () => {
     &-name {
       font-size: 13px;
       color: #ffffff;
+      cursor: pointer;
     }
   }
 }

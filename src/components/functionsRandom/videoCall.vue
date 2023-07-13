@@ -100,28 +100,27 @@ onUnmounted(() => {
 
 <template>
   <div class="videoCall">
-    <!--Video Chat-->
+    <!-- header -->
     <div class="videoCall__containerCalls" scrollDefault>
       <div class="videoCall__videos">
         <div class="videoCall__logo">
           <img class="videoCall__logo-img" src="../../../public/svgLogoComplete.svg" alt="" />
         </div>
-        <div class="videoCall__container">
-          <div class="videoCall__videoContainer">
-            <div class="videoCall__containerVideo">
-              <div class="videoCall__video" ref="remoteVideoContainer"></div>
-              <div class="videoCall__video" ref="localVideoContainer"></div>
-            </div>
-          </div>
-        </div>
       </div>
-      <!--Video Chat-->
 
-      <div class="videoCall__buttons">
-        <button class="videoCall__buttons-btn1">Stop<i class="fa-sharp fa-solid fa-ban"></i></button>
-        <button class="videoCall__buttons-btn2">Like<i class="fa-solid fa-heart"></i></button>
-        <button class="videoCall__buttons-btn3">Next<i class="fa-solid fa-right-long"></i></button>
-      </div>
+        <!-- Live  -->
+        <div class="videoCall__containerVideo">
+          <div class="videoCall__video" ref="remoteVideoContainer"></div>
+          <div class="videoCall__video" ref="localVideoContainer"></div>
+        </div>
+
+        <!-- btn  -->
+        <div class="videoCall__buttons">
+          <button class="videoCall__buttons-btn1">Stop<i class="fa-sharp fa-solid fa-ban"></i></button>
+          <button class="videoCall__buttons-btn2">Like<i class="fa-solid fa-heart"></i></button>
+          <button class="videoCall__buttons-btn3">Next<i class="fa-solid fa-right-long"></i></button>
+        </div>
+      <!--Video Chat-->
     </div>
   </div>
 </template>
@@ -141,8 +140,12 @@ onUnmounted(() => {
   }
 
   &__containerVideo {
-    display: flex;    
+    display: flex;
+    justify-content: center;
     gap: 10px;
+    width: 98%;
+    // height: 61%;
+    margin: auto;
   }
   &__containerCalls {
     width: 100%;
@@ -160,8 +163,10 @@ onUnmounted(() => {
     &-img {
       width: 100px;
       height: 26px;
-      padding-top: 20px;
-      margin-left: 20px;
+      // padding-top: 20px;
+      // margin-left: 20px;
+      padding: 0%;
+      margin: 0%;
     }
   }
 
@@ -211,23 +216,53 @@ onUnmounted(() => {
     height: 250px;
   }
 
-  @media screen and (min-width: 450px) {
-    &__containerVideo{
-      
+  @media screen and (min-width: 1024px) {
+    &__containerVideo {
+      // flex-direction: column;
+      height: 84%;
     }
     &__video {
-      overflow: hidden;
-      // width: 357px;
-      // height: 300px;
-      width: 300px;
-      height: 200px;
-      max-height: 400px;
-      max-width: 500px;
-      video {
-        height: 100%;
+      width: 100%;
+      height: 100%;
+     
+         video {
         width: 100%;
+        height: 100%;
+      }
+    }
+
+  }
+
+  @media screen and (max-width: 1024px) {
+    .videoCall {
+
+      &__containerVideo {
+        flex-direction: column;
+        height: 83%;
+        margin: auto;
+      }
+    .videoCall__video {
+      width: 35%;
+      border: solid 1px #fff;
+    }
+    .videoCall__buttons {
+      margin-top: 0px;
+    }
+    &__video {
+      // overflow: hidden;
+      width: 35%;
+      height: 100%;
+      min-width: 300px;
+      margin: auto;
+      // border: solid 1px #fff;
+      video {
+        width: 100%;
+        height: 100%;
+        min-width: 340px;
+        min-height: 270px;
       }
     }
   }
+}
 }
 </style>

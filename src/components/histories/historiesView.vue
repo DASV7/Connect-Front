@@ -5,7 +5,7 @@ import modalBottom from "../shared/modalBottom.vue";
 import { useCounterStore } from "../../store/users";
 import historiesCard from "./historiesCard.vue";
 import axios from "../../api/axios";
-import viewHistoriesModal from "./viewHistoriesModal.vue";
+import historiesModalView from "./histories.modal.View.vue";
 
 const showModal = ref(false);
 const userStore = useCounterStore();
@@ -77,7 +77,7 @@ const openModal = (user) => {
 </script>
 <template>
   <section class="historiesView">
-    <viewHistoriesModal :showModal="showViewHistories" @closeModal="changesStatus()"></viewHistoriesModal>
+    <historiesModalView :showModal="showViewHistories" @closeModal="changesStatus()"></historiesModalView>
     <div class="historiesView__tittle">
       <img class="historiesView__img" src="../../../public/svgLogoComplete.svg" alt="" srcset="" />
       <div><p>Cuentas que Sigues</p></div>
