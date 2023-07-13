@@ -5,37 +5,35 @@ import { calculateAge } from "../../utils/calculateAge";
 const props = defineProps(["user"]);
 const emit = defineEmits(["changeModal"]);
 
-const userAndhistories = ref(props.user);
+const userAndhistories = ref();
 // console.log(userAndhistories.value );
 const openModal = () => {
-  emit("changeModal", true);
+  emit("changeModal",userAndhistories.value);
 };
 
-// onMounted(()=>{
-//   console.log("child",props.user);
-// })
+onMounted(()=>{
+  userAndhistories.value = props.user
+  // console.log(userAndhistories.value);
+})
 </script>
 
 <template>
-
-  <div class="historiesCard__multimedia">
-    <div  class="historiesCard__multimedia-card" @click="openModal()">
+  <div class="historiesCard__multimedia" v-if="userAndhistories">
+    <div class="historiesCard__multimedia-card" @click="openModal()">
       <img class="historiesCard__multimedia-img" :src="userAndhistories?.histories[0]?.url" alt="" />
-      
+
       <div class="historiesCard__multimedia-play">
         <!-- <i @click="openModal()" class="fa-solid fa-play"></i> -->
       </div>
       <div class="historiesCard__info">
-        <p class="historiesCard__info-name">{{ userAndhistories.name }}, {{ calculateAge(userAndhistories.birthday) }} </p>
+        <p class="historiesCard__info-name">{{ userAndhistories.name }}, {{ calculateAge(userAndhistories.birthday) }}</p>
       </div>
     </div>
   </div>
-
 </template>
 
 <style lang="scss">
 .historiesCard {
-
   &__multimedia {
     display: flex;
     justify-content: center;

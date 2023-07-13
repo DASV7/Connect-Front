@@ -117,7 +117,8 @@ onUnmounted(() => {
     height: 100vh;
     overflow: hidden;
     &-margin-left {
-      margin-left: 70px;
+      // margin-left: 70px;
+      margin-left: 150px;
     }
   }
 }

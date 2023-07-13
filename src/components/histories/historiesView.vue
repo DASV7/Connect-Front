@@ -1,10 +1,10 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import CardUser from "./cardUserHistories.vue";
-import modalBottom from "../shared/modalBottom.vue";
 import { useCounterStore } from "../../store/users";
-import historiesCard from "./historiesCard.vue";
+import CardUser from "./cardUserHistories.vue";
 import axios from "../../api/axios";
+import modalBottom from "../shared/modalBottom.vue";
+import historiesCard from "./historiesCard.vue";
 import historiesModalView from "./histories.modal.View.vue";
 
 const showModal = ref(false);
@@ -64,9 +64,13 @@ const showViewHistories = ref(false);
 const changesStatus = () => {
   showViewHistories.value = !showViewHistories.value;
 };
+const userModal = ref(null)
 
-const openModal = (user) => {
-  showViewHistories.value = true;
+const openModal = (user) => {  
+  userModal.value = user;
+  showViewHistories.value = !showViewHistories.value;
+  console.log(userModal.value);
+
 };
 const userAndhistories = ref([]);
 const historiesInfo = ref([]);
@@ -92,7 +96,7 @@ onMounted(async () => {
     <div class="historiesView__container">
       <!--  Open Histories  -->
 
-      <historiesModalView :user="userAndhistories" :showModal="showViewHistories" @closeModal="changesStatus()"></historiesModalView>
+      <historiesModalView v-if="showViewHistories" :user="userModal" :showModal="showViewHistories" @closeModal="changesStatus()"></historiesModalView>
 
       <!-- tittle  -->
 
@@ -155,7 +159,7 @@ onMounted(async () => {
       <!-- Card Video -->
 
       <div class="historiesView__component" v-if="!isLoading">
-        <historiesCard v-for="(item, index) in userAndhistories" :key="index" :user="item" @changeModal="openModal($event)"></historiesCard>
+        <historiesCard v-for="(item, index) in userAndhistories" :key="index" :user="item"  @changeModal="openModal($event)"></historiesCard>
       </div>
     </div>
   </section>
