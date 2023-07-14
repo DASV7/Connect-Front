@@ -33,7 +33,10 @@ function startVideoChat() {
 
       localVideoContainer.value.appendChild(localVideoElement);
 
-      const pc = new RTCPeerConnection();
+      const configuration = {
+        iceServers: [{ urls: "stun:stun.l.google.com:19302" }], // Configuración del servidor STUN
+      };
+      const pc = new RTCPeerConnection(configuration);
 
       pc.addStream(localStream);
 
@@ -108,18 +111,18 @@ onUnmounted(() => {
         </div>
       </div>
 
-        <!-- Live  -->
-        <div class="videoCall__containerVideo">
-          <div class="videoCall__video" ref="remoteVideoContainer"></div>
-          <div class="videoCall__video" ref="localVideoContainer"></div>
-        </div>
+      <!-- Live  -->
+      <div class="videoCall__containerVideo">
+        <div class="videoCall__video" ref="remoteVideoContainer"></div>
+        <div class="videoCall__video" ref="localVideoContainer"></div>
+      </div>
 
-        <!-- btn  -->
-        <div class="videoCall__buttons">
-          <button class="videoCall__buttons-btn1">Stop<i class="fa-sharp fa-solid fa-ban"></i></button>
-          <button class="videoCall__buttons-btn2">Like<i class="fa-solid fa-heart"></i></button>
-          <button class="videoCall__buttons-btn3">Next<i class="fa-solid fa-right-long"></i></button>
-        </div>
+      <!-- btn  -->
+      <div class="videoCall__buttons">
+        <button class="videoCall__buttons-btn1">Stop<i class="fa-sharp fa-solid fa-ban"></i></button>
+        <button class="videoCall__buttons-btn2">Like<i class="fa-solid fa-heart"></i></button>
+        <button class="videoCall__buttons-btn3">Next<i class="fa-solid fa-right-long"></i></button>
+      </div>
       <!--Video Chat-->
     </div>
   </div>
@@ -224,45 +227,43 @@ onUnmounted(() => {
     &__video {
       width: 100%;
       height: 100%;
-     
-         video {
+
+      video {
         width: 100%;
         height: 100%;
       }
     }
-
   }
 
   @media screen and (max-width: 1024px) {
     .videoCall {
-
       &__containerVideo {
         flex-direction: column;
         height: 83%;
         margin: auto;
       }
-    .videoCall__video {
-      width: 35%;
-      border: solid 1px #fff;
-    }
-    .videoCall__buttons {
-      margin-top: 0px;
-    }
-    &__video {
-      // overflow: hidden;
-      width: 35%;
-      height: 100%;
-      min-width: 300px;
-      margin: auto;
-      // border: solid 1px #fff;
-      video {
-        width: 100%;
+      .videoCall__video {
+        width: 35%;
+        border: solid 1px #fff;
+      }
+      .videoCall__buttons {
+        margin-top: 0px;
+      }
+      &__video {
+        // overflow: hidden;
+        width: 35%;
         height: 100%;
-        min-width: 340px;
-        min-height: 270px;
+        min-width: 300px;
+        margin: auto;
+        // border: solid 1px #fff;
+        video {
+          width: 100%;
+          height: 100%;
+          min-width: 340px;
+          min-height: 270px;
+        }
       }
     }
   }
-}
 }
 </style>
