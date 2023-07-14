@@ -90,15 +90,13 @@ function startVideoChat() {
         }
       };
 
-      if (isSender.value) {
-        pc.createOffer()
-          .then((offer) => {
-            return pc.setLocalDescription(offer);
-          })
-          .then(() => {
-            socket.emit("offer", { room: room, offer: pc.localDescription });
-          });
-      }
+      pc.createOffer()
+        .then((offer) => {
+          return pc.setLocalDescription(offer);
+        })
+        .then(() => {
+          socket.emit("offer", { room: room, offer: pc.localDescription });
+        });
     })
     .catch((error) => {
       console.error("Error al obtener el acceso a la cámara y al micrófono:", error);
