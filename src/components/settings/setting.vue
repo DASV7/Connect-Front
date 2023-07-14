@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import axios from "../../api/axios";
+import politics from "../politics/politics.vue"
 const router = useRouter();
 const closeSesion = () => {
   localStorage.clear();
@@ -40,13 +41,22 @@ let openSettingView = ref(false);
 function openSetting() {
   openSettingView.value = !openSettingView.value;
 }
+
+let showModal = ref(false)
+function openPolitics() {
+  showModal.value = !showModal.value
+}
+function closeModalPolitics() {
+  showModal.value = false;
+}
 </script>
 
 <template>
   <div class="settings">
+    <politics :showModal="showModal" @closeModal="closeModalPolitics()"></politics>
+
     <div class="settings__wrapper">
       <!-- back -->
-
       <div class="settings__header">
         <button class="editProfile__top-btn" @click="$router.push('/profile')"><i class="fa-solid fa-arrow-left"></i></button>
         <p>Configuración</p>
@@ -66,16 +76,20 @@ function openSetting() {
           <i class="fa-sharp fa-solid fa-gear"></i>
           <p>Configuracion de la cuenta</p>
         </div>
-     
+
         <div class="settings__containerBtn-btn">
           <i class="fa-sharp fa-solid fa-trash"></i>
-          <button class="settings__delete" @click="deleteAccount()">
-            Delete Account</button>
+          <button class="settings__delete" @click="deleteAccount()">Delete Account</button>
         </div>
+
+        <div @click="openPolitics()" class="settings__containerBtn-btn">
+          <i class="fa-solid fa-landmark"></i>
+          <p>Politicas y privacidad</p>
+        </div>
+
         <div @click="closeSesion()" class="settings__containerBtn-btn">
           <i class="fa fa-sign-out" aria-hidden="true"></i>
           <p>Cerrar sesión</p>
-          
         </div>
       </div>
 
@@ -88,7 +102,6 @@ function openSetting() {
       <div class="settings__delete-modal" v-if="modalConfirm">
         <p>¿Estas seguro de eliminar tu cuenta?</p>
         <div>
-
           <button class="settings__delete-btnYes" @click="deleteAccount(true)">Confirmar</button>
           <button class="settings__delete-btnNo" @click="notDelete()">Cancelar</button>
         </div>
@@ -118,7 +131,7 @@ function openSetting() {
 
     @media screen and (min-width: 1024px) {
       width: 55%;
-      height: 95%;
+      height: 92%;
       margin: auto;
     }
   }
@@ -157,7 +170,7 @@ function openSetting() {
     font-weight: 700;
     font-size: 10px;
     cursor: pointer;
-    
+
     &-modal {
       @include Column;
       width: 300px;
@@ -166,20 +179,20 @@ function openSetting() {
       border-radius: 10px;
       padding: 10px;
       gap: 10px;
-    
+
       p {
         font-size: 20px;
         text-align: center;
         font-weight: 700;
         color: #ffffff;
-
       }
       div {
         display: flex;
         gap: 10px;
       }
     }
-    &-btnYes, &-btnNo {
+    &-btnYes,
+    &-btnNo {
       width: 90px;
       height: 35px;
       border-radius: 10px;
