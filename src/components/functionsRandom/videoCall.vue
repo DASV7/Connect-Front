@@ -26,7 +26,7 @@ onMounted(() => {
   peer.value = new Peer(undefined, {
     path: "/peerjs",
     host: import.meta.env.VITE_PEER,
-    port: "5500",
+    port: "",
   });
 
   navigator.mediaDevices
