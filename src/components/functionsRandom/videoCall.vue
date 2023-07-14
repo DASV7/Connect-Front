@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, onUnmounted, watchEffect } from "vue";
+import { onMounted, ref, onUnmounted } from "vue";
 import { useSocketStore } from "../../store/socketStore";
 import { socket, state } from "../../socket/socket";
 import jwtDecode from "jwt-decode";
@@ -10,10 +10,16 @@ const context = ref(null);
 
 const localVideoContainer = ref(null);
 const remoteVideoContainer = ref(null);
+const isSender = ref(false);
+const isReceiver = ref(false);
+
 onMounted(() => {
   startVideoChat();
 });
+
 let localStream;
+let pc;
+
 function startVideoChat() {
   const room = "room1"; // Nombre de la sala
 
@@ -36,7 +42,8 @@ function startVideoChat() {
       const configuration = {
         iceServers: [{ urls: "stun:stun.l.google.com:19302" }], // Configuración del servidor STUN
       };
-      const pc = new RTCPeerConnection(configuration);
+
+      pc = new RTCPeerConnection(configuration);
 
       pc.addStream(localStream);
 
@@ -50,14 +57,6 @@ function startVideoChat() {
         pc.addIceCandidate(new RTCIceCandidate(candidate));
       });
 
-      pc.createOffer()
-        .then((offer) => {
-          return pc.setLocalDescription(offer);
-        })
-        .then(() => {
-          socket.emit("offer", { room: room, offer: pc.localDescription });
-        });
-
       socket.on("offer", (offer) => {
         pc.setRemoteDescription(new RTCSessionDescription(offer));
 
@@ -70,10 +69,6 @@ function startVideoChat() {
           });
       });
 
-      socket.on("answer", (answer) => {
-        pc.setRemoteDescription(new RTCSessionDescription(answer));
-      });
-
       pc.onaddstream = (event) => {
         const remoteVideoElement = document.createElement("video");
         remoteVideoElement.srcObject = event.stream;
@@ -81,6 +76,29 @@ function startVideoChat() {
 
         remoteVideoContainer.value.appendChild(remoteVideoElement);
       };
+
+      pc.ontrack = (event) => {
+        if (!remoteVideoContainer.value) {
+          const remoteVideoElement = document.createElement("video");
+          remoteVideoElement.srcObject = new MediaStream([event.track]);
+          remoteVideoElement.play();
+
+          remoteVideoContainer.value.appendChild(remoteVideoElement);
+        } else {
+          const remoteVideoElement = remoteVideoContainer.value.getElementsByTagName("video")[0];
+          remoteVideoElement.srcObject.addTrack(event.track);
+        }
+      };
+
+      if (isSender.value) {
+        pc.createOffer()
+          .then((offer) => {
+            return pc.setLocalDescription(offer);
+          })
+          .then(() => {
+            socket.emit("offer", { room: room, offer: pc.localDescription });
+          });
+      }
     })
     .catch((error) => {
       console.error("Error al obtener el acceso a la cámara y al micrófono:", error);
@@ -88,9 +106,8 @@ function startVideoChat() {
 }
 
 function desactivarCamara() {
-  if (videoTracks.value) {
-    const video = stream.value.getVideoTracks();
-    video.forEach(function (track) {
+  if (localStream && localStream.getTracks().length > 0) {
+    localStream.getTracks().forEach((track) => {
       track.stop();
     });
   }
