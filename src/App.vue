@@ -112,13 +112,14 @@ onUnmounted(() => {
   }
 }
 
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 1024px) {
   .mainApp__routerView {
     height: 100vh;
     overflow: hidden;
     &-margin-left {
-      margin-left: 70px;
+      // margin-left: 70px;
       // margin-left: 150px;
+      margin-left: 100px;
     }
   }
 }

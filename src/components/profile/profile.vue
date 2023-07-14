@@ -1,47 +1,3 @@
-<template>
-  <div v-if="!isLoading" class="profileUser" scrollDefault>
-    <div class="profileUser__wrapper" scrollDefault>
-      <div class="profileUser__container">
-        <div class="profileUser__header">
-          <p class="profileUser__header-p">Perfil</p>
-          <div class="profileUser__header-settings"></div>
-        </div>
-        <div class="profileUser__info" v-if="user?.name">
-          <button @click="$router.push('/settings')" class="profileUser__header-btn"><i class="fa fa-cog" aria-hidden="true"></i></button>
-          <div class="profileUser__info-container">
-            <div class="profileUser__photoProfile">
-              <div class="profileUser__photoProfile-cont">
-                <img @click="$router.push('/editProfile')" class="profileUser__photoProfile-img" :src="user?.pictures[0].url" />
-              </div>
-            </div>
-            <div class="profileUser__info-name">
-              <p class="profileUser__info-p">{{ user.name }}, {{ calculateAge(user?.birthday) }}</p>
-              <p class="profileUser__info-txt">
-                <i class="fa-solid fa-message"></i>
-                Estas aqui {{ hereFor[user.hereFor]?.text }}
-              </p>
-            </div>
-          </div>
-          <button @click="$router.push('/editProfile')" class="profileUser__header-btn"><i class="fa-solid fa-user-pen"></i></button>
-        </div>
-      </div>
-      <div class="infoPremium">
-        <div class="infoPremium__vinc">
-          <div class="infoPremium__vinc-tittle">
-            <img class="infoPremium__vinc-logo" src="../../../public/svgLogoComplete.svg" alt="" />
-            <p class="infoPremium__vinc-txt">PREMIUM</p>
-          </div>
-          <div class="infoPremium__txt">
-            <p class="infoPremium__txt-exp">Controla toda tu experiencia con Premium y obten hasta 12 + 1 mas matches* que la gente sin Premium</p>
-          </div>
-          <button class="infoPremium__txt-btn" @click="$router.push('/premium')">Suscribete</button>
-        </div>
-        <advanges></advanges>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script setup>
 import axios from "../../api/axios";
 import { onMounted, ref } from "vue";
@@ -88,6 +44,56 @@ const hereFor = {
   contact: interest[2],
 };
 </script>
+
+<template>
+  <div v-if="!isLoading" class="profileUser" scrollDefault>
+    <div class="profileUser__wrapper" scrollDefault>
+      <!-- header profile  -->
+
+      <div class="profileUser__container">
+        <div class="profileUser__header">
+          <p class="profileUser__header-p">Perfil</p>
+          <div class="profileUser__header-settings"></div>
+        </div>
+        <div class="profileUser__info" v-if="user?.name">
+          <button @click="$router.push('/settings')" class="profileUser__header-btn">
+            <i class="fa fa-cog" aria-hidden="true"></i></button>
+          <div class="profileUser__info-container">
+            <div class="profileUser__photoProfile">
+              <div class="profileUser__photoProfile-cont">
+                <img @click="$router.push('/editProfile')" class="profileUser__photoProfile-img" :src="user?.pictures[0].url" />
+              </div>
+            </div>
+            <div class="profileUser__info-name">
+              <p class="profileUser__info-p">{{ user.name }}, {{ calculateAge(user?.birthday) }}</p>
+              <p class="profileUser__info-txt">
+                <i class="fa-solid fa-message"></i>
+                Estas aqui {{ hereFor[user.hereFor]?.text }}
+              </p>
+            </div>
+          </div>
+          <button @click="$router.push('/editProfile')" class="profileUser__header-btn"><i class="fa-solid fa-user-pen"></i></button>
+        </div>
+      </div>
+
+      <!-- andvangesb and premium  -->
+
+      <div class="infoPremium">
+        <div class="infoPremium__vinc">
+          <div class="infoPremium__vinc-tittle">
+            <img class="infoPremium__vinc-logo" src="../../../public/svgLogoComplete.svg" alt="" />
+            <p class="infoPremium__vinc-txt">PREMIUM</p>
+          </div>
+          <div class="infoPremium__txt">
+            <p class="infoPremium__txt-exp">Controla toda tu experiencia con Premium y obten hasta 12 + 1 mas matches* que la gente sin Premium</p>
+          </div>
+          <button class="infoPremium__txt-btn" @click="$router.push('/premium')">Suscribete</button>
+        </div>
+        <advanges></advanges>
+      </div>
+    </div>
+  </div>
+</template>
 
 <style lang="scss">
 .profileUser {

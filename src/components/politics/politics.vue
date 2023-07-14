@@ -3,8 +3,8 @@ const props = defineProps(["showModal"]);
 </script>
 
 <template>
-  <div class="politicsModal" v-if="props.showModal">
-    <div class="politicsModal__container">
+  <div class="politicsModal" v-if="props.showModal" >
+    <div scrollDefault class="politicsModal__container">
       <p>Aviso legal:</p>
 
       <p>
@@ -115,9 +115,9 @@ const props = defineProps(["showModal"]);
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 100%;
-  height: 100vh;
-  background-color: #aaa6a6a6;
+  // width: 100%;
+  height: 100%;
+  // background-color: #aaa6a6a6;
   position: absolute;
   z-index: 10;
 
@@ -125,9 +125,10 @@ const props = defineProps(["showModal"]);
     width: 85%;
     height: 75%;
     background-color: #ffffff;
-    padding: 15px;
+    padding: 20px;
     overflow-y: scroll;
     border-radius: 30px;
+    border: solid 5px #000;
 
     &-txt {
       color: #000000;
