@@ -77,16 +77,17 @@ onMounted(() => {
   }
 }
 @media (min-width: 1024px) {
+
   .menu {
     flex-direction: column;
     height: 100%;
-    width: 70px;
-    top: -15px;
+    width: 150px;
+    // top: -15px;
   }
   .menu__container {
     position: absolute;
     flex-direction: column;
-    width: 70px;
+    width: 150px;
     height: 100%;
   }
   .menu__items {

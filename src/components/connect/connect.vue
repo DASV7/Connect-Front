@@ -110,6 +110,9 @@ function getIcon(index) {
 <template>
   <div class="homeVinc" v-if="!isLoading">
     <div class="homeVinc__Container">
+
+      <!-- info USer  -->
+
       <div class="homeVinc__userInfo">
         <div class="homeVinc__userInfo-user">
           <div class="homeVinc__userInfo-profile">
@@ -124,6 +127,9 @@ function getIcon(index) {
           </div>
         </div>
       </div>
+      
+      <!-- view Img  -->
+      
       <div class="carousel__item" @click="changeModal()">
         <img class="carousel__item-img" :src="userCard?.pictures[0]?.url" alt="imgUser" />
       </div>
@@ -164,6 +170,8 @@ function getIcon(index) {
 
       <!-- <interestingIn :hereFor="userCard" /> -->
 
+      <!-- prefrences User  -->
+
       <p class="information__InfoUser-tittle">Información de "Nombre usuario":</p>
       <div class="information__InfoUser" v-if="preferencesValues">
         <p class="information__InfoUser-preferences" v-for="(item, index) in preferencesValues" :key="index">
@@ -171,6 +179,8 @@ function getIcon(index) {
           {{ item }}
         </p>
       </div>
+
+      <!-- First Photo  -->
 
       <div class="information__album">
         <div class="information__album-container">
@@ -186,16 +196,19 @@ function getIcon(index) {
           </button>
         </div>
       </div>
+     
       <!-- Buttons actions-->
 
       <div class="homeVinc__security">
         <p class="homeVinc__security-txt">Bloquear</p>
         <p class="homeVinc__security-txt">Reportar</p>
       </div>
+
     </div>
   </div>
+
 </template>
-v-for="(item, index) of userCard?.pictures"
+
 <style lang="scss">
 * {
   font-family: sans-serif;

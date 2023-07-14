@@ -1,23 +1,32 @@
 <script setup>
-import { ref, defineProps } from "vue";
-import viewHistoriesModal from "./histories.modal.View.vue";
+import { ref, defineProps, onMounted } from "vue";
+import { calculateAge } from "../../utils/calculateAge";
+
 const props = defineProps(["user"]);
 const emit = defineEmits(["changeModal"]);
 
+const userAndhistories = ref();
+// console.log(userAndhistories.value );
 const openModal = () => {
-  emit("changeModal", true);
+  emit("changeModal",userAndhistories.value);
 };
+
+onMounted(()=>{
+  userAndhistories.value = props.user
+  // console.log(userAndhistories.value);
+})
 </script>
 
 <template>
-  <div class="historiesCard__multimedia">
-    <div v-for="(item, index) in 17" :key="index" class="historiesCard__multimedia-card" @click="openModal()">
-      <img class="historiesCard__multimedia-img" src="https://www.clarin.com/img/2022/01/18/hbk6uZTaw_720x0__1.jpg" alt="" />
+  <div class="historiesCard__multimedia" v-if="userAndhistories">
+    <div class="historiesCard__multimedia-card" @click="openModal()">
+      <img class="historiesCard__multimedia-img" :src="userAndhistories?.histories[0]?.url" alt="" />
+
       <div class="historiesCard__multimedia-play">
-        <i @click="openModal()" class="fa-solid fa-play"></i>
+        <!-- <i @click="openModal()" class="fa-solid fa-play"></i> -->
       </div>
       <div class="historiesCard__info">
-        <p class="historiesCard__info-name">Sara, 18</p>
+        <p class="historiesCard__info-name">{{ userAndhistories.name }}, {{ calculateAge(userAndhistories.birthday) }}</p>
       </div>
     </div>
   </div>
@@ -30,10 +39,11 @@ const openModal = () => {
     justify-content: center;
     flex-wrap: wrap;
     gap: 10px;
-    position: absolute;
+    // position: absolute;
     padding: 10px;
     overflow: hidden;
-    
+    max-width: 280px;
+    max-height: 180px;
 
     &-card {
       // @include Column;
@@ -106,5 +116,4 @@ const openModal = () => {
     }
   }
 }
-
 </style>
