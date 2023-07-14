@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, onUnmounted, watchEffect } from "vue";
+import { onMounted, ref, onUnmounted } from "vue";
 import { useSocketStore } from "../../store/socketStore";
 import { socket, state } from "../../socket/socket";
 import jwtDecode from "jwt-decode";
@@ -10,10 +10,16 @@ const context = ref(null);
 
 const localVideoContainer = ref(null);
 const remoteVideoContainer = ref(null);
+const isSender = ref(false);
+const isReceiver = ref(false);
+
 onMounted(() => {
   startVideoChat();
 });
+
 let localStream;
+let pc;
+
 function startVideoChat() {
   const room = "room1"; // Nombre de la sala
 
@@ -33,7 +39,11 @@ function startVideoChat() {
 
       localVideoContainer.value.appendChild(localVideoElement);
 
-      const pc = new RTCPeerConnection();
+      const configuration = {
+        iceServers: [{ urls: "stun:stun.l.google.com:19302" }], // Configuración del servidor STUN
+      };
+
+      pc = new RTCPeerConnection(configuration);
 
       pc.addStream(localStream);
 
@@ -47,14 +57,6 @@ function startVideoChat() {
         pc.addIceCandidate(new RTCIceCandidate(candidate));
       });
 
-      pc.createOffer()
-        .then((offer) => {
-          return pc.setLocalDescription(offer);
-        })
-        .then(() => {
-          socket.emit("offer", { room: room, offer: pc.localDescription });
-        });
-
       socket.on("offer", (offer) => {
         pc.setRemoteDescription(new RTCSessionDescription(offer));
 
@@ -67,10 +69,6 @@ function startVideoChat() {
           });
       });
 
-      socket.on("answer", (answer) => {
-        pc.setRemoteDescription(new RTCSessionDescription(answer));
-      });
-
       pc.onaddstream = (event) => {
         const remoteVideoElement = document.createElement("video");
         remoteVideoElement.srcObject = event.stream;
@@ -78,6 +76,27 @@ function startVideoChat() {
 
         remoteVideoContainer.value.appendChild(remoteVideoElement);
       };
+
+      pc.ontrack = (event) => {
+        if (!remoteVideoContainer.value) {
+          const remoteVideoElement = document.createElement("video");
+          remoteVideoElement.srcObject = new MediaStream([event.track]);
+          remoteVideoElement.play();
+
+          remoteVideoContainer.value.appendChild(remoteVideoElement);
+        } else {
+          const remoteVideoElement = remoteVideoContainer.value.getElementsByTagName("video")[0];
+          remoteVideoElement.srcObject.addTrack(event.track);
+        }
+      };
+
+      pc.createOffer()
+        .then((offer) => {
+          return pc.setLocalDescription(offer);
+        })
+        .then(() => {
+          socket.emit("offer", { room: room, offer: pc.localDescription });
+        });
     })
     .catch((error) => {
       console.error("Error al obtener el acceso a la cámara y al micrófono:", error);
@@ -85,9 +104,8 @@ function startVideoChat() {
 }
 
 function desactivarCamara() {
-  if (videoTracks.value) {
-    const video = stream.value.getVideoTracks();
-    video.forEach(function (track) {
+  if (localStream && localStream.getTracks().length > 0) {
+    localStream.getTracks().forEach((track) => {
       track.stop();
     });
   }
@@ -108,18 +126,18 @@ onUnmounted(() => {
         </div>
       </div>
 
-        <!-- Live  -->
-        <div class="videoCall__containerVideo">
-          <div class="videoCall__video" ref="remoteVideoContainer"></div>
-          <div class="videoCall__video" ref="localVideoContainer"></div>
-        </div>
+      <!-- Live  -->
+      <div class="videoCall__containerVideo">
+        <div class="videoCall__video" ref="remoteVideoContainer"></div>
+        <div class="videoCall__video" ref="localVideoContainer"></div>
+      </div>
 
-        <!-- btn  -->
-        <div class="videoCall__buttons">
-          <button class="videoCall__buttons-btn1">Stop<i class="fa-sharp fa-solid fa-ban"></i></button>
-          <button class="videoCall__buttons-btn2">Like<i class="fa-solid fa-heart"></i></button>
-          <button class="videoCall__buttons-btn3">Next<i class="fa-solid fa-right-long"></i></button>
-        </div>
+      <!-- btn  -->
+      <div class="videoCall__buttons">
+        <button class="videoCall__buttons-btn1">Stop<i class="fa-sharp fa-solid fa-ban"></i></button>
+        <button class="videoCall__buttons-btn2">Like<i class="fa-solid fa-heart"></i></button>
+        <button class="videoCall__buttons-btn3">Next<i class="fa-solid fa-right-long"></i></button>
+      </div>
       <!--Video Chat-->
     </div>
   </div>
@@ -224,45 +242,43 @@ onUnmounted(() => {
     &__video {
       width: 100%;
       height: 100%;
-     
-         video {
+
+      video {
         width: 100%;
         height: 100%;
       }
     }
-
   }
 
   @media screen and (max-width: 1024px) {
     .videoCall {
-
       &__containerVideo {
         flex-direction: column;
         height: 83%;
         margin: auto;
       }
-    .videoCall__video {
-      width: 35%;
-      border: solid 1px #fff;
-    }
-    .videoCall__buttons {
-      margin-top: 0px;
-    }
-    &__video {
-      // overflow: hidden;
-      width: 35%;
-      height: 100%;
-      min-width: 300px;
-      margin: auto;
-      // border: solid 1px #fff;
-      video {
-        width: 100%;
+      .videoCall__video {
+        width: 35%;
+        border: solid 1px #fff;
+      }
+      .videoCall__buttons {
+        margin-top: 0px;
+      }
+      &__video {
+        // overflow: hidden;
+        width: 35%;
         height: 100%;
-        min-width: 340px;
-        min-height: 270px;
+        min-width: 300px;
+        margin: auto;
+        // border: solid 1px #fff;
+        video {
+          width: 100%;
+          height: 100%;
+          min-width: 340px;
+          min-height: 270px;
+        }
       }
     }
   }
-}
 }
 </style>
