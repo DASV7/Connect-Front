@@ -25,7 +25,7 @@ onMounted(() => {
 
   peer.value = new Peer(undefined, {
     path: "/peerjs",
-    host: "localhost",
+    host: import.meta.env.VITE_PEER,
     port: "5500",
   });
 
