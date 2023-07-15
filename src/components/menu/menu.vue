@@ -45,7 +45,6 @@ onUnmounted(() => {
 });
 
 // avartar profile
-
 </script>
 
 <template>
@@ -81,7 +80,9 @@ onUnmounted(() => {
             <i :class="router.icon"></i>
           </button>
         </div>
-        <button class="menu__container-btn" @click="router.push('profile')"></button>
+        <button class="menu__container-btn" @click="router.push('profile')">
+          <i class="fa-solid fa-user"></i>
+        </button>
       </div>
     </div>
   </nav>
@@ -126,8 +127,8 @@ onUnmounted(() => {
       animation: fadeIn 1s ease-in-out;
     }
   }
-  
-  &-imgProfile {  
+
+  &-imgProfile {
     width: 20px;
     height: 20px;
     border-radius: 100px;
@@ -141,7 +142,7 @@ onUnmounted(() => {
     height: 100%;
     width: 100px;
     top: -15px;
-    background-color: rgb(230 220 220 / 11%);
+    background-color: rgb(255, 255, 255);
 
     &__header {
       width: 100%;

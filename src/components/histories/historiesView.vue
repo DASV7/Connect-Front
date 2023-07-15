@@ -69,7 +69,6 @@ const userModal = ref(null)
 const openModal = (user) => {  
   userModal.value = user;
   showViewHistories.value = !showViewHistories.value;
-  console.log(userModal.value);
 
 };
 const userAndhistories = ref([]);
@@ -93,7 +92,7 @@ onMounted(async () => {
 
 <template>
   <section class="historiesView">
-    <div class="historiesView__container">
+    <div class="historiesView__container" scrollDefault>
       <!--  Open Histories  -->
 
       <historiesModalView v-if="showViewHistories" :user="userModal" :showModal="showViewHistories" @closeModal="changesStatus()"></historiesModalView>
@@ -169,10 +168,12 @@ onMounted(async () => {
 .historiesView {
   width: 100%;
   height: 100%;
+  overflow-y: hidden;
 
   &__container {
     width: 100%;
     height: 100%;
+    overflow-y: scroll
   }
 
   &__tittle {
@@ -203,6 +204,7 @@ onMounted(async () => {
     padding: 5px;
     width: 97%;
     min-width: 300px;
+    margin-bottom: 10px;
 
     &-column {
       display: flex;
@@ -233,10 +235,9 @@ onMounted(async () => {
     }
   }
   &__component {
-    width: 100%;
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
+    padding-left: 30px;
   }
 }
 

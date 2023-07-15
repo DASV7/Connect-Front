@@ -3,6 +3,8 @@ import { onMounted, ref, onUnmounted } from "vue";
 import { useSocketStore } from "../../store/socketStore";
 import { socket, state } from "../../socket/socket";
 import jwtDecode from "jwt-decode";
+import buttonsRandom from "./buttonsRandom.vue";
+
 const textStatus = ref("");
 const video = ref(null);
 const canvas = ref(null);
@@ -133,11 +135,7 @@ onUnmounted(() => {
       </div>
 
       <!-- btn  -->
-      <div class="videoCall__buttons">
-        <button class="videoCall__buttons-btn1">Stop<i class="fa-sharp fa-solid fa-ban"></i></button>
-        <button class="videoCall__buttons-btn2">Like<i class="fa-solid fa-heart"></i></button>
-        <button class="videoCall__buttons-btn3">Next<i class="fa-solid fa-right-long"></i></button>
-      </div>
+      <buttonsRandom></buttonsRandom>
       <!--Video Chat-->
     </div>
   </div>
@@ -196,38 +194,7 @@ onUnmounted(() => {
     }
   }
 
-  &__buttons {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-    gap: 30px;
 
-    &-btn1,
-    &-btn2,
-    &-btn3 {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 30px;
-      border: solid 2px #50bded;
-      gap: 10px;
-      width: 100px;
-      height: 35px;
-      background-color: #000;
-      font-size: 15px;
-      font-weight: 600;
-      color: #fff;
-    }
-    &-btn1 {
-      color: #ff0000;
-    }
-    &-btn2 {
-      color: #50bded;
-    }
-    &-btn3 {
-      color: #35e743;
-    }
-  }
 
   &__video {
     width: 300px;

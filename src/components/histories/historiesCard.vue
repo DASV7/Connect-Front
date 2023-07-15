@@ -22,9 +22,6 @@ onMounted(()=>{
     <div class="historiesCard__multimedia-card" @click="openModal()">
       <img class="historiesCard__multimedia-img" :src="userAndhistories?.histories[0]?.url" alt="" />
 
-      <div class="historiesCard__multimedia-play">
-        <!-- <i @click="openModal()" class="fa-solid fa-play"></i> -->
-      </div>
       <div class="historiesCard__info">
         <p class="historiesCard__info-name">{{ userAndhistories.name }}, {{ calculateAge(userAndhistories.birthday) }}</p>
       </div>
@@ -40,17 +37,19 @@ onMounted(()=>{
     flex-wrap: wrap;
     gap: 10px;
     // position: absolute;
-    padding: 10px;
+    padding: 5px;
     overflow: hidden;
     max-width: 280px;
     max-height: 180px;
+    position: relative;
+    overflow: hidden;
 
     &-card {
       // @include Column;
       display: flex;
       width: 150px;
       height: 180px;
-      border: 3px solid rgb(0, 0, 0);
+      border: 3px solid $primary-color;
       border-radius: 10px;
       font-size: 40px;
       overflow: hidden;
@@ -76,24 +75,20 @@ onMounted(()=>{
     @media screen and (max-width: 510px) {
       &-play,
       &-card {
-        width: 295px;
-        min-width: 295px;
+        width: 150px;
       }
     }
     @media screen and (max-width: 668px) {
       &-play,
       &-card {
-        width: 250px;
+        width: 150px;
       }
     }
     @media screen and (min-width: 668px) {
       &-play,
       &-card {
-        width: 250px;
+        width: 150px;
       }
-    }
-    @media screen and (min-width: 1160px) {
-      width: 70%;
     }
   }
   &__info {
@@ -116,4 +111,5 @@ onMounted(()=>{
     }
   }
 }
+
 </style>
