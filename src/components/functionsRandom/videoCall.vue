@@ -23,10 +23,11 @@ onMounted(() => {
 
   myVideo.value.muted = true;
 
+  const url = import.meta.env.VITE_PEER;
   peer.value = new Peer(undefined, {
     path: "/peerjs",
-    host: import.meta.env.VITE_PEER,
-    port: "",
+    host: !url ? "localhost" : url,
+    port: !url ? "5500" : "",
   });
 
   navigator.mediaDevices
@@ -67,7 +68,7 @@ onMounted(() => {
       });
     });
 
-    peer.value.on("call", function (call) {
+  peer.value.on("call", function (call) {
     getUserMedia(
       { video: true, audio: true },
       function (stream) {
