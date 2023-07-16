@@ -22,7 +22,6 @@ import buttonsRandom from './buttonsRandom.vue';
   
   &__container {
     @include Column;
-    width: 55%;
     height: 100%;
     margin: auto;
  
@@ -30,6 +29,7 @@ import buttonsRandom from './buttonsRandom.vue';
   &__img {
     width: 200px;
     height: 200px;
+    margin-bottom: 50px;
   }
   
 
