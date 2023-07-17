@@ -63,7 +63,9 @@ onMounted(() => {
 </script>
 
 <template>
+
   <div class="homeConnect">
+    
     <div class="homeConnect__header">
       <img class="homeConnect__img" src="../../../public/svgLogoComplete.svg" alt="" srcset="" />
       <div class="homeConnect__header-icons">
@@ -71,18 +73,16 @@ onMounted(() => {
         <i class="fa fa-sliders" aria-hidden="true"></i>
       </div>
     </div>
-    <div class="homeConnect__content">
-      <div class="homeConnect__container">
-        <div class="homeConnect__component" v-if="users[index]">
+
+      <div class="homeConnect__container" v-if="users[index]">
           <connect v-if="!isLoading" :user="users[index]" @like="sendLike($event)" @dislike="sendDislike($event)" @message="sendMessage($event)" />
-        </div>
         <div class="homeConnect__notAvaliable" v-if="!users[index] && !isLoading">
           <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
           Vas muy rapido, Vuelve en un momento.
+          <miniLoading v-if="isLoading"></miniLoading>
         </div>
-        <miniLoading v-if="isLoading"></miniLoading>
       </div>
-    </div>
+
   </div>
 </template>
 
@@ -90,7 +90,11 @@ onMounted(() => {
 * {
   font-family: sans-serif;
 }
+
 .homeConnect {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   overflow: hidden;
   width: 100%;
   height: 100%;
@@ -148,7 +152,7 @@ onMounted(() => {
     @include dynamicScreen(650px) {
       box-shadow: #000 0px 5px 10px;
       border-radius: 20px;
-      height: 94vh;
+      height: 90vh;
       width: 400px;
     }
   }
@@ -156,7 +160,6 @@ onMounted(() => {
   &__component {
     width: 100%;
     border-radius: 10px 10px 0px 0px;
-    width: 94%;
   }
 }
 @media screen and (min-width: 450px) {
@@ -171,6 +174,8 @@ onMounted(() => {
   .homeConnect__header {
     width: 400px;
     margin: auto;
+    margin-top: 0%;
+    margin-bottom: 0%;
   }
   .homeVinc__userInfo-user {
     margin-left: 1px;

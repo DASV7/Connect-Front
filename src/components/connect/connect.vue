@@ -107,10 +107,10 @@ function getIcon(index) {
   return preferencesUser[index].icon;
 }
 </script>
+
 <template>
   <div class="homeVinc" v-if="!isLoading">
     <div class="homeVinc__Container">
-
       <!-- info USer  -->
 
       <div class="homeVinc__userInfo">
@@ -127,9 +127,9 @@ function getIcon(index) {
           </div>
         </div>
       </div>
-      
+
       <!-- view Img  -->
-      
+
       <div class="carousel__item" @click="changeModal()">
         <img class="carousel__item-img" :src="userCard?.pictures[0]?.url" alt="imgUser" />
       </div>
@@ -183,9 +183,7 @@ function getIcon(index) {
       <!-- First Photo  -->
 
       <div class="information__album">
-        <div class="information__album-container">
           <img class="information__album-img" :src="userCard.pictures[1]?.url" alt="" />
-        </div>
       </div>
 
       <!-- Buttons actions-->
@@ -196,17 +194,15 @@ function getIcon(index) {
           </button>
         </div>
       </div>
-     
+      
       <!-- Buttons actions-->
-
       <div class="homeVinc__security">
-        <p class="homeVinc__security-txt">Bloquear</p>
-        <p class="homeVinc__security-txt">Reportar</p>
+        <button class="homeVinc__security-txt">Bloquear</button>
+        <button class="homeVinc__security-txt">Reportar</button>
       </div>
-
+      
     </div>
   </div>
-
 </template>
 
 <style lang="scss">
@@ -216,11 +212,14 @@ function getIcon(index) {
 
 .homeVinc {
   width: 100%;
-  height: 100vh;
+  // height: 100vh;
   position: relative;
   overflow: hidden;
 
   &__Container {
+    width: 100%;
+    height: 100%;
+
     position: relative;
     overflow: hidden;
     text-align: center;
@@ -228,7 +227,6 @@ function getIcon(index) {
     min-width: 230px;
     max-width: 500px;
     margin-top: 10px;
-
     &::-webkit-scrollbar-thumb {
       height: 80px;
     }
@@ -266,10 +264,10 @@ function getIcon(index) {
     // }
     &-button {
       background-color: #f9f9f9;
-      border: 1px solid $primary-color;
+      border: 3px solid $primary-color;
       color: $primary-color;
-      height: 40px;
-      width: 40px;
+      height: 45px;
+      width: 45px;
       border-radius: 50%;
 
       &:hover {
@@ -350,6 +348,24 @@ function getIcon(index) {
     font-size: 12px;
     font-weight: 700;
   }
+  
+  &__security {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+    margin-bottom: 90px;
+    &-txt {
+      width: 100px;
+      height: 30px;
+      background-color: #000;
+      color: #fff;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+    }
+  }
 }
 
 .information {
@@ -416,9 +432,9 @@ function getIcon(index) {
     display: flex;
   }
 
-  &__album-container {
-    gap: 5px;
-    width: 100%;
+  &__album {
+    width: 98%;
+    margin: auto;
   }
   &__album-img {
     max-width: 500px;
@@ -438,7 +454,9 @@ function getIcon(index) {
 }
 
 .homeVinc__Container {
+  width: 98%;
   height: 100%;
+  margin: auto;
   overflow-x: hidden;
   overflow-y: scroll;
   display: flex;
@@ -446,11 +464,7 @@ function getIcon(index) {
   gap: 10px;
 }
 
-.carousel * {
-  border-radius: 20px 20px 0 0;
-  height: 100%;
-  width: 100%;
-}
+
 
 .carousel {
   &__item {
@@ -463,8 +477,9 @@ function getIcon(index) {
 
     &-img {
       display: flex;
-      max-width: 97vw;
-      height: 100%;
+      width: 98%;
+      // max-width: 97vw;
+      height: 98%;
       border-radius: 20px;
     }
   }
@@ -490,7 +505,14 @@ function getIcon(index) {
 @media (max-width: 600px) {
   .carousel__item-img {
     object-fit: cover;
-    height: 100vh;
+    // height: 100vh;
   }
 }
+@media (min-width: 1024px) { 
+  .homeVinc__buttonsAction-wrapper{ 
+    display: flex;
+    gap: 5px;
+    margin-left: 85px;
+  }
+} 
 </style>

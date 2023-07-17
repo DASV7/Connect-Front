@@ -7,7 +7,6 @@ let userPreferences = ref({
   sexuality: "",
   height: "0",
   feelings: "",
-  interests: "",
   education: "",
   smoke: "",
   drink: "",
