@@ -1,4 +1,4 @@
-<!-- <script setup>
+<script setup>
 import { onMounted, ref, onUnmounted } from "vue";
 import { socket, state } from "../../socket/socket";
 import jwtDecode from "jwt-decode";
@@ -477,4 +477,4 @@ video {
     }
   }
 }
-</style> -->
+</style>
