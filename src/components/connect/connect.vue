@@ -32,8 +32,7 @@ onBeforeMount(() => {
     delete userCard.value.preferences[0].updatedAt;
     delete userCard.value.preferences[0]._id;
     delete userCard.value.preferences[0].idUser;
-    delete userCard.value.preferences[0].__v;
-    console.log(userCard.value.preferences);
+    delete userCard.value.preferences[0].__v;    
     preferencesValues.value = userCard.value.preferences[0];
     preferencesKey.value = Object.keys(userCard.value.preferences[0]);
 
