@@ -15,6 +15,15 @@ const router = useRouter();
 
 const preferencesValues = ref([]);
 
+const dictionary = {
+  drink: "Bebe",
+  education: "Estudios",
+  feelings: "Estado",
+  height: "Altura",
+  sexuality: "Horientación Sexual",
+  smoke: "Fuma",
+};
+
 const preferencesKey = ref([]);
 onBeforeMount(() => {
   userCard.value = props.user;
@@ -24,7 +33,8 @@ onBeforeMount(() => {
     delete userCard.value.preferences[0]._id;
     delete userCard.value.preferences[0].idUser;
     delete userCard.value.preferences[0].__v;
-    preferencesValues.value = Object.values(userCard.value.preferences[0]);
+    console.log(userCard.value.preferences);
+    preferencesValues.value = userCard.value.preferences[0];
     preferencesKey.value = Object.keys(userCard.value.preferences[0]);
 
     if (preferencesUser) {
@@ -172,18 +182,18 @@ function getIcon(index) {
 
       <!-- prefrences User  -->
 
-      <p class="information__InfoUser-tittle">Información de "Nombre usuario":</p>
+      <p class="information__InfoUser-tittle">Información de {{ userCard.name }}:</p>
       <div class="information__InfoUser" v-if="preferencesValues">
         <p class="information__InfoUser-preferences" v-for="(item, index) in preferencesValues" :key="index">
           <i :class="getIcon[index]"></i>
-          {{ item }}
+          {{ dictionary[index] }}:{{ item }}
         </p>
       </div>
 
       <!-- First Photo  -->
 
       <div class="information__album">
-          <img class="information__album-img" :src="userCard.pictures[1]?.url" alt="" />
+        <img class="information__album-img" :src="userCard.pictures[1]?.url" alt="" />
       </div>
 
       <!-- Buttons actions-->
@@ -194,13 +204,12 @@ function getIcon(index) {
           </button>
         </div>
       </div>
-      
+
       <!-- Buttons actions-->
       <div class="homeVinc__security">
         <button class="homeVinc__security-txt">Bloquear</button>
         <button class="homeVinc__security-txt">Reportar</button>
       </div>
-      
     </div>
   </div>
 </template>
@@ -348,7 +357,7 @@ function getIcon(index) {
     font-size: 12px;
     font-weight: 700;
   }
-  
+
   &__security {
     display: flex;
     flex-direction: column;
@@ -464,8 +473,6 @@ function getIcon(index) {
   gap: 10px;
 }
 
-
-
 .carousel {
   &__item {
     display: flex;
@@ -508,11 +515,11 @@ function getIcon(index) {
     // height: 100vh;
   }
 }
-@media (min-width: 1024px) { 
-  .homeVinc__buttonsAction-wrapper{ 
+@media (min-width: 1024px) {
+  .homeVinc__buttonsAction-wrapper {
     display: flex;
     gap: 5px;
     margin-left: 85px;
   }
-} 
+}
 </style>
