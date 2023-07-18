@@ -67,7 +67,7 @@ onUnmounted(() => {
         </div>
       </div>
       <div v-if="isGreaterThan1024" class="menu__container-bottom">
-        <button class="menu__container-btn" @click="router.push('profile')">
+        <button class="menu__container-btn" @click="router.push('/profile')">
           <img class="menu__container-imgProfile" :src="userPicture.url" alt="" />
           <p class="menu__container-p">Perfil</p>
         </button>
@@ -80,7 +80,7 @@ onUnmounted(() => {
             <i :class="router.icon"></i>
           </button>
         </div>
-        <button class="menu__container-btn" @click="router.push('profile')">
+        <button class="menu__container-btn" @click="router.push('/profile')">
           <i class="fa-solid fa-user"></i>
         </button>
       </div>
