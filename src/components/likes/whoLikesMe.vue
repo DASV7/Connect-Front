@@ -102,10 +102,12 @@ let userModal = ref(null);
     max-width: 100%;
   }
   &__containerUser {
-    border-radius: 10px;
-    width: 130px;
-    height: 160px;
-    box-shadow: 0px 2px 6px;
+    widows: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    
+    
   }
   &__logo {
     display: flex;
@@ -177,6 +179,8 @@ let userModal = ref(null);
     width: 130px;
     height: 160px;
     box-shadow: 0px 2px 6px;
+    
+  
 
     &-cont {
       display: flex;
