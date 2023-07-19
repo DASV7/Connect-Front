@@ -106,18 +106,13 @@ const hereFor = {
   overflow: auto;
 
   &__wrapper {
-    // display: flex;
-    // justify-content: center;
-    // flex-direction: column;
     width: 100%;
     height: 100%;
   }
   &__container {
     width: 100%;
     height: 34%;
-    // border-bottom: 2px solid $primary-color;
-    // box-shadow: 0 2px 15px $primary-color;
-    // max-width: 500px;
+
   }
   &__header {
     display: flex;
@@ -153,16 +148,16 @@ const hereFor = {
     flex-direction: column;
     width: 65%;
     height: 90%;
-    max-width: 111px;
-    min-height: 111px;
+    max-width: 100px;
+    min-height: 110px;
     cursor: pointer;
 
     &-cont {
       @include flexCenter;
       width: 100px;
-      height: 120px;
-      max-width: 150px;
-      max-height: 150px;
+      height: 110px;
+      max-width: 100px;
+      max-height: 110px;
       border-radius: 100%;
       overflow: hidden;
       border: 4px solid $primary-color;

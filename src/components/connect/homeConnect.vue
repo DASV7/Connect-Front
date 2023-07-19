@@ -98,6 +98,7 @@ onMounted(() => {
   overflow: hidden;
   width: 100%;
   height: 100%;
+  position: relative;
 
   &__content {
     display: flex;
@@ -149,6 +150,7 @@ onMounted(() => {
     overflow: hidden;
     position: relative;
     overflow: hidden;
+
     @include dynamicScreen(650px) {
       box-shadow: #000 0px 5px 10px;
       border-radius: 20px;
@@ -185,6 +187,15 @@ onMounted(() => {
 @media screen and (max-width: 1024px) {
   .homeConnect__content {
     height: 87vh;
+  }
+  .homeConnect__header {
+    width: 90%;
+  }
+
+}
+@media screen and (min-width: 611px) { 
+  .homeConnect__header {
+    width: 400px;
   }
 }
 </style>

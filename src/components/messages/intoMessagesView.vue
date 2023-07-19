@@ -1,17 +1,20 @@
 <script setup>
+
 import { onMounted, onBeforeUnmount, ref, getCurrentInstance, computed, reactive } from "vue";
 import axios from "../../api/axios";
-import avatarUser from "../shared/avatarUser.vue";
 import { useRoute, useRouter } from "vue-router";
 import Swal from "sweetalert2";
 import { useCounterStore } from "../../store/users";
 import messageCard from "./messageCard.vue";
-import { useSocketStore } from "../../store/socketStore";
 import AvatarUser from "../shared/avatarUser.vue";
-import connect from "../../components/connect/connect.vue";
-import Modal from "../shared/modal.vue";
+import ModalMessages from "../messages/messasgesModal.vue";
 import { calculateAge } from "../../utils/calculateAge";
 import { state, socket } from "../../socket/socket";
+
+import avatarUser from "../shared/avatarUser.vue";
+import { useSocketStore } from "../../store/socketStore";
+import connect from "../../components/connect/connect.vue";
+
 const message = ref("");
 let messagesUser = reactive([]);
 const route = useRoute();
@@ -30,7 +33,7 @@ onMounted(async () => {
   const response = user.data.data;
   if (!response) return;
   members.value = response.members;
-  userChat.value = members.value.find((e) => e._id != userSesion.user._id);
+  userChat.value = members.value.find((e) => e._id != userSesion.user?._id);
   messagesUser.splice(messagesUser.length, 0, ...response.messages);
   setTimeout(() => goToBottom(), 100);
   isLoading.value = false;
@@ -87,8 +90,8 @@ const newMessage = async () => {
 onBeforeUnmount(() => {
   socket.off("messages/newMessage");
 });
-let hiddenProfile = ref(false);
 
+let hiddenProfile = ref(false);
 function changeModal() {
   hiddenProfile.value = !hiddenProfile.value;
 }
@@ -102,15 +105,17 @@ function closeOptions() {
 </script>
 
 <template>
-  <div @click="closeOptions" v-if="btnOptions" class="intoMessages__header-fullscreen"></div>
+  <div @click="closeOptions" v-if="btnOptions" class="intoMessages__header-fullscreen">
+  </div>
+  
   <div class="intoMessages__allPage">
     <div class="intoMessages" v-if="!isLoading && userChat?.name">
-      <Modal :showModal="hiddenProfile" @changeModal="changeModal()">
-        <template v-slot:content>
-          <connect :user="userChat" :hiddeActions="false" />
-        </template>
-      </Modal>
-
+      
+      <div v-if="hiddenProfile"  class="intoMessages__Modal">
+        <ModalMessages  :user="userChat" :showModal="hiddenProfile" @changeModal="changeModal()" ></ModalMessages>
+      </div>
+      
+      <!-- into messages  -->
       <div class="intoMessages__header">
         <button @click="$router.push('/messages')" class="intoMessages__header-btnBack">
           <i class="fa-sharp fa-solid fa-arrow-left"> </i>
@@ -119,6 +124,9 @@ function closeOptions() {
           <AvatarUser @openProfile="changeModal()" :user="userChat" :size="40"></AvatarUser>
           <p @openProfile="changeModal()" class="intoMessages__header-name">{{ userChat.name }}, {{ calculateAge(userChat.birthday) }}</p>
         </div>
+        <!-- MODAL  -->
+
+        <!-- BUttons Options  -->
         <button @click="openOptios(true)" class="intoMessages__header-btnBack">
           <i class="fa-sharp fa-solid fa-ellipsis-vertical"></i>
           <div v-if="btnOptions" class="intoMessages__header-options">
@@ -136,8 +144,10 @@ function closeOptions() {
             </button>
           </div>
         </button>
-      </div>
 
+      </div>
+      
+      <!-- messages card  -->
       <div class="intoMessages__messages" scrollDefault>
         <div :id="index" class="intoMessages__messageItem" v-for="(message, index) in messagesUser" :key="message._id">
           <messageCard @openProfile="changeModal()" :message="message" :user="filterMembers(message)" :idx="itsMe(message)"></messageCard>
@@ -145,6 +155,7 @@ function closeOptions() {
         <div id="elemento-final"></div>
       </div>
 
+        <!-- All messages  -->
       <div class="intoMessages__all">
         <!-- <div class="intoMessages__container"> -->
         <button class="intoMessages__container-send">
@@ -169,7 +180,16 @@ function closeOptions() {
   width: 100%;
   height: 100%;
   box-shadow: 0px 5px 15px #9f9999;
-
+  overflow: hidden;
+  position: relative;
+  
+  &__Modal {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+  }
   &__allPage {
     display: flex;
     justify-content: center;

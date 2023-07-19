@@ -34,7 +34,7 @@ onMounted(() => {
   goRouter(actualRoute);
   handleResize();
   window.addEventListener("resize", handleResize);
-  userPicture.value = userStore.user.pictures[0];
+  userPicture.value = userStore.user?.pictures[0];
 });
 const isGreaterThan1024 = ref(false);
 const handleResize = () => {
@@ -68,7 +68,7 @@ onUnmounted(() => {
       </div>
       <div v-if="isGreaterThan1024" class="menu__container-bottom">
         <button class="menu__container-btn" @click="router.push('/profile')">
-          <img class="menu__container-imgProfile" :src="userPicture.url" alt="" />
+          <img class="menu__container-imgProfile" :src="userPicture?.url" alt="" />
           <p class="menu__container-p">Perfil</p>
         </button>
       </div>

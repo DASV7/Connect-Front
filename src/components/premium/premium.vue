@@ -60,7 +60,6 @@ function endScroll() {
 </script>
 
 <template>
-  
   <div class="premium" scrollDefault>
     <div v-if="showPay" @click="closePay()" class="premium__fullScreen"></div>
     <div class="premium__container" scrollDefault>
@@ -149,6 +148,7 @@ function endScroll() {
       border: none;
       font-size: 20px;
       padding-left: 19px;
+      cursor: pointer;
     }
 
     &-tittle {
@@ -267,7 +267,7 @@ function endScroll() {
   }
   .premium {
     display: flex;
-    width: 50%;
+    width: 98%;
     height: 95%;
     margin: auto;
     border-radius: 20px;
@@ -278,50 +278,16 @@ function endScroll() {
     &__pay {
       width: 50%;
     }
-    // span {
-    //   margin: 0%;
-    // }
     &__container {
       margin: auto;
       overflow-y: scroll;
     }
-    &__card {
-      // justify-content: center;
-      // flex-wrap: wrap;
-      // height: 337px;
-      // overflow-y: auto;
-      // margin: 0%;
-      // padding: 0%;
-    }
-    &__text {
-      // margin: auto;
-    }
   }
 }
-// @media screen and (min-width: 810px) {
-//   .premium {
-
-//     &__card {
-//       width: 800px;
-//       margin: auto;
-//     }
-//   }
-
-// }
-// @media screen and (min-width: 1100px) {
-//   .premium {
-//     &__advanges {
-//       border: none;
-//     }
-//     &__text {
-//       width: auto;
-//     }
-//     &__card {
-//       width: 100%;
-//       margin: auto;
-//       height: auto;
-//       margin-top: 30px;
-//     }
-//   }
-// }
+@media screen and (min-width: 1024px) {
+  .premium {
+    display: flex;
+    width: 50%;
+  }
+}
 </style>

@@ -220,14 +220,14 @@ function getIcon(index) {
 
 .homeVinc {
   width: 100%;
-  // height: 100vh;
+  height: 100%;
   position: relative;
   overflow: hidden;
+  background-color: #fff;
 
   &__Container {
     width: 100%;
     height: 100%;
-
     position: relative;
     overflow: hidden;
     text-align: center;
@@ -290,7 +290,7 @@ function getIcon(index) {
     text-align: center;
     position: fixed;
     margin-left: 15px;
-    top: 50px;
+    // top: 50px;
     color: #000;
 
     &-p {
@@ -503,18 +503,13 @@ function getIcon(index) {
   z-index: 100;
 }
 
-@media (min-width: 600px) {
-  .carousel__item {
-    height: 100vh;
-  }
-}
 @media (max-width: 600px) {
   .carousel__item-img {
     object-fit: cover;
-    // height: 100vh;
   }
 }
 @media (min-width: 1024px) {
+
   .homeVinc__buttonsAction-wrapper {
     display: flex;
     gap: 5px;
