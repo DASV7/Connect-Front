@@ -6,6 +6,7 @@ import axios from "../../api/axios";
 import modalBottom from "../shared/modalBottom.vue";
 import historiesCard from "./historiesCard.vue";
 import historiesModalView from "./histories.modal.View.vue";
+import totalLoading from "../shared/totalLoading.vue";
 
 const showModal = ref(false);
 const userStore = useCounterStore();
@@ -37,19 +38,25 @@ const handleFileUpload = (event, index) => {
   }
 };
 const isLoading = ref(true);
+const isLoaginHistory = ref(false);
 const sendHistory = async () => {
   let formData = new FormData();
   formData.append("description", description.value);
   formData.append("histories", selectedFile.value);
   formData.append("status", emojiSelect.value);
+  isLoaginHistory.value = true;
   try {
     const data = await axios.post("/histories/create", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     });
+    isLoaginHistory.value = false;
+    showModal.value = false;
     // Haz algo con los datos devueltos si es necesario
   } catch (error) {
+    isLoaginHistory.value = false;
+    showModal.value = false;
     Swal.fire({
       icon: "error",
       title: "Ocurrió un error",
@@ -161,6 +168,7 @@ onMounted(async () => {
         <historiesCard v-for="(item, index) in userAndhistories" :key="index" :user="item"  @changeModal="openModal($event)"></historiesCard>
       </div>
     </div>
+    <totalLoading v-if="isLoaginHistory" :textLabel="'Subiendo historia'"></totalLoading>
   </section>
 </template>
 
