@@ -41,7 +41,7 @@ onMounted(() => {
 
   &__container {
     width: 380px;
-    height: 90%;
+    // height: 90%;
     background-color: #000;
     border-radius: 20px;
     margin-left: 70px;
@@ -87,7 +87,6 @@ onMounted(() => {
   .viewHistoriesModal__container {
     width: 100%;
     margin-left: 0px;
-    padding: 0%;
   }
 
 }
