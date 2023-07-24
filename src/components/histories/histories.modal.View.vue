@@ -37,11 +37,11 @@ onMounted(() => {
   left: 0;
   z-index: 50;
   overflow: hidden;
-  background-color: #000000dd;
+  background-color: rgb(0 0 0 / 71%);
 
   &__container {
     width: 380px;
-    height: 95%;
+    height: 90%;
     background-color: #000;
     border-radius: 20px;
     margin-left: 70px;
@@ -69,7 +69,7 @@ onMounted(() => {
     &-img {
       width: 100%;
       height: 95%;
-      object-fit: cover;
+      object-fit: contain;
       border-radius: 20px;
     }
   }
@@ -77,7 +77,7 @@ onMounted(() => {
 }
 @media (max-width: 1024px) {
   .viewHistoriesModal__container {
-    width: 80%;
+    // width: 80%;
     margin-left: 0px;
   }
 

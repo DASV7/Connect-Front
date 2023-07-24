@@ -15,6 +15,8 @@ import functionsApp from "../components/functionsRandom/mainFuntions.vue";
 import settings from "../components/settings/setting.vue"
 import premium from "../components/premium/premium.vue"
 
+import filters from "../components/filters/filters.vue"
+
 const ifAuthenticated = (to, from, next) => {
   if (!localStorage.getItem("vinc-jwt")) {
     next("/");
@@ -134,6 +136,12 @@ const routes = [
     path: "/premium",
     name: "premium",
     component: premium,
+    beforeEnter: ifAuthenticated,
+  },
+  {
+    path: "/filters",
+    name: "filters",
+    component: filters,
     beforeEnter: ifAuthenticated,
   },
   // {

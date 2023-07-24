@@ -53,6 +53,7 @@ onMounted(()=>{
       border-radius: 10px;
       font-size: 40px;
       overflow: hidden;
+      cursor: pointer;
     }
     i {
       color: #00b7ff;

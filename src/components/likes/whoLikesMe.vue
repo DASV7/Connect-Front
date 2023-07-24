@@ -160,7 +160,7 @@ let userModal = ref(null);
       align-items: start;
       flex-wrap: wrap;
       width: 55%;
-      height: 88%;
+      height: 85%;
       margin: auto;
       margin-top: 10px;
       background-color: #ffffff;

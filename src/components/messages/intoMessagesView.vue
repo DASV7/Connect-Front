@@ -374,7 +374,7 @@ function closeOptions() {
   }
 
   .intoMessages__header {
-    width: 56%;
+    width: 55%;
 
     &-container {
       display: flex;

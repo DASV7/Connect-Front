@@ -70,7 +70,7 @@ onMounted(() => {
       <img class="homeConnect__img" src="../../../public/svgLogoComplete.svg" alt="" srcset="" />
       <div class="homeConnect__header-icons">
         <i class="fa fa-undo" aria-hidden="true"></i>
-        <i class="fa fa-sliders" aria-hidden="true"></i>
+        <i @click="$router.push('/filters')" class="fa fa-sliders" aria-hidden="true"></i>
       </div>
     </div>
 
