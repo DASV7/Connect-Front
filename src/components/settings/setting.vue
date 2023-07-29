@@ -65,13 +65,9 @@ function closeModalPolitics() {
       <!-- btns -->
       <div class="settings__containerBtn">
         <div class="settings__containerBtn-btn">
-          <i class="fa-sharp fa-solid fa-gear"></i>
+          <i class="fa fa-address-card"></i>
           <p>Informacion del perfil</p>
-        </div>
-        <div class="settings__containerBtn-btn">
-          <i class="fa-sharp fa-solid fa-gear"></i>
-          <p>Informacion de la cuenta</p>
-        </div>
+        </div>        
         <div @click="openSetting()" class="settings__containerBtn-btn">
           <i class="fa-sharp fa-solid fa-gear"></i>
           <p>Configuracion de la cuenta</p>

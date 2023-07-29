@@ -194,7 +194,7 @@ const prevtvalue = () => {
 
             <i class="fa-solid fa-camera-retro"></i
           ></label>
-          <input v-show="false" @change="handleFileUpload($event, 1)" multiple="false"  id="img2" type="file" class="flowRegister__form-input" placeholder="img2" accept="image/*" />
+          <input v-show="false" @change="handleFileUpload($event, 1)" multiple="false" id="img2" type="file" class="flowRegister__form-input" placeholder="img2" accept="image/*" />
         </div>
       </div>
       <div class="flowRegister__button">
