@@ -93,7 +93,7 @@ function endScroll() {
       >
         <div v-for="(item, index) in planPremium" :key="index" @click="payPremium(item.month, item.money)" class="premium__card-item">
           <p>{{ item.month }} <i class="fa fa-check" aria-hidden="true"></i></p>
-          <span>$ {{ item.money }} al mes</span>
+          <span>$ {{ item.money }}, {{ item.month }}</span>
         </div>
       </div>
 
