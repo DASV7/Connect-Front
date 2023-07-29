@@ -245,7 +245,6 @@ onMounted(async () => {
   &__component {
     display: flex;
     flex-wrap: wrap;
-    padding-left: 30px;
   }
 }
 
@@ -346,6 +345,12 @@ onMounted(async () => {
       margin: auto;
       border-radius: 20px;
     }
+  }
+}
+@media  (max-width:335px ) {
+  .historiesCard__multimedia-play, 
+  .historiesCard__multimedia-card {
+    width: 140px;
   }
 }
 </style>

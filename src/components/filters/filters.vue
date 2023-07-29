@@ -1,70 +1,96 @@
 <script setup>
 import { ref } from "vue";
-
+import toogle from "../toggle/toggle.vue";
 const distance = ref(0);
 const age = ref(0);
 
-const updateRange = () => {
-  // Obtenemos los valores del input range (rango seleccionado)
-  const rangeValues = document.getElementById("km-range").value.split(",");
-  // Obtenemos el texto del resultado en vivo
-  const resultText = `${rangeValues[0]} km - ${rangeValues[1]} km`;
-  // Actualizamos el texto del resultado en vivo
-  document.getElementById("range-result").innerText = resultText;
+const interest = ref([
+  { tittle: "Fumar", name: "smoke", status: false },
+  { tittle: "Tomar", name: "drink", status: false },
+  { tittle: "Hijos", name: "children", status: false },
+  { tittle: "Mascotas", name: "pets", status: false },
+  { tittle: "Solter@", name: "single", status: false },
+]);
+
+const sendFiltersBack = (index, $event) => {
+  interest.value[index].status = $event;
+  console.log("HOLA",interest.value);
 };
+let isActive = ref(false);
+let filtersdata = ref({
+  interestIn: "",
+  distance: "",
+  smoke: "",
+  drink: "",
+  pests: "",
+  children: "",
+  single: "",
+});
 </script>
 
 <template>
   <div class="filters">
-    <!-- header  -->
     <div class="filters__container">
+      <!-- header  -->
 
-    <div class="filters__header">
-      <button @click="$router.push('/home')" class="filters__header-btnBack">
-        <i class="fa-sharp fa-solid fa-arrow-left"> </i>
-      </button>
-      <p class="filters__header-tittle">Filtros</p>
-    </div>
+      <div class="filters__header">
+        <button @click="$router.push('/home')" class="filters__header-btnBack">
+          <i class="fa-sharp fa-solid fa-arrow-left"> </i>
+        </button>
+        <p class="filters__header-tittle">Filtros</p>
+      </div>
 
-    <!-- men or woman  -->
-    <div class="filters__gender">
-      <p>Me interesa</p>
-      <div class="filters__gender__buttons">
-        <button class="filters__gender-btn">Chicos <i class="fa-solid fa-child"></i></button>
-        <button class="filters__gender-btn">Chicas <i class="fa-solid fa-person-dress"></i></button>
-        <button class="filters__gender-btn">Ambos <i class="fa-solid fa-children"></i></button>
+      <!-- men or woman  -->
+      <div class="filters__gender">
+        <p>Me interesa</p>
+        <div class="filters__gender__buttons">
+          <button @click="sendFiltersBack('guys')" class="filters__gender-btn">Chicos <i class="fa-solid fa-child"></i></button>
+          <button @click="sendFiltersBack('girls')" class="filters__gender-btn">Chicas <i class="fa-solid fa-person-dress"></i></button>
+          <button @click="sendFiltersBack('both')" class="filters__gender-btn">Ambos <i class="fa-solid fa-children"></i></button>
+        </div>
+      </div>
+
+      <!-- distancia  -->
+      <div class="filters__distance">
+        <p>Selecciona una distancia:</p>
+        <input class="filters__distance-input" type="range" id="km-range" min="0" max="160" step="3" v-model="filtersdata.distance" />
+        <p>{{ filtersdata.distance }} km</p>
+      </div>
+
+      <!-- all the sites -->
+      <div class="filters__all">
+        <p>Todo el pais</p>
+        <button><i class="fa-solid fa-check"></i></button>
+        <p>Todo el mundo</p>
+        <button><i class="fa-solid fa-check"></i></button>
+      </div>
+
+      <!-- Age  -->
+      <!-- end age  -->
+
+      <!-- search interest  -->
+
+      <div class="filters__interest">
+        <p>Intereses</p>
+        <div class="filters__interest-search">
+          <input class="filters__interest-input" type="text" placeholder="Buscar" />
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+      </div>
+
+      <!-- filtros avanzados   -->
+
+      <div class="filters__advanced">
+        <p>Filtros avanzados</p>
+        <i>Busca lo que realmente quieres</i>
+
+        <div v-for="(item, index) in interest" :key="index" class="filters__advanced-preferences">
+          <p>{{ item.tittle }}</p>
+          <toogle @toogle="sendFiltersBack(index, $event)" :isActive="item.status"></toogle>
+        </div>
       </div>
     </div>
-
-    <!-- distancia  -->
-    <div class="filters__distance">
-      <p>Selecciona una distancia:</p>
-      <input class="filters__distance-input" type="range" id="km-range" min="0" max="160" step="3" v-model="distance" />
-      <span>{{ distance }} km</span>
-    </div>
-
-    <!-- Age  -->
-    <!-- end age  -->
-
-    <!-- search interest  -->
-
-    <div class="filters__interest">
-      <p>Intereses</p>
-      <div class="filters__interest-search">
-        <input class="filters__interest-input" type="text" placeholder="Buscar" />
-        <i class="fa-solid fa-magnifying-glass"></i>
-      </div>
-    </div>
-
-    <!-- filtros avanzados   -->
-
-    <div class="filters__advanced">
-
-    </div>
-
   </div>
-</div>
-
 </template>
 
 <style lang="scss">
@@ -108,7 +134,7 @@ const updateRange = () => {
 
     p {
       margin-bottom: 10px;
-      font-size: 10px;
+      font-size: 13px;
     }
 
     &__buttons {
@@ -131,7 +157,7 @@ const updateRange = () => {
     }
   }
 
-    &__distance {
+  &__distance {
     display: flex;
     flex-direction: column;
     width: 90%;
@@ -147,9 +173,10 @@ const updateRange = () => {
   &__interest {
     width: 90%;
     margin: auto;
+    margin-top: 20px;
 
     p {
-      margin-bottom:  2px;
+      margin-bottom: 2px;
     }
 
     &-search {
@@ -164,6 +191,81 @@ const updateRange = () => {
       border: none;
       outline: none;
     }
+  }
+
+  &__all {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 90%;
+    margin: auto;
+
+    p {
+      font-size: 13px;
+    }
+
+    button {
+      width: 30px;
+      height: 20px;
+
+      &:focus {
+        background-color: $primary-color;
+        color: #fff;
+        border: none;
+      }
+    }
+  }
+  &__advanced {
+    width: 90%;
+    margin: auto;
+    margin-top: 10px;
+
+    p {
+      font-size: 14px;
+    }
+    i {
+      font-size: 10px;
+    }
+
+    &-preferences {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+      border-bottom: 1px solid #a59e9e;
+      padding-bottom: 2px;
+    }
+  }
+}
+@media (min-width: 1034px) {
+  .filters {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &__container {
+      width: 55%;
+      height: 95%;
+      box-shadow: #000 0px 5px 10px;
+      border-radius: 20px;
+    }
+
+    &__distance {
+      width: 80%;
+      margin-left: 30px;
+    }
+    &__all {
+      justify-content: inherit;
+    }
+    // &__advanced {
+    //   width: 70%;
+    //   margin: 0%;
+    //   margin-left: 30px;
+    // }
+  }
+  .filters__gender__buttons {
+    justify-content: inherit;
+    gap: 10px;
   }
 }
 </style>
