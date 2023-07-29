@@ -35,11 +35,17 @@ const updateProfile = async () => {
         message: "Perfil Actulizado correctamente",
       });
   }
+  modifyVal.value = false
   localStorage.setItem("vinc-jwt", response.data);
   // console.log(response.data);
   
   // console.log(response);
 };
+const modifyVal = ref(false)
+const changeInInput = () =>{
+  modifyVal.value = true
+}
+
 </script>
 
 <template>
@@ -75,9 +81,9 @@ const updateProfile = async () => {
           <p class="editProfile__tags-p">Fecha de cumpleaños:</p>
           <p class="editProfile__tags-p">{{ formattedDate }}</p>
         </div>
-        <textarea resize="none" class="editProfile__tags-input" v-model="description" placeholder="Ingresa tu descripcion"> </textarea>
+        <textarea resize="none" class="editProfile__tags-input" v-model="description" @input="changeInInput()" placeholder="Ingresa tu descripcion"> </textarea>
         <div>{{ text }}</div>
-        <button class="editProfile__btn-save" @click="updateProfile()">Guardar</button>
+        <button class="editProfile__btn-save" :disabled="!modifyVal" @click="updateProfile()">Guardar</button>
       </div>
     </div>
   </div>
