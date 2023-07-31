@@ -33,9 +33,9 @@ let warning = [
 ];
 
 const functions = ref([
-  { text: "Llamadas", path: "/call" },
   { text: "Chat", path: "/chat" },
-  { text: "Video Chat", path: "/videocall" },
+  // { text: "Llamadas", path: "/call" },
+  // { text: "Video Chat", path: "/videocall" },
 ]);
 const indexIIcon = ["fa fa-phone-square", "fa fa-comments", "fa fa-video-camera"];
 

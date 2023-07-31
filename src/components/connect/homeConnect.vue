@@ -184,6 +184,9 @@ onMounted(() => {
   }
 
 }
+.fa-sliders{
+  cursor: pointer;
+}
 @media screen and (max-width: 1024px) {
   .homeConnect__content {
     height: 87vh;

@@ -265,11 +265,12 @@ function getIcon(index) {
     bottom: 70px;
     width: 100%;
     right: 0;
-    left: 0;
-    cursor: pointer;
+    left: 0;    
     background-color: transparent;
-    // &-wrapper {
-    // }
+     &-wrapper {
+      display: flex;
+      gap: 15px;
+     }
     &-button {
       background-color: #f9f9f9;
       border: 3px solid $primary-color;
@@ -277,6 +278,9 @@ function getIcon(index) {
       height: 45px;
       width: 45px;
       border-radius: 50%;
+      
+      cursor: pointer;
+      
 
       &:hover {
         transform: scale(1.2);

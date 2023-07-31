@@ -2,12 +2,11 @@
 import { ref, defineEmits, defineProps, onMounted } from "vue";
 const props = defineProps(["showModal", "user"]);
 
-const userAndhistories = ref()
+const userAndhistories = ref();
 onMounted(() => {
-  console.log("este es el log ",props.user);
+  console.log("este es el log ", props.user);
   userAndhistories.value = props.user;
 });
-
 </script>
 
 <template>
@@ -20,6 +19,8 @@ onMounted(() => {
       </div>
       <div class="viewHistoriesModal__historie" v-if="userAndhistories?.histories">
         <img class="viewHistoriesModal__historie-img" :src="userAndhistories?.histories[0]?.url" alt="" />
+        <p class="viewHistoriesModal__historie-description">{{ userAndhistories?.histories[0]?.description }}</p>
+        <p class="viewHistoriesModal__historie-p">{{ userAndhistories?.histories[0]?.status }}</p>
       </div>
     </div>
   </div>
@@ -61,11 +62,16 @@ onMounted(() => {
       cursor: pointer;
     }
   }
-  
-  &__historie { 
+
+  &__historie {
     width: 100%;
     height: 100%;
-    
+
+    &-p,
+    &-description {
+      color: white;
+    }
+
     &-img {
       width: 100%;
       height: 95%;
@@ -73,14 +79,12 @@ onMounted(() => {
       border-radius: 20px;
     }
   }
-
 }
 @media (max-width: 1024px) {
   .viewHistoriesModal__container {
     // width: 80%;
     margin-left: 0px;
   }
-
 }
 
 @media (max-width: 524px) {
@@ -88,6 +92,5 @@ onMounted(() => {
     width: 100%;
     margin-left: 0px;
   }
-
 }
 </style>

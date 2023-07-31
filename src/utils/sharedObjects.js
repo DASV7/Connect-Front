@@ -25,7 +25,7 @@ export const goToGo = [
     },
     {
         title:
-            "¡Ahora Cuentanos nombrePersona! Dile a las personas por qué estás aquí",
+            "Dile a las personas por qué estás aquí",
         description:
             "Sé honesto,asi los demas tambien haran lo mismo,puedes cabiar esto cuando quieras",
         info: ["hereFor"],

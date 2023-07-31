@@ -65,21 +65,17 @@ function closeModalPolitics() {
       <!-- btns -->
       <div class="settings__containerBtn">
         <div class="settings__containerBtn-btn">
-          <i class="fa-sharp fa-solid fa-gear"></i>
+          <i class="fa fa-address-card"></i>
           <p>Informacion del perfil</p>
-        </div>
-        <div class="settings__containerBtn-btn">
-          <i class="fa-sharp fa-solid fa-gear"></i>
-          <p>Informacion de la cuenta</p>
-        </div>
+        </div>        
         <div @click="openSetting()" class="settings__containerBtn-btn">
           <i class="fa-sharp fa-solid fa-gear"></i>
           <p>Configuracion de la cuenta</p>
         </div>
 
         <div class="settings__containerBtn-btn">
-          <i class="fa-sharp fa-solid fa-trash"></i>
-          <button class="settings__delete" @click="deleteAccount()">Delete Account</button>
+          <i class="fa-sharp fa-solid fa-trash settings__delete-icon"></i>
+          <button class="settings__delete" @click="deleteAccount()">Eliminar cuenta</button>
         </div>
 
         <div @click="openPolitics()" class="settings__containerBtn-btn">
@@ -160,16 +156,16 @@ function closeModalPolitics() {
       }
     }
   }
-  &__delete {
-    background-color: #a60c0c;
-    border: none;
-    color: #ffffff;
-    width: 100px;
-    height: 25px;
-    border-radius: 10px;
-    font-weight: 700;
-    font-size: 10px;
+  &__delete {    
+    border: none;    
+    width: 100px;    
+    font-weight: 600;
+    background-color: transparent;    
     cursor: pointer;
+    width: 110px;
+    &-icon{
+      color: #a60c0c;
+    }
 
     &-modal {
       @include Column;
