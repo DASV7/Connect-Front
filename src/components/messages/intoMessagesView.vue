@@ -189,6 +189,7 @@ function closeOptions() {
     position: absolute;
     display: flex;
     justify-content: center;
+    overflow-y: scroll;
   }
   &__allPage {
     display: flex;
