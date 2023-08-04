@@ -20,8 +20,8 @@ onMounted(() => {});
 const routers = [
   { path: "/functionsapp", icon: "fa-solid fa-video", name: "Random", color: "red" },
   { path: "/histories", icon: "fa fa-camera", name: "Historias", color: "blue" },
-  { path: "/home", icon: "fa fa-handshake-o", name: "Home", color: "green" },
   { path: "/messages", icon: "fa-solid fa-comment", name: "Mensajes", color: "yellow" },
+  { path: "/home", icon: "fa fa-handshake-o", name: "Home", color: "green" },
 ];
 const goRouter = (index) => {
   activeRote.value = index;

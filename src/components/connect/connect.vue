@@ -224,6 +224,7 @@ function getIcon(index) {
   position: relative;
   overflow: hidden;
   background-color: #fff;
+  padding: 5px;
 
   &__Container {
     width: 100%;
@@ -267,6 +268,7 @@ function getIcon(index) {
     right: 0;
     left: 0;    
     background-color: transparent;
+    
      &-wrapper {
       display: flex;
       gap: 15px;
@@ -516,7 +518,7 @@ function getIcon(index) {
 
   .homeVinc__buttonsAction-wrapper {
     display: flex;
-    gap: 5px;
+    gap: 20px;
     margin-left: 85px;
   }
 }

@@ -45,15 +45,16 @@ const validTextPisition = () => {
         <p class="messageDefault__content-text">
           {{ props.message.message }}
         </p>
+
+        <p :class="['messageDefault__content-date', validTextPisition()]">
+      <strong class="messageDefault__userName p" v-if="false">{{ props.user.name }}</strong>
+      <strong class="p2">{{ props.message.date }}</strong>
+    </p>
       </div>
       <AvatarUser v-show="props.idx" class="messageDefault__avatar" :user="props.user" :size="30"></AvatarUser>
     </div>
 
-    <div></div>
-    <p :class="['messageDefault__content-date', validTextPisition()]">
-      <strong class="messageDefault__userName p" v-if="false">{{ props.user.name }}</strong>
-      <strong class="p2">{{ props.message.date }}</strong>
-    </p>
+   
   </div>
 </template>
 
@@ -90,12 +91,11 @@ const validTextPisition = () => {
     border-radius: var(--raius);
     &-date {
       .p {
-        font-size: 15px;
+        font-size: 5px;
         text-transform: capitalize;
       }
       .p2 {
-        font-size: 12px;
-        padding: 4px;
+        font-size: 7px;
         color: #8c8c8c;
       }
 

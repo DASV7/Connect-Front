@@ -53,7 +53,7 @@ const clickGo = (path) => {
   <div class="videoCall">
     <div class="videoCall__functions" v-if="!routeTogo">
       <div class="videoCall__functions-item" v-for="(item, index) in functions" :key="index" @click="clickGo(item.path)">
-        <i :class="indexIIcon[index]" aria-hidden="true"></i>
+        <i :class="indexIIcon[0]" aria-hidden="true"></i>
         <p class="videoCall__functions-text">{{ item.text }}</p>
       </div>
     </div>

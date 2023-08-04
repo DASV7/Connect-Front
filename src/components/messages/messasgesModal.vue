@@ -41,6 +41,7 @@ onUnmounted(() => {
   background-color: #ffffff;
   z-index: 400;
   position: absolute;
+  border-radius: 20px;
 
   &__wrapper {
     display: flex;

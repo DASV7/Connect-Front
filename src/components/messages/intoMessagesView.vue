@@ -167,6 +167,7 @@ function closeOptions() {
         </button>
         <!-- </div>s -->
       </div>
+
     </div>
   </div>
 </template>
@@ -189,7 +190,9 @@ function closeOptions() {
     position: absolute;
     display: flex;
     justify-content: center;
-    overflow-y: scroll;
+    overflow-y: auto;
+    background-color: #0000006a;
+    z-index: 100;
   }
   &__allPage {
     display: flex;
@@ -205,7 +208,7 @@ function closeOptions() {
     justify-content: center;
     width: 100%;
     height: 50px;
-    position: fixed;
+    // position: fixed;
     border-bottom: #000 solid 1px;
     background-color: #fff;
     z-index: 10;
@@ -281,25 +284,19 @@ function closeOptions() {
     color: #0725d4;
   }
   &__messages {
+    height: 83%;
     max-height: 83%;
     overflow-y: auto;
     overflow-x: hidden;
-    margin-top: 50px;
+    // margin-bottom: 100px;
   }
   &__all {
     display: flex;
     justify-content: center;
-    position: absolute;
-    /* top: 0; */
-    bottom: 54px;
     gap: 20px;
-    left: 0px;
-    right: 0;
-    margin-left: auto;
     z-index: 1;
-    margin-right: auto;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-top: 10px;
+    margin-bottom: 10px;
   }
   &__container {
     display: flex;
@@ -370,12 +367,8 @@ function closeOptions() {
       }
     }
   }
-  .intoMessages__all {
-    left: 45px;
-  }
 
   .intoMessages__header {
-    width: 55%;
 
     &-container {
       display: flex;
@@ -385,27 +378,10 @@ function closeOptions() {
   }
 }
 @media screen and (min-width: 1300px) {
-  .intoMessages {
-    width: 50%;
-
-    &__header {
-      width: 47%;
-    }
-  }
   .intoMessages__all {
     left: 80px;
   }
 }
 
-@media screen and (max-width: 1000px) {
-  .intoMessages__header-fullscreen {
-    width: 100vw;
-  }
-}
-// @media screen and (min-width: 1160px) {
-//   .intoMessages__header-fullscreen {
-//     width: 94vh;
-//   }
-//  }
+
 </style>
-left: 25px;

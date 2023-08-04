@@ -57,6 +57,7 @@ const isCreatingUser = ref(false);
 const createNewUser = async () => {
   if (isCreatingUser.value) return;
   isCreatingUser.value = true;
+  
   const user = await axios.post("/usersModule", userNew.value).catch((error) => {
     push.error({
       title: "Ocurrio un al registrarte",
