@@ -1,14 +1,17 @@
 <script setup>
 import { ref, defineProps } from "vue";
 import avatarUser from "../shared/avatarUser.vue";
+
 const props = defineProps(["user"]);
 const ejecutaBien = () => {};
 </script>
+
 <template>
   <section class="cardHistories" v-if="props.user">
     <avatarUser @openProfile="ejecutaBien()" :user="props.user" :size="50"></avatarUser>
   </section>
 </template>
+
 <style lang="scss">
 .cardHistories {
   display: flex;

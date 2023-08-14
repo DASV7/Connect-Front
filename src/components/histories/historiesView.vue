@@ -71,18 +71,26 @@ const showViewHistories = ref(false);
 const changesStatus = () => {
   showViewHistories.value = !showViewHistories.value;
 };
-const userModal = ref(null)
+const userModal = ref(null);
 
-const openModal = (user) => {  
+const openModal = (user) => {
   userModal.value = user;
   showViewHistories.value = !showViewHistories.value;
-
 };
 const userAndhistories = ref([]);
 const historiesInfo = ref([]);
-
+let usersCardHistories = ref()
 onMounted(async () => {
-  usersCard.value = [userStore.user, userStore.user, userStore.user, userStore.user, userStore.user, userStore.user];
+  
+  try {
+    const response = await axios.get("/followers/getFollow");
+    console.log(response.data);
+    usersCardHistories.value = response.data 
+  } catch (error) {
+    console.log("errororrororor",error);
+  }
+
+  usersCard.value = [];
 
   try {
     const response = await axios.get("/returnHistories");
@@ -118,19 +126,20 @@ onMounted(async () => {
           <div class="historiesView__header-fix" @click="changeStatusModal()">
             <i class="fa fa-plus-circle" aria-hidden="true"></i>
           </div>
+
           <div class="historiesView__header-column" scrollDefault>
             <div class="historiesView__header-item slideInDown" scrollDefault v-if="usersCard.length">
               <CardUser v-for="(user, index) in usersCard" :key="index" :user="user"></CardUser>
             </div>
           </div>
         </div>
+
         <div class="historiesView__search"></div>
       </div>
 
       <!-- Modal UpLOad Histories  -->
-      
-      <modalBottom :showModal="showModal" @changeModal="changeStatusModal()">
 
+      <modalBottom :showModal="showModal" @changeModal="changeStatusModal()">
         <template v-slot:content>
           <div>
             <div class="creationHistories">
@@ -165,7 +174,7 @@ onMounted(async () => {
       <!-- Card Video -->
 
       <div class="historiesView__component" v-if="!isLoading">
-        <historiesCard v-for="(item, index) in userAndhistories" :key="index" :user="item"  @changeModal="openModal($event)"></historiesCard>
+        <historiesCard v-for="(item, index) in userAndhistories" :key="index" :user="item" @changeModal="openModal($event)"></historiesCard>
       </div>
     </div>
     <totalLoading v-if="isLoaginHistory" :textLabel="'Subiendo historia'"></totalLoading>
@@ -181,7 +190,7 @@ onMounted(async () => {
   &__container {
     width: 100%;
     height: 100%;
-    overflow-y: scroll
+    overflow-y: scroll;
   }
 
   &__tittle {
@@ -347,8 +356,8 @@ onMounted(async () => {
     }
   }
 }
-@media  (max-width:335px ) {
-  .historiesCard__multimedia-play, 
+@media (max-width: 335px) {
+  .historiesCard__multimedia-play,
   .historiesCard__multimedia-card {
     width: 140px;
   }
