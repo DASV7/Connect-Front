@@ -142,7 +142,7 @@ onUnmounted(() => {
     height: 100%;
     width: 100px;
     top: -15px;
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(240 240 240);
 
     &__header {
       width: 100%;
@@ -192,6 +192,7 @@ onUnmounted(() => {
 
     .menu__container-p {
       font-size: 10px;
+      color: #000;
     }
   }
 }

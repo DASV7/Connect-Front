@@ -295,7 +295,6 @@ function closeOptions() {
     justify-content: center;
     gap: 20px;
     z-index: 1;
-    padding-top: 10px;
     margin-bottom: 10px;
   }
   &__container {
@@ -377,11 +376,7 @@ function closeOptions() {
     }
   }
 }
-@media screen and (min-width: 1300px) {
-  .intoMessages__all {
-    left: 80px;
-  }
-}
+
 
 
 </style>

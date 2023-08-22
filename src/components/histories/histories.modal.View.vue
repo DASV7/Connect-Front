@@ -2,18 +2,28 @@
 import { ref, defineEmits, defineProps, onMounted } from "vue";
 import { calculateAge } from "../../utils/calculateAge";
 import axios from "../..//api/axios";
-
-const props = defineProps(["showModal", "user"]);
+const emits = defineEmits(["userPush", "closeOnClick"]);
+const props = defineProps(["showModal", "user", "followedUser"]);
 
 const userAndhistories = ref();
+const followedUser = ref(false);
+
 onMounted(() => {
   userAndhistories.value = props.user;
+  followedUser.value = props.followedUser;
 });
 
 const follow = async (otherId) => {
-  const response = await axios.post("/followers", { userBeingFollowed: otherId   });
-
-  console.log(response);
+  if (followedUser.value) {
+    const response = await axios.delete("/unFollow?otherId=" + otherId);
+    // console.log(response);
+    return;
+  }
+  const response = await axios.post("/followers", { userBeingFollowed: otherId });
+  
+  const foundHistoryIndex = userAndhistories.value.findIndex((history) => history._id == otherId);
+  userAndhistories.value.splice(foundHistoryIndex, 1);
+  // console.log(response);
 };
 </script>
 
@@ -42,7 +52,11 @@ const follow = async (otherId) => {
             <p class="viewHistoriesModal__historie-info">{{ userAndhistories?.name }}, {{ calculateAge(userAndhistories?.birthday) }}</p>
             <span class="viewHistoriesModal__historie-description">{{ userAndhistories?.histories[0]?.description }}</span>
           </div>
-          <button @click="follow(userAndhistories?._id)"><i class="fa-solid fa-plus"></i> Seguir</button>
+
+          <button @click="follow(userAndhistories?._id), $emit('userPush', userAndhistories?._id)">
+            <i :class="!followedUser ? 'fa-solid fa-plus' : 'fa-solid fa-minus'"></i>
+            {{ !followedUser ? "Seguir" : "Dejar de seguir" }}
+          </button>
         </div>
 
         <p class="viewHistoriesModal__historie-status">{{ userAndhistories?.histories[0]?.status }}</p>

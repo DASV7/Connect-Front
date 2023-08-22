@@ -7,6 +7,7 @@ import modalBottom from "../shared/modalBottom.vue";
 import historiesCard from "./historiesCard.vue";
 import historiesModalView from "./histories.modal.View.vue";
 import totalLoading from "../shared/totalLoading.vue";
+import { usePush } from "notivue";
 
 const showModal = ref(false);
 const userStore = useCounterStore();
@@ -73,21 +74,24 @@ const changesStatus = () => {
 };
 const userModal = ref(null);
 
-const openModal = (user) => {
+let isFollowed = ref();
+
+const openModal = (user, Followed = false) => {
   userModal.value = user;
   showViewHistories.value = !showViewHistories.value;
+  isFollowed.value = Followed;
 };
+
 const userAndhistories = ref([]);
 const historiesInfo = ref([]);
-let usersCardHistories = ref()
+let usersCardHistories = ref([]);
+
 onMounted(async () => {
-  
   try {
     const response = await axios.get("/followers/getFollow");
-    console.log(response.data);
-    usersCardHistories.value = response.data 
+    usersCardHistories.value = response.data;
   } catch (error) {
-    console.log("errororrororor",error);
+    console.log("errororrororor", error);
   }
 
   usersCard.value = [];
@@ -103,6 +107,24 @@ onMounted(async () => {
     // Manejo de error
   }
 });
+
+const userPushArray = async (eventId) => {
+  
+  const foundHistory = userAndhistories.value.find((history) => history._id == eventId);
+  const index = usersCardHistories.value.findIndex((history) => history._id == eventId);
+  const foundHistoryIndex = userAndhistories.value.findIndex((history) => history._id == eventId);
+
+  if (index !== -1) {
+    usersCardHistories.value.splice(index, 1);
+    const response = await axios.delete("/unFollow");
+    // console.log(response);
+  } else {
+    usersCardHistories.value.push(foundHistory);
+  }
+};
+
+const eventIdToFind = 2;
+userPushArray(eventIdToFind);
 </script>
 
 <template>
@@ -110,13 +132,20 @@ onMounted(async () => {
     <div class="historiesView__container" scrollDefault>
       <!--  Open Histories  -->
 
-      <historiesModalView v-if="showViewHistories" :user="userModal" :showModal="showViewHistories" @closeModal="changesStatus()"></historiesModalView>
+      <historiesModalView
+        v-if="showViewHistories"
+        @userPush="userPushArray($event)"
+        :followedUser="isFollowed"
+        :user="userModal"
+        :showModal="showViewHistories"
+        @closeModal="changesStatus()"
+      ></historiesModalView>
 
       <!-- tittle  -->
 
       <div class="historiesView__tittle">
-        <img class="historiesView__img" src="../../../public/svgLogoComplete.svg" alt="" srcset="" />
-        <div><p>Cuentas que Sigues</p></div>
+        <img class="historiesView__img" src="../../../public/svgLogoComplete.svg" />
+        <div><p>Descubrir...</p></div>
       </div>
 
       <!-- list of Histories  -->
@@ -128,12 +157,11 @@ onMounted(async () => {
           </div>
 
           <div class="historiesView__header-column" scrollDefault>
-            <div class="historiesView__header-item slideInDown" scrollDefault v-if="usersCard.length">
-              <CardUser v-for="(user, index) in usersCard" :key="index" :user="user"></CardUser>
+            <div class="historiesView__header-item " scrollDefault v-if="usersCardHistories.length">
+              <CardUser v-for="(user, index) in usersCardHistories" :key="index" :user="user" @click="openModal(user, true)"></CardUser>
             </div>
           </div>
         </div>
-
         <div class="historiesView__search"></div>
       </div>
 
@@ -216,7 +244,7 @@ onMounted(async () => {
     display: flex;
     gap: 5px;
     width: 65%;
-    background-color: #009eff47;
+    background-color: rgb(129 152 170 / 28%);
     border-radius: 10px;
     padding: 5px;
     width: 97%;
@@ -227,7 +255,7 @@ onMounted(async () => {
       display: flex;
       flex-direction: column;
       // margin-left: 60px;
-      overflow-x: auto;
+      // overflow-x: auto;
     }
 
     &-fix {

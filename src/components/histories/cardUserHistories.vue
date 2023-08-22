@@ -7,7 +7,7 @@ const ejecutaBien = () => {};
 </script>
 
 <template>
-  <section class="cardHistories" v-if="props.user">
+  <section class="cardHistories slideInDown" v-if="props.user">
     <avatarUser @openProfile="ejecutaBien()" :user="props.user" :size="50"></avatarUser>
   </section>
 </template>
@@ -21,7 +21,7 @@ const ejecutaBien = () => {};
   border: 10px;
   width: 50px;
   height: 50px;
-  border: 1px solid #000;
+  outline: 3px solid #3add50;
   font-size: 20px;
 
   &__cardHistories {

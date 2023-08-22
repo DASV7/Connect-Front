@@ -49,9 +49,15 @@ let userModal = ref(null);
 
 <template>
   <div class="whoLikesMe">
+    <!-- logo  -->
     <div class="whoLikesMe__logo">
       <button class="whoLikesMe__logo-back" @click="$router.push('/messages')"><i class="fa-solid fa-arrow-left"></i></button>
       <img class="whoLikesMe__logo-img" src="/public/svgLogoComplete.svg" alt="" />
+    </div>
+
+    <!-- titulo  -->
+
+    <div class="whoLikesMe__tittleCont">
       <p class="whoLikesMe__tittle">LIKES</p>
       <p class="whoLikesMe__tittle-sub">Cobrar por los "me gusta" limita el amor. Dejemos que fluya sin barreras.</p>
     </div>
@@ -94,7 +100,6 @@ let userModal = ref(null);
 .whoLikesMe {
   width: 100%;
   height: 100%;
-  padding: 0px 10px 10px 10px;
 
   &__modal {
     background-color: #fff;
@@ -106,8 +111,6 @@ let userModal = ref(null);
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
-    
-    
   }
   &__logo {
     display: flex;
@@ -131,6 +134,11 @@ let userModal = ref(null);
       border-radius: 30px;
       cursor: pointer;
     }
+  }
+  &__tittleCont {
+    margin: auto;
+    width: 90%;
+    height: 30px;
   }
   &__tittle {
     font-size: 12px;
@@ -179,8 +187,6 @@ let userModal = ref(null);
     width: 130px;
     height: 160px;
     box-shadow: 0px 2px 6px;
-    
-  
 
     &-cont {
       display: flex;

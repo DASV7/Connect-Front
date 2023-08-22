@@ -36,7 +36,6 @@ onMounted(()=>{
     justify-content: center;
     flex-wrap: wrap;
     gap: 10px;
-    // position: absolute;
     padding: 5px;
     overflow: hidden;
     max-width: 280px;
@@ -45,11 +44,10 @@ onMounted(()=>{
     overflow: hidden;
 
     &-card {
-      // @include Column;
       display: flex;
       width: 150px;
       height: 180px;
-      border: 3px solid $primary-color;
+      // border: 3px solid $primary-color;
       border-radius: 10px;
       font-size: 40px;
       overflow: hidden;
@@ -98,6 +96,7 @@ onMounted(()=>{
     align-items: center;
     // width: 96%;
     position: absolute;
+    bottom: 10px;
     background-color: rgba(0, 0, 0, 0.566);
     border-radius: 20px;
     padding: 3px;
