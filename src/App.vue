@@ -104,7 +104,8 @@ onUnmounted(() => {
 
 <style lang="scss">
 .mainApp__routerView {
-  height: 93vh;
+  // height: 93vh;
+  height: 100vh;
   overflow: hidden;
 
   &.mainApp__routerView-full-height {
