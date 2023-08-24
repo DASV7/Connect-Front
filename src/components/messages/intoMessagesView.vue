@@ -96,6 +96,7 @@ function changeModal() {
   hiddenProfile.value = !hiddenProfile.value;
 }
 let btnOptions = ref(false);
+
 function openOptios(params) {
   btnOptions.value = params;
 }
@@ -261,7 +262,7 @@ function closeOptions() {
     }
     &-fullscreen {
       position: absolute;
-      width: 93vw;
+      width: 90vw;
       height: 100vh;
       z-index: 5;
     }

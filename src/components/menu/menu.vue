@@ -99,7 +99,6 @@ onUnmounted(() => {
   bottom: 0;
   border-top: 1px solid #0000003f;
 }
-
 .menu__items {
   width: 100%;
   display: flex;
@@ -142,7 +141,7 @@ onUnmounted(() => {
     height: 100%;
     width: 100px;
     top: -15px;
-    background-color: rgb(240 240 240);
+    background-color: #000;
 
     &__header {
       width: 100%;
@@ -154,7 +153,6 @@ onUnmounted(() => {
       }
     }
   }
-
   .menu__container {
     gap: 25px;
     flex-direction: column;
@@ -189,10 +187,11 @@ onUnmounted(() => {
     gap: 10px;
     background-color: transparent;
     font-size: 15px;
+    color: #fff;
 
     .menu__container-p {
       font-size: 10px;
-      color: #000;
+      color: #fff;
     }
   }
 }

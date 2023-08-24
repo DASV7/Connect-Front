@@ -21,18 +21,20 @@ onMounted(() => {
 
 const props = defineProps(["showFind"]);
 </script>
+
 <template>
   <div class="findView" v-if="props.showFind">
-    <img :src="imgActual" class="findView__img" />
+    <!-- <img :src="imgActual" class="findView__img" /> -->
     <div class="findView__wrapper">
       <div class="findView__findAction">
         <div class="findView__find">
           <div class="findView__findAction-zoom circle-animation">
             <i class="fa fa-search" aria-hidden="true"></i>
           </div>
-          <p>Buscando</p>
+          <p>Buscando...</p>
           <div class="findView__findAction-text">
             <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+
             No se permite el acoso o intimidacion de ninguna indole
           </div>
         </div>
@@ -41,6 +43,7 @@ const props = defineProps(["showFind"]);
     <div class="findView__img"></div>
   </div>
 </template>
+
 <style lang="scss">
 .findView {
   width: 100%;
@@ -51,6 +54,11 @@ const props = defineProps(["showFind"]);
   font-weight: bold;
   color: white;
   overflow: hidden;
+
+  background-image: url("../../assets/img/fondomorado.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+
   &__img {
     position: absolute;
     top: 0;
@@ -86,30 +94,34 @@ const props = defineProps(["showFind"]);
   }
 
   &__findAction {
-    max-width: 800px;
-    width: 90%;
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 90%;
+    height: 25%;
+    max-width: 800px;
     bottom: 0;
     padding: 5px;
-    background-color: $primary-color;
-    height: 30%;
+    // border: #24d224 solid 2px;
     max-height: 400px;
     min-height: 125px;
     border-radius: 30px;
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5);
+
+    background-color: #5c1b6cb7;
+    box-shadow: 5px 5px 5px 15px rgba(92, 27, 108, 0.557);
+
     &-zoom {
-      border: 1px solid #fff;
+      border: 3px solid #ffffff99;
       text-align: center;
       border-radius: 50%;
-      width: 100px;
-      height: 100px;
+      width: 60px;
+      height: 60px;
       overflow: hidden;
       font-size: 40px;
-      background-color: $primary-color;
+      background-color: #683475ae;
       position: absolute;
       top: -150px;
+
       @media (max-width: 1300px) {
         top: -100px;
       }
@@ -119,15 +131,16 @@ const props = defineProps(["showFind"]);
       justify-content: center;
       align-items: center;
       padding: 0 15px;
-      text-align: center;
+      text-align: left;
       gap: 10px;
       background-color: rgba(0, 0, 0, 0.288);
       border-radius: 10px;
       height: 60px;
+       
       i {
-        font-size: 20px;
-        color: orange;
-        background-color: white;
+        font-size: 25px;
+        color: rgb(173, 20, 20);
+        // background-color: white;
         border-radius: 50%;
       }
     }
@@ -138,6 +151,10 @@ const props = defineProps(["showFind"]);
   position: relative;
   animation: rotate 4s linear infinite;
   overflow: hidden;
+
+  i {
+    font-size: 25px;
+  }
 }
 
 @keyframes rotate {
