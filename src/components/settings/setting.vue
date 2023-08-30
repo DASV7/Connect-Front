@@ -64,10 +64,19 @@ function closeModalPolitics() {
 
       <!-- btns -->
       <div class="settings__containerBtn">
-        <div class="settings__containerBtn-btn">
+        
+        <div  @click="$router.push('/editProfile')" class="settings__containerBtn-btn">
           <i class="fa fa-address-card"></i>
           <p>Informacion del perfil</p>
-        </div>        
+
+        </div>  
+        
+        <div class="settings__containerBtn-btn">
+          <i class="fa-solid fa-circle-half-stroke"></i>
+          <p>Modo Oscuro</p>
+        </div>  
+        
+        
         <div @click="openSetting()" class="settings__containerBtn-btn">
           <i class="fa-sharp fa-solid fa-gear"></i>
           <p>Configuracion de la cuenta</p>

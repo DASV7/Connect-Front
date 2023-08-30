@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, onUnmounted } from "vue";
 import { useCounterStore } from "../../store/users";
 // import notifications from "../../components/notifications/alertNotification.vue";
 import axios from "../../api/axios";
@@ -46,10 +46,25 @@ const changeInInput = () =>{
   modifyVal.value = true
 }
 
+
+// aJUSTE DE RESOLUCION
+const isGreaterThan1024 = ref(false);
+const handleResize = () => {
+  isGreaterThan1024.value = window.innerWidth >= 1024;
+};
+onMounted(() => {
+  handleResize();
+  window.addEventListener("resize", handleResize);
+
+});
+onUnmounted(() => {
+  window.removeEventListener("resize", handleResize);
+});
+
 </script>
 
 <template>
-  <div class="editProfile" scrollDefault>
+  <div class="editProfile" scrollDefault   v-bind:style="{ background: isGreaterThan1024 ? 'none' : '#fff' }">
     <div class="editProfile__wrapper" scrollDefault>
       <div class="editProfile__top">
         <button class="editProfile__top-btn" @click="$router.push('/profile')"><i class="fa-solid fa-arrow-left"></i></button>

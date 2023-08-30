@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, onUnmounted } from "vue";
 import axios from "../../api/axios.js";
 import miniLoading from "../shared/miniLoading.vue";
 import connect from "../../components/connect/connect.vue";
@@ -45,10 +45,26 @@ function changeModal(user) {
   userModal.value = user || null;
 }
 let userModal = ref(null);
+
+
+// aJUSTE DE RESOLUCION
+const isGreaterThan1024 = ref(false);
+const handleResize = () => {
+  isGreaterThan1024.value = window.innerWidth >= 1024;
+};
+onMounted(() => {
+  handleResize();
+  window.addEventListener("resize", handleResize);
+
+});
+onUnmounted(() => {
+  window.removeEventListener("resize", handleResize);
+});
+
 </script>
 
 <template>
-  <div class="whoLikesMe">
+  <div class="whoLikesMe"  v-bind:style="{ background: isGreaterThan1024 ? 'none' : '#fff' }">
     <!-- logo  -->
     <div class="whoLikesMe__logo">
       <button class="whoLikesMe__logo-back" @click="$router.push('/messages')"><i class="fa-solid fa-arrow-left"></i></button>
@@ -117,7 +133,6 @@ let userModal = ref(null);
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    margin-top: 10px;
     gap: 10px;
     width: 100%;
 

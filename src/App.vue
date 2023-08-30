@@ -103,9 +103,14 @@ onUnmounted(() => {
 </template>
 
 <style lang="scss">
+body {
+  background-image: url("../src/assets/img/fondomorado.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+
+}
 .mainApp__routerView {
-  // height: 93vh;
-  height: 100vh;
+  height: 93vh;
   overflow: hidden;
 
   &.mainApp__routerView-full-height {

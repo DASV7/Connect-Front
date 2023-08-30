@@ -83,9 +83,9 @@ const props = defineProps(["showFind"]);
     align-items: center;
     position: relative;
     z-index: 2;
-    padding-bottom: 20px;
+    // padding-bottom: 20px;
     max-width: 537px;
-    height: 100%;
+    // height: 100%;
   }
   &__find {
     display: flex;
@@ -97,7 +97,7 @@ const props = defineProps(["showFind"]);
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 90%;
+    width: 80%;
     height: 25%;
     max-width: 800px;
     bottom: 0;
@@ -108,7 +108,7 @@ const props = defineProps(["showFind"]);
     border-radius: 30px;
 
     background-color: #5c1b6cb7;
-    box-shadow: 5px 5px 5px 15px rgba(92, 27, 108, 0.557);
+    // box-shadow: 5px 5px 5px 15px rgba(92, 27, 108, 0.557);
 
     &-zoom {
       border: 3px solid #ffffff99;

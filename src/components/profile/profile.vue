@@ -1,6 +1,6 @@
 <script setup>
 import axios from "../../api/axios";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, onUnmounted } from "vue";
 import { useRouter } from "vue-router";
 import { goToGo, interest } from "../../utils/sharedObjects";
 import { calculateAge } from "../../utils/calculateAge";
@@ -43,10 +43,30 @@ const hereFor = {
   chat: interest[1],
   contact: interest[2],
 };
+
+// aJUSTE DE RESOLUCION
+const isGreaterThan1024 = ref(false);
+const handleResize = () => {
+  isGreaterThan1024.value = window.innerWidth >= 1024;
+};
+
+onMounted(() => {
+  // ... (otros códigos)
+
+  handleResize();
+  window.addEventListener("resize", handleResize);
+
+  // ... (otros códigos)
+});
+
+onUnmounted(() => {
+  window.removeEventListener("resize", handleResize);
+});
+
 </script>
 
 <template>
-  <div v-if="!isLoading" class="profileUser" scrollDefault>
+  <div v-if="!isLoading" class="profileUser" scrollDefault v-bind:style="{ background: isGreaterThan1024 ? 'none' : '#fff' }">
     <div class="profileUser__wrapper" scrollDefault>
       <!-- header profile  -->
 
@@ -108,6 +128,7 @@ const hereFor = {
   &__wrapper {
     width: 100%;
     height: 100%;
+    
   }
   &__container {
     width: 100%;
@@ -326,6 +347,7 @@ const hereFor = {
     box-shadow: #000 0px 5px 10px;
     overflow-y: scroll;
     border-radius: 20px;
+    background-color: #fff;
   }
 }
 </style>

@@ -1,14 +1,16 @@
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, onUnmounted } from "vue";
 import axios from "../../api/axios";
 import Swal from "sweetalert2";
 import avatarUser from "../shared/avatarUser.vue";
 import { useCounterStore } from "../../store/users.js";
 import whoLikesMe from "../likes/whoLikesMe.vue";
+import { useRouter } from "vue-router";
+
 const users = ref([]);
 const usersStore = useCounterStore();
 const avatarUsers = ref({});
-
+const router = useRouter();
 const otherAvatar = (users) => {
   const valor = users.find((user) => {
     return user._id != usersStore.user?._id;
@@ -47,12 +49,34 @@ onMounted(async () => {
       isLoading.value = false;
     });
 });
+
+// Cuando la resolucion sea menor que 1024 
+// aJUSTE DE RESOLUCION
+const isGreaterThan1024 = ref(false);
+const handleResize = () => {
+  isGreaterThan1024.value = window.innerWidth >= 1024;
+};
+
+onMounted(() => {
+  // ... (otros códigos)
+
+  handleResize();
+  window.addEventListener("resize", handleResize);
+
+  // ... (otros códigos)
+});
+
+onUnmounted(() => {
+  window.removeEventListener("resize", handleResize);
+});
+
 </script>
 <i class="fa-solid fa-heart"></i>
 
 <template>
 
-<div class="messagesView" v-if="!loading">
+<div class="messagesView" v-if="!loading" v-bind:style="{ background: isGreaterThan1024 ? 'none' : '#fff' }">
+
     <p>Hoy sera un excelente día...</p>
     <div class="messagesView__wrapper" v-if="users.length">
       <div class="messagesView__container">

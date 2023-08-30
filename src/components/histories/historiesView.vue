@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 import { useCounterStore } from "../../store/users";
 import CardUser from "./cardUserHistories.vue";
 import axios from "../../api/axios";
@@ -125,10 +125,26 @@ const userPushArray = async (eventId) => {
 
 const eventIdToFind = 2;
 userPushArray(eventIdToFind);
+
+
+// aJUSTE DE RESOLUCION
+const isGreaterThan1024 = ref(false);
+const handleResize = () => {
+  isGreaterThan1024.value = window.innerWidth >= 1024;
+};
+onMounted(() => {
+  handleResize();
+  window.addEventListener("resize", handleResize);
+
+});
+onUnmounted(() => {
+  window.removeEventListener("resize", handleResize);
+});
+
 </script>
 
 <template>
-  <section class="historiesView">
+  <section class="historiesView"  v-bind:style="{ background: isGreaterThan1024 ? 'none' : '#fff' }">
     <div class="historiesView__container" scrollDefault>
       <!--  Open Histories  -->
 
@@ -381,6 +397,7 @@ userPushArray(eventIdToFind);
       box-shadow: #000 0px 5px 10px;
       margin: auto;
       border-radius: 20px;
+      background-color: #fff;
     }
   }
 }
