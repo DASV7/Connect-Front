@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref, onUnmounted } from "vue";
 import toogle from "../toggle/toggle.vue";
 const distance = ref(0);
 const age = ref(0);
@@ -26,6 +26,21 @@ let filtersdata = ref({
   children: "",
   single: "",
 });
+
+// // aJUSTE DE RESOLUCION
+// const isGreaterThan1024 = ref(false);
+// const handleResize = () => {
+//   isGreaterThan1024.value = window.innerWidth >= 1024;
+// };
+// onMounted(() => {
+//   handleResize();
+//   window.addEventListener("resize", handleResize);
+// });
+// onUnmounted(() => {
+//   window.removeEventListener("resize", handleResize);
+// });
+
+
 </script>
 
 <template>
@@ -101,6 +116,7 @@ let filtersdata = ref({
   &__container {
     width: 100%;
     height: 100%;
+    background-color: #fff;
   }
 
   &__header {

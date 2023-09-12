@@ -225,6 +225,7 @@ function getIcon(index) {
   overflow: hidden;
   background-color: #fff;
   padding: 5px;
+  border-radius: 10px;
 
   &__Container {
     width: 100%;

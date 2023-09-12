@@ -86,7 +86,6 @@ const clickGo = (path) => {
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  background-color: #000;
 
   &__video {
     display: flex;
@@ -156,7 +155,7 @@ const clickGo = (path) => {
 
   &__history {
     width: 65%;
-    background-color: #fff;
+    background-color: #000;
     border-radius: 10px;
     height: 50%;
   }
@@ -164,9 +163,11 @@ const clickGo = (path) => {
   &__functions {
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
     width: 100%;
     gap: 10px;
+    margin-top: 10px;
 
     &-item {
       display: flex;
@@ -217,7 +218,6 @@ const clickGo = (path) => {
   &__header {
     display: flex;
     justify-content: center;
-    background-color: black;
     padding-top: 10px;
     width: 100%;
 

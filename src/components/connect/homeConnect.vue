@@ -138,9 +138,14 @@ onMounted(() => {
     padding: 0 24px;
     font-size: 20px;
     font-weight: bold;
+
     &-icons {
       display: flex;
       gap: 10px;
+      background-color: #ffffff7c;
+      padding: 2px;
+      border-radius: 5px;
+      font-size: 20px;
     }
   }
 
@@ -150,6 +155,7 @@ onMounted(() => {
     overflow: hidden;
     position: relative;
     overflow: hidden;
+
 
     @include dynamicScreen(650px) {
       box-shadow: #000 0px 5px 10px;
@@ -201,4 +207,5 @@ onMounted(() => {
     width: 400px;
   }
 }
+
 </style>

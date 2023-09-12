@@ -33,30 +33,31 @@ function closePay() {
   showPay.value = !showPay.value;
 }
 
-let position = ref({
-  isScrolling: false,
-  startX: 0,
-  scrollLeft: 0,
-});
+// let position = ref({
+//   isScrolling: false,
+//   startX: 0,
+//   scrollLeft: 0,
+// });
 
-function startScroll(event) {
-  console.log("esta");
-  position.value.isScrolling = true;
-  position.value.startX = event.pageX - event.target.offsetLeft;
-  position.value.scrollLeft = event.target.scrollLeft;
-  // console.log(position.value.startX);
-}
+// function startScroll(event) {
+//   console.log("esta");
+//   position.value.isScrolling = true;
+//   position.value.startX = event.pageX - event.target.offsetLeft;
+//   position.value.scrollLeft = event.target.scrollLeft;
+//   // console.log(position.value.startX);
+// }
 
-function handleScroll(event) {
-  if (!position.value.isScrolling) return;
-  event.preventDefault();
-  const x = event.pageX - scrollContainer.value.offsetLeft;
-  const walk = (x - position.value.startX) * 3; // Ajusta la velocidad del desplazamiento
-  scrollContainer.value.scrollLeft = position.value.scrollLeft + walk;
-}
-function endScroll() {
-  position.value.isScrolling = false;
-}
+// function handleScroll(event) {
+//   if (!position.value.isScrolling) return;
+//   event.preventDefault();
+//   const x = event.pageX - scrollContainer.value.offsetLeft;
+//   const walk = (x - position.value.startX) * 3; // Ajusta la velocidad del desplazamiento
+//   scrollContainer.value.scrollLeft = position.value.scrollLeft + walk;
+// }
+// function endScroll() {
+//   position.value.isScrolling = false;
+// }
+
 </script>
 
 <template>
@@ -121,6 +122,7 @@ function endScroll() {
   height: 100%;
   // padding: 10px;
   overflow-y: scroll;
+  background-color: #fff;
 
   &__fullScreen {
     width: 100vw;
