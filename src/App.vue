@@ -104,7 +104,7 @@ onUnmounted(() => {
 
 <style lang="scss">
 body {
-  background-image: url("../src/assets/img/fondomorado.jpg");
+  //background-image: url("../src/assets/img/fondomorado.jpg");
   background-size: cover;
   background-repeat: no-repeat;
 
